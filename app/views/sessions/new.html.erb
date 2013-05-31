@@ -1,0 +1,8 @@
+<h1>Log in</h1>
+<%= form_tag login_path do |f| %>
+  <%= label_tag :email %><br/>
+  <%= text_field_tag :email %><br/>
+  <%= label_tag :password %><br/>
+  <%= password_field_tag :password %><br/>
+  <%= submit_tag %>
+<% end %>

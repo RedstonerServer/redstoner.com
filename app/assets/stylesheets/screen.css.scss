@@ -1,0 +1,127 @@
+/* CSS for PCs only */
+@media only screen
+and (min-width: 1000px)
+{
+
+
+
+
+  a {
+    transition: color 0.25s;
+    color: #700;
+    text-decoration: none;
+    &:hover {
+      color: #F00;
+    }
+  }
+  #notice {
+    background: #8e8;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px dashed #8d8;
+    font-weight: bold;
+  }
+  #alert {
+    background: #ebb;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px dashed #fdd;
+    font-weight: bold;
+  }
+  #head {
+    width: 100%;
+    height: 40px;
+    background: #ccc;
+    border-bottom: 2px solid #aaa;
+    vertical-align: middle;
+    #logo {
+      margin: 4px;
+      margin-left: 20px;
+      height: 32px;
+      width: 32px;
+      float: left;
+      background: url('/assets/logo.png');
+    }
+    #userinfo {
+      float: right;
+      padding: 0 10px;
+      margin-top: 2px;
+      img.avatar {
+        border: 1px solid #000;
+        border-radius: 16px;
+        vertical-align: middle;
+        &:hover {
+          box-shadow: 0 0 2px;
+        }
+      }
+    }
+  }
+  img.user-avatar {
+    border: 1px solid #000;
+    border-radius: 4px;
+  }
+  span.no-about {
+    color: #888;
+    font-style: italic;
+  }
+
+  #main-content {
+    width: 650px;
+    margin: 0 auto;
+    background: #eee;
+    padding: 30px;
+
+    h1 {
+      font-weight: normal;
+      font-size: 400%;
+      margin: 0;
+      color: #888;
+      text-shadow: 0 1px #999;
+    }
+  }
+
+  #posts {
+    #post {
+      margin-bottom: 50px;
+      #post-title {
+        margin-bottom: 10px;
+        h2 {
+          font-weight: normal;
+          color: #700;
+          text-transform: uppercase;
+          display: inline;
+          font-size: 250%;
+        }
+        .comment-counter {
+          float: right;
+        }
+      }
+    }
+  }
+
+  .post-info {
+    border-bottom: 2px dashed #999;
+    color: #888;
+    a {
+      color: #755;
+      &:hover{
+        color: #d55;
+      }
+    }
+  }
+
+  #post-content {
+    margin-top: 10px;
+    clear: both;
+  }
+
+  #comments {
+    margin: 50px 0 0 40px;
+    textarea {
+      width: 480px;
+      height: 106px;
+      max-width: 610px;
+    }
+  }
+
+}

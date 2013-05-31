@@ -1,0 +1,13 @@
+<div id="head">
+  <%= link_to(root_path) do %>
+  <div id="logo"></div>
+  <% end %>
+  <div id="userinfo">
+    <% if !current_user.nil? %>
+      <%= link_to image_tag(Tools.avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
+      <%= link_to image_tag("logout.png"), logout_path %>
+    <% else %>
+      <%= link_to "Log in", login_path, :action => "new" %>
+    <% end %>
+  </div>
+</div>

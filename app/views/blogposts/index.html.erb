@@ -1,0 +1,11 @@
+<h1>Blog</h1>
+<div id="posts">
+  <% @posts.each do |p| %>
+  <div id="post">
+    <div id="post-title"><h2><%= link_to p.title, p %></h2><span class="comment-counter"><%= link_to pluralize(p.comments.count, "Comment"), p %></span></div>
+    <span class="post-info">by <%= link_to p.user.name, p.user %> on <%= p.created_at.strftime("%e. %b %Y") %></span>
+    <div id="post-content"><%= RbbCode.new.convert(p.text).html_safe %></div>
+  </div>
+  <% end %>
+  <%= link_to 'New Blogpost', new_blogpost_path if current_user && current_user.rank >= Tools.rank_to_int(:mod) %>
+</div>

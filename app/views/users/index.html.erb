@@ -1,0 +1,4 @@
+<h1>Listing users</h1>
+<% @users.each do |u| %>
+    <%= link_to u.name, u %> (<%= u.ign %>)
+<% end %>
