@@ -4,10 +4,21 @@
   <% end %>
   <div id="userinfo">
     <% if !current_user.nil? %>
-      <%= link_to image_tag(Tools.avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
+    <span id="userinfo-box">
+      <%= link_to current_user.name.truncate(14), current_user %><br/>
       <%= link_to image_tag("logout.png"), logout_path %>
+    </span>
+      <%= link_to image_tag(Tools.avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
     <% else %>
       <%= link_to "Log in", login_path, :action => "new" %>
     <% end %>
+  </div>
+  <div id="menu">
+    <ul>
+      <li><%= link_to "HOME", root_path, :class => "arrow" %></li>
+      <li><%= link_to "FORUM", nil, :class => "arrow" %></li>
+      <li><%= link_to "INFO", nil, :class => "arrow" %></li>
+      <li><%= link_to "DONATE", nil, :class => "arrow" %></li>
+    </ul>
   </div>
 </div>

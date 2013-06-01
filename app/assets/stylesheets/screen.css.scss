@@ -1,17 +1,33 @@
 /* CSS for PCs only */
+
+
+$lightgrey: #D1D1D1;
+$midgrey: #787878;
+$darkgrey: #434343;
+$darkred: #AB0000;
+
+
 @media only screen
 and (min-width: 1000px)
 {
 
-
-
-
   a {
     transition: color 0.25s;
-    color: #700;
+    color: $darkred;
     text-decoration: none;
     &:hover {
       color: #F00;
+    }
+  }
+  a.arrow {
+    background: url('/assets/arrow-midgrey.png') no-repeat left;
+    color: $midgrey;
+    padding-left: 0.7em;
+    margin: 0.6em;
+    &:hover {
+      background: url('/assets/arrow-darkred.png') no-repeat left;
+      color: $darkred;
+      padding-left: 0.7em;
     }
   }
   #notice {
@@ -30,22 +46,48 @@ and (min-width: 1000px)
   }
   #head {
     width: 100%;
-    height: 40px;
-    background: #ccc;
-    border-bottom: 2px solid #aaa;
+    height: 50px;
+    background: $lightgrey;
+    border-bottom: 10px solid $darkgrey;
     vertical-align: middle;
+    font-weight: bold;
+    box-shadow: 0 0 2px;
+    z-index: 99;
+    position: relative;
+    text-shadow: 1px 1px #555;
     #logo {
-      margin: 4px;
+      margin: 9px;
       margin-left: 20px;
       height: 32px;
       width: 32px;
       float: left;
       background: url('/assets/logo.png');
     }
+    a {
+      color: $midgrey;
+      &:hover {
+        color: $darkred;
+      }
+    }
+    #menu {
+      margin: auto;
+      display: table;
+      ul {
+        float: left;
+        margin-top: 0;
+        li {
+          float: left;
+          height: 100%;
+          margin: auto 10px;
+          display: block;
+          font-size: 2.3em;
+        }
+      }
+    }
     #userinfo {
       float: right;
       padding: 0 10px;
-      margin-top: 2px;
+      margin-top: 6px;
       img.avatar {
         border: 1px solid #000;
         border-radius: 16px;
@@ -53,6 +95,12 @@ and (min-width: 1000px)
         &:hover {
           box-shadow: 0 0 2px;
         }
+      }
+      #userinfo-box {
+        float: left;
+        text-align: right;
+        margin: 5px;
+        line-height: 1em;
       }
     }
   }
