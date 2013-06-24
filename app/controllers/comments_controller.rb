@@ -42,13 +42,12 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     @comment.user_id = current_user.id
-    respond_to do |format|
+    @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render json: @comment, status: :created, location: @comment }
+        redirect_to @comment.blogpost, notice: 'Comment was successfully created.'
       else
-        format.html { render action: "new" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        flash[:alert] = "There was a problem while saving your comment"
+        redirect_to blogpost_path(params[:blogpost_id])
       end
     end
   end
@@ -59,13 +58,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.update_attributes(params[:comment])
+      format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+      format.json { head :no_content }
+    else
+      format.html { render action: "edit" }
+      format.json { render json: @comment.errors, status: :unprocessable_entity }
     end
   end
 

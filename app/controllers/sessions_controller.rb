@@ -1,13 +1,9 @@
 class SessionsController < ApplicationController
-
-  def new
-
-  end
-
   def create
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       user.last_ip = request.remote_ip
+      user.last_login = Time.now
       user.save
       if user.banned
         flash[:alert] = "You are banned!"
@@ -24,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, :notice => "Logged out!"
+    redirect_to login_path, :notice => "Logged out!"
   end
 end

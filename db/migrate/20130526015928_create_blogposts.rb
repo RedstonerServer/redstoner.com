@@ -3,7 +3,7 @@ class CreateBlogposts < ActiveRecord::Migration
     create_table :blogposts do |t|
       t.string :title
       t.text :text
-      t.integer :user_id
+      t.references :user
 
       t.timestamps
     end

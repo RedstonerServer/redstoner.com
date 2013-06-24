@@ -2,15 +2,16 @@
   <%= link_to(root_path) do %>
   <div id="logo"></div>
   <% end %>
-  <div id="userinfo">
+  <div id="userinfo" <%= "class=\"logged-out\"".html_safe if !current_user %>>
     <% if !current_user.nil? %>
-    <span id="userinfo-box">
-      <%= link_to current_user.name.truncate(14), current_user %><br/>
-      <%= link_to image_tag("logout.png"), logout_path %>
-    </span>
-      <%= link_to image_tag(Tools.avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
+      <span id="userinfo-box">
+        <%= link_to current_user.name.truncate(14), current_user %><br/>
+        <%= link_to "Logout", logout_path %>
+      </span>
+      <%= link_to image_tag(avatar_url(current_user.id), :class => "avatar size32"), current_user %>
     <% else %>
-      <%= link_to "Log in", login_path, :action => "new" %>
+      <%= link_to "Log in", login_path, :action => "new" %><br/>
+      <%= link_to "Register", register_path %>
     <% end %>
   </div>
   <div id="menu">

@@ -3,4 +3,5 @@ class Blogpost < ActiveRecord::Base
   validates_presence_of :title, :text, :user
   belongs_to :user
   has_many :comments
+  accepts_nested_attributes_for :comments
 end

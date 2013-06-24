@@ -1,5 +1,5 @@
 <%= simple_form_for @post do |f|%>
-  <%= f.input :title %>
-  <%= f.input :text %>
-  <%= f.submit %>
+  <%= f.input :title, :label => false %>
+  <%= f.input :text, :label => false %>
+  <%= f.submit "Create Post" %>
 <% end %>

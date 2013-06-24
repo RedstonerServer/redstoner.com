@@ -1,10 +1,14 @@
-<div id="user-info"%>
-<%= image_tag Tools.avatar_url(@user.id, 128), :class => "user-avatar", :alt => "avatar" %><br/>
-<% if @user.banned %>
-  <span class="user-banned">This user is banned!</span>
-<% end %>
-IGN: <%= @user.ign %><br/>
-Rank: <%= Tools.int_to_rank(@user.rank) %><br/>
-Joined: <%= @user.created_at.strftime("%e. %b %Y") %><br/>
-Last IP: <%= @user.last_ip %><br/>
-About: <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about %>
+<div id="user-info">
+  <div id="edit_profile"><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
+  <%= image_tag avatar_url(@user.id), :class => "user-avatar avatar", :alt => "avatar" %><br/>
+  <% if @user.banned %>
+    <span class="user-banned">This user is banned!</span>
+  <% end %>
+  IGN: <%= @user.ign %><br/>
+  Rank: <%= int_to_rank(@user.rank) %><br/>
+  Joined: <%= @user.created_at.strftime("%e. %b %Y") %><br/>
+  <% if current_user && current_user.rank >= rank_to_int("mod") %>
+    Last IP: <%= @user.last_ip %><br/>
+  <% end %>
+  About: <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about %>
+</div>

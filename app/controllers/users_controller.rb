@@ -14,12 +14,22 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    if current_user
+      flash[:alert] = "You are already registered!"
+      redirect_to user_path(current_user.id)
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    if current_user && (current_user.id = params[:id] || current_user.rank >= rank_to_int("mod"))
+      @user = User.find(params[:id])
+    else
+      flash[:alert] = "You are not allwoed to edit this user"
+      redirect_to user_path(params[:id])
+    end
   end
 
   # POST /users

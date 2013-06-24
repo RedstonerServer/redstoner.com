@@ -1,19 +1,14 @@
 class BlogpostsController < ApplicationController
-  # GET /blogposts
-  # GET /blogposts.json
+
   def index
     @posts = Blogpost.all.reverse
   end
 
-  # GET /blogposts/1
-  # GET /blogposts/1.json
   def show
     @post = Blogpost.find(params[:id])
-    @comment = Comment.new(:blogpost_id => @post.id)
+    @comment = Comment.new(:blogpost => @post)
   end
 
-  # GET /blogposts/new
-  # GET /blogposts/new.json
   def new
     @post = Blogpost.new
   end
@@ -26,12 +21,17 @@ class BlogpostsController < ApplicationController
   # POST /blogposts
   # POST /blogposts.json
   def create
-    @post = Blogpost.new(params[:blogpost])
-    @post.user_id = current_user.id unless current_user.nil?
-    if @post.save
-      redirect_to @post, notice: 'Post has been created.'
+    if current_user && current_user.rank >= rank_to_int("mod")
+      @post = Blogpost.new(params[:blogpost])
+      @post.user_id = current_user.id unless current_user.nil?
+      if @post.save
+        redirect_to @post, notice: 'Post has been created.'
+      else
+        render action: "new"
+      end
     else
-      render action: "new"
+      flash[:alert] = "You are not allowed to create new posts"
+      redirect_to blog_path
     end
   end
 
@@ -53,6 +53,6 @@ class BlogpostsController < ApplicationController
     @post = Blogpost.find(params[:id])
     @post.destroy
 
-    redirect_to blogposts_url
+    redirect_to blog_url
     end
 end

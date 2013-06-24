@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(:version => 20130526020734) do
     t.text     "about"
     t.string   "password_digest",                    :null => false
     t.string   "last_ip"
+    t.string   "skype"
+    t.boolean  "skype_public",    :default => false
+    t.datetime "last_login"
+    t.datetime "last_active"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end
