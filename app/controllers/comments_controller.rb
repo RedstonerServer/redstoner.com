@@ -1,50 +1,23 @@
 class CommentsController < ApplicationController
-  # GET /comments
-  # GET /comments.json
-  def index
-    @comments = Comment.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @comments }
-    end
-  end
-
-  # GET /comments/1
-  # GET /comments/1.json
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @comment }
-    end
-  end
-
-  # GET /comments/new
-  # GET /comments/new.json
-  def new
-    @comment = Comment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @comment }
-    end
-  end
-
-  # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
+    if current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @comment.user.rank.to_i) || (current_user == @comment.user))
+      @comment = Comment.find(params[:id])
+      session[:return_to] = blogpost_path(@comment.blogpost)
+    else
+      flash[:alert] = "You are not allowed to edit this comment"
+      redirect_to @comment.blogpost
+    end
   end
 
-  # POST /comments
-  # POST /comments.json
   def create
-    @comment = Comment.new(params[:comment])
-    @comment.user_id = current_user.id
-    @comment.blogpost = Blogpost.find(params[:blogpost_id])
+    if current_user
+      @comment = Comment.new(params[:comment])
+      @comment.user_id = current_user.id
+      @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
-        redirect_to @comment.blogpost, notice: 'Comment was successfully created.'
+        redirect_to @comment.blogpost, notice: 'Comment created!'
       else
         flash[:alert] = "There was a problem while saving your comment"
         redirect_to blogpost_path(params[:blogpost_id])
@@ -52,30 +25,34 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.json
   def update
     @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-    if @comment.update_attributes(params[:comment])
-      format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-      format.json { head :no_content }
+    if current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @comment.user.rank.to_i) || (current_user == @comment.user))
+      if @comment.update_attributes(params[:comment])
+        flash[:notice] = "Comment updated!"
+        redirect_to @comment.blogpost
+      else
+        flash[:alert] = "There was a problem while updating your comment"
+        redirect_to session[:return_to]
+        session.delete(:redirect_to)
+      end
     else
-      format.html { render action: "edit" }
-      format.json { render json: @comment.errors, status: :unprocessable_entity }
+      flash[:alert] = "You are not allowed to edit this comment"
+      redirect_to blogpost_path(params[:blogpost_id])
     end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
+    if current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @comment.user.rank.to_i) || (current_user == @comment.user))
+      if @comment.destroy
+        flash[:notice] = "Comment deleted!"
+      else
+        flash[:alert] = "There was a problem while deleting this comment"
+      end
+    else
+      flash[:alert] = "You are not allowed to delete this comment"
     end
+    redirect_to @comment.blogpost
   end
 end

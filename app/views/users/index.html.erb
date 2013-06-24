@@ -1,4 +1,14 @@
-<h1>Listing users</h1>
-<% @users.each do |u| %>
-    <%= link_to u.name, u %> (<%= u.ign %>)
-<% end %>
+<h1>All users</h1>
+<div id="userlist">
+  <% @users.each do |u| %>
+    <div class="list-user">
+      <%= link_to u do %>
+        <%= image_tag(avatar_url(u.id, 64), :class => "avatar", :alt => "avatar") %>
+        <div class="user-info">
+          <span class="user-name"><%= u.name %></span>
+          <span class="user-ign"><%= u.ign %></span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

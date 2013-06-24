@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
   end
@@ -27,7 +24,7 @@ class UsersController < ApplicationController
     if current_user && (current_user.id = params[:id] || current_user.rank >= rank_to_int("mod"))
       @user = User.find(params[:id])
     else
-      flash[:alert] = "You are not allwoed to edit this user"
+      flash[:alert] = "You are not allowed to edit this user"
       redirect_to user_path(params[:id])
     end
   end
@@ -36,9 +33,11 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.last_ip = request.remote_ip
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
     else
+      flash[:alert] = "Something went wrong"
       render action: "new"
     end
   end

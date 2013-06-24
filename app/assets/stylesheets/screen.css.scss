@@ -265,5 +265,41 @@ and (min-width: 1000px)
     }
   }
 
+  #userlist {
+    .list-user {
+      margin: 5px 0;
+      display: block;
+      a {
+        color: $midgrey;
+        display: inline-block;
+        &:hover {
+          color: $darkred;
+        }
+      }
+      img {
+        float: left;
+      }
+      .user-info {
+        margin: 10px;
+        float: left;
+        span {
+          display: block;
+        }
+        .user-name {
+          font-weight: bold;
+        }
+        .user-ign {
+          color: #888;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
 
 }
