@@ -8,7 +8,7 @@
         <%= link_to current_user.name.truncate(14), current_user %><br/>
         <%= link_to "Logout", logout_path %>
       </span>
-      <%= link_to image_tag(avatar_url(current_user.id), :class => "avatar size32"), current_user %>
+      <%= link_to image_tag(avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
     <% else %>
       <%= link_to "Log in", login_path, :action => "new" %><br/>
       <%= link_to "Register", register_path %>

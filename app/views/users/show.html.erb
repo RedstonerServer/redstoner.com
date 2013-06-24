@@ -1,6 +1,6 @@
 <div id="user-info">
   <div id="edit_profile"><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
-  <%= image_tag avatar_url(@user.id), :class => "user-avatar avatar", :alt => "avatar" %><br/>
+  <%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %><br/>
   <% if @user.banned %>
     <span class="user-banned">This user is banned!</span>
   <% end %>

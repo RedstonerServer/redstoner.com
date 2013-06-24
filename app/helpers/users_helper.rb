@@ -1,8 +1,8 @@
 module UsersHelper
-  def avatar_url(user_id)
+  def avatar_url(user_id, size)
     u = User.find_by_id(user_id)
     u.nil? ? ign = :char : ign = u.ign
-    return "https://minotar.net/avatar/#{ign}/8"
+    return "https://minotar.net/avatar/#{ign}/#{size}"
   end
 
   def mc_running?

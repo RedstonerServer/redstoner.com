@@ -112,11 +112,11 @@ and (min-width: 1000px)
   }
 
   img.avatar {
-    image-rendering:optimizeSpeed;
+    image-rendering: optimizeSpeed;
     image-rendering:-moz-crisp-edges;
     image-rendering:-o-crisp-edges;
-    image-rendering:optimize-contrast;
-    image-rendering:-webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
   }
 
