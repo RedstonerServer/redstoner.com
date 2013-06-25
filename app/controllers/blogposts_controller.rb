@@ -64,6 +64,6 @@ class BlogpostsController < ApplicationController
     else
       flash[:alert] = "You are not allowed to delete this Post"
     end
-    redirect_to blogpots_path
+    redirect_to blogposts_path
   end
 end

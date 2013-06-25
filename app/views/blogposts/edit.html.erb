@@ -1,6 +1,10 @@
-<h1>Editing blogpost</h1>
+<h1>Edit post</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @blogpost %> |
-<%= link_to 'Back', blogposts_path %>
+<%= simple_form_for @post do |f|%>
+  <%= f.input :title, :label => false %>
+  <%= f.input :text, :label => false %>
+  <%= f.submit "Update Post", :id => "edit_create_post" %>
+<% end %>
+<div id="delete_post">
+  <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post forever?" %>
+</div>

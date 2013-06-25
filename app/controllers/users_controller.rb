@@ -8,56 +8,70 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # GET /users/new
-  # GET /users/new.json
+
+  # REGISTER
   def new
     if current_user
-      flash[:alert] = "You are already registered!"
+      flash[:notice] = "You are already registered!"
       redirect_to user_path(current_user.id)
     else
       @user = User.new
     end
   end
 
-  # GET /users/1/edit
   def edit
-    if current_user && (current_user.id = params[:id] || current_user.rank >= rank_to_int("mod"))
-      @user = User.find(params[:id])
-    else
+    @user = User.find(params[:id])
+    unless current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @user.rank.to_i) || (current_user == @user) && @user.id != 1 )
       flash[:alert] = "You are not allowed to edit this user"
-      redirect_to user_path(params[:id])
+      redirect_to user_path(@user)
     end
   end
 
-  # POST /users
-  # POST /users.json
   def create
-    @user = User.new(params[:user])
-    @user.last_ip = request.remote_ip
-    if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+    if current_user
+      flash[:notice] = "You are already registered!"
+      redirect_to current_user
     else
-      flash[:alert] = "Something went wrong"
-      render action: "new"
+      @user = User.new(params[:user])
+      @user.last_ip = request.remote_ip
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to @user, notice: 'Successfully registered!'
+      else
+        flash[:alert] = "Something went wrong"
+        render action: "new"
+      end
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      redirect_to @user, notice: 'User was successfully updated.'
+    if (current_user && @user.id != 1) && ( (current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @user.rank.to_i) || current_user == @user)
+      if @user.update_attributes(params[:user])
+        redirect_to @user, notice: 'User was successfully updated.'
+      else
+        flash[:alert] = "There was a problem while updating this user"
+        render action: "edit"
+      end
     else
-      render action: "edit"
+      flash[:alert] = "You are not allowed to edit this user"
+      redirect_to @user
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_url
+    if (current_user && @user.id != 1) && (current_user.rank >= rank_to_int("superadmin") && current_user.rank.to_i >= @user.rank.to_i)
+      if @user.destroy
+        flash[:notice] = "User deleted forever."
+        redirect_to users_url
+      else
+        flash[:alert] = "Problem while deleting user"
+        redirect_to @user
+      end
+    else
+      flash[:alert] = "You are not allowed to delete this user"
+      redirect_to @user
+    end
   end
 end

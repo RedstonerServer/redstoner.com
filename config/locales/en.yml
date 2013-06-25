@@ -1,8 +1,65 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   simple_form:
-      required:
-        text: 'required'
-        mark: ''
+    required:
+      text: 'required'
+      mark: ''
+  errors:
+    format: "%{message}"
+  activerecord:
+    errors:
+      models:
+        comment:
+          attributes:
+            text:
+              blank: "Comment can't be empty"
+              empty: "Comment can't be empty"
+              too_long: "Your comment is too long"
+              too_short: "Your comment is too short"
+        blogpost:
+          attributes:
+            text:
+              blank: "Post can't be empty"
+        user:
+          attributes:
+            ign:
+              blank: "IGN can't be empty"
+
+
+
+
+
+
+
+
+
+
+
+
+# errors:
+# accepted: must be accepted
+# blank: can't be blank
+# confirmation: doesn't match confirmation
+# empty: can't be empty
+# equal_to: must be equal to %{count}
+# even: must be even
+# exclusion: is reserved
+# greater_than: must be greater than %{count}
+# greater_than_or_equal_to: must be greater than or equal to %{count}
+# inclusion: is not included in the list
+# invalid: is invalid
+# less_than: must be less than %{count}
+# less_than_or_equal_to: must be less than or equal to %{count}
+# not_a_number: is not a number
+# not_an_integer: must be an integer
+# odd: must be odd
+# record_invalid: ! 'Validation failed: %{errors}'
+# taken: has already been taken
+# too_long:
+#   one: is too long (maximum is 1 character)
+#   other: is too long (maximum is %{count} characters)
+# too_short:
+#   one: is too short (minimum is 1 character)
+#   other: is too short (minimum is %{count} characters)
+# wrong_length:
+#   one: is the wrong length (should be 1 character)
+#   other: is the wrong length (should be %{count} characters)

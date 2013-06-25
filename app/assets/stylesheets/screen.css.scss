@@ -173,6 +173,9 @@ and (min-width: 1000px)
   #post-content {
     margin-top: 10px;
     clear: both;
+    img {
+      max-width: 100%;
+    }
   }
 
   #comments {
@@ -181,9 +184,17 @@ and (min-width: 1000px)
       margin-bottom: 12px;
       padding: 15px;
       box-shadow: 0 0 10px #bbb inset;
+      &:hover .editlink {
+        opacity: 1;
+        margin-right: 0;
+      }
       &.author {
         background: #dadada;
         box-shadow: 0 0 10px #a7a7a7 inset;
+      }
+      .comment-content {
+        word-wrap: break-word;
+        overflow: hidden;
       }
     }
     textarea {
@@ -296,7 +307,24 @@ and (min-width: 1000px)
     }
   }
 
+  .editlink {
+    float: right;
+    opacity: 0;
+    margin-right: -10px;
+    transition: opacity 0.3s, margin 0.3s;
+  }
 
+  #edit_create_post {
+    float: left;
+  }
+
+  #delete_post {
+    float: right;
+  }
+
+  #blogpost_text {
+    width: 100%;
+  }
 
 
 

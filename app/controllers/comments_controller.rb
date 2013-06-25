@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
     if current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= @comment.user.rank.to_i) || (current_user == @comment.user))
-      @comment = Comment.find(params[:id])
       session[:return_to] = blogpost_path(@comment.blogpost)
     else
       flash[:alert] = "You are not allowed to edit this comment"
@@ -19,7 +18,7 @@ class CommentsController < ApplicationController
       if @comment.save
         redirect_to @comment.blogpost, notice: 'Comment created!'
       else
-        flash[:alert] = "There was a problem while saving your comment"
+        flash[:alert] = @comment.errors.full_messages.first
         redirect_to blogpost_path(params[:blogpost_id])
       end
     end

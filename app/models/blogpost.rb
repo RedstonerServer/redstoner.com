@@ -4,4 +4,12 @@ class Blogpost < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   accepts_nested_attributes_for :comments
+
+  def author
+    @author ||= if user.present?
+      user
+    else
+      User.find_by_name("Deleted user")
+    end
+  end
 end

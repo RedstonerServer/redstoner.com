@@ -1,0 +1,8 @@
+<div class="comment <%= "author" if c.user == @post.user %>">
+  <span class="comment-info"><%= link_to c.user.name, c.user %> <%= c.created_at.strftime("%e. %b %Y, %H:%m") %>
+    <% if current_user && ((current_user.rank >= rank_to_int("mod") && current_user.rank.to_i >= c.user.rank.to_i) || (current_user == c.user)) %>
+     <div class="editlink"><%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c) %></div>
+    <% end %>
+  </span>
+  <div class="comment-content"><%= c.text %></div>
+</div>

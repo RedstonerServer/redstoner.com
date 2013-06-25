@@ -1,5 +1,5 @@
 <h1><%= @post.title %></h1>
-<span class="post-info"><%= link_to @post.user.name, @post.user %> on <%= @post.created_at.strftime("%e. %b %Y") %>
+<span class="post-info"><%= link_to @post.author.name, @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
   <% if current_user && current_user.rank >= rank_to_int("mod") %>
    - <%= link_to "edit", edit_blogpost_path(@post.id) %>
   <% end %>
@@ -9,20 +9,7 @@
 </div>
 <div id="comments">
   <% @post.comments.each do |c| %>
-    <div class="comment <%= "author" if c.user == @post.user %>">
-      <span class="comment-info"><%= link_to c.user.name, c.user %> on <%= c.created_at.strftime("%e. %b %Y") %>
-        <% if current_user && current_user.rank >= rank_to_int("mod") %>
-         - <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c) %>
-        <% end %>
-      </span>
-      <div class="comment-content"><%= c.text %></div>
-    </div>
+    <%= render "comments/comment", :c => c %>
   <% end %>
-  <% if current_user %>
-    <h3>New comment</h3>
-    <%= simple_form_for [@post, @comment] do |f| %>
-      <%= f.input :text, :label => false, :as => "text", :placeholder => "Comment" %>
-      <%= f.submit %>
-    <% end %>
-  <% end %>
+  <%= render "comments/new" %>
 </div>
