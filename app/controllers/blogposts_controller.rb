@@ -27,7 +27,7 @@ class BlogpostsController < ApplicationController
   end
 
   def create
-    if current_user && current_user.rank >= rank_to_int("mod")
+    if mod?
       @post = Blogpost.new(params[:blogpost])
       @post.user = current_user
       if @post.save

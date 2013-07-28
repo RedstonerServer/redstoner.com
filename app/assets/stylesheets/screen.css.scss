@@ -231,6 +231,19 @@ and (min-width: 1000px)
     min-height: 50px;
     padding: 1px 0;
     display: block;
+    &.vertical {
+      resize: vertical;
+    }
+    &.horizontal {
+      resize: horizontal;
+    }
+  }
+
+  tr.special_edit {
+    background: #faa;
+    font-style: italic;
+    font-weight: bold;
+    box-shadow: 0 0 5px #faa;
   }
 
   .field_with_errors {
@@ -259,8 +272,17 @@ and (min-width: 1000px)
 
   }
 
-  #edit_profile {
+  .profile-action {
     float: right;
+  }
+
+  .user-banned {
+    background: $darkred;
+    color: white;
+    font-weight: bold;
+    padding: 4px;
+    display: block;
+    border-radius: 3px;
   }
 
   .btn-blue {
@@ -279,7 +301,7 @@ and (min-width: 1000px)
   #userlist {
     .list-user {
       margin: 5px 0;
-      display: block;
+      display: table;
       a {
         color: $midgrey;
         display: inline-block;
@@ -287,11 +309,11 @@ and (min-width: 1000px)
           color: $darkred;
         }
       }
-      img {
+      a.avatar_url {
         float: left;
       }
       .user-info {
-        margin: 10px;
+        margin-left: 10px;
         float: left;
         span {
           display: block;

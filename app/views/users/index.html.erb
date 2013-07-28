@@ -1,14 +1,23 @@
-<h1>All users</h1>
+<% filter = params[:rank] %>
+<% if filter %>
+  <h1>All '<%= filter %>' users</h1>
+  <%= link_to "show all", users_path %>
+<% else %>
+  <h1> All users </h1>
+<% end %>
 <div id="userlist">
   <% @users.each do |u| %>
     <div class="list-user">
-      <%= link_to u do %>
+      <%= link_to u, :class => "avatar_url" do %>
         <%= image_tag(avatar_url(u.id, 64), :class => "avatar", :alt => "avatar") %>
-        <div class="user-info">
+      <% end %>
+      <div class="user-info">
+        <%= link_to u do %>
           <span class="user-name"><%= u.name %></span>
           <span class="user-ign"><%= u.ign %></span>
-        </div>
-      <% end %>
+        <% end %>
+        <span class="user-rank"><%= link_to int_to_rank(u.rank), users_path(:rank => int_to_rank(u.rank)) %></span>
+      </div>
     </div>
   <% end %>
 </div>

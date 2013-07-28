@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       user.save
       if user.banned
         flash[:alert] = "You are banned!"
-        redirect_to login_path
+        redirect_to user
       else
         session[:user_id] = user.id
         redirect_to root_path, :notice => "Logged in!"
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session.delete(:user_id)
     redirect_to login_path, :notice => "Logged out!"
   end
 end

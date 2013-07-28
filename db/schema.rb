@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526020734) do
+ActiveRecord::Schema.define(:version => 20130728003021) do
 
   create_table "blogposts", :force => true do |t|
     t.string   "title"
@@ -30,20 +30,23 @@ ActiveRecord::Schema.define(:version => 20130526020734) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name",                               :null => false
-    t.string   "ign",                                :null => false
-    t.integer  "rank",            :default => 10,    :null => false
-    t.boolean  "banned",          :default => false
-    t.string   "email",                              :null => false
+    t.string   "name",                                   :null => false
+    t.string   "ign",                                    :null => false
+    t.integer  "rank",                :default => 10,    :null => false
+    t.boolean  "banned",              :default => false
+    t.string   "email",                                  :null => false
     t.text     "about"
-    t.string   "password_digest",                    :null => false
+    t.string   "password_digest",                        :null => false
     t.string   "last_ip"
     t.string   "skype"
-    t.boolean  "skype_public",    :default => false
+    t.boolean  "skype_public",        :default => false
     t.datetime "last_login"
     t.datetime "last_active"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "youtube"
+    t.string   "youtube_channelname"
+    t.string   "twitter"
   end
 
 end

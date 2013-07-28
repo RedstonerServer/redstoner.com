@@ -1,9 +1,16 @@
 Site::Application.routes.draw do
 
-  resources :blogposts do
+  resources :blogposts, :path => '/blog' do
     resources :comments
   end
-  resources :users
+  resources :users do
+    member do
+      get 'become'
+    end
+    collection do
+      get 'unbecome'
+    end
+  end
 
   match '/serverstatus.png' => 'serverchecker#show'
 

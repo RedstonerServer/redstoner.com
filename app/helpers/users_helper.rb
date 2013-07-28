@@ -34,6 +34,6 @@ module UsersHelper
 
   def ranks
     # Lower case !!!
-    {"visitor" => 10, "member" => 20, "builder" => 30, "donor" => 40, "donor+" => 45, "mod" => 100, "admin" => 200, "superadmin" => 500}
+    {"default" => 10, "donor" => 40, "mod" => 100, "admin" => 200, "superadmin" => 500}
   end
 end

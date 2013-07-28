@@ -1,6 +1,45 @@
-<h1>Editing user</h1>
+<h1>Edit profile</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= simple_form_for @user do |f| %>
+  <table>
+    <tbody>
+      <tr>
+        <td>Display name</td>
+        <td><%= f.input :name, :label => false %></td>
+       </tr>
+       <%  if admin? %>
+       <tr class="special_edit" >
+         <td>Ingame name</td>
+         <td><%= f.input :ign, :label => false %></td>
+       </tr>
+       <tr class="special_edit" >
+         <td>Rank</td>
+         <td><%= f.input :rank, :label => false, :collection => ranks, :include_blank => false %></td>
+       </tr>
+       <% end %>
+       <tr>
+         <td>
+           Skype username<br>
+           Show to all users
+         </td>
+         <td>
+           <%= f.input :skype, :label => false %>
+           <%= f.input :skype_public, :label => false %>
+         </td>
+       </tr>
+       <tr>
+         <td>YouTube username</td>
+         <td><%= f.input :youtube, :label => false %></td>
+       </tr>
+       <tr>
+         <td>Twitter username</td>
+         <td><%= f.input :twitter, :label => false %></td>
+       </tr>
+       <tr>
+         <td>About you</td>
+         <td><%= f.input :about, :label => false, :input_html => {:class => "vertical"} %></td>
+       </tr>
+     </tbody>
+   </table>
+  <%= f.submit "Save profile" %>
+<% end %>

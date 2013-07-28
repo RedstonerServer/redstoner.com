@@ -1,14 +1,44 @@
 <div id="user-info">
-  <div id="edit_profile"><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
-  <%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %><br/>
+  <h1><%= @user.name %></h1>
+
+  <% if @user == current_user || mod? %>
+    <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
+    <div class="profile-action" >
+      <% if session[:original_user_id] %>
+        <%= link_to "revert", unbecome_users_path, :class => "btn-blue" %>
+      <% else %>
+        <%= link_to "become this user", become_user_path(@user), :class => "btn-blue" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %><br>
+
   <% if @user.banned %>
     <span class="user-banned">This user is banned!</span>
   <% end %>
-  IGN: <%= @user.ign %><br/>
-  Rank: <%= int_to_rank(@user.rank) %><br/>
-  Joined: <%= @user.created_at.strftime("%e. %b %Y") %><br/>
-  <% if current_user && current_user.rank >= rank_to_int("mod") %>
-    Last IP: <%= @user.last_ip %><br/>
+
+  IGN: <%= @user.ign %><br>
+
+  Rank: <%= link_to int_to_rank(@user.rank), users_path(:rank => int_to_rank(@user.rank))  %><br>
+
+  <% if current_user && @user.skype && (@user.skype_public || current_user == @user || mod?) %>
+    YouTube: <%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI::escape(@user.youtube)}", :target => "_blank" if !@user.youtube.blank? %><br>
+    Twitter: <%= link_to @user.twitter, "https://twitter.com/#{CGI::escape(@user.twitter)}", :target => "_blank" if !@user.twitter.blank? %><br>
+    Skype: <a href="skype:<%= @user.skype %>?chat" target="_blank"><%= @user.skype %></a><br>
   <% end %>
-  About: <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about %>
+
+  Joined: <%= @user.created_at.strftime("%e. %b %Y") %><br>
+
+  <% if mod? %>
+    <hr>
+    Last IP: <%= @user.last_ip %><br>
+    Email: <a href="mailto:<%= @user.email %>"><%= @user.email %></a><br>
+    Last login: <%= @user.last_login.strftime("%e. %b %Y, %H:%M") %>
+  <% end %>
+
+  <hr>
+
+  <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about.gsub("\n", "<br>").html_safe %>
+
 </div>
