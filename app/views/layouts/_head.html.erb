@@ -1,6 +1,6 @@
 <div id="head">
   <%= link_to(root_path) do %>
-  <div id="logo"></div>
+  <div id="logo"><%= image_tag "logo" %></div>
   <% end %>
   <div id="userinfo" <%= "class=\"logged-out\"".html_safe if !current_user %>>
     <% if !current_user.nil? %>

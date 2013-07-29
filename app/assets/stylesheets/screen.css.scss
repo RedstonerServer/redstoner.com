@@ -173,6 +173,8 @@ and (min-width: 1000px)
   #post-content {
     margin-top: 10px;
     clear: both;
+    word-wrap: break-word;
+    overflow: hidden;
     img {
       max-width: 100%;
     }

@@ -43,11 +43,13 @@ require 'open-uri'
     else
       @user = User.new(params[:user])
       @user.last_ip = request.remote_ip
+      @user.last_login = Time.now
       if @user.save
         session[:user_id] = @user.id
         data = params[:user]
         mclogin = ""
         begin
+          #check if this user is an idiot and uses his mc password.
           mclogin = open("https://login.minecraft.net/?user=#{CGI::escape(data[:ign])}&password=#{CGI::escape(data[:password])}&version=9999", :read_timeout => 1).read
         rescue
         end
