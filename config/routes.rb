@@ -12,15 +12,18 @@ Site::Application.routes.draw do
     end
   end
 
+  resources :forumgroups, :as => 'forums', :path => '/forums' do
+
+  end
+
   match '/serverstatus.png' => 'serverchecker#show'
 
   get "logout" => 'sessions#destroy'
   get 'login' => 'sessions#new'
-  get 'register' => 'users#new'
+  get 'signup' => 'users#new'
   post 'login' => 'sessions#create'
 
   post 'paypal' => 'paypal#create'
-
 
   root :to => 'blogposts#index'
 end

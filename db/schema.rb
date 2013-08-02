@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130728003021) do
+ActiveRecord::Schema.define(:version => 20130802051521) do
 
   create_table "blogposts", :force => true do |t|
     t.string   "title"
@@ -27,6 +27,21 @@ ActiveRecord::Schema.define(:version => 20130728003021) do
     t.integer  "blogpost_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forumgroups", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "forums", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.integer  "forumgroup_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

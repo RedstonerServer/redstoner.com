@@ -1,15 +1,19 @@
-<h1><%= @post.title %></h1>
-<span class="post-info"><%= link_to @post.author.name, @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
-  <% if current_user && current_user.rank >= rank_to_int("mod") %>
-   - <%= link_to "edit", edit_blogpost_path(@post.id) %>
-  <% end %>
-</span>
-<div id="post-content">
-  <%= RbbCode.new.convert(@post.text).html_safe %>
-</div>
-<div id="comments">
-  <% @post.comments.each do |c| %>
-    <%= render "comments/comment", :c => c %>
-  <% end %>
-  <%= render "comments/new" %>
+<div class="post">
+  <div class="post-title">
+    <h1><%= @post.title %></h1>
+  </div>
+  <span class="post-info"><%= link_to @post.author.name, @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
+    <% if current_user && current_user.rank >= rank_to_int("mod") %>
+     - <%= link_to "edit", edit_blogpost_path(@post.id) %>
+    <% end %>
+  </span>
+  <div class="post-content">
+    <%= RbbCode.new.convert(@post.text).html_safe %>
+  </div>
+  <div id="comments">
+    <% @post.comments.each do |c| %>
+      <%= render "comments/comment", :c => c %>
+    <% end %>
+    <%= render "comments/new" %>
+  </div>
 </div>

@@ -9,8 +9,8 @@
 </head>
 <body>
 <%= render "/layouts/head" %>
-<%= "<div id='alert'>#{alert}</div>".html_safe if alert %>
-<%= "<div id='notice'>#{notice}</div>".html_safe if notice %>
+<%= "<div id='flash' class='alert'>#{alert}</div>".html_safe if alert %>
+<%= "<div id='flash' class='notice'>#{notice}</div>".html_safe if notice %>
 <div id="main-content">
 <%= yield %>
 </div>

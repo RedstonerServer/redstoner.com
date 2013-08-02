@@ -1,7 +1,5 @@
 <div id="head">
-  <%= link_to(root_path) do %>
-  <div id="logo"><%= image_tag "logo" %></div>
-  <% end %>
+  <div id="logo"><%= image_tag "logo.png" %></div>
   <div id="userinfo" <%= "class=\"logged-out\"".html_safe if !current_user %>>
     <% if !current_user.nil? %>
       <span id="userinfo-box">
@@ -10,16 +8,24 @@
       </span>
       <%= link_to image_tag(avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
     <% else %>
-      <%= link_to "Log in", login_path, :action => "new" %><br/>
-      <%= link_to "Register", register_path %>
+      <%= link_to "Log in", login_path, :action => "new" %> | <%= link_to "Sign up", signup_path %>
     <% end %>
   </div>
+  <div class="clear"></div>
   <div id="menu">
     <ul>
-      <li><%= link_to "BLOG", root_path, :class => "arrow" %></li>
-      <li><%= link_to "FORUM", nil, :class => "arrow" %></li>
-      <li><%= link_to "INFO", nil, :class => "arrow" %></li>
-      <li><%= link_to "DONATE", nil, :class => "arrow" %></li>
+      <li><%= link_to image_tag('icons/home.png'), root_path %></li>
+      <li>Info</li>
+      <%= link_to forums_path do %>
+      <li>Forums</li>
+      <% end %>
+      <li>Donate</li>
+      <li>
+        <%= simple_form_for "asdf", method: "get", action: users_path do |f| %>
+          <%= f.input :rank %>
+        <% end %>
+      </li>
     </ul>
+    <div class="clear"></div>
   </div>
 </div>

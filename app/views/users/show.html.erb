@@ -12,33 +12,63 @@
     </div>
   <% end %>
 
-  <%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %><br>
-
-  <% if @user.banned %>
+  <% if @user.rank.to_i == rank_to_int("banned") %>
     <span class="user-banned">This user is banned!</span>
   <% end %>
-
-  IGN: <%= @user.ign %><br>
-
-  Rank: <%= link_to int_to_rank(@user.rank), users_path(:rank => int_to_rank(@user.rank))  %><br>
-
-  <% if current_user && @user.skype && (@user.skype_public || current_user == @user || mod?) %>
-    YouTube: <%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI::escape(@user.youtube)}", :target => "_blank" if !@user.youtube.blank? %><br>
-    Twitter: <%= link_to @user.twitter, "https://twitter.com/#{CGI::escape(@user.twitter)}", :target => "_blank" if !@user.twitter.blank? %><br>
-    Skype: <a href="skype:<%= @user.skype %>?chat" target="_blank"><%= @user.skype %></a><br>
+  <% if @user.rank.to_i == rank_to_int("unconfirmed") %>
+    <span class="user-unconfirmed">This user hasn't confirmed his email yet!</span>
   <% end %>
 
-  Joined: <%= @user.created_at.strftime("%e. %b %Y") %><br>
 
-  <% if mod? %>
-    <hr>
-    Last IP: <%= @user.last_ip %><br>
-    Email: <a href="mailto:<%= @user.email %>"><%= @user.email %></a><br>
-    Last login: <%= @user.last_login.strftime("%e. %b %Y, %H:%M") %>
-  <% end %>
-
-  <hr>
-
-  <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about.gsub("\n", "<br>").html_safe %>
-
+<%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %>
+  <table>
+    <tbody>
+          <tr>
+            <td>IGN</td>
+            <td><%= @user.ign %></td>
+          </tr>
+          <tr>
+            <td>Rank</td>
+            <td><%= link_to int_to_rank(@user.rank), users_path(:rank => int_to_rank(@user.rank))  %></td>
+          </tr>
+          <% if current_user && !@user.skype.blank? && (@user.skype_public || current_user == @user || mod?) %>
+          <tr>
+            <td>Skype</td>
+            <td><a href="skype:<%= @user.skype %>?chat" target="_blank"><%= @user.skype %></a></td>
+          </tr>
+          <% end %>
+          <% if !@user.youtube.blank? && @user.youtube_channelname.blank? %>
+          <tr>
+            <td>YouTube</td>
+            <td><%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI::escape(@user.youtube)}", :target => "_blank" %></td>
+          </tr>
+          <% end %>
+          <% if !@user.twitter.blank? %>
+          <tr>
+            <td>Twitter</td>
+            <td><%= link_to @user.twitter, "https://twitter.com/#{CGI::escape(@user.twitter)}", :target => "_blank" %></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td>Joined</td>
+            <td><%= @user.created_at.strftime("%e. %b %Y") %></td>
+          </tr>
+          <% if mod? || current_user == @user %>
+          <tr>
+            <td>Last IP</td>
+            <td><%= @user.last_ip %></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><%= mail_to @user.email, @user.email, :subject => "Redstoner" %></td>
+          </tr>
+          <tr>
+            <td>Last login</td>
+            <td><%= @user.last_login.strftime("%e. %b %Y, %H:%M") %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <hr>
+      <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : h(@user.about).gsub("\n", "<br>").html_safe %>
 </div>

@@ -1,0 +1,18 @@
+<div id="forum_groups">
+  <% @groups.each do |g| %>
+    <div class="group">
+      <div class="header">
+        <%= g.name %>
+      </div>
+
+      <div class="forums">
+        <% g.forums.sort{|s| s[:position]}.each do |f| %>
+        <div class="forum">
+          <%= f.name %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+</div>

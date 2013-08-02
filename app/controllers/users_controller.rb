@@ -11,17 +11,17 @@ require 'open-uri'
   end
 
   def show
-    @user = User.find_by_id(params[:id])
+    @user = User.find(params[:id])
     unless @user
-      flash[:alert] = "User ##{params[:id]} does not exist!"
+      flash[:alert] = "User \"#{params[:id]}\" does not exist!"
       redirect_to User.find(1)
     end
   end
 
-  # REGISTER
+  # SIGNUP
   def new
     if current_user
-      flash[:notice] = "You are already registered!"
+      flash[:notice] = "You are already signed up!"
       redirect_to user_path(current_user.id)
     else
       @user = User.new
@@ -38,7 +38,7 @@ require 'open-uri'
 
   def create
     if current_user
-      flash[:notice] = "You are already registered!"
+      flash[:notice] = "You are already signed up!"
       redirect_to current_user
     else
       @user = User.new(params[:user])
@@ -56,7 +56,7 @@ require 'open-uri'
         if mclogin.downcase.include?(data[:ign].downcase)
           redirect_to "http://youareanidiot.org/"
         else
-          redirect_to @user, notice: 'Successfully registered!'
+          redirect_to edit_user_path(@user), notice: 'Successfully signed up!'
         end
       else
         flash[:alert] = "Something went wrong"

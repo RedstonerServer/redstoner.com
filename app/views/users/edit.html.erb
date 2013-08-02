@@ -4,6 +4,10 @@
   <table>
     <tbody>
       <tr>
+        <td></td>
+        <td><%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %></td>
+      </tr>
+      <tr>
         <td>Display name</td>
         <td><%= f.input :name, :label => false %></td>
        </tr>

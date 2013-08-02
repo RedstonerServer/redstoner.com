@@ -17,6 +17,10 @@ and (min-width: 1000px)
     overflow-y: scroll;
   }
 
+  body {
+    background-image: url('/assets/bg.png');
+  }
+
   a {
     transition: color 0.25s;
     color: $darkred;
@@ -25,67 +29,39 @@ and (min-width: 1000px)
       color: #F00;
     }
   }
-  #notice {
-    background: #8e8;
+  #flash {
     text-align: center;
     padding: 10px;
-    border-bottom: 3px dashed #8d8;
     font-weight: bold;
-  }
-  #alert {
-    background: #ebb;
-    text-align: center;
-    padding: 10px;
-    border-bottom: 3px dashed #fdd;
-    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    &.notice {
+      background: #8e8;
+      border-bottom: 3px dashed #8d8;
+    }
+    &.alert {
+      background: #ebb;
+      border-bottom: 3px dashed #fdd;
+    }
   }
   #head {
-    width: 100%;
-    height: 50px;
-    background: $lightgrey;
-    border-bottom: 10px solid $darkgrey;
-    vertical-align: middle;
-    font-weight: bold;
-    box-shadow: 0 0 2px;
-    z-index: 99;
-    position: relative;
+    width: 800px;
+    margin: -10px auto 20px auto;
+    padding: 20px 13px 13px 13px;
+    background-image: url('/assets/head_bg.png');
+    box-shadow: 0 0 10px -7px inset;
+    border-bottom: 1px solid #fff;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
     #logo {
-      margin: 9px;
-      margin-left: 20px;
-      height: 32px;
-      width: 32px;
       float: left;
-      background: url('/assets/logo.png');
-    }
-    a {
-      color: $midgrey;
-      &:hover {
-        color: $darkred;
-      }
-    }
-    #menu {
-      margin: auto;
-      display: table;
-      ul {
-        float: left;
-        margin-top: 0;
-        li {
-          float: left;
-          height: 100%;
-          margin: auto 10px;
-          display: block;
-          font-size: 2.3em;
-        }
-      }
     }
     #userinfo {
       float: right;
       padding: 0 10px;
-      margin-top: 6px;
-      text-align: right;
-      &.logged-out {
-        margin-top: 2px;
-      }
+      margin-top: 14px;
       img.avatar {
         border: 1px solid #000;
         border-radius: 16px;
@@ -101,6 +77,30 @@ and (min-width: 1000px)
         text-align: right;
         margin: 5px;
         line-height: 1em;
+      }
+    }
+    a {
+      color: $midgrey;
+      &:hover {
+        color: $darkred;
+      }
+    }
+    #menu {
+      width: 100%;
+      background: url('/assets/head_bg.png') #fff;
+      input {
+        display: inline;
+      }
+      ul {
+        float: left;
+        margin-top: 0;
+        li {
+          float: left;
+          height: 100%;
+          margin: auto 10px;
+          display: block;
+          font-size: 1.5em;
+        }
       }
     }
   }
@@ -133,50 +133,47 @@ and (min-width: 1000px)
 
     h1 {
       font-weight: normal;
-      font-size: 400%;
+      font-size: 200%;
       margin: 0;
       color: #888;
       text-shadow: 0 1px #999;
     }
   }
 
-  #posts {
-    #post {
-      margin-bottom: 50px;
-      #post-title {
-        margin-bottom: 10px;
-        h2 {
-          font-weight: normal;
-          color: #700;
-          text-transform: uppercase;
-          display: inline;
-          font-size: 250%;
-        }
-        .comment-counter {
-          float: right;
+  .post {
+    margin-bottom: 50px;
+    .post-title {
+      margin-bottom: 10px;
+      word-wrap: break-word;
+      h2 {
+        font-weight: normal;
+        color: #700;
+        text-transform: uppercase;
+        display: inline;
+        font-size: 200%;
+      }
+      .comment-counter {
+        float: right;
+      }
+    }
+    .post-info {
+      border-bottom: 2px dashed #999;
+      color: #888;
+      a {
+        color: #755;
+        &:hover{
+          color: #d55;
         }
       }
     }
-  }
-
-  .post-info {
-    border-bottom: 2px dashed #999;
-    color: #888;
-    a {
-      color: #755;
-      &:hover{
-        color: #d55;
+    .post-content {
+      margin-top: 10px;
+      clear: both;
+      word-wrap: break-word;
+      overflow: hidden;
+      img {
+        max-width: 100%;
       }
-    }
-  }
-
-  #post-content {
-    margin-top: 10px;
-    clear: both;
-    word-wrap: break-word;
-    overflow: hidden;
-    img {
-      max-width: 100%;
     }
   }
 
@@ -350,8 +347,34 @@ and (min-width: 1000px)
     width: 100%;
   }
 
+  .clear {
+    clear: both;
+    display: block;
+    visibility: hidden;
+  }
 
-
+  #forum_groups {
+    .group {
+      margin: 10px 0;
+      .header {
+        background: #ddd;
+        border-radius: 5px 5px 0 0;
+        padding: 5px 10px;
+        border-bottom: 1px solid #ccc;
+      }
+      .forums {
+        border: 1px solid #ddd;
+        border-top: none;
+        border-bottom: none;
+        .forum {
+          display: block;
+          font-weight: bold;
+          padding: 5px 10px;
+          border-bottom: 1px solid #ddd;
+        }
+      }
+    }
+  }
 
 
 }

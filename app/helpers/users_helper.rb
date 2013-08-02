@@ -34,6 +34,6 @@ module UsersHelper
 
   def ranks
     # Lower case !!!
-    {"default" => 10, "donor" => 40, "mod" => 100, "admin" => 200, "superadmin" => 500}
+    {"banned" => 1, "unconfirmed" => 5, "default" => 10, "donor" => 40, "mod" => 100, "admin" => 200, "superadmin" => 500}
   end
 end

@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
+  require 'resolv'
   def create
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
-      user.last_ip = request.remote_ip
+      user.last_ip = "#{request.remote_ip} | #{Resolv.getname(request.remote_ip)}"
       user.last_login = Time.now
       user.save
       if user.banned
