@@ -2,11 +2,11 @@
   <% @groups.each do |g| %>
     <div class="group">
       <div class="header">
-        <%= g.name %>
+        <%= g.name %> - <%= g.position %> - <%= g.id %>
       </div>
 
       <div class="forums">
-        <% g.forums.sort{|s| s[:position]}.each do |f| %>
+        <% g.forums.sort_by{|s| s[:position]}.each do |f| %>
         <div class="forum">
           <%= f.name %>
         </div>
