@@ -2,7 +2,7 @@
 
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, :label => false %>
-  <%= f.input :content, :label => false %>
+  <%= f.input :content, :label => false, input_html: {class: "full-width vertical"} %>
   <%= f.submit "Update Post", :id => "edit_create_post" %>
 <% end %>
 <div id="delete_post">

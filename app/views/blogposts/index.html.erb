@@ -15,5 +15,5 @@
     </div>
   </div>
   <% end %>
-  <%= link_to 'Make new Post', new_blogpost_path if mod? %>
+  <%= button_to 'Make new Post', new_blogpost_path, method: "get" if mod? %>
 </div>

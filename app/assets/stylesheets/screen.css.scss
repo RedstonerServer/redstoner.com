@@ -231,6 +231,9 @@ and (min-width: 1000px)
     max-width: 100% !important;
     height: 200px;
     padding: 5px 3px;
+    &.full-width {
+      width: 100%;
+    }
     &.vertical {
       resize: vertical;
     }
@@ -394,6 +397,21 @@ and (min-width: 1000px)
   .red {
     color: #AB0000;
     font-weight: bold;
+  }
+
+
+  pre {
+    background: #ddd;
+    padding: 0.5em;
+  }
+
+  code {
+    background: #ddd;
+  }
+
+  pre code {
+    background: inherit;
+    padding: 0;
   }
 
 }
