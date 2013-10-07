@@ -11,57 +11,85 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802051521) do
+ActiveRecord::Schema.define(:version => 20130922181339) do
 
   create_table "blogposts", :force => true do |t|
     t.string   "title"
-    t.text     "text"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "content"
+    t.integer  "user_author_id"
+    t.integer  "user_editor_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "text"
-    t.integer  "user_id"
+    t.text     "content"
+    t.integer  "user_author_id"
+    t.integer  "user_editor_id"
     t.integer  "blogpost_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "forumgroups", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
+    t.string  "name"
+    t.integer "position"
+    t.integer "read_permission"
+    t.integer "write_permission"
+  end
+
+  create_table "forums", :force => true do |t|
+    t.string  "name"
+    t.integer "position"
+    t.integer "read_permission"
+    t.integer "write_permission"
+    t.integer "forumgroup_id"
+  end
+
+  create_table "forumthreads", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "sticky",         :default => false
+    t.boolean  "locked",         :default => false
+    t.integer  "user_author_id"
+    t.integer  "user_editor_id"
+    t.integer  "forum_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string  "name"
+    t.integer "value"
+  end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "forums", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.integer  "forumgroup_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false
-    t.string   "ign",                                    :null => false
-    t.integer  "rank",                :default => 10,    :null => false
-    t.boolean  "banned",              :default => false
-    t.string   "email",                                  :null => false
-    t.text     "about"
     t.string   "password_digest",                        :null => false
+    t.string   "ign",                                    :null => false
+    t.string   "email",                                  :null => false
+    t.string   "confirm_code",                           :null => false
+    t.text     "about"
     t.string   "last_ip"
     t.string   "skype"
     t.boolean  "skype_public",        :default => false
-    t.datetime "last_login"
-    t.datetime "last_active"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
     t.string   "youtube"
     t.string   "youtube_channelname"
     t.string   "twitter"
+    t.datetime "last_login"
+    t.integer  "role_id",                                :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
 end

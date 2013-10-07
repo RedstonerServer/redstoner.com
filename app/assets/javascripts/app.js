@@ -1,9 +1,24 @@
 $(function(){
-
-  $('[data-confirm]').click(function(){
-    var c = confirm($(this).attr('data-confirm'));
-    if (!c) return false;
-  })
-
-    $('#flash').delay(3000).fadeOut('slow');
+    $('.flash').click(function(){
+      $('.flash').animate({
+        opacity: 0
+      }, 'fast', function(){
+        $(this).animate({
+          height: 0
+        }, 'slow', function(){
+          $(this).hide();
+        })
+      });
+    });
+    setTimeout(function(){
+      $('.flash').animate({
+        opacity: 0
+      }, 3000, function(){
+        $(this).animate({
+          height: 0
+        }, 'slow', function(){
+          $(this).hide();
+        })
+      });
+    }, 4000);
 })

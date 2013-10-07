@@ -8,12 +8,12 @@
       </span>
     </div>
     <span class="post-info">
-      by <%= link_to p.user.name, p.user %> on <%= p.created_at.strftime("%e. %b %Y") %>
+      by <%= link_to p.author.name, p.author %> on <%= p.created_at.strftime("%e. %b %Y") %>
     </span>
     <div class="post-content">
-      <%= RbbCode.new.convert(p.text).html_safe %>
+      <%= GitHub::Markdown.render_gfm(Sanitize.clean(p.content, Sanitize::Config::RESTRICTED)).html_safe %>
     </div>
   </div>
   <% end %>
-  <%= link_to 'Make new Post', new_blogpost_path if current_user && current_user.rank >= rank_to_int("mod") %>
+  <%= link_to 'Make new Post', new_blogpost_path if mod? %>
 </div>

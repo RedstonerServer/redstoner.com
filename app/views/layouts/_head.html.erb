@@ -1,7 +1,9 @@
 <div id="head">
-  <div id="logo"><%= image_tag "logo.png" %></div>
-  <div id="userinfo" <%= "class=\"logged-out\"".html_safe if !current_user %>>
-    <% if !current_user.nil? %>
+  <div id="logo"><%= link_to root_path do %>
+    <%= image_tag "logo.png" %>
+    <% end %></div>
+  <div id="userinfo" <%= "class=\"logged-out\"".html_safe unless current_user %>>
+    <% if current_user %>
       <span id="userinfo-box">
         <%= link_to current_user.name.truncate(14), current_user %><br/>
         <%= link_to "Logout", logout_path %>
@@ -14,17 +16,14 @@
   <div class="clear"></div>
   <div id="menu">
     <ul>
-      <li><%= link_to image_tag('icons/home.png'), root_path %></li>
+      <%= link_to root_path do %>
+      <li>Home</li>
+      <% end %>
       <li>Info</li>
-      <%= link_to forums_path do %>
+      <%= link_to forumgroups_path do %>
       <li>Forums</li>
       <% end %>
       <li>Donate</li>
-      <li>
-        <%= simple_form_for "asdf", method: "get", action: users_path do |f| %>
-          <%= f.input :rank %>
-        <% end %>
-      </li>
     </ul>
     <div class="clear"></div>
   </div>

@@ -1,0 +1,29 @@
+<p><%= @user.name %> has registered on redstoner.</p>
+<p>
+  <table style="border: 1px solid black; border-collapse:collapse;">
+    <tr>
+      <td style="border:1px solid black;">IGN</td>
+      <td style="border:1px solid black;"><%= @user.ign %></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid black;">email</td>
+      <td style="border:1px solid black;"><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid black;">Time</td>
+      <td style="border:1px solid black;"><%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid black;">IP</td>
+      <td style="border:1px solid black;"><%= @user.last_ip %></td>
+    </tr>
+  </table>
+</p>
+
+<% if @mcpw %>
+  <p>
+    <font color="red">
+      <b>USER IS AN IDIOT!</b>
+    </font>
+  </p>
+<% end %>

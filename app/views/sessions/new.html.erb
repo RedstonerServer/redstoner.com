@@ -1,4 +1,5 @@
 <h1>Log in</h1>
+<p>Not a member? <%= link_to "Join us here", signup_path %>!</p>
 <%= form_tag login_path do |f| %>
   <div id="form_labels">
     <%= label_tag :email %>

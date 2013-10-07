@@ -19,7 +19,7 @@ class PaypalController < ApplicationController
   end
 
 
-  protected 
+  protected
   def validate_IPN_notification(raw)
     uri = URI.parse('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
     http = Net::HTTP.new(uri.host, uri.port)
@@ -29,7 +29,7 @@ class PaypalController < ApplicationController
     http.use_ssl = true
     response = http.post(uri.request_uri, raw,
       'Content-Length' => "#{raw.size}",
-      'User-Agent' => "Redstoner.com"
+      'User-Agent' => "RedstonerServer, redstoner.com"
     ).body
   end
 end

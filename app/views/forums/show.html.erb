@@ -1,0 +1,20 @@
+<div class='forum-path'><%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %></div>
+<h1><%= @forum.name %></h1>
+<div id="forum_threads">
+  <% @threads.each do |thread| %>
+    <div class="group" id="thread-<%= thread.id %>">
+      <div class="header">
+        <%= thread.name %>
+      </div>
+
+      <div class="forums">
+        <% thread.forums.sort_by{|s| s[:position]}.each do |f| %>
+        <div class="forum">
+          <%= link_to f.name, f %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+</div>

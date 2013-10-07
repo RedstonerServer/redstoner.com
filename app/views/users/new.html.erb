@@ -1,8 +1,8 @@
 <h1>Register</h1>
 
 <%= simple_form_for @user do |f| %>
-  <%= f.input :name %>
-  <%= f.input :ign, label: "Exact ingame name" %>
+  <%= f.input :name, label: "Display Name" %>
+  <%= f.input :ign, label: "Case sensitive Minecraft name" %>
   <%= f.input :email %>
   <%= f.input :password %>
   <%= f.input :password_confirmation %>

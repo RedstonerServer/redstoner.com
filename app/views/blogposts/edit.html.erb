@@ -2,9 +2,9 @@
 
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, :label => false %>
-  <%= f.input :text, :label => false %>
+  <%= f.input :content, :label => false %>
   <%= f.submit "Update Post", :id => "edit_create_post" %>
 <% end %>
 <div id="delete_post">
-  <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post forever?" %>
+  <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post + comments forever?" %>
 </div>

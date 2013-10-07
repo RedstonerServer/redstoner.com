@@ -1,0 +1,29 @@
+Hi <%= @user.name %>!
+
+<p>Thank you for registering on Redstoner.com!</p>
+<p>To use your account, you need to <%= link_to "confirm", confirm_user_path(@user, code: @user.confirm_code, only_path: false) %> your email address.
+
+<% if @mcpw %>
+<div>
+  <p>
+    <font color="red">
+      <b>NEVER USE THE SAME PASSWORD TWICE!</b>
+    </font>
+  </p>
+  <p>
+    <font color="red">
+      You used your minecraft password on our website. We could have stolen it easily!<br>
+    </font>
+    <i>(But we didn't)</i>
+  </p>
+<% end %>
+
+
+<p>Please click this link to confirm your registration:
+  <div style="background-color: #eeeeee; padding: 1em; margin: 0; text-align: center;" width="100%">
+    <%= link_to "confirm my email", confirm_user_path(@user, code: @user.confirm_code, only_path: false), style: "text-decoration: none; color: #f2f2f2; padding: 0.5em 2em; background-color: #4096EE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; display: inline-block; text-transform: uppercase;" %>
+  </div>
+</p>
+
+<p>If you have any questions or problems, just ask one of our <%= link_to "Staff", users_path(role: "staff", only_path: false) %> in-game.</p>
+<p>Your Redstoner team</p>

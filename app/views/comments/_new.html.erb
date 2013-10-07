@@ -1,7 +1,7 @@
 <% if current_user %>
   <h3>New comment</h3>
   <%= simple_form_for [@post, @comment] do |f| %>
-    <%= f.input :text, :label => false, :as => "text", :placeholder => "Comment" %>
+    <%= f.input :content, :label => false, :as => "text", :placeholder => "Comment" %>
     <%= f.submit %>
   <% end %>
 <% end %>

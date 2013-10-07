@@ -1,22 +1,32 @@
 <div id="user-info">
   <h1><%= @user.name %></h1>
 
-  <% if @user == current_user || mod? %>
+  <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
     <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
-    <div class="profile-action" >
-      <% if session[:original_user_id] %>
-        <%= link_to "revert", unbecome_users_path, :class => "btn-blue" %>
-      <% else %>
-        <%= link_to "become this user", become_user_path(@user), :class => "btn-blue" %>
-      <% end %>
-    </div>
   <% end %>
+  <div class="profile-action" >
+    <% if !session[:original_user_id] && admin? %>
+      <%= link_to "become this user", become_user_path(@user), :class => "btn-blue" %>
+    <% elsif session[:original_user_id] %>
+      <%= link_to "revert", unbecome_users_path, :class => "btn-blue" %>
+    <% end %>
+  </div>
 
-  <% if @user.rank.to_i == rank_to_int("banned") %>
+  <% if @user.banned? %>
     <span class="user-banned">This user is banned!</span>
   <% end %>
-  <% if @user.rank.to_i == rank_to_int("unconfirmed") %>
-    <span class="user-unconfirmed">This user hasn't confirmed his email yet!</span>
+  <% if @user.unconfirmed? %>
+    <% if @user.is?(current_user) %>
+      <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
+    <% else %>
+      <span class="user-unconfirmed">This user hasn't confirmed their email yet!</span>
+    <% end %>
+  <% elsif @user.disabled? %>
+    <% if @user.is?(current_user) %>
+      <span class="user-unconfirmed">Your account has been disabled.</span>
+    <% else %>
+      <span class="user-unconfirmed">This user is disabled or does no longer exist.</span>
+    <% end %>
   <% end %>
 
 
@@ -28,25 +38,25 @@
             <td><%= @user.ign %></td>
           </tr>
           <tr>
-            <td>Rank</td>
-            <td><%= link_to int_to_rank(@user.rank), users_path(:rank => int_to_rank(@user.rank))  %></td>
+            <td>Role</td>
+            <td><%= link_to @user.role, users_path(:role => @user.role.name) %></td>
           </tr>
           <% if current_user && !@user.skype.blank? && (@user.skype_public || current_user == @user || mod?) %>
           <tr>
             <td>Skype</td>
-            <td><a href="skype:<%= @user.skype %>?chat" target="_blank"><%= @user.skype %></a></td>
+            <td><%= link_to @user.skype, "skype:#{@user.skype}?chat", target: "_blank" %></a></td>
           </tr>
           <% end %>
-          <% if !@user.youtube.blank? && @user.youtube_channelname.blank? %>
+          <% if !@user.youtube.blank? && !@user.youtube_channelname.blank? %>
           <tr>
             <td>YouTube</td>
-            <td><%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI::escape(@user.youtube)}", :target => "_blank" %></td>
+            <td><%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI.escape(@user.youtube)}", :target => "_blank" %></td>
           </tr>
           <% end %>
           <% if !@user.twitter.blank? %>
           <tr>
             <td>Twitter</td>
-            <td><%= link_to @user.twitter, "https://twitter.com/#{CGI::escape(@user.twitter)}", :target => "_blank" %></td>
+            <td><%= link_to @user.twitter, "https://twitter.com/#{CGI.escape(@user.twitter)}", :target => "_blank" %></td>
           </tr>
           <% end %>
           <tr>
@@ -54,10 +64,12 @@
             <td><%= @user.created_at.strftime("%e. %b %Y") %></td>
           </tr>
           <% if mod? || current_user == @user %>
+          <% if mod? %>
           <tr>
             <td>Last IP</td>
             <td><%= @user.last_ip %></td>
           </tr>
+          <% end %>
           <tr>
             <td>Email</td>
             <td><%= mail_to @user.email, @user.email, :subject => "Redstoner" %></td>

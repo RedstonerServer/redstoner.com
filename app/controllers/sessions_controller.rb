@@ -1,21 +1,37 @@
 class SessionsController < ApplicationController
   require 'resolv'
+
+  def new
+    if current_user
+      redirect_to current_user
+      flash[:alert] = "You are already logged in!"
+    end
+  end
+
   def create
-    user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
-      user.last_ip = "#{request.remote_ip} | #{Resolv.getname(request.remote_ip)}"
-      user.last_login = Time.now
-      user.save
-      if user.banned
-        flash[:alert] = "You are banned!"
-        redirect_to user
+    unless current_user
+      user = User.find_by_email(params[:email])
+      if user && user.authenticate(params[:password])
+        user.last_ip = "#{request.remote_ip} | #{Resolv.getname(request.remote_ip)}"
+        user.last_login = Time.now
+        user.save
+        if user.disabled?
+          flash[:alert] = "This user has been disabled!"
+          redirect_to login_path
+        elsif user.banned?
+          flash[:alert] = "You are banned!"
+          redirect_to user
+        else
+          session[:user_id] = user.id
+          redirect_to root_path, :notice => "Logged in!"
+        end
       else
-        session[:user_id] = user.id
-        redirect_to root_path, :notice => "Logged in!"
+        flash[:alert] = "You're doing it wrong!"
+        redirect_to login_path
       end
     else
-      flash[:alert] = "You're doing it wrong!"
-      redirect_to login_path
+      redirect_to current_user
+      flash[:alert] = "You are already logged in!"
     end
   end
 

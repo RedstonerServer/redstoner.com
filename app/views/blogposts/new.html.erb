@@ -1,6 +1,6 @@
 <h1>New Post</h1>
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, :label => false %>
-  <%= f.input :text, :label => false %>
+  <%= f.input :content, :label => false %>
   <%= f.submit "Update Post", :id => "edit_create_post" %>
 <% end %>

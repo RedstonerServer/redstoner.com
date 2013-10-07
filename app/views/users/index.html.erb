@@ -1,4 +1,4 @@
-<% filter = params[:rank] %>
+<% filter = params[:role] %>
 <% if filter %>
   <h1>All '<%= filter %>' users</h1>
   <%= link_to "show all", users_path %>
@@ -16,7 +16,7 @@
           <span class="user-name"><%= u.name %></span>
           <span class="user-ign"><%= u.ign %></span>
         <% end %>
-        <span class="user-rank"><%= link_to int_to_rank(u.rank), users_path(:rank => int_to_rank(u.rank)) %></span>
+        <span class="user-role"><%= link_to u.role, users_path(:role => u.role.name) %></span>
       </div>
     </div>
   <% end %>

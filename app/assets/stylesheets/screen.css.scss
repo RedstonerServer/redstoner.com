@@ -1,14 +1,5 @@
 /* CSS for PCs only */
 
-
-$lightgrey: #D1D1D1;
-$lightergrey: #959595;
-$midgrey: #787878;
-$darkgrey: #434343;
-$darkred: #AB0000;
-
-
-
 @media only screen
 and (min-width: 1000px)
 {
@@ -19,29 +10,32 @@ and (min-width: 1000px)
 
   body {
     background-image: url('/assets/bg.png');
+    background-color: #252525;
+    background-attachment: fixed;
+  }
+
+  #mobile-info {
+    display: none;
   }
 
   a {
     transition: color 0.25s;
-    color: $darkred;
+    color: #AB0000;
     text-decoration: none;
     &:hover {
       color: #F00;
     }
   }
-  #flash {
+  .flash {
     text-align: center;
     padding: 10px;
     font-weight: bold;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    &.notice {
+    cursor: pointer;
+    &#notice {
       background: #8e8;
       border-bottom: 3px dashed #8d8;
     }
-    &.alert {
+    &#alert {
       background: #ebb;
       border-bottom: 3px dashed #fdd;
     }
@@ -61,7 +55,6 @@ and (min-width: 1000px)
     #userinfo {
       float: right;
       padding: 0 10px;
-      margin-top: 14px;
       img.avatar {
         border: 1px solid #000;
         border-radius: 16px;
@@ -80,9 +73,9 @@ and (min-width: 1000px)
       }
     }
     a {
-      color: $midgrey;
+      color: #787878;
       &:hover {
-        color: $darkred;
+        color: #AB0000;
       }
     }
     #menu {
@@ -93,7 +86,7 @@ and (min-width: 1000px)
       }
       ul {
         float: left;
-        margin-top: 0;
+        margin: 0;
         li {
           float: left;
           height: 100%;
@@ -138,6 +131,10 @@ and (min-width: 1000px)
       color: #888;
       text-shadow: 0 1px #999;
     }
+  }
+
+  .user-avatar {
+    display: block;
   }
 
   .post {
@@ -203,33 +200,37 @@ and (min-width: 1000px)
     }
   }
 
-  input {
-    &[type=text], &[type=email], &[type=password] {
+  input , select, textarea {
+    margin: 4px;
+    vertical-align: middle;
+    &[type=submit] {
+      margin: 0;
+    }
+  }
+
+  input[type=text], input[type=email], input[type=password], textarea {
       border: 1px solid #aaa;
       border-radius: 3px;
       background: #eee;
       margin: 4px;
-      box-shadow: 0 0 5px $lightgrey inset;
+      box-shadow: 0 0 5px #959595 inset;
       height: 17px;
       width: 300px;
-      padding: 1px 0;
+      padding: 1px 3px;
       display: block;
+    }
+
+  input, select, textarea {
+    &.disabled, &[disabled] {
+      box-shadow: none;
+      background: #ddd;
     }
   }
 
   textarea {
-    border: 1px solid #aaa;
-    border-radius: 3px;
-    background: #eee;
-    margin: 4px;
-    box-shadow: 0 0 5px $lightgrey inset;
-    height: 300px;
-    width: 300px;
-    max-width: 100%;
-    min-width: 300px;
-    min-height: 50px;
-    padding: 1px 0;
-    display: block;
+    max-width: 100% !important;
+    height: 200px;
+    padding: 5px 3px;
     &.vertical {
       resize: vertical;
     }
@@ -276,12 +277,23 @@ and (min-width: 1000px)
   }
 
   .user-banned {
-    background: $darkred;
+    background: #AB0000;
     color: white;
     font-weight: bold;
     padding: 4px;
     display: block;
     border-radius: 3px;
+  }
+
+  .user-unconfirmed {
+    background:  #AB0000;
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 10px 0;
+    box-shadow: 0 0 10px #000;
   }
 
   .btn-blue {
@@ -302,14 +314,17 @@ and (min-width: 1000px)
       margin: 5px 0;
       display: table;
       a {
-        color: $midgrey;
+        color: #787878;
         display: inline-block;
         &:hover {
-          color: $darkred;
+          color: #AB0000;
         }
       }
       a.avatar_url {
         float: left;
+        height: 64px;
+        width: 64px;
+        background-color: #fff;
       }
       .user-info {
         margin-left: 10px;
@@ -335,11 +350,11 @@ and (min-width: 1000px)
     transition: opacity 0.3s, margin 0.3s;
   }
 
-  #edit_create_post {
+  #edit_create_post, #edit_create_comment {
     float: left;
   }
 
-  #delete_post {
+  #delete_post, #delete_comment {
     float: right;
   }
 
@@ -376,5 +391,9 @@ and (min-width: 1000px)
     }
   }
 
+  .red {
+    color: #AB0000;
+    font-weight: bold;
+  }
 
 }

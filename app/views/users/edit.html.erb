@@ -1,3 +1,4 @@
+<%= link_to "Your profile", current_user %> → Edit
 <h1>Edit profile</h1>
 
 <%= simple_form_for @user do |f| %>
@@ -9,41 +10,59 @@
       </tr>
       <tr>
         <td>Display name</td>
-        <td><%= f.input :name, :label => false %></td>
+        <td>
+           <%= f.input :name, :label => false, disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) %>
+         </td>
        </tr>
-       <%  if admin? %>
-       <tr class="special_edit" >
-         <td>Ingame name</td>
-         <td><%= f.input :ign, :label => false %></td>
+         <td>In-game name</td>
+         <td>
+           <%= f.input :ign, :label => false, disabled: !(mod? && current_user.role >= @user.role) %>
+         </td>
        </tr>
-       <tr class="special_edit" >
-         <td>Rank</td>
-         <td><%= f.input :rank, :label => false, :collection => ranks, :include_blank => false %></td>
+       <tr>
+         <td>Role</td>
+         <td>
+           <% if mod? && current_user.role >= @user.role %>
+             <%= f.association :role, :label => false, :collection => Role.all_until(current_user.role), :include_blank => false %>
+           <% else %>
+             <%= f.input :role, label: false, disabled: true %>
+           <% end %>
+         </td>
+         </td>
        </tr>
-       <% end %>
        <tr>
          <td>
            Skype username<br>
-           Show to all users
+           Show to...
          </td>
          <td>
-           <%= f.input :skype, :label => false %>
-           <%= f.input :skype_public, :label => false %>
+             <%= f.input :skype, label: false, placeholder: "Skype username", disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) %>
+             <%= f.input :skype_public, label: false, as: :radio_buttons, collection: [['all users', false], ['only staff', true]], input_html: { disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) } %>
+         </td>
          </td>
        </tr>
        <tr>
          <td>YouTube username</td>
-         <td><%= f.input :youtube, :label => false %></td>
+         <td>
+           <%= f.input :youtube, :label => false, placeholder: "YouTube username", disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) %>
+         </td>
        </tr>
        <tr>
          <td>Twitter username</td>
-         <td><%= f.input :twitter, :label => false %></td>
+         <td>
+           <%= f.input :twitter, :label => false, placeholder: "Twitter username", disabled: !(confirmed? || (mod? && current_user.role >= @user.role)) %>
+         </td>
        </tr>
        <tr>
          <td>About you</td>
-         <td><%= f.input :about, :label => false, :input_html => {:class => "vertical"} %></td>
+         <td>
+           <%= f.input :about, :label => false, :input_html => {:class => "vertical"}, placeholder: "Tell us something about you...", disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) %>
+         </td>
        </tr>
      </tbody>
    </table>
-  <%= f.submit "Save profile" %>
+  <%= f.submit "Save profile", disabled: @user.unconfirmed? %>
+  <% if @user.unconfirmed? %>
+    <span class='red'>Please confirm your email adress first.</span>
+  <% end %>
 <% end %>

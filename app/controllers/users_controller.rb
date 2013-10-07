@@ -3,18 +3,23 @@ class UsersController < ApplicationController
 require 'open-uri'
 
   def index
-    if params[:rank]
-      @users = User.find_all_by_rank(rank_to_int(params[:rank]))
+    if params[:role]
+      if params[:role].downcase == "staff"
+        @users = User.all.select {|u| u.role >= Role.get(:mod) }
+      else
+        @users = User.find_all_by_role_id(Role.get(params[:role]))
+      end
     else
       @users = User.all
+      @users.shift() #Remove first user
     end
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
     unless @user
-      flash[:alert] = "User \"#{params[:id]}\" does not exist!"
-      redirect_to User.find(1)
+      flash[:alert] = "User does not exist!"
+      redirect_to users_path
     end
   end
 
@@ -22,15 +27,40 @@ require 'open-uri'
   def new
     if current_user
       flash[:notice] = "You are already signed up!"
-      redirect_to user_path(current_user.id)
+      redirect_to current_user
     else
-      @user = User.new
+      @user = User.new(role: Role.get(:unconfirmed))
+    end
+  end
+
+  def confirm
+    if current_user
+      @user = User.find(params[:id])
+      code = params[:code]
+      if @user && @user == current_user && code && @user.confirm_code == code
+        if @user.role == Role.get(:unconfirmed)
+          @user.role = Role.get :default
+          @user.save
+          flash[:notice] = "Registration confirmed."
+        elsif @user.role < Role.get(:unconfirmed)
+          flash[:alert] = "Your account has been banned or removed"
+        else
+          flash[:alert] = "Your account has already been confirmed!"
+        end
+        redirect_to @user
+      else
+        flash[:alert] = "Something is wrong with your confirmation code"
+        redirect_to root_path
+      end
+    else
+      flash[:alert] = "Please login"
+      redirect_to login_path
     end
   end
 
   def edit
     @user = User.find(params[:id])
-    unless (mod? && current_user.rank.to_i >= @user.rank.to_i) || current_user == @user
+    unless (mod? && current_user.role >= @user.role) || current_user == @user
       flash[:alert] = "You are not allowed to edit this user"
       redirect_to user_path(@user)
     end
@@ -41,23 +71,29 @@ require 'open-uri'
       flash[:notice] = "You are already signed up!"
       redirect_to current_user
     else
-      @user = User.new(params[:user])
+      @user = User.new(params[:user] ? params[:user].slice(:name, :ign, :email, :password, :password_confirmation) : {} )
+      @user.role = Role.get :unconfirmed
+      @user.confirm_code = SecureRandom.hex(16)
       @user.last_ip = request.remote_ip
       @user.last_login = Time.now
       if @user.save
         session[:user_id] = @user.id
-        data = params[:user]
-        mclogin = ""
+        if uses_mc_password?(@user.ign, params[:user][:password])
+          minecraftpw = true
+          flash[:alert] = "Really? That's your Minecraft password!"
+        end
         begin
-          #check if this user is an idiot and uses his mc password.
-          mclogin = open("https://login.minecraft.net/?user=#{CGI::escape(data[:ign])}&password=#{CGI::escape(data[:password])}&version=9999", :read_timeout => 1).read
+          RedstonerMailer.register_mail(@user, minecraftpw).deliver
+          RedstonerMailer.register_info_mail(@user, minecraftpw).deliver
+          puts
         rescue
+          puts "---"
+          puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+          puts "---"
+          flash[:alert] = "Registration mail failed. Please contact us in-game."
         end
-        if mclogin.downcase.include?(data[:ign].downcase)
-          redirect_to "http://youareanidiot.org/"
-        else
-          redirect_to edit_user_path(@user), notice: 'Successfully signed up!'
-        end
+        flash[:notice] = "Successfully signed up! Check your email!"
+        redirect_to edit_user_path(@user)
       else
         flash[:alert] = "Something went wrong"
         render action: "new"
@@ -67,38 +103,46 @@ require 'open-uri'
 
   def update
     @user = User.find(params[:id])
-    if (mod? && current_user.rank >= @user.rank ) || current_user == @user
-      userdata = params[:user]
-      yt = userdata[:youtube]
-      if yt.blank?
-        userdata[:youtube] = nil
-        userdata[:youtube_channelname] = nil
-      else
-        channel = yt
-        begin
-          channel = JSON.parse(open("https://gdata.youtube.com/feeds/api/users/#{CGI::escape(yt)}?alt=json", :read_timeout => 1).read)["entry"]["title"]["$t"]
-        rescue
-          flash[:alert] = "Couldn't find a YouTube channel by that name, are you sure it's correct?"
+    if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
+      userdata = params[:user] ? params[:user].slice(:name, :ign, :role, :skype, :skype_public, :youtube, :twitter, :about, :password, :password_confirmation) : {}
+      if userdata[:role]
+        role = Role.find(userdata[:role])
+        if (mod? && role <= current_user.role)
+          userdata[:role] = role
+        else
+          #reset role
+          userdata[:role] = @user.role
         end
-        userdata[:youtube_channelname] = channel
+      end
+      unless userdata[:ign] && (mod? && current_user.role >= @user.role)
+        #reset ign
+        userdata[:ign] = @user.ign
+      end
+      if @user.youtube != userdata[:youtube]
+        youtube = get_youtube(userdata[:youtube])
+        userdata[:youtube] = youtube[:channel]
+        userdata[:youtube_channelname] = youtube[:channel_name]
+        flash[:alert] = "Couldn't find a YouTube channel by that name, are you sure it's correct?"  unless youtube[:is_correct?]
       end
       if @user.update_attributes(userdata)
-        redirect_to @user, notice: 'Profile updated.'
+          flash[:notice] = 'Profile updated.'
       else
+        raise @user.errors.inspect
         flash[:alert] = "There was a problem while updating the profile"
         render action: "edit"
+        return
       end
     else
       flash[:alert] = "You are not allowed to edit this user"
-      redirect_to @user
     end
+      redirect_to @user
   end
 
   def ban
     @user = User.find(params[:id])
-    if mod? && current_user.rank >= @user.rank
-      @user.banned = true
-      flash[:notice] = "\"#{@user.name}\" has been banned!"
+    if mod? && current_user.role >= @user.role
+      @user.role = Role.get :banned
+      flash[:notice] = "'#{@user.name}' has been banned!"
     else
       flash[:alert] = "You are not allowed to ban this user!"
     end
@@ -107,8 +151,8 @@ require 'open-uri'
 
   def unban
     @user = User.find(params[:id])
-    if mod? && current_user.rank >= @user.rank
-      @user.banned = false
+    if mod? && current_user.role >= @user.role
+      @user.role = Role.get :default
       flash[:notice] = "\"#{@user.name}\" has been unbanned!"
     else
       flash[:alert] = "You are not allowed to unban this user!"
@@ -135,7 +179,7 @@ require 'open-uri'
   def become
     original_user = current_user
     new_user = User.find(params[:id])
-    if admin? && current_user.rank.to_i >= new_user.rank.to_i
+    if admin? && current_user.role >= new_user.role
       if original_user == new_user
         flash[:alert] = "You are already \"#{new_user.name}\"!"
       else
@@ -154,10 +198,10 @@ require 'open-uri'
   def unbecome
     old_user = current_user
     original_user = User.find(session[:original_user_id])
-    if old_user && original_user
+    if old_user && original_user && original_user.admin?
       session.delete(:original_user_id)
       session[:user_id] = original_user.id
-      flash[:notice] = "You are no longer \"#{old_user.name}\"!"
+      flash[:notice] = "You are no longer '#{old_user.name}'!"
     end
     redirect_to old_user
   end
