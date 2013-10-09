@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'sanitize'
 gem 'github-markdown'
 gem 'hirb' #pretty console output
-gem 'rb-readline'
+gem 'rb-readline', '~> 0.4.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
