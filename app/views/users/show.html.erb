@@ -82,5 +82,5 @@
         </tbody>
       </table>
       <hr>
-      <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : h(@user.about).gsub("\n", "<br>").html_safe %>
+      <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about %>
 </div>
