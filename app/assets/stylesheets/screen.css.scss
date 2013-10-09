@@ -181,6 +181,67 @@ and (min-width: 1000px)
         max-width: 100%;
       }
     }
+
+
+    pre {
+      background: #ddd;
+      padding: 0.5em;
+    }
+
+    code {
+      background: #ddd;
+    }
+
+    table, tr, td, th {
+      border-collapse: collapse;
+    }
+
+    pre code {
+      background: inherit;
+      padding: 0;
+    }
+
+    blockquote {
+      background: #f9f9f9;
+      border-left: 10px solid #ccc;
+      margin: 1.5em 10px;
+      padding: 0.5em 10px;
+      quotes: "\201C""\201D""\2018""\2019";
+    }
+
+    blockquote:before {
+      color: #ccc;
+      content: open-quote;
+      font-size: 4em;
+      line-height: 0.1em;
+      margin-right: 0.25em;
+      vertical-align: -0.4em;
+    }
+
+    blockquote p {
+      display: inline;
+    }
+
+    table {
+      tr, td, th {
+        border-collapse: collapse;
+        border: 1px solid #aaa;
+      }
+      tbody {
+        tr:nth-child(odd) {
+          background: #FFF;
+        }
+        tr:nth-child(even) {
+          background: #DDD
+        }
+      }
+      td, th {
+        padding: 0.3em;
+      }
+      thead {
+        background: #def;
+      }
+    }
   }
 
   #comments {
@@ -406,67 +467,6 @@ and (min-width: 1000px)
   .red {
     color: #AB0000;
     font-weight: bold;
-  }
-
-
-  pre {
-    background: #ddd;
-    padding: 0.5em;
-  }
-
-  code {
-    background: #ddd;
-  }
-
-  table, tr, td, th {
-    border-collapse: collapse;
-  }
-
-  pre code {
-    background: inherit;
-    padding: 0;
-  }
-
-  blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    quotes: "\201C""\201D""\2018""\2019";
-  }
-
-  blockquote:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
-  }
-
-  blockquote p {
-    display: inline;
-  }
-
-  table {
-    tr, td, th {
-      border-collapse: collapse;
-      border: 1px solid #aaa;
-    }
-    tbody {
-      tr:nth-child(odd) {
-        background: #FFF;
-      }
-      tr:nth-child(even) {
-        background: #DDD
-      }
-    }
-    td, th {
-      padding: 0.3em;
-    }
-    thead {
-      background: #def;
-    }
   }
 
 }
