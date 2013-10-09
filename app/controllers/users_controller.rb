@@ -85,7 +85,6 @@ require 'open-uri'
         begin
           RedstonerMailer.register_mail(@user, minecraftpw).deliver
           RedstonerMailer.register_info_mail(@user, minecraftpw).deliver
-          puts
         rescue
           puts "---"
           puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
