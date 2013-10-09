@@ -12,7 +12,13 @@ class SessionsController < ApplicationController
     unless current_user
       user = User.find_by_email(params[:email])
       if user && user.authenticate(params[:password])
-        user.last_ip = "#{request.remote_ip} | #{Resolv.getname(request.remote_ip)}"
+        hostname = ""
+        begin
+          hostname = Resolv.getname(request.remote_ip)
+        rescue
+          hostname = ""
+        end
+        user.last_ip = "#{request.remote_ip} | #{hostname}"
         user.last_login = Time.now
         user.save
         if user.disabled?
@@ -27,7 +33,7 @@ class SessionsController < ApplicationController
         end
       else
         flash[:alert] = "You're doing it wrong!"
-        redirect_to login_path
+        render action: 'new'
       end
     else
       redirect_to current_user

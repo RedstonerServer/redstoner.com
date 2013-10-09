@@ -2,13 +2,13 @@
   <div class="post-title">
     <h1><%= @post.title %></h1>
   </div>
-  <span class="post-info"><%= link_to @post.author.name, @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
+  <div class="post-info"><%= link_to @post.author.name, @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
     <% if mod? %>
-     - <%= link_to "edit", edit_blogpost_path(@post.id) %>
+     <%= link_to "edit", edit_blogpost_path(@post.id), class: "post-edit" %>
     <% end %>
-  </span>
+  </div>
   <div class="post-content">
-    <%= GitHub::Markdown.render_gfm(Sanitize.clean(@post.content, Sanitize::Config::RESTRICTED)).html_safe %>
+    <%= Sanitize.clean(GitHub::Markdown.render_gfm(@post.content), Sanitize::Config::RELAXED).html_safe %>
   </div>
   <div id="comments">
     <% @post.comments.each do |c| %>

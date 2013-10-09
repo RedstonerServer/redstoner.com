@@ -50,7 +50,6 @@ class BlogpostsController < ApplicationController
         redirect_to @post, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"
-        raise @post.errors
         render action: "edit"
       end
     end

@@ -7,11 +7,11 @@
         <%= link_to pluralize(p.comments.count, "Comment"), p %>
       </span>
     </div>
-    <span class="post-info">
+    <div class="post-info">
       by <%= link_to p.author.name, p.author %> on <%= p.created_at.strftime("%e. %b %Y") %>
-    </span>
+    </div>
     <div class="post-content">
-      <%= GitHub::Markdown.render_gfm(Sanitize.clean(p.content, Sanitize::Config::RESTRICTED)).html_safe %>
+      <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>
     </div>
   </div>
   <% end %>

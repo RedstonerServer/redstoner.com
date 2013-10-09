@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include UsersHelper
   belongs_to :role
-  attr_accessible :name, :password, :password_confirmation, :ign, :email, :confirm_code, :about, :last_ip, :skype, :skype_public, :youtube, :youtube_channelname, :twitter, :last_login, :role
+  attr_accessible :name, :password, :password_confirmation, :ign, :email, :confirm_code, :about, :last_ip, :skype, :skype_public, :youtube, :youtube_channelname, :twitter, :last_login, :role, :role_id
 
   has_secure_password
 

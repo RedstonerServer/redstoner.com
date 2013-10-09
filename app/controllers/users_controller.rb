@@ -104,14 +104,14 @@ require 'open-uri'
   def update
     @user = User.find(params[:id])
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
-      userdata = params[:user] ? params[:user].slice(:name, :ign, :role, :skype, :skype_public, :youtube, :twitter, :about, :password, :password_confirmation) : {}
-      if userdata[:role]
-        role = Role.find(userdata[:role])
+      userdata = params[:user] ? params[:user].slice(:name, :ign, :role_id, :skype, :skype_public, :youtube, :twitter, :about, :password, :password_confirmation) : {}
+      if userdata[:role_id]
+        role = Role.find(userdata[:role_id])
         if (mod? && role <= current_user.role)
-          userdata[:role] = role
+          userdata[:role_id] = role.id
         else
           #reset role
-          userdata[:role] = @user.role
+          userdata[:role_id] = @user.role.id
         end
       end
       unless userdata[:ign] && (mod? && current_user.role >= @user.role)
@@ -127,7 +127,6 @@ require 'open-uri'
       if @user.update_attributes(userdata)
           flash[:notice] = 'Profile updated.'
       else
-        raise @user.errors.inspect
         flash[:alert] = "There was a problem while updating the profile"
         render action: "edit"
         return
