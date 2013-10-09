@@ -82,15 +82,15 @@ require 'open-uri'
           minecraftpw = true
           flash[:alert] = "Really? That's your Minecraft password!"
         end
-        begin
+        # begin
           RedstonerMailer.register_mail(@user, minecraftpw).deliver
           RedstonerMailer.register_info_mail(@user, minecraftpw).deliver
-        rescue
-          puts "---"
-          puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
-          puts "---"
-          flash[:alert] = "Registration mail failed. Please contact us in-game."
-        end
+        # rescue
+         # puts "---"
+         # puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+         # puts "---"
+         # flash[:alert] = "Registration mail failed. Please contact us in-game."
+       # end
         flash[:notice] = "Successfully signed up! Check your email!"
         redirect_to edit_user_path(@user)
       else
