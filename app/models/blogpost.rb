@@ -13,4 +13,9 @@ class Blogpost < ActiveRecord::Base
       User.first
     end
   end
+
+  def editor
+    @editor ||= user_editor
+  end
+
 end

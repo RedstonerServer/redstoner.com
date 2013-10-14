@@ -1,8 +1,18 @@
 /* CSS for PCs only */
 
 @media only screen
-and (min-width: 1000px)
+and (min-width: 0px) //TODO
 {
+
+  *, *:before, *:after, *:hover, *:active, *:focus {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    outline: none !important;
+   }
+
+   *::-moz-focus-inner {
+     border: 0;
+     outline: none !important;
+   }
 
   html {
     overflow-y: scroll;
@@ -10,8 +20,8 @@ and (min-width: 1000px)
 
   body {
     background-image: url('/assets/bg.png');
-    background-color: #252525;
-    background-attachment: fixed;
+    background-color: #F0F2F2;
+    color: #222;
   }
 
   #mobile-info {
@@ -41,20 +51,23 @@ and (min-width: 1000px)
     }
   }
   #head {
-    width: 800px;
-    margin: -10px auto 20px auto;
-    padding: 20px 13px 13px 13px;
     background-image: url('/assets/head_bg.png');
-    box-shadow: 0 0 10px -7px inset;
-    border-bottom: 1px solid #fff;
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+
     #logo {
       float: left;
+      margin: 10px;
+      max-width: 100%;
+      img {
+        max-width: 100%;
+        height: auto;
+      }
     }
     #userinfo {
       float: right;
-      padding: 0 10px;
+      margin: 10px;
       img.avatar {
         border: 1px solid #000;
         border-radius: 16px;
@@ -72,21 +85,22 @@ and (min-width: 1000px)
         line-height: 1em;
       }
     }
-    a {
-      color: #787878;
-      &:hover {
-        color: #AB0000;
-      }
-    }
     #menu {
       width: 100%;
-      background: url('/assets/head_bg.png') #fff;
+      background: #686969;
       input {
         display: inline;
       }
       ul {
         float: left;
         margin: 0;
+        padding: 0;
+        a {
+          color: #bbb;
+          &:hover {
+            color: #fff;
+          }
+        }
         li {
           float: left;
           height: 100%;
@@ -119,10 +133,10 @@ and (min-width: 1000px)
   }
 
   #main-content {
-    width: 650px;
-    margin: 0 auto;
-    background: #eee;
     padding: 30px;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
 
     h1 {
       font-weight: normal;
@@ -142,10 +156,13 @@ and (min-width: 1000px)
     .post-title {
       margin-bottom: 10px;
       word-wrap: break-word;
+      h1 {
+        text-transform: capitalize;
+      }
       h2 {
         font-weight: normal;
         color: #700;
-        text-transform: uppercase;
+        text-transform: capitalize;
         display: inline;
         font-size: 200%;
       }
@@ -248,25 +265,23 @@ and (min-width: 1000px)
     .comment {
       margin-bottom: 12px;
       padding: 15px;
-      box-shadow: 0 0 10px #bbb inset;
+      border: 1px solid #555;
       &:hover .editlink {
         opacity: 1;
         margin-right: 0;
       }
       &.author {
-        background: #dadada;
-        box-shadow: 0 0 10px #a7a7a7 inset;
+        border: 1px solid #633;
       }
       .comment-content {
         word-wrap: break-word;
         overflow: hidden;
       }
     }
-    textarea {
-      width: 480px;
-      height: 106px;
-      max-width: 610px;
-    }
+  }
+
+  #markdown-note {
+    margin: 0;
   }
 
   input , select, textarea {
@@ -278,15 +293,13 @@ and (min-width: 1000px)
   }
 
   input[type=text], input[type=email], input[type=password], textarea {
-      border: 1px solid #aaa;
-      border-radius: 3px;
-      background: #eee;
-      margin: 4px;
-      box-shadow: 0 0 5px #959595 inset;
-      height: 17px;
-      width: 300px;
-      padding: 1px 3px;
+      background: #ddd;
+      border: none;
       display: block;
+      height: 3em;
+      margin: 0 0 1px 0;
+      padding: 0.5em 1em;
+      width: 100%;
     }
 
   input, select, textarea {
@@ -299,7 +312,11 @@ and (min-width: 1000px)
   textarea {
     max-width: 100% !important;
     height: 200px;
-    padding: 5px 3px;
+    padding: 1em;
+    min-height: 3.5em;
+    &.comment {
+      height: 75px;
+    }
     &.full-width {
       width: 100%;
     }
@@ -368,16 +385,21 @@ and (min-width: 1000px)
     box-shadow: 0 0 10px #000;
   }
 
-  .btn-blue {
-    border: 1px solid;
+  .btn {
+    margin: 1px 1px 0 0;
     padding: 6px;
-    background: #4096ee;
     cursor: default;
     color: #fff;
+    border: none;
+    &.blue {
+    background: #4096ee;
+    }
+    &.red {
+    background: #ee4040;
+    }
     &:hover {
       box-shadow: 0 0 5px #095fb7 inset;
       color: #fff;
-      outline: none;
     }
   }
 
@@ -463,7 +485,7 @@ and (min-width: 1000px)
     }
   }
 
-  .red {
+  .red-alert {
     color: #AB0000;
     font-weight: bold;
   }

@@ -2,13 +2,13 @@
   <h1><%= @user.name %></h1>
 
   <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
-    <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn-blue" %></div>
+    <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %></div>
   <% end %>
   <div class="profile-action" >
     <% if !session[:original_user_id] && admin? %>
-      <%= link_to "become this user", become_user_path(@user), :class => "btn-blue" %>
+      <%= link_to "become this user", become_user_path(@user), :class => "btn blue" %>
     <% elsif session[:original_user_id] %>
-      <%= link_to "revert", unbecome_users_path, :class => "btn-blue" %>
+      <%= link_to "revert", unbecome_users_path, :class => "btn blue" %>
     <% end %>
   </div>
 

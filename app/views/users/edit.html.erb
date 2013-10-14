@@ -63,6 +63,6 @@
    </table>
   <%= f.submit "Save profile", disabled: @user.unconfirmed? %>
   <% if @user.unconfirmed? %>
-    <span class='red'>Please confirm your email adress first.</span>
+    <span class='red-alert'>Please confirm your email adress first.</span>
   <% end %>
 <% end %>

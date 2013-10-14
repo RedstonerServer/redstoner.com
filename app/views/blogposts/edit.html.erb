@@ -1,10 +1,10 @@
 <h1>Edit post</h1>
-
+<p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, :label => false %>
   <%= f.input :content, :label => false, input_html: {class: "full-width vertical"} %>
-  <%= f.submit "Update Post", :id => "edit_create_post" %>
+  <%= f.submit "Update Post", :id => "edit_create_post", class: "btn blue" %>
 <% end %>
 <div id="delete_post">
-  <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post + comments forever?" %>
+  <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post + comments forever?", class: "btn red" %>
 </div>

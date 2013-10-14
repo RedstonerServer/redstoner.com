@@ -22,13 +22,14 @@ class SessionsController < ApplicationController
         user.last_login = Time.now
         user.save
         if user.disabled?
-          flash[:alert] = "This user has been disabled!"
+          flash[:alert] = "Your account has been disabled!"
           redirect_to login_path
         elsif user.banned?
           flash[:alert] = "You are banned!"
           redirect_to user
         else
           session[:user_id] = user.id
+          flash[:alert] = "Remember to validate your email! Your account might be deleted" if user.unconfirmed?
           redirect_to root_path, :notice => "Logged in!"
         end
       else

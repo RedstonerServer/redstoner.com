@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Redstoner</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag "favicon.ico" %>
   <%= javascript_include_tag "application" %>
 </head>
 <body>
-  <div id="mobile-info">Sorry, we don't have a mobile style yet. It's all ugly for now.</div>
+  <div id="mobile-info">We don't have a mobile style yet. It might look shitty.<br>Tip: Turn your device to landscape.</div>
   <%= render "/layouts/head" %>
   <div id="main-content">
     <%= "<div id='alert' class='flash'>#{alert}</div>".html_safe if alert %>

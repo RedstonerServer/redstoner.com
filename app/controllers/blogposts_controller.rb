@@ -46,7 +46,8 @@ class BlogpostsController < ApplicationController
   def update
     @post = Blogpost.find(params[:id])
     if mod?
-      if @post.update_attributes(params[:blogpost])
+      @post.user_editor = current_user
+      if @post.update_attributes(params[:blogpost] ? params[:blogpost].slice(:title, :content, :user_editor) : {})
         redirect_to @post, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"
