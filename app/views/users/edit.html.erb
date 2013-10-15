@@ -1,4 +1,4 @@
-<%= link_to "Your profile", current_user %> → Edit
+<%= link_to (@user.is?(current_user) ? "Your profile" : @user.name), current_user %> → Edit
 <h1>Edit profile</h1>
 
 <%= simple_form_for @user do |f| %>
@@ -32,15 +32,19 @@
        </tr>
        <tr>
          <td>
-           Skype username<br>
-           Show to...
+           Skype username
          </td>
          <td>
              <%= f.input :skype, label: false, placeholder: "Skype username", disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) %>
-             <%= f.input :skype_public, label: false, as: :radio_buttons, collection: [['all users', false], ['only staff', true]], input_html: { disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) } %>
-         </td>
          </td>
        </tr>
+       <tr>
+         <td>
+           Show Skype to
+         </td>
+         <td>
+           <%= f.input :skype_public, label: false, as: :select, collection: [["Staff only", false], ["All users", true]], include_blank: false, input_html: { disabled: !((@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)) } %>
+           </td>
        <tr>
          <td>YouTube username</td>
          <td>
@@ -61,8 +65,13 @@
        </tr>
      </tbody>
    </table>
-  <%= f.submit "Save profile", disabled: @user.unconfirmed? %>
+  <%= f.submit "Save profile", class: "btn blue", disabled: @user.unconfirmed? %>
   <% if @user.unconfirmed? %>
-    <span class='red-alert'>Please confirm your email adress first.</span>
+    <% if @user.is?(current_user) %>
+      <span class='red-alert'>Please confirm your email adress first!</span>
+    <% else %>
+      <span class='red-alert'>This user has not confirmed his email!</span>
+    <% end %>
   <% end %>
+  <%= link_to "Cancel", @user, class: "btn red right" %>
 <% end %>

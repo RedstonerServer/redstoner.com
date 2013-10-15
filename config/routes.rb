@@ -16,13 +16,8 @@ Site::Application.routes.draw do
     end
   end
   resources :forumgroups, :path => '/forums' do
-    member do
-      resources :forums, :path => 'f' do
-        member do
-          resources :forumthreads, :path => 't', :as => 'threads' do
-          end
-        end
-      end
+    resources :forums, :path => 'f' do
+      resources :forumthreads, :path => 't', :as => 'threads'
     end
   end
 

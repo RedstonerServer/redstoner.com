@@ -290,9 +290,22 @@ and (min-width: 0px) //TODO
     &[type=submit] {
       margin: 0;
     }
+    option {
+      padding: 0.5em;
+      &:hover {
+        background: #0f0;
+        color: #00f;
+      }
+      &:nth-child(even) {
+        background: #eee;
+      }
+      &:nth-child(odd) {
+        background: #ccc;
+      }
+    }
   }
 
-  input[type=text], input[type=email], input[type=password], textarea {
+  input[type=text], input[type=email], input[type=password], input[type=number], textarea, select {
       background: #ddd;
       border: none;
       display: block;
@@ -352,13 +365,13 @@ and (min-width: 0px) //TODO
     float: left;
     label {
       display: block;
-      padding: 0 0 4px 0;
-      margin: 0 4px 4px;
-      height: 17px;
+      padding: 0.5em;
     }
   }
   #form_inputs {
-
+    input, select, textarea {
+      width: 400px;
+    }
   }
 
   .profile-action {
@@ -396,6 +409,9 @@ and (min-width: 0px) //TODO
     }
     &.red {
     background: #ee4040;
+    }
+    &.right {
+      float: right;
     }
     &:hover {
       box-shadow: 0 0 5px #095fb7 inset;
@@ -468,7 +484,7 @@ and (min-width: 0px) //TODO
       .header {
         background: #ddd;
         border-radius: 5px 5px 0 0;
-        padding: 5px 10px;
+        padding: 0.5em;
         border-bottom: 1px solid #ccc;
       }
       .forums {
@@ -478,7 +494,7 @@ and (min-width: 0px) //TODO
         .forum {
           display: block;
           font-weight: bold;
-          padding: 5px 10px;
+          padding: 0.5em;
           border-bottom: 1px solid #ddd;
         }
       }

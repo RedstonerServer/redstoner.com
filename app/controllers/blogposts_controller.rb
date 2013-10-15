@@ -29,7 +29,7 @@ class BlogpostsController < ApplicationController
 
   def create
     if mod?
-      @post = Blogpost.new(params[:blogpost])
+      @post = Blogpost.new(params[:blogpost] ? params[:blogpost].slice(:title, :content) : {})
       @post.user_author = current_user
       if @post.save
         redirect_to @post, notice: 'Post has been created.'

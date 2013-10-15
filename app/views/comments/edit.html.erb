@@ -5,5 +5,5 @@
   <%= f.submit "Update Comment", :id => "edit_create_comment", class: "btn blue" %>
 <% end %>
 <div id="delete_comment">
-  <%= button_to "Delete comment", [@comment.blogpost, @comment] , :method => "delete", :confirm => "Delete comment forever?", class: "btn red" %>
+  <%= button_to "Delete comment", [@comment.blogpost, @comment] , :method => "delete", :confirm => "Delete comment forever?", class: "btn red right" %>
 </div>

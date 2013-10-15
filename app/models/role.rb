@@ -35,4 +35,10 @@ class Role < ActiveRecord::Base
     end
   end
 
+  def self.all_from(role)
+    Role.all.select do |r|
+      r >= role
+    end
+  end
+
 end

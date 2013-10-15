@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130922181339) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "blogposts", :force => true do |t|
     t.string   "title"
@@ -34,15 +34,15 @@ ActiveRecord::Schema.define(:version => 20130922181339) do
   create_table "forumgroups", :force => true do |t|
     t.string  "name"
     t.integer "position"
-    t.integer "read_permission"
-    t.integer "write_permission"
+    t.integer "role_read_id"
+    t.integer "role_write_id"
   end
 
   create_table "forums", :force => true do |t|
     t.string  "name"
     t.integer "position"
-    t.integer "read_permission"
-    t.integer "write_permission"
+    t.integer "role_read_id"
+    t.integer "role_write_id"
     t.integer "forumgroup_id"
   end
 

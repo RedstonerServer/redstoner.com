@@ -1,10 +1,19 @@
-<h1>Register</h1>
+<h1>Sign up</h1>
 
 <%= simple_form_for @user do |f| %>
-  <%= f.input :name, label: "Display Name" %>
-  <%= f.input :ign, label: "Case sensitive Minecraft name" %>
-  <%= f.input :email %>
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
-  <%= f.submit "Register" %>
+  <div id="form_labels">
+    <%= f.label :name, "Display name" %>
+    <%= f.label :ign, "Minecraft name" %>
+    <%= f.label :email, "Email" %>
+    <%= f.label :password, "Password" %>
+    <%= f.label :password_confirmation, "Confirm" %>
+  </div>
+  <div id="form_inputs">
+    <%= f.input :name, placeholder: "John" %>
+    <%= f.input :ign, placeholder: "johndoe_1337" %>
+    <%= f.input :email, placeholder: "johndoe@example.com" %>
+    <%= f.input :password, placeholder: "••••••" %>
+    <%= f.input :password_confirmation, placeholder: "••••••" %>
+  </div>
+  <%= f.submit "Sign up", class: "btn blue" %>
 <% end %>

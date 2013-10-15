@@ -1,6 +1,7 @@
+<%= button_to 'Make new Post', new_blogpost_path, method: "get", class: "btn blue" if mod? %>
 <div id="posts">
   <% @posts.each do |p| %>
-  <div class="post">
+  <div class="post" id="post-<%= p.id %>">
     <div class="post-title">
       <h2><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
       <span class="comment-counter">
@@ -15,5 +16,4 @@
     </div>
   </div>
   <% end %>
-  <%= button_to 'Make new Post', new_blogpost_path, method: "get", class: "btn blue" if mod? %>
 </div>

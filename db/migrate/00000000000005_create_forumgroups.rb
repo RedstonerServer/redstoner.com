@@ -3,8 +3,9 @@ class CreateForumgroups < ActiveRecord::Migration
     create_table :forumgroups do |t|
       t.string :name
       t.integer :position
-      t.integer :read_permission
-      t.integer :write_permission
+
+      t.references :role_read
+      t.references :role_write
     end
   end
 end

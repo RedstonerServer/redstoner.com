@@ -1,0 +1,17 @@
+<%= link_to @group %> →  New forum
+<h1>New forum</h1>
+<%= simple_form_for [@group, @forum] do |f|%>
+  <div id="form_labels">
+    <%= f.label :name %>
+    <%= f.label :position %>
+    <%= f.label :role_read_id, "Min read role" %>
+    <%= f.label :role_write_id, "Min write role" %>
+  </div>
+  <div id="form_inputs">
+    <%= f.input :name, placeholder: "Name" %>
+    <%= f.input :position, placeholder: "Position" %>
+    <%= f.input :role_read_id, as: :select, collection: Role.all_from(Role.get :default), include_blank: "None" %>
+    <%= f.input :role_write_id, as: :select, collection: Role.all_from(Role.get :default), include_blank: false %>
+  </div>
+    <%= f.submit "Create forum", class: "btn blue" %>
+<% end %>

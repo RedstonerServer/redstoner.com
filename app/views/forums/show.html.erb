@@ -1,4 +1,4 @@
-<div class='forum-path'><%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %></div>
+<%= link_to "Forums", forumgroups_path %> → <%= link_to @forum.group, "#{forumgroups_path}#forums-#{@forum.group.id}" %> → <%= link_to @forum %>
 <h1><%= @forum.name %></h1>
 <div id="forum_threads">
   <% @threads.each do |thread| %>

@@ -1,15 +1,15 @@
 <div id="forum_groups">
   <% @groups.each do |group| %>
-    <div class="group" id="forum-<%= group.id %>">
+    <div class="group" id="forums-<%= group.id %>">
       <div class="header">
         <%= group.name %>
       </div>
 
       <div class="forums">
-        <% group.forums.sort_by{|s| s[:position]}.each do |f| %>
-        <div class="forum">
-          <%= link_to f.name, f %>
-        </div>
+        <% group.forums.each do |f| %>
+          <div class="forum">
+            <%= link_to f.name, f %>
+          </div>
         <% end %>
       </div>
 
