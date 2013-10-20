@@ -11,6 +11,7 @@
     <%= Sanitize.clean(GitHub::Markdown.render_gfm(@post.content), Sanitize::Config::RELAXED).html_safe %>
   </div>
   <div id="comments">
+    <h3><%= "#{pluralize(@post.comments.length, 'comment')}." %></h3>
     <% @post.comments.each do |c| %>
       <%= render "comments/comment", :c => c %>
     <% end %>

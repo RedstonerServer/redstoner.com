@@ -36,6 +36,7 @@ and (min-width: 0px) //TODO
       color: #F00;
     }
   }
+
   .flash {
     text-align: center;
     padding: 10px;
@@ -271,7 +272,7 @@ and (min-width: 0px) //TODO
         margin-right: 0;
       }
       &.author {
-        border: 1px solid #633;
+        border: 3px solid #555;
       }
       .comment-content {
         word-wrap: break-word;
@@ -404,11 +405,23 @@ and (min-width: 0px) //TODO
     cursor: default;
     color: #fff;
     border: none;
+    font-size: 12px;
+    line-height: normal;
+    &[disabled], &[disabled]:hover {
+      box-shadow: 0 0 5px #ddd inset;
+      color: #ddd;
+    }
     &.blue {
-    background: #4096ee;
+      background: #4096ee;
+      &[disabled] {
+        background: #96C1EE;
+      }
     }
     &.red {
-    background: #ee4040;
+      background: #ee4040;
+      &[disabled] {
+        background: #EE8383;
+      }
     }
     &.right {
       float: right;
