@@ -67,8 +67,9 @@ require "open-uri"
     yt
   end
 
-  def link_user(user)
-    link_to user.name, user, class: "role #{user.role.name}"
+  def link_user(user, html_options = {})
+    html_options[:class] = "role #{user.role.name} #{html_options[:class]}"
+    link_to(user.name, user, html_options)
   end
 
 

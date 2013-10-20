@@ -8,14 +8,12 @@
 <div id="userlist">
   <% @users.each do |u| %>
     <div class="list-user">
-      <%= link_user u, :class => "avatar_url" do %>
+      <%= link_to u, class: "avatar_url" do %>
         <%= image_tag(avatar_url(u.id, 64), :class => "avatar", :alt => "avatar") %>
       <% end %>
       <div class="user-info">
-        <%= link_to u do %>
-          <span class="user-name"><%= u.name %></span>
-          <span class="user-ign"><%= u.ign %></span>
-        <% end %>
+        <span class="user-name"><%= link_user u %></span>
+        <span class="user-ign"><%= u.ign %></span>
         <span class="user-role"><%= link_to u.role, users_path(:role => u.role.name) %></span>
       </div>
     </div>
