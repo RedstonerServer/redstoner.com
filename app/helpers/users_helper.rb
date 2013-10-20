@@ -67,5 +67,9 @@ require "open-uri"
     yt
   end
 
+  def link_user(user)
+    link_to user.name, user, class: "role #{user.role.name}"
+  end
+
 
 end

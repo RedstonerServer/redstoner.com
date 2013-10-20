@@ -261,6 +261,30 @@ and (min-width: 0px) //TODO
     }
   }
 
+  .role {
+    display: inline;
+    text-decoration: none;
+    border-bottom: 2px solid;
+    &.superadmin, &.admin {
+      border-color: #d22;
+    }
+    &.mod {
+      border-color: #6af;
+    }
+    &.donor {
+      border-color: #fa0;
+    }
+    &.default {
+      border-color: #000;
+    }
+    &.unconfirmed {
+      border-color: #888;
+    }
+    &.banned, &.disabled {
+      border-color: #ccc;
+    }
+  }
+
   #comments {
     margin: 50px 0 0 40px;
     .comment {

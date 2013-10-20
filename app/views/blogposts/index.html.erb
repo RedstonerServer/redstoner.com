@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="post-info">
-      by <%= link_to p.author.name, p.author %> on <%= p.created_at.strftime("%e. %b %Y") %>
+      by <%= link_user p.author %> on <%= p.created_at.strftime("%e. %b %Y") %>
     </div>
     <div class="post-content">
       <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>

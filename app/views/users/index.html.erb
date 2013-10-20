@@ -8,7 +8,7 @@
 <div id="userlist">
   <% @users.each do |u| %>
     <div class="list-user">
-      <%= link_to u, :class => "avatar_url" do %>
+      <%= link_user u, :class => "avatar_url" do %>
         <%= image_tag(avatar_url(u.id, 64), :class => "avatar", :alt => "avatar") %>
       <% end %>
       <div class="user-info">

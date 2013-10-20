@@ -1,5 +1,5 @@
 <div class="comment <%= "author" if c.author == @post.author %>" id="comment-<%= c.id %>">
-  <span class="comment-info"><%= link_to c.author.name, c.author %> <%= c.created_at.strftime("%e. %b %Y, %H:%m") %>
+  <span class="comment-info"><%= link_user c.author %> <%= c.created_at.strftime("%e. %b %Y, %H:%m") %>
     <% if mod? || c.author.is?(current_user) %>
      <div class="editlink"><%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c) %></div>
     <% end %>
