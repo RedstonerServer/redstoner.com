@@ -1,6 +1,6 @@
 Site::Application.routes.draw do
 
-  resources :blogposts, :path => '/blog' do
+  resources :blogposts, path: '/blog' do
     resources :comments
   end
 
@@ -15,10 +15,14 @@ Site::Application.routes.draw do
       get 'unbecome'
     end
   end
-  resources :forumgroups, :path => '/forums' do
-    resources :forums, :path => 'f' do
-      resources :forumthreads, :path => 't', :as => 'threads'
-    end
+
+  resources :forums, path: 'forums', as: 'forums' do
+      collection do
+        resources :forumgroups, path: 'groups'
+      end
+      member do
+        resources :forumthreads, path: 'threads'
+      end
   end
 
   match '/status' => 'status#show'
@@ -30,5 +34,5 @@ Site::Application.routes.draw do
 
   post 'paypal' => 'paypal#create'
 
-  root :to => 'blogposts#index'
+  root to: 'blogposts#index'
 end

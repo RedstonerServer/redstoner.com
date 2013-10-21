@@ -1,19 +1,18 @@
 class ForumgroupsController < ApplicationController
 
   def index
-    @groups = Forumgroup.all
-    if current_user
-      @groups.select! do |g|
-        g.role_read == nil || g.role_read <= current_user.role
-      end
-    else
-      @groups.select!{|g| g.role_read == nil}
-    end
-    @groups.sort_by{|g| g[:position]}
+    redirect_to forums_path
   end
 
   def show
-    redirect_to forumgroups_path + "#forums-#{params[:id]}"
+    redirect_to forums_path + "#forums-#{params[:id]}"
+  end
+
+  def edit
+  end
+
+  def update
+
   end
 
   def new
@@ -21,7 +20,7 @@ class ForumgroupsController < ApplicationController
       @group = Forumgroup.new
     else
       flash[:alert] = "You are not allowed to create forums."
-      redirect_to forumgroups_path
+      redirect_to forums_path
     end
   end
 

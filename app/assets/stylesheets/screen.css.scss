@@ -330,14 +330,17 @@ and (min-width: 0px) //TODO
     }
   }
 
+  .input {
+    height: 3em;
+  }
   input[type=text], input[type=email], input[type=password], input[type=number], textarea, select {
       background: #ddd;
       border: none;
-      display: block;
       height: 3em;
       margin: 0 0 1px 0;
       padding: 0.5em 1em;
       width: 100%;
+      display: block;
     }
 
   input, select, textarea {
@@ -374,14 +377,14 @@ and (min-width: 0px) //TODO
   }
 
   .field_with_errors {
-    input {
-      &[type=text], &[type=email], &[type=password] {
-        border: 1px solid #f00;
-        box-shadow: 0 0 5px #faa inset;
-      }
+    input, select, textarea {
+      border: 1px solid #f00;
+      box-shadow: 0 0 5px #faa inset;
     }
     .error {
       color: #f60;
+      display: inline;
+      margin-left: 0.5em;
     }
   }
 
@@ -518,6 +521,10 @@ and (min-width: 0px) //TODO
   #forum_groups {
     .group {
       margin: 10px 0;
+      &:hover .editlink {
+        opacity: 1;
+        margin-right: 0;
+      }
       .header {
         background: #ddd;
         border-radius: 5px 5px 0 0;

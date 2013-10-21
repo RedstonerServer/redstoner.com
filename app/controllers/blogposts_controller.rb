@@ -6,7 +6,7 @@ class BlogpostsController < ApplicationController
 
   def show
     @post = Blogpost.find(params[:id])
-    @comment = Comment.new(:blogpost => @post)
+    @comment = Comment.new(blogpost: @post)
   end
 
   def new

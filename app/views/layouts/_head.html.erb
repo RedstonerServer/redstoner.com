@@ -10,7 +10,7 @@
       </span>
       <%= link_to image_tag(avatar_url(current_user.id, 32), :class => "avatar"), current_user %>
     <% else %>
-      <%= link_to "Log in", login_path, :action => "new" %> | <%= link_to "Sign up", signup_path %>
+      <%= link_to "Log in", login_path(return_path: request.env['PATH_INFO']), action: "new" %> | <%= link_to "Sign up", signup_path %>
     <% end %>
   </div>
   <div class="clear"></div>

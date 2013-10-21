@@ -1,11 +1,23 @@
 class ForumsController < ApplicationController
-   def index
-    redirect_to :forumgroups
+  def index
+     @groups = Forumgroup.all
+     if current_user
+       @groups.select! do |g|
+         g.role_read.nil? || g.role_read <= current_user.role
+       end
+     else
+       @groups.select!{|g| g.role_read == nil}
+     end
+     @groups.sort_by{|g| g[:position]}
   end
 
   def show
     @forum = Forum.find(params[:id])
-    @threads = @forum.forumthreads
+    if @forum.role_read.nil? || current_user && @forum.role_read <= current_user.role
+      @threads = @forum.forumthreads.reverse
+    else
+      redirect_to forums_path
+    end
   end
 
   def new
@@ -14,7 +26,7 @@ class ForumsController < ApplicationController
       @forum = Forum.new(forumgroup: @group)
     else
       flash[:alert] = "You are not allowed to create a forum."
-      redirect_to forumgroups_path
+      redirect_to forums_path
     end
   end
 

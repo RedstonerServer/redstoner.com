@@ -3,6 +3,7 @@
     <div class="group" id="forums-<%= group.id %>">
       <div class="header">
         <%= group.name %>
+        <%= link_to "edit", edit_forumgroup_path(group), class: "editlink" if admin? %>
       </div>
 
       <div class="forums">
