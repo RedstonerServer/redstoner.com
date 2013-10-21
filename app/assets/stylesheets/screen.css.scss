@@ -330,9 +330,6 @@ and (min-width: 0px) //TODO
     }
   }
 
-  .input {
-    height: 3em;
-  }
   input[type=text], input[type=email], input[type=password], input[type=number], textarea, select {
       background: #ddd;
       border: none;
@@ -340,7 +337,6 @@ and (min-width: 0px) //TODO
       margin: 0 0 1px 0;
       padding: 0.5em 1em;
       width: 100%;
-      display: block;
     }
 
   input, select, textarea {
