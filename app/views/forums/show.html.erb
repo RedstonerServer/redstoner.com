@@ -1,4 +1,4 @@
-<%= link_to "Forums", forumgroups_path %> → <%= link_to @forum.group, @forum.group %> → <%= link_to @forum %>
+<%= link_to "Forums", forums_path %> → <%= link_to @forum.group, @forum.group %> → <%= link_to @forum %>
 <h1><%= @forum.name %></h1>
 <%= link_to "New thread", new_forumthread_path, class: "btn blue" %>
 <div id="forum_threads">

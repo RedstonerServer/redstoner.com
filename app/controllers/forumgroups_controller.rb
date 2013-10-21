@@ -36,7 +36,7 @@ class ForumgroupsController < ApplicationController
       end
     else
       flash[:alert] = "You are not allowed to create forums."
-      redirect_to forumgroups_path
+      redirect_to forums_path
     end
   end
 
