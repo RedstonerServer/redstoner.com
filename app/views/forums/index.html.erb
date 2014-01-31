@@ -8,9 +8,7 @@
 
       <div class="forums">
         <% group.forums.each do |f| %>
-          <div class="forum">
-            <%= link_to f.name, f %>
-          </div>
+          <%= link_to f.name, f, class: "forum" %>
         <% end %>
       </div>
 

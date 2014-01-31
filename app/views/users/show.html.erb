@@ -56,7 +56,7 @@
           <% if !@user.twitter.blank? %>
           <tr>
             <td>Twitter</td>
-            <td><%= link_to @user.twitter, "https://twitter.com/#{CGI.escape(@user.twitter)}", :target => "_blank" %></td>
+            <td><%= link_to "@#{@user.twitter}", "https://twitter.com/#{CGI.escape(@user.twitter)}", :target => "_blank" %></td>
           </tr>
           <% end %>
           <tr>

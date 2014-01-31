@@ -1,0 +1,1275 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sc",
+				"script	Tag"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"the",
+				"the_hour"
+			],
+			[
+				"the_",
+				"the_day"
+			],
+			[
+				"Forum",
+				"Forumthread"
+			],
+			[
+				"form",
+				"forum"
+			],
+			[
+				"thre",
+				"threads_path"
+			],
+			[
+				"for",
+				"forum"
+			],
+			[
+				"us",
+				"user_editor"
+			],
+			[
+				"user",
+				"user_author"
+			],
+			[
+				"fo",
+				"forum"
+			],
+			[
+				"retu",
+				"return_path"
+			],
+			[
+				"gr",
+				"group"
+			],
+			[
+				"bc",
+				"border-color"
+			],
+			[
+				"bo",
+				"border-bottom"
+			],
+			[
+				"bot",
+				"border-top"
+			],
+			[
+				"di",
+				"disabled"
+			],
+			[
+				"forum",
+				"forumgroups_path"
+			],
+			[
+				"ro",
+				"role_write"
+			],
+			[
+				"role_",
+				"role_read"
+			],
+			[
+				"Pass",
+				"password"
+			],
+			[
+				"tex",
+				"text-transform"
+			],
+			[
+				"input",
+				"input_html"
+			],
+			[
+				"rgb",
+				"rgba()"
+			],
+			[
+				"im",
+				"important"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"vali",
+				"validates_length_of"
+			],
+			[
+				"con",
+				"content"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"col",
+				"collection"
+			],
+			[
+				"pass",
+				"password_confirmation"
+			],
+			[
+				"pas",
+				"password"
+			],
+			[
+				"ign",
+				"ign_has_correct_case"
+			],
+			[
+				"cur",
+				"current_user"
+			],
+			[
+				"you",
+				"youtube"
+			],
+			[
+				"conf",
+				"confirm_code"
+			],
+			[
+				"yt",
+				"yt_name"
+			],
+			[
+				"sk",
+				"skype"
+			],
+			[
+				"st",
+				"status"
+			],
+			[
+				"dow",
+				"downcase"
+			],
+			[
+				"ac",
+				"action"
+			],
+			[
+				"yout",
+				"youtube_correct"
+			],
+			[
+				"noti",
+				"notif_disabled"
+			],
+			[
+				"skype",
+				"skype_public"
+			],
+			[
+				"perm",
+				"permission"
+			],
+			[
+				"last",
+				"last_login"
+			],
+			[
+				"min",
+				"minecraftpw"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"la",
+				"lagchunks"
+			],
+			[
+				"send",
+				"sender"
+			],
+			[
+				"class",
+				"class_name"
+			],
+			[
+				"li",
+				"li	Tag"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"head",
+				"head_bg"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"fon",
+				"font-style"
+			],
+			[
+				"read",
+				"read_timeout"
+			],
+			[
+				"users",
+				"users_path"
+			],
+			[
+				"avatar",
+				"avatar_url"
+			],
+			[
+				"ne",
+				"new_user"
+			],
+			[
+				"ori",
+				"original_user"
+			],
+			[
+				"se",
+				"session"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"help",
+				"helper_method"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "config/routes.rb",
+			"settings":
+			{
+				"buffer_size": 701,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Gemfile",
+			"settings":
+			{
+				"buffer_size": 813,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/forums/index.html.erb",
+			"settings":
+			{
+				"buffer_size": 436,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/forums/show.html.erb",
+			"settings":
+			{
+				"buffer_size": 435,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"rei",
+				"HTMLPrettify"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"htm",
+				"HTMLPrettify"
+			],
+			[
+				"yml",
+				"Set Syntax: YAML"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"sh",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"ru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"jquery",
+				"Snippet: jQuery AJAX call"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"jquer",
+				"Snippet: HTML - Include jQuery"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"js r",
+				"Set Syntax: JavaScript (Rails)"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"snippet html a",
+				"Snippet: HTML - Anchor"
+			],
+			[
+				"snippet form",
+				"Snippet: HTML form element"
+			],
+			[
+				"snippetm",
+				"SnippetMaker: Make Snippet"
+			],
+			[
+				"snippet html",
+				"Snippet: HTML - Figure"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"jso",
+				"Pretty JSON: Reformat (Pretty Print) JSON"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"jav",
+				"Set Syntax: Java"
+			],
+			[
+				"togg",
+				"Word Wrap: Toggle"
+			],
+			[
+				"sq",
+				"Set Syntax: SQL"
+			],
+			[
+				"prev",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"markd",
+				"Set Syntax: Markdown"
+			],
+			[
+				"previ",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"cheat",
+				"Markdown Preview: Open Markdown Cheat sheet"
+			],
+			[
+				"markdo pre",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"markdown pr",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"preview",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"md",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"shell",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"markdown ex",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"mar",
+				"Markdown Preview: Python Markdown: Preview in Browser"
+			],
+			[
+				"markdown",
+				"Markdown Preview: Github Flavored Markdown: Preview in Browser"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"ym",
+				"Set Syntax: YAML"
+			],
+			[
+				"yam",
+				"Set Syntax: YAML"
+			],
+			[
+				"ruby",
+				"Set Syntax: Ruby"
+			],
+			[
+				"rub",
+				"Set Syntax: Ruby"
+			],
+			[
+				"wra",
+				"Word Wrap: Toggle"
+			],
+			[
+				"url",
+				"URL Decode"
+			],
+			[
+				"u",
+				"URL Decode"
+			],
+			[
+				"re",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"ja",
+				"Set Syntax: Java"
+			],
+			[
+				"java",
+				"Set Syntax: Java"
+			],
+			[
+				"rege",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"scss",
+				"Set Syntax: SCSS"
+			],
+			[
+				"j",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"urld",
+				"URL Decode"
+			],
+			[
+				"pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"ss js",
+				"Set Syntax: Java Server Page (JSP)"
+			],
+			[
+				"ss ru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"ss",
+				"Set Syntax: R"
+			],
+			[
+				"ya",
+				"Set Syntax: YAML"
+			],
+			[
+				"sssq",
+				"Set Syntax: SQL"
+			],
+			[
+				"wor",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ss css",
+				"Set Syntax: CSS"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"ss pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"ss none",
+				"Set Syntax: R Console"
+			],
+			[
+				"log",
+				"Set Syntax: LaTeX Log"
+			],
+			[
+				"ss t",
+				"Set Syntax: TeX Math"
+			],
+			[
+				"ss te",
+				"Set Syntax: Textile"
+			],
+			[
+				"ss py",
+				"Set Syntax: Python"
+			],
+			[
+				"c",
+				"Set Syntax: C#"
+			],
+			[
+				"ssru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"ss xml",
+				"Set Syntax: XML"
+			],
+			[
+				"ss x",
+				"Set Syntax: XSL"
+			],
+			[
+				"ssr",
+				"Set Syntax: R"
+			],
+			[
+				"ss b",
+				"Set Syntax: Batch File"
+			],
+			[
+				"yaml",
+				"Set Syntax: YAML"
+			]
+		],
+		"width": 647.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read()) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/moo/redstoner/rails/site/app/models/forumgroup.rb",
+		"/home/moo/redstoner/backups/gdox.txt",
+		"/home/moo/redstoner/rails/site/config/routes.rb",
+		"/home/moo/.gvfs/SFTP on redstoner/etc/minecraft/redstoner2-beta/plugins/SayLol/config.yml",
+		"/media/Windows/Users/Jona/Anwendungsdaten/.minecraft/servers.dat",
+		"/home/moo/.gvfs/SFTP on redstoner/etc/minecraft/redstoner2-beta/plugins/PlotCheckup.py",
+		"/home/moo/.gvfs/SFTP on redstoner/etc/minecraft/redstoner2-beta/lib/permissions.yml",
+		"/home/moo/directories.list",
+		"/home/moo/minecraft-ID.html",
+		"/home/moo/redstoner/rails/site/Gemfile",
+		"/home/moo/Downloads/one.html",
+		"/home/moo/Desktop/Redstoner.html",
+		"/home/moo/redstoner/rails/site/app/views/blogposts/edit.html.erb",
+		"/home/moo/.config/sublime-text-3/Packages/User/html_form.sublime-snippet",
+		"/home/moo/redstoner/rails/site/app/views/blogposts/index.html.erb",
+		"/home/moo/redstoner/rails/site/app/assets/stylesheets/mobi.css.scss",
+		"/home/moo/xsession-errors.log",
+		"/home/moo/redstoner/rails/site/app/assets/stylesheets/screen.css.scss",
+		"/home/moo/redstoner/rails/site/app/views/forumthreads/new.html.erb",
+		"/home/moo/redstoner/rails/site/app/models/forum.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/forumgroups_controller.rb",
+		"/home/moo/xsession-errors.txt",
+		"/tmp/fbtmp/www.oesmith.co.uk/morris.js/js/morris.js",
+		"/home/moo/redstoner/rails/site/app/assets/stylesheets/style.css.scss",
+		"/home/moo/redstoner/rails/site/app/views/forums/show.html.erb",
+		"/home/moo/imgur-screenshot/README.md",
+		"/home/moo/imgur-screenshot/imgur-screenshot.sh",
+		"/home/moo/.minecraft/decompiled/src/ef.java",
+		"/home/moo/Downloads/pwd.php",
+		"/home/moo/Downloads/DecodedBase64.bin",
+		"/home/moo/.minecraft/decompiled/src/ak.java",
+		"/home/moo/.minecraft/decompiled/src/fb.java",
+		"/home/moo/.minecraft/decompiled/src/b.java",
+		"/home/moo/.minecraft/decompiled/src/fi.java",
+		"/home/moo/.minecraft/decompiled/src/nb.java",
+		"/home/moo/.minecraft/decompiled/src/mm.java",
+		"/home/moo/.minecraft/decompiled/src/ms.java",
+		"/home/moo/.minecraft/decompiled/src/av.java",
+		"/home/moo/.minecraft/decompiled/src/ir.java",
+		"/home/moo/.minecraft/decompiled/src/ld.java",
+		"/home/moo/.minecraft/decompiled/src/mx.java",
+		"/home/moo/.minecraft/decompiled/src/bao.java",
+		"/home/moo/.minecraft/decompiled/src/fh.java",
+		"/home/moo/.minecraft/decompiled/src/abp.java",
+		"/home/moo/.minecraft/decompiled/src/jz.java",
+		"/home/moo/redstoner/rails/site/app/controllers/forums_controller.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/forumthreads_controller.rb",
+		"/home/moo/redstoner/rails/site/app/views/forums/index.html.erb",
+		"/home/moo/redstoner/rails/site/app/models/forumthread.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/blogposts_controller.rb",
+		"/home/moo/redstoner/rails/site/db/schema.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/users_controller.rb",
+		"/home/moo/redstoner/rails/site/app/models/user.rb",
+		"/home/moo/redstoner/rails/site/app/views/sessions/new.html.erb",
+		"/home/moo/Downloads/infib.py",
+		"/home/moo/.minecraft/decompiled/src/bt.java",
+		"/home/moo/.gvfs/SFTP for sheep on redstoner.com/home/redstoner/Server/plugins/PythonLoader.py.dir/main.py",
+		"/home/moo/crash.txt",
+		"/home/moo/.minecraft/decompiled/src/ba.java",
+		"/home/moo/.minecraft/decompiled/src/lc.java",
+		"/home/moo/.minecraft/decompiled/src/ff.java",
+		"/home/moo/.minecraft/decompiled/src/fa.java",
+		"/home/moo/.minecraft/decompiled/src/org/apache/logging/log4j/message/StructuredDataId.java",
+		"/home/moo/.minecraft/decompiled/src/li.java",
+		"/home/moo/.minecraft/decompiled/src/net/minecraft/server/MinecraftServer.java",
+		"/home/moo/.minecraft/decompiled/src/l.java",
+		"/home/moo/.minecraft/decompiled/src/com/mojang/authlib/yggdrasil/YggdrasilMinecraftSessionService.java",
+		"/home/moo/.minecraft/decompiled/src/ma.java",
+		"/home/moo/.minecraft/decompiled/src/pp.java",
+		"/home/moo/.minecraft/decompiled/src/y.java",
+		"/home/moo/.minecraft/decompiled/src/aae.java",
+		"/home/moo/.minecraft/decompiled/src/org/apache/commons/lang3/StringUtils.java",
+		"/home/moo/.minecraft/decompiled/src/assets/minecraft/lang/en_US.lang",
+		"/home/moo/.minecraft/decompiled/src/mw.java",
+		"/home/moo/redstoner/rails/site/app/views/forumgroups/edit.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/layouts/_head.html.erb",
+		"/home/moo/redstoner/rails/site/app/helpers/users_helper.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/sessions_controller.rb",
+		"/home/moo/redstoner/rails/site/app/views/users/index.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/layouts/application.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/comments/_comment.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/blogposts/show.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/users/edit.html.erb",
+		"/home/moo/Desktop/redstoner history.txt",
+		"/home/moo/redstoner/rails/site/app/views/forumgroups/index.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/comments/_new.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/forums/new.html.erb",
+		"/home/moo/redstoner/rails/site/app/controllers/comments_controller.rb",
+		"/home/moo/redstoner/rails/site/app/views/forumgroups/new.html.erb",
+		"/home/moo/redstoner/rails/site/app/models/role.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/youtube.regex",
+		"/home/moo/redstoner/rails/site/app/models/blogpost.rb",
+		"/home/moo/redstoner/rails/site/lib/templates/erb/scaffold/_form.html.erb",
+		"/home/moo/redstoner/rails/site/db/migrate/00000000000006_create_forums.rb",
+		"/home/moo/redstoner/rails/site/db/migrate/00000000000005_create_forumgroups.rb",
+		"/home/moo/redstoner/rails/site/app/views/comments/edit.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/users/new.html.erb",
+		"/home/moo/redstoner/rails/site/app/views/blogposts/new.html.erb",
+		"/home/moo/redstoner/rails/site/config/environments/development.rb",
+		"/home/moo/redstoner/rails/site/config/initializers/simple_form.rb",
+		"/home/moo/redstoner/rails/site/app/views/users/show.html.erb",
+		"/home/moo/redstoner/rails/site/app/mailers/redstoner_mailer.rb",
+		"/home/moo/redstoner/rails/site/config/environments/production.rb",
+		"/home/moo/Desktop/fire-bug.html",
+		"/home/moo/redstoner/rails/site/db/seeds.rb",
+		"/home/moo/redstoner/rails/site/app/models/comment.rb",
+		"/home/moo/redstoner/rails/site/app/helpers/comments_helper.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/application_controller.rb",
+		"/home/moo/redstoner/rails/site/db/migrate/00000000000002_create_users.rb",
+		"/home/moo/redstoner/rails/site/app/helpers/application_helper.rb",
+		"/home/moo/redstoner/rails/site/config/permissions.yml",
+		"/etc/profile",
+		"/home/moo/",
+		"/home/moo/.cache/.fr-ticJEC/ts3recover.sh",
+		"/home/moo/redstoner/rails/site/app/views/redstoner_mailer/register_mail.html.erb",
+		"/home/moo/redstoner/rails/site/app/assets/javascripts/app.js",
+		"/home/moo/redstoner/rails/site/config/initializers/httplog.rb",
+		"/home/moo/knock.py",
+		"/usr/lib/firefox/distribution/searchplugins/locale/en-US/google.xml",
+		"/home/moo/.mozilla/firefox/cwceedba.default/search.json",
+		"/home/moo/redstoner/rails/site/config/application.rb",
+		"/home/moo/redstoner/rails/site/app/controllers/status_controller.rb",
+		"/home/moo/redstoner/rails/site/config/initializers/session_store.rb",
+		"/home/moo/redstoner/rails/site/config/initializers/secret_token.rb",
+		"/home/moo/redstoner/rails/site/app/views/redstoner_mailer/register_info_mail.html.erb",
+		"/home/moo/redstoner/rails/site/app/assets/stylesheets/application.css",
+		"/home/moo/redstoner/rails/site/app/models/perm_validator.rb",
+		"/home/moo/.minecraft/output-client.log"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"-*.js",
+			"-.js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"126",
+			"/64",
+			"/32",
+			"/16",
+			"/8",
+			"/4",
+			"*1",
+			"*2",
+			"*4",
+			"*2",
+			"1.5",
+			".5",
+			"0.0125",
+			"62",
+			"0.125",
+			"0.25",
+			"0.5",
+			"*1",
+			".4",
+			"*1.3",
+			"/2",
+			"/5",
+			"*1",
+			"1.5",
+			"*2",
+			"/5",
+			"/10",
+			"go",
+			"20",
+			"10",
+			"5",
+			"15",
+			"4",
+			"2",
+			"4",
+			"16",
+			"18",
+			"15",
+			"18",
+			"150",
+			"\\n",
+			"SPEAKER",
+			"^",
+			"=\"forum\"",
+			"group_path",
+			"→",
+			"class",
+			"title",
+			"\\n",
+			"@",
+			"rake",
+			" ",
+			"ip: ",
+			"name: ",
+			", ",
+			" ",
+			" ",
+			"name",
+			"acceptTextures  ",
+			"cceptTextures ",
+			"hideAddress",
+			" ",
+			"ip",
+			"  hideAddress  name",
+			"  ",
+			"ip",
+			"hideAddress",
+			"",
+			"name",
+			"name ",
+			"screen -x \"$sname\" -X stuff \"`printf",
+			"/",
+			"*:/",
+			"-rw-rw-r-- 1 sheep redstoner ",
+			"plugins",
+			"\\n",
+			"/java",
+			"108.61.56.85",
+			"dir",
+			"irb(main",
+			"\">",
+			"(?<=[a-z\\d])\\n(?=[a-z\\d])",
+			"\\n(?=\\w)",
+			"hover",
+			"running",
+			"_NET_WORKAREA",
+			"LOG",
+			"uninitialized",
+			"9020",
+			"module",
+			"symbol",
+			"string_strip",
+			"recent",
+			"STACK_OP_ADD",
+			"_NET_ACTIVE_WINDOW",
+			"called",
+			"targets",
+			"CLUTTER_IS_ACTOR",
+			"gradient",
+			"GLSL",
+			"program",
+			"generated",
+			"tom",
+			"Tomboy",
+			"/",
+			"moo",
+			"| ",
+			" |",
+			"+----------+\n|",
+			" |\n+----------+\n|",
+			"|\n+-----------+\n|",
+			"+----------+",
+			"worldchunks",
+			"irb> ",
+			"//",
+			"irb> ",
+			"amount of ",
+			"chunkWidth",
+			"chunkwidth",
+			"ChunkWidth",
+			"chunkwidth",
+			"ChunkWidth",
+			"chunkwidth",
+			"roadwidth",
+			"wallwidth",
+			"plotwidth",
+			"sheep@redstoner:/home/redstoner/Server/",
+			"=> "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			", ",
+			" && ",
+			" - ",
+			",",
+			"\\nEntityPlayer\\[",
+			" ",
+			"\\n",
+			" ",
+			"\\n",
+			" ",
+			"\\n",
+			" \\| ",
+			"\\n",
+			"",
+			"\\|",
+			"",
+			"\\|",
+			"",
+			"\\\\041\"",
+			"\\u041\"",
+			" ",
+			"\\n",
+			"",
+			"\\n",
+			"\\\\n",
+			"\\\\",
+			"\\\\x",
+			"\\x",
+			": ",
+			"\\\\'",
+			"\\n",
+			"",
+			"\\n",
+			"youtube.com/watch?v=$1",
+			" ",
+			" = ",
+			": ",
+			"\\n",
+			"?",
+			"\\n",
+			">\\n<",
+			"",
+			"\\n",
+			"true",
+			"false",
+			"#",
+			"\\n",
+			"$1\\n",
+			"\\n",
+			" = ",
+			"$1self",
+			"'",
+			"author",
+			"\\.role $1 $2.role",
+			"\\.role $1 :$2",
+			"\\.rank $1 :$2",
+			"\\.rank $1",
+			"\\.rank $0",
+			"",
+			" ",
+			"<expire>Never</",
+			"   <password>",
+			"",
+			"###",
+			"#",
+			"<br/>",
+			"\\n",
+			", ",
+			"list]",
+			"",
+			", ",
+			"\\n",
+			"post.writer",
+			"'",
+			"",
+			"User.find",
+			"User.find_by_ign(params[:id])",
+			"<br>",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "config/routes.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 701,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								459,
+								459
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Gemfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 813,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								627,
+								627
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/forums/index.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								436,
+								436
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/forums/show.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 435,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								77,
+								77
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 214.0
+	},
+	"project": "redstoner.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"show",
+				"app/views/forums/show.html.erb"
+			],
+			[
+				"fi",
+				"fi.java"
+			],
+			[
+				"ir",
+				"ir.java"
+			],
+			[
+				"fh",
+				"fh.java"
+			],
+			[
+				"ba.",
+				"ba.java"
+			],
+			[
+				"fh.",
+				"fh.java"
+			],
+			[
+				"b.",
+				"b.java"
+			],
+			[
+				"l.",
+				"l.java"
+			],
+			[
+				"pp.",
+				"pp.java"
+			],
+			[
+				"li.",
+				"li.java"
+			],
+			[
+				"usersed",
+				"app/views/users/edit.html.erb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 281.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

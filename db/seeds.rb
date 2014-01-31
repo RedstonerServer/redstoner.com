@@ -32,7 +32,7 @@ deleted_user = User.create!(
 
 User.create!(
   name: "Redstone Sheep",
-  ign: "noobkackboon",
+  ign: "redstone_sheep",
   email: "theredstonesheep@gmail.com",
   about: "Hi, I am the admin :)",
   password: "123456789",

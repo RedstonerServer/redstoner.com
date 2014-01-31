@@ -1,0 +1,41 @@
+<h1>Donate</h1>
+<h3>via PayPal</h3>
+
+<p>Donating keeps us motivated to do all the hard work and pay our bills for new hardware, etc.</p>
+<p>We appreciate every amount of donation but we do have two special ranks:</p>
+<ul>
+  <li>$5 or more: Donator
+  <li>$20 or more: Donator+
+</ul>
+</p>
+<h3>Perks for you</h3>
+<p>For <i>Donator</i> and <i>Donator+</i></p>
+<ul>
+  <li>The warm feeling of donating and a big thank you!
+  <li>commands <i>/speed</i> and <i>/enchant</i>
+  <li>A $ suffix in chat (bold for Donor+)
+  <li>The name over your head gets a special color
+  <li>A sign with your name &amp; head at <i>/warp donors</i>
+</ul>
+<div class="donations">
+  <div class="donation">
+    <h1>Donate to Redstone Sheep</h1>
+    <h4>Sheep is our admin. He fixes everything &amp; keeps the server running.</h4>
+    <form target="_top" method="post" action="https://www.paypal.com/cgi-bin/webscr">
+      <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
+      <input value="_s-xclick" name="cmd" type="hidden">
+      <input value="HPWLQLL87GTHC" name="hosted_button_id" type="hidden">
+      <input value="Donate" name="Donate" type="submit">
+    </form>
+  </div>
+  <div class="donation">
+    <h1>Donate to PanFritz</h1>
+    <h4>Pan hosts the Server.</h4>
+    <form target="_top" method="post" action="https://www.paypal.com/cgi-bin/webscr">
+      <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
+      <input value="_s-xclick" name="cmd" type="hidden">
+      <input value="SW8TJLDK9FX3W" name="hosted_button_id" type="hidden">
+      <input value="Donate" name="Donate" type="submit">
+    </form>
+  </div>
+</div>

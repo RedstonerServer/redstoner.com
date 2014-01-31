@@ -4,6 +4,13 @@ Site::Application.routes.draw do
     resources :comments
   end
 
+  resources :statics, only: [:index, :donate], path: '' do
+    collection do
+      get 'donate'
+      get 'index'
+    end
+  end
+
   resources :roles
 
   resources :users do
@@ -16,7 +23,7 @@ Site::Application.routes.draw do
     end
   end
 
-  resources :forums, path: 'forums', as: 'forums' do
+  resources :forums, path: 'forums' do
       collection do
         resources :forumgroups, path: 'groups'
       end
@@ -34,5 +41,5 @@ Site::Application.routes.draw do
 
   post 'paypal' => 'paypal#create'
 
-  root to: 'blogposts#index'
+  root to: 'statics#index'
 end

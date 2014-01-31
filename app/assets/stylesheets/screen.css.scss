@@ -20,7 +20,7 @@ and (min-width: 0px) //TODO
 
   body {
     background-image: url('/assets/bg.png');
-    background-color: #F0F2F2;
+    background-color: #F2F2F2;
     color: #222;
   }
 
@@ -54,20 +54,14 @@ and (min-width: 0px) //TODO
   #head {
     background-image: url('/assets/head_bg.png');
     width: 100%;
-    max-width: 1000px;
     margin: auto;
+    position: relative;
+    text-align: center;
 
-    #logo {
-      float: left;
-      margin: 10px;
-      max-width: 100%;
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-    }
     #userinfo {
-      float: right;
+      position: absolute;
+      top: 0;
+      right: 0;
       margin: 10px;
       img.avatar {
         border: 1px solid #000;
@@ -134,9 +128,8 @@ and (min-width: 0px) //TODO
   }
 
   #main-content {
-    padding: 30px;
+    padding: 30px 100px;
     width: 100%;
-    max-width: 1000px;
     margin: auto;
 
     h1 {
@@ -309,6 +302,11 @@ and (min-width: 0px) //TODO
     margin: 0;
   }
 
+  select {
+    text-indent: 0.01px;
+    text-overflow: "";
+  }
+
   input , select, textarea {
     margin: 4px;
     vertical-align: middle;
@@ -430,6 +428,7 @@ and (min-width: 0px) //TODO
     border: none;
     font-size: 12px;
     line-height: normal;
+    display: inline-block;
     &[disabled], &[disabled]:hover {
       box-shadow: 0 0 5px #ddd inset;
       color: #ddd;

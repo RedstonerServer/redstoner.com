@@ -9,4 +9,19 @@ and (max-width: 999px)
     display: block;
     font-size: 0.7em;
   }
+
+  #head {
+    text-align: left;
+  }
+
+  #main-content {
+    padding: 30px 5px;
+  }
+
+  .editlink {
+    float: right;
+    opacity: 1;
+    margin-right: 0;
+  }
+
 }

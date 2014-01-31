@@ -13,13 +13,14 @@ class User < ActiveRecord::Base
   validates_length_of :password, in: 8..256, :on => :create
   validates_length_of :name, in: 3..20
   validates_length_of :about, maximum: 5000
-  validates_length_of :ign, minimum: 2
+  validates_length_of :ign, minimum: 2, maximum: 100
 
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /^\S+@\S+\.[a-z]{2,}$/i, message: "That doesn't look like an email adress."}
   validates :name, uniqueness: {case_sensitive: false}, format: {with: /^[a-z\d\-_ ]+$/i, message: "Allowed characters: a-z0-9, dashes, underscores and spaces"}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /^[a-z\d_]+$/i, message: "That is probably not your username."}
 
-  validate :ign_is_not_skull, :ign_is_not_mojang, :ign_has_paid, :ign_has_correct_case
+  validate :ign_is_not_skull, :ign_has_paid, :ign_has_correct_case
+  validate :ign_is_not_mojang, on: :create
 
   has_many :blogposts
   has_many :comments
@@ -72,7 +73,11 @@ class User < ActiveRecord::Base
   end
 
   def ign_is_not_mojang
-    errors.add(:ign, "If that's really you, contact <a href='/users?role=staff'>us</a> in-game.") if ["mollstam", "carlmanneh", "MinecraftChick", "Notch", "jeb_", "xlson", "jonkagstrom", "KrisJelbring", "marc", "Marc_IRL", "MidnightEnforcer", "YoloSwag4Lyfe", "EvilSeph", "Grumm", "Dinnerbone", "geuder", "eldrone", "JahKob", "BomBoy", "MansOlson", "pgeuder", "91maan90", "vubui", "PoiPoiChen", "mamirm", "eldrone", "_tomcc"].include?(self.ign)
+    if self.ign.start_with?("mojang_secret_ign_")
+      self.ign = self.ign[18..-1]
+    else
+      errors.add(:ign, "If that's really you, contact <a href='/users?role=staff'>us</a> in-game.") if ["mollstam", "carlmanneh", "MinecraftChick", "Notch", "jeb_", "xlson", "jonkagstrom", "KrisJelbring", "marc", "Marc_IRL", "MidnightEnforcer", "YoloSwag4Lyfe", "EvilSeph", "Grumm", "Dinnerbone", "geuder", "eldrone", "JahKob", "BomBoy", "MansOlson", "pgeuder", "91maan90", "vubui", "PoiPoiChen", "mamirm", "eldrone", "_tomcc"].include?(self.ign)
+    end
   end
 
   def ign_has_paid

@@ -37,11 +37,18 @@ require 'open-uri'
     if current_user
       @user = User.find(params[:id])
       code = params[:code]
-      if @user && @user == current_user && code && @user.confirm_code == code
+      if @user && @user.is?(current_user) && code && @user.confirm_code == code
         if @user.role == Role.get(:unconfirmed)
           @user.role = Role.get :default
-          @user.save
-          flash[:notice] = "Registration confirmed."
+          if @user.save
+            flash[:notice] = "Registration mail confirmed."
+            redirect_to edit_user_path(@user)
+            return
+          else
+            flash[:alert] = "Something went wrong, please contact us ingame."
+            redirect_to @user
+            return
+          end
         elsif @user.role < Role.get(:unconfirmed)
           flash[:alert] = "Your account has been banned or removed"
         else

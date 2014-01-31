@@ -1,18 +1,17 @@
-<%= link_to @forum.group, @forum.group %> → <%= link_to @forum, @forum %> →  New thread
+<%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum, @forum %> →  New thread
 <h1>New thread</h1>
 <%= simple_form_for @thread do |f|%>
   <div id="form_labels">
     <%= f.label :title %>
-    <%= f.label :sticky if mod? %>
-    <%= f.label :locked if mod? %>
     <%= f.label :content, "Text" %>
   </div>
   <div id="form_inputs">
     <%= f.input :title, placeholder: "Title" %>
-    <%= f.input :sticky, as: :select, collection: [["No", false], ["Yes", true]], include_blank: false if mod? %>
-    <%= f.input :locked, as: :select, collection: [["No", false], ["Yes", true]], include_blank: false if mod? %>
     <%= f.input :content, placeholder: "Text" %>
   </div>
+  <% if mod? %>
+    <%= f.input :sticky %> <%= f.label :sticky %>
+    <%= f.input :locked %> <%= f.label :locked %>
+  <% end %>
   <%= f.submit "Create forum", class: "btn blue" %><br>
-  Yea i know this is ugly :D
 <% end %>
