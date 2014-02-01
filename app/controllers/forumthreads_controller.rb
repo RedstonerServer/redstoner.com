@@ -1,6 +1,6 @@
 class ForumthreadsController < ApplicationController
   def index
-    f = Forum.find(params[:id])
+    f = Forum.find(params[:forum_id])
     redirect_to forum_path(f.forumgroup, f)
   end
 
@@ -10,7 +10,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def new
-    @forum = Forum.find(params[:id])
+    @forum = Forum.find(params[:forum_id])
     if @forum && current_user && (@forum.group.role_read.nil? || @forum.group.role_read <= current_user.role) && (@forum.role_read.nil? || @forum.role_read <= current_user.role)
       @thread = Forumthread.new(forum: @forum)
     else
@@ -20,14 +20,14 @@ class ForumthreadsController < ApplicationController
   end
 
   def create
-    @forum = Forum.find(params[:id])
+    @forum = Forum.find(params[:forum_id])
     if (confirmed? && (@forum.group.role_read || Role.get(:default))<= current_user.role && (@forum.group.role_write || Role.get(:default))<= current_user.role && (@forum.role_read || Role.get(:default))<= current_user.role && (@forum.group.role_write || Role.get(:default))<= current_user.role)
       @thread = Forumthread.new(mod? ? params[:forumthread] : params[:forumthread].slice(:title, :content))
       @thread.user_author = current_user
       @thread.forum = @forum
       if @thread.save
         flash[:notice] = "Thread created!"
-        redirect_to @thread
+        redirect_to forum_forumthread_path(@forum, @thread)
         return
       else
         flash[:alert] = "Seomthing went wrong while creating your thread."

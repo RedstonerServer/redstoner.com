@@ -1,10 +1,17 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %>
-<h1><%= @forum.name %></h1>
-<%= link_to "New thread", new_forum_forumthread_path(@forum), class: "btn blue" %>
-<div id="forum_threads">
-  <% @threads.each do |thread| %>
-    <div class="forum_thread" id="thread-<%= thread.id %>">
-      <%= link_to thread.title, forum_forumthread_path(@forum, thread) %>
+
+<p><%= link_to "New thread", new_forum_forumthread_path(@forum), class: "btn blue" %></p>
+
+<div id="forum_groups">
+  <div id="forum-<%= @forum.id %>" class="group">
+    <div class="header">
+      <%= @forum.name %> <%= link_to "edit", edit_forum_path(@forum), class: "editlink" %>
     </div>
-  <% end %>
-</div>
+    <div class="forums">
+      <% @threads.select{ |t| t.sticky }.each do |thread| %>
+        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "forum sticky" %>
+      <% end %>
+      <% @threads.reject{ |t| t.sticky }.each do |thread| %>
+        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "forum" %>
+      <% end %>
+    </div>

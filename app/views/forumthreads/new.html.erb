@@ -1,6 +1,6 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum, @forum %> →  New thread
 <h1>New thread</h1>
-<%= simple_form_for @thread do |f|%>
+<%= simple_form_for [@forum, @thread] do |f|%>
   <div id="form_labels">
     <%= f.label :title %>
     <%= f.label :content, "Text" %>
