@@ -4,5 +4,5 @@
      <div class="editlink"><%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c) %></div>
     <% end %>
   </span>
-  <div class="comment-content"><%= h(c.content).gsub(/(\w*[\r\n]){3,}/, "\n\n").gsub("\n", "<br>").html_safe %></div>
+  <div class="comment-content"><%= h(c.content).gsub(/[\r\n]{3,}/, "\n\n").gsub("\n", "<br>").html_safe %></div>
 </div>
