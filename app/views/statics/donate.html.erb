@@ -1,22 +1,25 @@
 <h1>Donate</h1>
-<h3>via PayPal</h3>
 
-<p>Donating keeps us motivated to do all the hard work and pay our bills for new hardware, etc.</p>
-<p>We appreciate every amount of donation but we do have two special ranks:</p>
+<p>Running a server is really stressful and expensive.<br>
+  Donating keeps us motivated to do all the work and allows us to pay our bills, etc.</p>
+<p>Donations are made via <a href="https://www.paypal.com" target="_blank">PayPal</a>
+<p>We appreciate every amount of donation but we decided to create two special ranks:</p>
 <ul>
-  <li>$5 or more: Donator
-  <li>$20 or more: Donator+
+  <li>Donator  ($5  or more)
+  <li>Donator+ ($20 or more)
 </ul>
 </p>
 <h3>Perks for you</h3>
 <p>For <i>Donator</i> and <i>Donator+</i></p>
 <ul>
   <li>The warm feeling of donating and a big thank you!
-  <li>commands <i>/speed</i> and <i>/enchant</i>
-  <li>A $ suffix in chat (bold for Donor+)
-  <li>The name over your head gets a special color
-  <li>A sign with your name &amp; head at <i>/warp donors</i>
+  <li>Commands <i>/speed</i> and <i>/enchant</i>
+  <li>You can have a nickname. See <i>/nick</i>
+  <li>A "$" next to your name
+  <li>The name above your head gets a special color
+  <li>Your head + a sign with your name at <i>/warp donors</i>
 </ul>
+<hr>
 <div class="donations">
   <div class="donation">
     <h1>Donate to Redstone Sheep</h1>
@@ -25,7 +28,7 @@
       <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
       <input value="_s-xclick" name="cmd" type="hidden">
       <input value="HPWLQLL87GTHC" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit">
+      <input value="Donate" name="Donate" type="submit" class="btn blue">
     </form>
   </div>
   <div class="donation">
@@ -35,7 +38,7 @@
       <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
       <input value="_s-xclick" name="cmd" type="hidden">
       <input value="SW8TJLDK9FX3W" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit">
+      <input value="Donate" name="Donate" type="submit" class="btn blue">
     </form>
   </div>
 </div>
