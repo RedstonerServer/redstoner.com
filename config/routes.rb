@@ -24,12 +24,10 @@ Site::Application.routes.draw do
   end
 
   resources :forums, path: 'forums' do
-      collection do
-        resources :forumgroups, path: 'groups'
-      end
-      member do
-        resources :forumthreads, path: 'threads'
-      end
+    resources :forumthreads, path: 'threads'
+    collection do
+      resources :forumgroups, path: 'groups'
+    end
   end
 
   match '/status' => 'status#show'
