@@ -1,9 +1,7 @@
 <h1>Edit comment</h1>
 
 <%= simple_form_for [@comment.blogpost, @comment] do |f| %>
-  <%= f.input :content, :label => false, :as => "text", :placeholder => "Comment" %>
-  <%= f.submit "Update Comment", :id => "edit_create_comment", class: "btn blue" %>
+  <%= f.input :content, label: false, as: "text", placeholder: "Comment" %>
+  <%= f.submit "Update Comment", class: "btn blue left" %>
 <% end %>
-<div id="delete_comment">
-  <%= button_to "Delete comment", [@comment.blogpost, @comment] , :method => "delete", :confirm => "Delete comment forever?", class: "btn red right" %>
-</div>
+<%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", confirm: "Delete comment forever?", class: "btn red right" %>

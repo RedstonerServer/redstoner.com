@@ -1,17 +1,17 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum, @forum %> →  New thread
 <h1>New thread</h1>
 <%= simple_form_for [@forum, @thread] do |f|%>
+  <% if mod? %>
+    <%= f.label :sticky %> <%= f.input :sticky %>
+    <%= f.label :locked %> <%= f.input :locked %>
+  <% end %>
   <div id="form_labels">
     <%= f.label :title %>
-    <%= f.label :content, "Text" %>
   </div>
   <div id="form_inputs">
     <%= f.input :title, placeholder: "Title" %>
-    <%= f.input :content, placeholder: "Text" %>
   </div>
-  <% if mod? %>
-    <%= f.input :sticky %> <%= f.label :sticky %>
-    <%= f.input :locked %> <%= f.label :locked %>
-  <% end %>
-  <%= f.submit "Create forum", class: "btn blue" %><br>
+  <%= f.hidden_field :content, id: "epic-textarea", placeholder: "Text" %>
+  <div id="epic"></div>
+  <%= f.submit "Create thread", class: "btn blue" %><br>
 <% end %>

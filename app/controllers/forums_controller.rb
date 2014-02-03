@@ -14,7 +14,7 @@ class ForumsController < ApplicationController
   def show
     @forum = Forum.find(params[:id])
     if @forum.role_read.nil? || current_user && @forum.role_read <= current_user.role
-      @threads = @forum.forumthreads.reverse
+      @threads = @forum.forumthreads.order("sticky desc, updated_at desc")
     else
       redirect_to forums_path
     end

@@ -6,7 +6,26 @@ class ForumthreadsController < ApplicationController
 
   def show
     @thread = Forumthread.find(params[:id])
-    render text: @thread.content
+  end
+
+  def update
+    @thread = Forumthread.find(params[:id])
+    if mod? || @thread.author.is?(current_user)
+      @thread.user_editor = current_user
+      if @thread.update_attributes(params[:forumthread] ? params[:forumthread].slice(:title, :content, :user_editor) : {})
+        redirect_to [@thread.forum, @thread], notice: 'Post has been updated.'
+      else
+        flash[:alert] = "There was a problem while updating the post"
+        render action: "edit"
+      end
+    else
+      flash[:alert] = "You are not allowed to edit this thread!"
+      redirect_to [@thread.forum, @thread]
+    end
+  end
+
+  def edit
+    @thread = Forumthread.find(params[:id])
   end
 
   def new

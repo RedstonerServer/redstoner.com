@@ -3,15 +3,12 @@
 <p><%= link_to "New thread", new_forum_forumthread_path(@forum), class: "btn blue" %></p>
 
 <div id="forum_groups">
-  <div id="forum-<%= @forum.id %>" class="group">
+  <div id="forum-<%= @forum.id %>" class="item_group">
     <div class="header">
       <%= @forum.name %> <%= link_to "edit", edit_forum_path(@forum), class: "editlink" %>
     </div>
-    <div class="forums">
-      <% @threads.select{ |t| t.sticky }.each do |thread| %>
-        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "forum sticky" %>
-      <% end %>
-      <% @threads.reject{ |t| t.sticky }.each do |thread| %>
-        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "forum" %>
+    <div class="items">
+      <% @threads.each do |thread| %>
+        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "item#{" locked" if thread.locked}#{" sticky" if thread.sticky}" %>
       <% end %>
     </div>

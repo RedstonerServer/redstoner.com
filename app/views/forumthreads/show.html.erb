@@ -1,0 +1,16 @@
+<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
+<div class="post">
+  <div class="thread-title">
+    <h1><%= @thread.title %></h1>
+  </div>
+  <div class="thread-info"><%= link_user @thread.author %> on <%= @thread.created_at.strftime("%e. %b %Y") %>
+    <% if mod? %>
+     <%= link_to "edit", edit_forum_forumthread_path(@thread.forum, @thread), class: "thread-edit" %>
+    <% end %>
+  </div>
+  <div class="thread-content">
+    <%= Sanitize.clean(GitHub::Markdown.render_gfm(@thread.content), Sanitize::Config::RELAXED).html_safe %>
+  </div>
+</div>
+<hr>
+(replies go here)

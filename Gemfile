@@ -12,6 +12,7 @@ gem 'github-markdown'
 gem 'hirb' #pretty console output
 gem 'rb-readline', '~> 0.4.2'
 gem 'rest-client'
+gem 'epic-editor-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

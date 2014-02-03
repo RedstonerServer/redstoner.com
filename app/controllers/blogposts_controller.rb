@@ -45,7 +45,7 @@ class BlogpostsController < ApplicationController
 
   def update
     @post = Blogpost.find(params[:id])
-    if mod?
+    if mod? || @comment.author.is?(current_user)
       @post.user_editor = current_user
       if @post.update_attributes(params[:blogpost] ? params[:blogpost].slice(:title, :content, :user_editor) : {})
         redirect_to @post, notice: 'Post has been updated.'

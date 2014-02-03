@@ -11,4 +11,16 @@ class Forumthread < ActiveRecord::Base
   def to_s
     title
   end
+
+  def author
+    @author ||= if self.user_author.present?
+      user_author
+    else
+      User.first
+    end
+  end
+
+  def editor
+    @editor ||= user_editor
+  end
 end
