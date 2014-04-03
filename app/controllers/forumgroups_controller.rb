@@ -9,17 +9,33 @@ class ForumgroupsController < ApplicationController
   end
 
   def edit
+    if admin?
+      @group = Forumgroup.find(params[:id])
+    else
+      flash[:alert] = "You are not allowed to edit forum groups."
+    end
   end
 
   def update
-
+    if admin?
+      @group = Forumgroup.find(params[:id])
+      if @group.update_attributes(params[:forumgroup])
+        flash[:notice] = "Forum group updated"
+        redirect_to @group
+      else
+        flash[:alert] = "Something went wrong"
+        render :edit
+      end
+    else
+      flash[:alert] = "You are not allowed to change forum groups"
+    end
   end
 
   def new
     if admin?
       @group = Forumgroup.new
     else
-      flash[:alert] = "You are not allowed to create forums."
+      flash[:alert] = "You are not allowed to create forum groups."
       redirect_to forums_path
     end
   end
@@ -28,14 +44,14 @@ class ForumgroupsController < ApplicationController
     if admin?
       @group = Forumgroup.new(params[:forumgroup])
       if @group.save
-        flash[:notice] = "Forums created."
+        flash[:notice] = "Forum group created."
         redirect_to @group
       else
         flash[:alert] = "Something went wrong"
         render :new
       end
     else
-      flash[:alert] = "You are not allowed to create forums."
+      flash[:alert] = "You are not allowed to create forum groups."
       redirect_to forums_path
     end
   end

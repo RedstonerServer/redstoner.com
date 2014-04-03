@@ -7,68 +7,67 @@
     <tbody>
       <tr>
         <td></td>
-        <td><%= image_tag avatar_url(@user.id, 128), :class => "user-avatar avatar", :alt => "avatar" %></td>
+        <td><%= image_tag @user.avatar_url(128), :class => "user-avatar avatar", :alt => "avatar" %></td>
       </tr>
       <tr>
         <td>Display name</td>
         <td>
-           <%= f.input :name, :label => false, disabled: !can_edit? %>
-         </td>
-       </tr>
-         <td>In-game name</td>
-         <td>
-           <%= f.input :ign, :label => false, disabled: !(mod? && current_user.role >= @user.role) %>
-         </td>
-       </tr>
-       <tr>
-         <td>Role</td>
-         <td>
-           <% if mod? && current_user.role >= @user.role %>
-             <%= f.association :role, :label => false, :collection => Role.all_until(current_user.role), :include_blank => false %>
-           <% else %>
-             <%= f.input :role, label: false, disabled: true %>
-           <% end %>
-         </td>
-         </td>
-       </tr>
-       <tr>
-         <td>
-           Skype username
-         </td>
-         <td>
-             <%= f.input :skype, label: false, placeholder: "Skype username", disabled: !can_edit? %>
-         </td>
-       </tr>
-       <tr>
-         <td>
-           Show Skype to
-         </td>
-         <td>
-           <%= f.input :skype_public, label: false, as: :select, collection: [["Staff only", false], ["All users", true]], include_blank: false, input_html: { disabled: !can_edit? } %>
-           </td>
-       <tr>
-         <td>YouTube username</td>
-         <td>
-           <%= f.input :youtube, :label => false, placeholder: "YouTube username", disabled: !can_edit? %>
-         </td>
-       </tr>
-       <tr>
-         <td>Twitter username</td>
-         <td>
-           <%= f.input :twitter, :label => false, placeholder: "Twitter username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)) %>
-         </td>
-       </tr>
-       <tr>
-         <td>About you</td>
-         <td>
-           <%= f.input :about, :label => false, :input_html => {:class => "vertical"}, placeholder: "Tell us something about you...", disabled: !can_edit? %>
-         </td>
-       </tr>
-     </tbody>
-   </table>
-  <%= f.submit "Save profile", class: "btn blue", disabled: (@user.unconfirmed? && @user.is?(current_user)) %>
-  <% if @user.unconfirmed? %>
-    <% if @user.is?(current_user) %>
+          <%= f.input :name, :label => false, disabled: !can_edit? %>
+        </td>
+      </tr>
+      <% if mod? %>
+        <tr>
+          <td>In-game name</td>
+          <td>
+            <%= f.input :ign, :label => false, disabled: !(mod? && current_user.role >= @user.role) %>
+          </td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td>
+            <% if mod? && current_user.role >= @user.role %>
+            <%= f.association :role, :label => false, :collection => Role.all_to(current_user.role), :include_blank => false %>
+            <% else %>
+            <%= f.input :role, label: false, disabled: true %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>Skype username</td>
+        <td>
+          <%= f.input :skype, label: false, placeholder: "Skype username", disabled: !can_edit? %>
+        </td>
+      </tr>
+      <tr>
+        <td>Show Skype to</td>
+        <td>
+          <%= f.input :skype_public, label: false, as: :select, collection: [["Staff only", false], ["All users", true]], include_blank: false, input_html: { disabled: !can_edit? } %>
+        </td>
+      </tr>
+      <tr>
+        <td>YouTube username</td>
+        <td>
+          <%= f.input :youtube, :label => false, placeholder: "YouTube username", disabled: !can_edit? %>
+        </td>
+      </tr>
+      <tr>
+        <td>Twitter username</td>
+        <td>
+          <%= f.input :twitter, :label => false, placeholder: "Twitter username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)) %>
+        </td>
+      </tr>
+      <tr>
+        <td>About you</td>
+        <td>
+          <%= f.input :about, :label => false, :input_html => {:class => "vertical"}, placeholder: "Tell us something about you...", disabled: !can_edit? %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<%= f.submit "Save profile", class: "btn blue", disabled: (!@user.confirmed? && @user.is?(current_user)) %>
+<% if !@user.confirmed? %>
+  <% if @user.is?(current_user) %>
       <span class='red-alert'>Please confirm your email adress first!</span>
     <% else %>
       <span class='red-alert'>This user has not confirmed his email!</span>

@@ -13,3 +13,4 @@
 //= require jquery_ujs
 //= require epiceditor
 //= require app
+//= require moment

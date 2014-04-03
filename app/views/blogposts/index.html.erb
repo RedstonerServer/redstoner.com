@@ -1,19 +1,20 @@
 <%= link_to 'Make new Post', new_blogpost_path, class: "btn blue" if mod? %>
 <div id="posts">
   <% @posts.each do |p| %>
-  <div class="post" id="post-<%= p.id %>">
-    <div class="post-title">
-      <h2><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
-      <span class="comment-counter">
-        <%= link_to pluralize(p.comments.count, "Comment"), p %>
-      </span>
+    <div class="item-group with-avatar" id="post-<%= p.id %>">
+      <%= link_to(image_tag(p.author.avatar_url(64), class: "avatar"), p.author, title: p.author.ign) %>
+      <div class="header">
+        <%= render partial: "users/username", locals: { user: p.author } %> <time><%= link_to p.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+        <span class="comment-counter">
+          <%= link_to pluralize(p.comments.count, "Comment"), p %>
+        </span>
+      </div>
+      <div class="items">
+        <div class="item content">
+          <h2 class="headline"><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
+          <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>
+        </div>
+      </div>
     </div>
-    <div class="post-info">
-      by <%= link_user p.author %> on <%= p.created_at.strftime("%e. %b %Y") %>
-    </div>
-    <div class="post-content">
-      <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>
-    </div>
-  </div>
   <% end %>
 </div>

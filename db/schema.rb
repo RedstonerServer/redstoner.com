@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 10) do
 
   create_table "blogposts", :force => true do |t|
     t.string   "title"
@@ -58,6 +58,10 @@ ActiveRecord::Schema.define(:version => 8) do
     t.datetime "updated_at",                        :null => false
   end
 
+  create_table "register_tokens", :primary_key => "uuid", :force => true do |t|
+    t.string "token", :limit => 6, :null => false
+  end
+
   create_table "roles", :force => true do |t|
     t.string  "name"
     t.integer "value"
@@ -73,12 +77,21 @@ ActiveRecord::Schema.define(:version => 8) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "threadreplies", :force => true do |t|
+    t.text     "content"
+    t.integer  "user_author_id"
+    t.integer  "user_editor_id"
+    t.integer  "forumthread_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "users", :force => true do |t|
+    t.string   "uuid",                                   :null => false
     t.string   "name",                                   :null => false
     t.string   "password_digest",                        :null => false
     t.string   "ign",                                    :null => false
     t.string   "email",                                  :null => false
-    t.string   "confirm_code",                           :null => false
     t.text     "about"
     t.string   "last_ip"
     t.string   "skype"
@@ -86,7 +99,10 @@ ActiveRecord::Schema.define(:version => 8) do
     t.string   "youtube"
     t.string   "youtube_channelname"
     t.string   "twitter"
-    t.datetime "last_login"
+    t.boolean  "donor",               :default => false
+    t.string   "email_token"
+    t.boolean  "confirmed",           :default => false
+    t.datetime "last_seen"
     t.integer  "role_id",                                :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false

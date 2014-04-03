@@ -13,6 +13,7 @@ require 'open-uri'
       @users = User.all
       @users.shift() #Remove first user
     end
+    @users = @users.sort_by{|u| u.role}.reverse!
   end
 
   def show
@@ -29,7 +30,7 @@ require 'open-uri'
       flash[:notice] = "You are already signed up!"
       redirect_to current_user
     else
-      @user = User.new(role: Role.get(:unconfirmed))
+      @user = User.new
     end
   end
 
@@ -37,9 +38,9 @@ require 'open-uri'
     if current_user
       @user = User.find(params[:id])
       code = params[:code]
-      if @user && @user.is?(current_user) && code && @user.confirm_code == code
-        if @user.role == Role.get(:unconfirmed)
-          @user.role = Role.get :default
+      if @user && @user.is?(current_user) && code && @user.email_token == code
+        if !confirmed?
+          @user.confirmed = true
           if @user.save
             flash[:notice] = "Registration mail confirmed."
             redirect_to edit_user_path(@user)
@@ -49,7 +50,7 @@ require 'open-uri'
             redirect_to @user
             return
           end
-        elsif @user.role < Role.get(:unconfirmed)
+        elsif @user.role < Role.get(:normal)
           flash[:alert] = "Your account has been banned or removed"
         else
           flash[:alert] = "Your account has already been confirmed!"
@@ -60,7 +61,8 @@ require 'open-uri'
         redirect_to root_path
       end
     else
-      flash[:alert] = "Please login"
+      flash[:alert] = "Please login first"
+      cookies[:return_path] = request.fullpath
       redirect_to login_path
     end
   end
@@ -78,32 +80,44 @@ require 'open-uri'
       flash[:notice] = "You are already signed up!"
       redirect_to current_user
     else
-      @user = User.new(params[:user] ? params[:user].slice(:name, :ign, :email, :password, :password_confirmation) : {} )
-      @user.role = Role.get :unconfirmed
-      @user.confirm_code = SecureRandom.hex(16)
-      @user.last_ip = request.remote_ip
-      @user.last_login = Time.now
-      if @user.save
-        session[:user_id] = @user.id
-        if uses_mc_password?(@user.ign, params[:user][:password])
-          minecraftpw = true
-          flash[:alert] = "Really? That's your Minecraft password!"
+      @user = User.new(params[:user] ? params[:user].slice(:ign, :email, :password, :password_confirmation) : {} )
+      user_profile = @user.get_profile
+      if user_profile
+        @user.uuid = user_profile["id"]
+        @user.ign  = user_profile["name"] # correct case
+        if validate_token(@user.uuid, @user.email, params[:registration_token])
+          @user.last_ip = request.remote_ip # showing in mail
+          if @user.save
+            session[:user_id] = @user.id
+            if @user.uses_mc_password?(params[:user][:password])
+              is_idiot = true
+              flash[:alert] = "Really? That's your Minecraft password!"
+            end
+            begin
+              RedstonerMailer.register_mail(@user, is_idiot).deliver
+              RedstonerMailer.register_info_mail(@user, is_idiot).deliver
+            rescue => e
+              puts "---"
+              puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+              puts e.message
+              puts "---"
+              flash[:alert] = "Registration mail failed. Please contact us in-game."
+            end
+            flash[:notice] = "Successfully signed up! Check your email!"
+            redirect_to edit_user_path(@user)
+          else
+            flash[:alert] = "Something went wrong"
+            render action: "new"
+          end
+          @user.email_token = SecureRandom.hex(16)
+        else
+          flash[:alert] = "Token invalid for this username"
+          render action: "new"
         end
-        begin
-          RedstonerMailer.register_mail(@user, minecraftpw).deliver
-          RedstonerMailer.register_info_mail(@user, minecraftpw).deliver
-       rescue => e
-          puts "---"
-          puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
-          puts e.message
-          puts "---"
-          flash[:alert] = "Registration mail failed. Please contact us in-game."
-        end
-        flash[:notice] = "Successfully signed up! Check your email!"
-        redirect_to edit_user_path(@user)
       else
-        flash[:alert] = "Something went wrong"
-        render action: "new"
+        flash[:alert] = "Error. Your username is not correct or Mojang's servers are down."
+        render action: new
+        return
       end
     end
   end
@@ -129,10 +143,10 @@ require 'open-uri'
         youtube = get_youtube(userdata[:youtube])
         userdata[:youtube] = youtube[:channel]
         userdata[:youtube_channelname] = youtube[:channel_name]
-        flash[:alert] = "Couldn't find a YouTube channel by that name, are you sure it's correct?"  unless youtube[:is_correct?]
+        flash[:alert] = "Couldn't find a YouTube channel with that name, are you sure it's correct?"  unless youtube[:is_correct?]
       end
       if @user.update_attributes(userdata)
-          flash[:notice] = 'Profile updated.'
+        flash[:notice] = 'Profile updated.'
       else
         flash[:alert] = "There was a problem while updating the profile"
         render action: "edit"
@@ -158,7 +172,7 @@ require 'open-uri'
   def unban
     @user = User.find(params[:id])
     if mod? && current_user.role >= @user.role
-      @user.role = Role.get :default
+      @user.role = Role.get :normal
       flash[:notice] = "\"#{@user.name}\" has been unbanned!"
     else
       flash[:alert] = "You are not allowed to unban this user!"
@@ -210,6 +224,15 @@ require 'open-uri'
       flash[:notice] = "You are no longer '#{old_user.name}'!"
     end
     redirect_to old_user
+  end
+
+
+
+  private
+
+  def validate_token(uuid, email, token)
+    user_token = RegisterToken.where(uuid: uuid, email: email).first
+    user_token && user_token.token == token
   end
 
 end

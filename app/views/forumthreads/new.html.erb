@@ -1,17 +1,22 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum, @forum %> →  New thread
 <h1>New thread</h1>
-<%= simple_form_for [@forum, @thread] do |f|%>
-  <% if mod? %>
-    <%= f.label :sticky %> <%= f.input :sticky %>
-    <%= f.label :locked %> <%= f.input :locked %>
-  <% end %>
-  <div id="form_labels">
-    <%= f.label :title %>
-  </div>
+<%= form_for [@forum, @thread] do |f|%>
+  <table>
+    <% if mod? %>
+      <tr>
+        <td><%= f.label :sticky %></td>
+        <td><%= f.check_box :sticky %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :locked %></td>
+        <td><%= f.check_box :locked %></td>
+      </tr>
+    <% end %>
+  </table>
   <div id="form_inputs">
-    <%= f.input :title, placeholder: "Title" %>
+    <%= f.text_field :title, placeholder: "Title" %>
   </div>
   <%= f.hidden_field :content, id: "epic-textarea", placeholder: "Text" %>
   <div id="epic"></div>
-  <%= f.submit "Create thread", class: "btn blue" %><br>
+  <p><%= f.submit "Create thread", class: "btn blue" %></p>
 <% end %>

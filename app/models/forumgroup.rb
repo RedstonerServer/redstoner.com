@@ -12,4 +12,12 @@ class Forumgroup < ActiveRecord::Base
   def to_s
     name
   end
+
+  def can_read?(user)
+    role_read.nil? || (!user.nil? && user.role >= role_read)
+  end
+
+  def can_write?(user)
+    !user.nil? && can_read?(user) && user.confirmed? && (role_write.nil? || user.role >= role_write)
+  end
 end

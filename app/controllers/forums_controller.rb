@@ -1,28 +1,19 @@
 class ForumsController < ApplicationController
+  before_filter :check_permission, only: [:show]
+
   def index
      @groups = Forumgroup.all
-     if current_user
-       @groups.select! do |g|
-         g.role_read.nil? || g.role_read <= current_user.role
-       end
-     else
-       @groups.select!{|g| g.role_read == nil}
-     end
-     @groups.sort_by{|g| g[:position]}
+     @groups.select!{|g| g.can_read?(current_user) }
+     @groups.sort_by!{|g| g[:position]}
   end
 
   def show
-    @forum = Forum.find(params[:id])
-    if @forum.role_read.nil? || current_user && @forum.role_read <= current_user.role
-      @threads = @forum.forumthreads.order("sticky desc, updated_at desc")
-    else
-      redirect_to forums_path
-    end
+    @threads = @forum.forumthreads.order("sticky desc, updated_at desc")
   end
 
   def new
     if admin?
-      @group = Forumgroup.find(params[:forumgroup_id])
+      @group = Forumgroup.find(params[:forumgroup])
       @forum = Forum.new(forumgroup: @group)
     else
       flash[:alert] = "You are not allowed to create a forum."
@@ -33,7 +24,7 @@ class ForumsController < ApplicationController
   def create
     if admin?
       @forum = Forum.new(params[:forum])
-      @forum.forumgroup = Forumgroup.find(params[:forumgroup_id])
+      @forum.forumgroup = Forumgroup.find(params[:forum][:forumgroup_id])
       if @forum.save
         flash[:notice] = "Forum created."
         redirect_to @forum
@@ -46,5 +37,17 @@ class ForumsController < ApplicationController
       redirect_to forums_path
     end
   end
+
+
+  private
+
+  def check_permission
+    @forum = Forum.find(params[:id])
+    unless @forum.can_read?(current_user)
+      flash[:alert] = "You are not allowed to view this forum"
+      redirect_to forums_path
+    end
+  end
+
 
 end

@@ -1,16 +1,29 @@
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
-<div class="post">
-  <div class="thread-title">
-    <h1><%= @thread.title %></h1>
+<div>
+  <%= params.inspect %><br>
+  <%= @forum.inspect %><br>
+  <%= @thread.forum.inspect %>
+</div>
+<div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
+  <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
+  <div class="header">
+    <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+    <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if mod? %>
   </div>
-  <div class="thread-info"><%= link_user @thread.author %> on <%= @thread.created_at.strftime("%e. %b %Y") %>
-    <% if mod? %>
-     <%= link_to "edit", edit_forum_forumthread_path(@thread.forum, @thread), class: "thread-edit" %>
-    <% end %>
-  </div>
-  <div class="thread-content">
-    <%= Sanitize.clean(GitHub::Markdown.render_gfm(@thread.content), Sanitize::Config::RELAXED).html_safe %>
+  <div class="items">
+    <div class="item content">
+      <h2 class="headline"><%= link_to truncate(@thread.title, length: 60, omission: " …"), p %></h2>
+      <%= Sanitize.clean(GitHub::Markdown.render_gfm(@thread.content), Sanitize::Config::RELAXED).html_safe %>
+    </div>
   </div>
 </div>
-<hr>
-(replies go here)
+<div id="replies">
+  <h3><%= "#{pluralize(@thread.replies.length, 'reply')}." %></h3>
+  <% @thread.replies.each do |c| %>
+    Reply<%# render "threadreplies/reply", :c => c %>
+  <% end %>
+  <% unless @thread.can_read?(current_user) %>
+    new
+    <%# render "threadreplies/new" %>
+  <% end %>
+</div>

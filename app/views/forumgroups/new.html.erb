@@ -1,16 +1,23 @@
 <h1>New forum group</h1>
-<%= simple_form_for @group do |f|%>
-  <div id="form_labels">
-    <%= f.label :name %>
-    <%= f.label :position %>
-    <%= f.label :role_read_id, "Min read role" %>
-    <%= f.label :role_write_id, "Min write role" %>
-  </div>
-  <div id="form_inputs">
-    <%= f.input :name, placeholder: "Name" %>
-    <%= f.input :position, placeholder: "Position" %>
-    <%= f.input :role_read_id, as: :select, collection: Role.all_from(Role.get :default), include_blank: "None" %>
-    <%= f.input :role_write_id, as: :select, collection: Role.all_from(Role.get :default), include_blank: false %>
-  </div>
-    <%= f.submit "Create group", class: "btn blue" %>
+<% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
+<%= form_for @group do |f|%>
+  <table>
+    <tr>
+      <td><%= f.label :name %></td>
+      <td><%= f.text_field :name, placeholder: "Name" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :position %></td>
+      <td><%= f.number_field :position, placeholder: "Position" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :role_read_id, "Min. read role" %></td>
+      <td><%= f.select :role_read_id, role_selection, include_blank: "None" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :role_write_id, "Min. write role" %></td>
+      <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
+    </tr>
+  </table>
+  <%= f.submit "Create group", class: "btn blue" %>
 <% end %>

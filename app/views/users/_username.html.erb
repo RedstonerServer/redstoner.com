@@ -1,0 +1,4 @@
+<div class="user">
+  <%= link_to user.name, user_path(user.id), class: "role #{user.role.name}", title: user.ign %>
+  <% link_to_if "$", donate_statics_path, class: "donor", title: "Donator" if user.donor? %>
+</div>

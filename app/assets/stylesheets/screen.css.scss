@@ -29,7 +29,6 @@ and (min-width: 0px) //TODO
   }
 
   a {
-    transition: color 0.25s;
     color: #AB0000;
     text-decoration: none;
     &:hover {
@@ -147,6 +146,15 @@ and (min-width: 0px) //TODO
 
   .post, .thread {
     margin-bottom: 50px;
+    .post-content, .thread-content {
+      margin-top: 10px;
+      clear: both;
+      word-wrap: break-word;
+      overflow: hidden;
+      img {
+        max-width: 100%;
+      }
+    }
     .post-title, .thread-title {
       margin-bottom: 10px;
       word-wrap: break-word;
@@ -164,11 +172,6 @@ and (min-width: 0px) //TODO
         float: right;
       }
     }
-    h1 {
-      color: inherit !important;
-      font-weight: bold !important;
-      text-shadow: none !important;
-    }
     .post-info, .thread-info {
       border-bottom: 2px dashed #999;
       color: #888;
@@ -181,57 +184,12 @@ and (min-width: 0px) //TODO
       }
       .post-edit, .thread-edit {
         float: right;
+        margin-right: 10px;
+      }
+      time {
+        float: right;
       }
     }
-    .post-content, .thread-content {
-      margin-top: 10px;
-      clear: both;
-      word-wrap: break-word;
-      overflow: hidden;
-      img {
-        max-width: 100%;
-      }
-    }
-
-    pre {
-      background: #ddd;
-      padding: 0.5em;
-    }
-
-    code {
-      background: #ddd;
-    }
-
-    table, tr, td, th {
-      border-collapse: collapse;
-    }
-
-    pre code {
-      background: inherit;
-      padding: 0;
-    }
-
-    blockquote {
-      background: #f9f9f9;
-      border-left: 10px solid #ccc;
-      margin: 1.5em 10px;
-      padding: 0.5em 10px;
-      quotes: "\201C""\201D""\2018""\2019";
-    }
-
-    blockquote:before {
-      color: #ccc;
-      content: open-quote;
-      font-size: 4em;
-      line-height: 0.1em;
-      margin-right: 0.25em;
-      vertical-align: -0.4em;
-    }
-
-    blockquote p {
-      display: inline;
-    }
-
     table {
       tr, td, th {
         border-collapse: collapse;
@@ -254,48 +212,91 @@ and (min-width: 0px) //TODO
     }
   }
 
-  .role {
+  pre {
+    background: #ddd;
+    padding: 0.5em;
+    overflow: auto;
+  }
+
+  code {
+    background: #ddd;
+  }
+
+  table, tr, td, th {
+    border-collapse: collapse;
+  }
+
+  pre code {
+    background: inherit;
+    padding: 0;
+  }
+
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }
+
+  blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+
+  blockquote p {
     display: inline;
-    text-decoration: none;
-    border-bottom: 2px solid;
-    &.superadmin, &.admin {
-      border-color: #d22;
+  }
+
+
+  .user {
+    display: inline-block;
+    a.role {
+      display: inline-block;
+      color: #fff;
+      font-weight: bold;
+      padding: 0 0.5em;
+      border-radius: 3px;
+      &.superadmin, &.admin {
+        background: #d22;
+      }
+      &.mod {
+        background: #6af;
+      }
+      &.normal {
+        background: #aaa;
+      }
+      &.banned, &.disabled {
+        background: #ccc;
+        text-decoration: line-through;
+        color: #888;
+      }
+      &:hover {
+        color: #ddd;
+      }
     }
-    &.mod {
-      border-color: #6af;
+    .donor {
+      background: #f60;
+      border-radius: 3px;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 3px;
+      padding: 0 0.5em;
+      display: inline-block;
     }
-    &.donor {
-      border-color: #fa0;
-    }
-    &.default {
-      border-color: #000;
-    }
-    &.unconfirmed {
-      border-color: #888;
-    }
-    &.banned, &.disabled {
-      border-color: #ccc;
+    .ign {
+      display: block;
+      color: #000;
+      font-style: italic;
     }
   }
 
   #comments {
     margin: 50px 0 0 40px;
-    .comment {
-      margin-bottom: 12px;
-      padding: 15px;
-      border: 1px solid #555;
-      &:hover .editlink {
-        opacity: 1;
-        margin-right: 0;
-      }
-      &.author {
-        border: 3px solid #555;
-      }
-      .comment-content {
-        word-wrap: break-word;
-        overflow: hidden;
-      }
-    }
   }
 
   #markdown-note {
@@ -332,7 +333,7 @@ and (min-width: 0px) //TODO
       background: #ddd;
       border: none;
       height: 3em;
-      margin: 0 0 1px 0;
+      margin: 0;
       padding: 0.5em 1em;
       width: 100%;
     }
@@ -374,11 +375,16 @@ and (min-width: 0px) //TODO
     input, select, textarea {
       border: 1px solid #f00;
       box-shadow: 0 0 5px #faa inset;
+      border-bottom: none;
     }
-    .error {
-      color: #f60;
-      display: inline;
-      margin-left: 0.5em;
+    .validation-error {
+      display: inline-block;
+      padding: 0 1em;
+      width: 100%;
+      background: #faa;
+      font-weight: bold;
+      border: 1px solid #f00;
+      border-top: none;
     }
   }
 
@@ -459,34 +465,20 @@ and (min-width: 0px) //TODO
 
   #userlist {
     .list-user {
-      margin: 5px 0;
-      display: table;
-      a {
-        color: #787878;
-        display: inline-block;
+      margin: 15px 0;
+      a img {
+        vertical-align: middle;
+        border: 1px solid;
+        border-radius: 3px;
+        color: #222;
         &:hover {
           color: #AB0000;
         }
       }
-      a.avatar_url {
-        float: left;
-        height: 64px;
-        width: 64px;
-        background-color: #fff;
-      }
-      .user-info {
-        margin-left: 10px;
-        float: left;
-        span {
-          display: block;
-        }
-        .user-name {
-          font-weight: bold;
-        }
-        .user-ign {
-          color: #888;
-          font-style: italic;
-        }
+      .detail {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 3px;
       }
     }
   }
@@ -508,41 +500,69 @@ and (min-width: 0px) //TODO
     visibility: hidden;
   }
 
-  #forum_groups {
-    .item_group {
-      margin: 10px 0;
-      &:hover .editlink {
-        opacity: 1;
-        margin-right: 0;
+  .item-group {
+    margin: 10px 0;
+    &.with-avatar {
+      margin-left: 70px;
+      .avatar {
+        float: left;
+        margin-left: -70px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
       }
-      .header {
-        background: #ddd;
-        border-radius: 5px 5px 0 0;
+    }
+    &:hover .editlink {
+      opacity: 1;
+      margin-right: 0;
+    }
+    .header {
+      background: #ddd;
+      border-radius: 5px 5px 0 0;
+      padding: 0.5em;
+      border-bottom: 1px solid #ccc;
+    }
+    .items {
+      border: 1px solid #ddd;
+      border-top: none;
+      border-bottom: none;
+      .item {
+        display: block;
         padding: 0.5em;
-        border-bottom: 1px solid #ccc;
-      }
-      .items {
-        border: 1px solid #ddd;
-        border-top: none;
-        border-bottom: none;
-        .item {
-          display: block;
-          font-weight: bold;
-          padding: 0.5em;
-          border-bottom: 1px solid #ddd;
-          &.locked:after {
-            color: #000;
-            font-weight: normal;
-            content: " (L)";
-          }
-          &.sticky:before {
-            color: #000;
-            font-weight: normal;
-            content: "(S) ";
+        border-bottom: 1px solid #ddd;
+        &.locked:after {
+          background-image: url('/assets/lock.png');
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
+        &.sticky:after {
+          background-image: url('/assets/pin.png');
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
+        &.sticky-locked:after {
+          background-image: url('/assets/lock.png');
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
+        &.content {
+          .headline {
+            margin: 0;
+            border-bottom: 1px solid #ddd;
           }
         }
       }
     }
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .comment-counter {
+    float: right;
   }
 
   .red-alert {

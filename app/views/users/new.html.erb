@@ -1,19 +1,29 @@
 <h1>Sign up</h1>
 
-<%= simple_form_for @user do |f| %>
-  <div id="form_labels">
-    <%= f.label :name, "Display name" %>
-    <%= f.label :ign, "Minecraft name" %>
-    <%= f.label :email, "Email" %>
-    <%= f.label :password, "Password" %>
-    <%= f.label :password_confirmation, "Confirm" %>
-  </div>
-  <div id="form_inputs">
-    <%= f.input :name, placeholder: "John" %>
-    <%= f.input :ign, placeholder: "johndoe_1337" %>
-    <%= f.input :email, placeholder: "johndoe@example.com" %>
-    <%= f.input :password, placeholder: "••••••" %>
-    <%= f.input :password_confirmation, placeholder: "••••••" %>
-  </div>
+<p>To get a <i>token</i>, join the Minecraft server (redstoner.com) and use the <code>/token &lt;your-email&gt;</code> command.</p>
+
+<%= form_for @user do |f| %>
+  <table>
+    <tr>
+      <td><%= f.label :ign, "Minecraft name" %></td>
+      <td><%= f.text_field :ign, placeholder: "Steve", pattern: "[a-zA-Z0-9_]{2,16}", required: true, title: "Your IGN" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :email, "Email" %></td>
+      <td><%= f.email_field :email, placeholder: "steve@example.com", required: true, pattern: ".+@.+", title: "enter valid email adress", "x-moz-errormessage" => "enter valid email adress" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :registration_token, "Token" %></td>
+      <td><%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :password, "Password" %></td>
+      <td><%= f.password_field :password, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :password_confirmation, "Confirm" %></td>
+      <td><%= f.password_field :password_confirmation, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %></td>
+    </tr>
+  </table>
   <%= f.submit "Sign up", class: "btn blue" %>
 <% end %>

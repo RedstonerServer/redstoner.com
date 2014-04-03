@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  require 'resolv'
 
   def new
     if current_user
@@ -14,22 +13,13 @@ class SessionsController < ApplicationController
     unless current_user
       user = User.find_by_email(params[:email])
       if user && user.authenticate(params[:password])
-        hostname = ""
-        begin
-          hostname = Resolv.getname(request.remote_ip)
-        rescue
-          hostname = ""
-        end
-        user.last_ip = "#{request.remote_ip} | #{hostname}"
-        user.last_login = Time.now
-        user.save
         if user.disabled?
           flash[:alert] = "Your account has been disabled!"
         elsif user.banned?
           flash[:alert] = "You are banned!"
         else
           session[:user_id] = user.id
-          flash[:alert] = "Remember to validate your email! Your account may be deleted soon!" if user.unconfirmed?
+          flash[:alert] = "Remember to validate your email! Your account may be deleted soon!" if !user.confirmed?
           flash[:notice] = "Logged in!"
         end
       else

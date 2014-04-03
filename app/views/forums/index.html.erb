@@ -1,12 +1,13 @@
 <div id="forum_groups">
   <% @groups.each do |group| %>
-    <div class="item_group" id="forums-<%= group.id %>">
+    <div class="item-group" id="forums-<%= group.id %>">
       <div class="header">
         <%= group.name %>
         <%= link_to "edit", edit_forumgroup_path(group), class: "editlink" if admin? %>
+        <%= link_to "+", new_forum_path(forumgroup: group), class: "editlink" if admin? %>
       </div>
 
-      <div class="items">
+      <div class="items bold">
         <% group.forums.each do |f| %>
           <%= link_to f.name, f, class: "item" %>
         <% end %>
@@ -15,3 +16,9 @@
     </div>
   <% end %>
 </div>
+
+<% if admin? %>
+  <%= link_to "New group", new_forumgroup_path, class: "btn blue" %>
+<% elsif mod? %>
+  <%= link_to "New group", nil, class: "btn blue", disabled: true %>
+<% end %>

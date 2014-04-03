@@ -1,52 +1,49 @@
 class ForumthreadsController < ApplicationController
+
+  before_filter :check_permission
+
   def index
-    f = Forum.find(params[:forum_id])
-    redirect_to forum_path(f.forumgroup, f)
+    redirect_to forum_path(@thread.forum.forumgroup, f)
   end
 
   def show
-    @thread = Forumthread.find(params[:id])
   end
 
   def update
-    @thread = Forumthread.find(params[:id])
     if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
-      if @thread.update_attributes(params[:forumthread] ? params[:forumthread].slice(:title, :content, :user_editor) : {})
-        redirect_to [@thread.forum, @thread], notice: 'Post has been updated.'
+      if @thread.update_attributes(params[:forumthread].slice(:title, :content, :user_editor))
+        redirect_to @thread, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"
         render action: "edit"
       end
     else
       flash[:alert] = "You are not allowed to edit this thread!"
-      redirect_to [@thread.forum, @thread]
+      redirect_to @thread
     end
   end
 
   def edit
-    @thread = Forumthread.find(params[:id])
   end
 
   def new
     @forum = Forum.find(params[:forum_id])
-    if @forum && current_user && (@forum.group.role_read.nil? || @forum.group.role_read <= current_user.role) && (@forum.role_read.nil? || @forum.role_read <= current_user.role)
-      @thread = Forumthread.new(forum: @forum)
-    else
-      flash[:alert] = "You are not allowed to create a new thread here!"
-      redirect_to @forum
+    unless @forum.can_write?(current_user)
+      flash[:alert] = "You are not allowed to view this forum"
+      redirect_to forums_path
     end
+    @thread = Forumthread.new(forum: @forum)
   end
 
   def create
-    @forum = Forum.find(params[:forum_id])
-    if (confirmed? && (@forum.group.role_read || Role.get(:default))<= current_user.role && (@forum.group.role_write || Role.get(:default))<= current_user.role && (@forum.role_read || Role.get(:default))<= current_user.role && (@forum.group.role_write || Role.get(:default))<= current_user.role)
-      @thread = Forumthread.new(mod? ? params[:forumthread] : params[:forumthread].slice(:title, :content))
+    @thread = Forumthread.new(mod? ? params[:forumthread] : params[:forumthread].slice(:title, :content))
+    if @thread.can_write?(current_user)
       @thread.user_author = current_user
-      @thread.forum = @forum
+      @thread.forum       = @thread.forum
       if @thread.save
         flash[:notice] = "Thread created!"
-        redirect_to forum_forumthread_path(@forum, @thread)
+        redirect_to forumthread_path( @thread)
         return
       else
         flash[:alert] = "Seomthing went wrong while creating your thread."
@@ -55,7 +52,20 @@ class ForumthreadsController < ApplicationController
       end
     else
       flash[:alert] = "You are not allowed to create a thread here!"
-      redirect_to @forum
+      redirect_to @thread.forum
+    end
+  end
+
+
+  private
+
+  def check_permission
+    if params[:id]
+      @thread = Forumthread.find(params[:id])
+      unless @thread.can_read?(current_user)
+        flash[:alert] = "You are not allowed to view this thread"
+        redirect_to forums_path
+      end
     end
   end
 

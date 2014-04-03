@@ -1,6 +1,5 @@
-<% filter = params[:role] %>
-<% if filter %>
-  <h1>All '<%= filter %>' users</h1>
+<% if params[:role] %>
+  <h1>All '<%= params[:role] %>' users</h1>
   <%= link_to "show all", users_path %>
 <% else %>
   <h1> All users </h1>
@@ -8,13 +7,10 @@
 <div id="userlist">
   <% @users.each do |u| %>
     <div class="list-user">
-      <%= link_to u, class: "avatar_url" do %>
-        <%= image_tag(avatar_url(u.id, 64), :class => "avatar", :alt => "avatar") %>
-      <% end %>
-      <div class="user-info">
-        <span class="user-name"><%= link_user u %></span>
-        <span class="user-ign"><%= u.ign %></span>
-        <span class="user-role"><%= link_to u.role, users_path(:role => u.role.name) %></span>
+      <%= link_to(image_tag(u.avatar_url(64)), u) %>
+      <div class="detail">
+        <%= render partial: "users/username", locals: { user: u } %><br>
+        <i><%= u.ign %></i>
       </div>
     </div>
   <% end %>

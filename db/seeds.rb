@@ -4,9 +4,7 @@
 Role.create!([
   {name: "disabled", value: 1},
   {name: "banned", value: 2},
-  {name: "unconfirmed", value: 5},
-  {name: "default", value: 10},
-  {name: "donor", value: 40},
+  {name: "normal", value: 10},
   {name: "mod", value: 100},
   {name: "admin", value: 200},
   {name: "superadmin", value: 500}
@@ -14,29 +12,30 @@ Role.create!([
 
 userpw = SecureRandom.hex(64)
 
+
+# fallback profile for deleted users
 deleted_user = User.create!(
+  uuid: "8667ba71b85a4004af54457a9734eed7",
   name: "Deleted user",
   email: "redstonerserver@gmail.com",
-  ign: "Mojang",
+  ign: "Steve",
   about: "Hey, apparently, I do no longer exist. This is just a placeholder profile",
   password: userpw,
   password_confirmation: userpw,
   role: Role.get(:disabled),
-  confirm_code: SecureRandom.hex(16),
   skype: "echo123",
   skype_public: true,
   last_ip: "0.0.0.0",
-  last_login: Time.utc(0).to_datetime
-  )
-  deleted_user.update_attribute(:ign, "Steve")
+  confirmed: true,
+  last_seen: Time.utc(0).to_datetime
+)
+deleted_user.update_attribute(:ign, "Steve")
 
 User.create!(
-  name: "Redstone Sheep",
+  uuid: "9ff3d74f716940a3aa6f262ab632d2",
   ign: "redstone_sheep",
   email: "theredstonesheep@gmail.com",
-  about: "Hi, I am the admin :)",
-  password: "123456789",
+  password: "123456789", # high seructity!
   password_confirmation: "123456789",
-  role: Role.get(:superadmin),
-  confirm_code: SecureRandom.hex(16)
-  )
+  role: Role.get(:superadmin)
+)

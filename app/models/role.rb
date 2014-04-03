@@ -25,20 +25,24 @@ class Role < ActiveRecord::Base
     elsif role.is_a?(Symbol)
       self <=> Role.find_by_name(role)
     else
-      raise "Cannot compare Role with #{role.class}"
+      self.to_i <=> role
     end
   end
 
-  def self.all_until (role)
-    Role.all.select do |r|
+  def self.all_to (role)
+    Role.order(:value).select do |r|
       r <= role
     end
   end
 
   def self.all_from(role)
-    Role.all.select do |r|
+    Role.order(:value).select do |r|
       r >= role
     end
+  end
+
+  def self.all_from_to(from, to)
+    Role.order(:value).select {|r| r >= from}.select {|r| r <= to}
   end
 
 end

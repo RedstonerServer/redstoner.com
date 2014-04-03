@@ -1,14 +1,20 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %>
 
-<p><%= link_to "New thread", new_forum_forumthread_path(@forum), class: "btn blue" %></p>
-
+<h1><%= @forum %></h1>
 <div id="forum_groups">
-  <div id="forum-<%= @forum.id %>" class="item_group">
-    <div class="header">
-      <%= @forum.name %> <%= link_to "edit", edit_forum_path(@forum), class: "editlink" %>
+  <% @threads.each do |thread| %>
+    <div class="item-group with-avatar" id="thread-<%= thread.id %>">
+      <%= link_to(image_tag(thread.author.avatar_url(64), class: "avatar"), thread.author, title: thread.author.ign) %>
+      <div class="header">
+        <%= render partial: "users/username", locals: { user: thread.author } %> <time><%= link_to thread.created_at.strftime("%e. %b %Y, %H:%m"), thread %></time>
+        <span class="comment-counter">
+          <%= link_to pluralize(thread.replies.count, "Reply"), thread %>
+        </span>
+      </div>
+      <div class="items bold">
+        <%= link_to thread.title, forumthread_path(thread), class: "item#{" locked" if thread.locked}#{" sticky" if thread.sticky}" %>
+      </div>
     </div>
-    <div class="items">
-      <% @threads.each do |thread| %>
-        <%= link_to thread.title, forum_forumthread_path(@forum, thread), class: "item#{" locked" if thread.locked}#{" sticky" if thread.sticky}" %>
-      <% end %>
-    </div>
+  <% end %>
+</div>
+<p><%= link_to "New thread", new_forumthread_path(forum_id: @forum), class: "btn blue" %></p>

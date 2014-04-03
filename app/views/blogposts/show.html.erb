@@ -1,20 +1,20 @@
-<div class="post">
-  <div class="post-title">
-    <h1><%= @post.title %></h1>
+<div class="item-group post with-avatar" id="post-<%= @post.id %>">
+  <%= link_to(image_tag(@post.author.avatar_url(64), class: "avatar"), @post.author, title: @post.author.ign) %>
+  <div class="header">
+    <%= render partial: "users/username", locals: { user: @post.author } %> <time><%= link_to @post.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+    <%= link_to "edit", edit_blogpost_path(@post.id), class: "editlink" if mod? %>
   </div>
-  <div class="post-info"><%= link_user @post.author %> on <%= @post.created_at.strftime("%e. %b %Y") %>
-    <% if mod? %>
-     <%= link_to "edit", edit_blogpost_path(@post.id), class: "post-edit" %>
-    <% end %>
+  <div class="items">
+    <div class="item content">
+      <h2 class="headline"><%= link_to truncate(@post.title, length: 60, omission: " …"), p %></h2>
+      <%= Sanitize.clean(GitHub::Markdown.render_gfm(@post.content), Sanitize::Config::RELAXED).html_safe %>
+    </div>
   </div>
-  <div class="post-content">
-    <%= Sanitize.clean(GitHub::Markdown.render_gfm(@post.content), Sanitize::Config::RELAXED).html_safe %>
-  </div>
-  <div id="comments">
-    <h3><%= "#{pluralize(@post.comments.length, 'comment')}." %></h3>
-    <% @post.comments.each do |c| %>
-      <%= render "comments/comment", :c => c %>
-    <% end %>
-    <%= render "comments/new" %>
-  </div>
+</div>
+<div id="comments">
+  <h3><%= "#{pluralize(@post.comments.length, 'comment')}." %></h3>
+  <% @post.comments.each do |c| %>
+    <%= render "comments/comment", :c => c %>
+  <% end %>
+  <%= render "comments/new" %>
 </div>

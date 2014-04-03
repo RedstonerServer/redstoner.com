@@ -27,6 +27,7 @@ $(function(){
     container: 'epic',
     textarea: 'epic-textarea',
     basePath: '/assets',
+    clientSideStorage: false,
     theme: {
       base: '/base/epiceditor.css',
       preview: '/preview/github.css',
@@ -36,7 +37,7 @@ $(function(){
       bar: true
     },
     autogrow: {
-      minHeight: 500
+      minHeight: 300
     }
   });
   try {
