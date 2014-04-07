@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /^.+@.+\..{2,}$/i, message: "That doesn't look like an email adress."}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /^[a-z\d_]+$/i, message: "That is probably not your username."}
 
-  validate :ign_has_paid
+  validate :has_paid, :if => lambda {|user| user.ign_changed? }
 
   has_many :blogposts
   has_many :comments
@@ -179,8 +179,8 @@ class User < ActiveRecord::Base
     self.role ||= Role.get(:normal)
   end
 
-  def ign_has_paid
-    errors.add(:ign, "'#{self.ign}' is not a valid account!") unless self.haspaid?
+  def has_paid
+    errors.add(:ign, "'#{self.ign}' is not a paid account!") unless self.haspaid?
   end
 
   def strip_whitespaces

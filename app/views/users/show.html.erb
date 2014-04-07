@@ -15,6 +15,7 @@
   <% if @user.banned? %>
     <span class="user-banned">This user is banned!</span>
   <% end %>
+
   <% if !@user.confirmed? %>
     <% if @user.is?(current_user) %>
       <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
@@ -31,6 +32,7 @@
 
 
   <%= image_tag @user.avatar_url(128), :class => "user-avatar avatar", :alt => "avatar" %>
+  <%= render partial: "users/username", locals: {user: @user} %>
   <table>
     <tbody>
       <tr>
@@ -63,13 +65,11 @@
         <td>Joined</td>
         <td><%= @user.created_at.strftime("%e. %b %Y, %H:%m") %></td>
       </tr>
-      <% if mod? || current_user == @user %>
-        <% if mod? %>
-          <tr>
-            <td>Last IP</td>
-            <td><%= @user.last_ip %></td>
-          </tr>
-        <% end %>
+      <% if mod? || @user.is?(current_user) %>
+        <tr>
+          <td>Last IP</td>
+          <td><%= @user.last_ip %></td>
+        </tr>
         <tr>
           <td>Email</td>
           <td><%= mail_to @user.email, @user.email, :subject => "Redstoner" %></td>
@@ -81,6 +81,6 @@
       <% end %>
     </tbody>
   </table>
-  <hr>
+  About:<br>
   <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : @user.about %>
 </div>

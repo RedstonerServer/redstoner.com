@@ -1,9 +1,4 @@
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
-<div>
-  <%= params.inspect %><br>
-  <%= @forum.inspect %><br>
-  <%= @thread.forum.inspect %>
-</div>
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
   <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
   <div class="header">

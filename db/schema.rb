@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 10) do
 
   create_table "register_tokens", :primary_key => "uuid", :force => true do |t|
     t.string "token", :limit => 6, :null => false
+    t.string "email",              :null => false
   end
 
   create_table "roles", :force => true do |t|

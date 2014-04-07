@@ -1,28 +1,26 @@
 <div id="head">
-  <div id="logo"><%= link_to root_path do %>
-    <%= image_tag "logo.png" %>
-    <% end %></div>
-  <div id="userinfo" <%= "class=\"logged-out\"".html_safe unless current_user %>>
-    <% if current_user %>
-      <span id="userinfo-box">
-        <%= link_to current_user.name, current_user %><br/>
-        <%= link_to "Logout", logout_path %>
-      </span>
-      <%= link_to image_tag(current_user.avatar_url(32), :class => "avatar"), current_user %>
-    <% else %>
-      <%= link_to "Log in", login_path(return_path: request.env['PATH_INFO']), action: "new" %> | <%= link_to "Sign up", signup_path %>
-    <% end %>
-  </div>
-  <div class="clear"></div>
   <div id="menu">
+    <%= link_to "", root_path, id: "logo" %>
     <ul>
       <%= link_to statics_path do %><li>Home</li><% end %>
-      <%= link_to blogposts_path do %><li>Blog</li><% end %>
+      <%= link_to blogposts_path do %><li>News</li><% end %>
       <%= link_to root_path do %><li>Info</li><% end %>
       <%= link_to forums_path do %><li>Forums</li><% end %>
       <%= link_to users_path do %><li>Users</li><% end %>
       <%= link_to donate_statics_path do %><li>Donate</li><% end %>
     </ul>
-    <div class="clear"></div>
+  </div>
+  <div id="userbar">
+    <div id="userinfo" <%= "class=\"logged-out\"".html_safe unless current_user %>>
+      <% if current_user %>
+        <span id="userinfo-box">
+          <%= link_to current_user.name, current_user %><br/>
+          <%= link_to "Logout", logout_path %>
+        </span>
+        <%= link_to image_tag(current_user.avatar_url(32), :class => "avatar"), current_user %>
+      <% else %>
+        <%= link_to "Log in", login_path(return_path: request.env['PATH_INFO']), action: "new" %> | <%= link_to "Sign up", signup_path %>
+      <% end %>
+    </div>
   </div>
 </div>

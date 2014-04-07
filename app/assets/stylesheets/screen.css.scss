@@ -16,12 +16,15 @@ and (min-width: 0px) //TODO
 
   html {
     overflow-y: scroll;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   body {
-    background-image: url('/assets/bg.png');
     background-color: #F2F2F2;
-    color: #222;
+    color: #3F3F3F;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   #mobile-info {
@@ -51,56 +54,76 @@ and (min-width: 0px) //TODO
     }
   }
   #head {
-    background-image: url('/assets/head_bg.png');
-    width: 100%;
-    margin: auto;
-    position: relative;
-    text-align: center;
-
-    #userinfo {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 10px;
-      img.avatar {
-        border: 1px solid #000;
-        border-radius: 16px;
-        vertical-align: middle;
-        height: 32px;
-        width: 32px;
+    #menu {
+      background: #3F3F3F;
+      height: 50px;
+      border-bottom: 1px solid #363636;
+      position: relative;
+      text-shadow: 0 1px 1px #222;
+      #logo {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background: url(image_path('logo.png')) no-repeat;
+        background-position: 0 -100px;
+        left: 85px;
         &:hover {
-          box-shadow: 0 0 2px;
+          transition: all 0.3s ease 0s;
+          background-position: 0 0;
         }
       }
-      #userinfo-box {
-        float: left;
-        text-align: right;
-        margin: 5px;
-        line-height: 1em;
-      }
-    }
-    #menu {
-      width: 100%;
-      background: #686969;
-      input {
-        display: inline;
-      }
       ul {
-        float: left;
-        margin: 0;
+        margin: 0 0 0 185px;
         padding: 0;
+        list-style: none;
+        line-height: 0;
         a {
-          color: #bbb;
+          display: inline-block;
+          color: #fff;
           &:hover {
-            color: #fff;
+            color: #bbb;
           }
         }
         li {
-          float: left;
-          height: 100%;
-          margin: auto 10px;
-          display: block;
-          font-size: 1.5em;
+          margin: 15px 10px;
+          font-size: 20px;
+          line-height: 1em;
+        }
+      }
+    }
+    #userbar {
+      border-bottom: 1px solid #d1d1d1;
+      height: 50px;
+      line-height: 50px;
+      text-align: right;
+      display: inline-block;
+      width: 100%;
+      background: #eaeaea;
+      #userinfo {
+        display: inline-block;
+        margin-right: 10px;
+        text-shadow: 0 1px 1px #fff;
+        a {
+          color: #3F3F3F;
+          &:hover {
+            color: #f00;
+          }
+        }
+        img.avatar {
+          border: 1px solid #000;
+          border-radius: 16px;
+          vertical-align: middle;
+          height: 32px;
+          width: 32px;
+          &:hover {
+            box-shadow: 0 0 2px;
+          }
+        }
+        #userinfo-box {
+          display: inline-block;
+          text-align: right;
+          vertical-align: middle;
+          line-height: 1em;
         }
       }
     }
@@ -135,8 +158,13 @@ and (min-width: 0px) //TODO
       font-weight: normal;
       font-size: 200%;
       margin: 0;
-      color: #888;
       text-shadow: 0 1px #999;
+    }
+  }
+
+  #user-info {
+    .user-avatar {
+      margin-bottom: 30px;
     }
   }
 
@@ -163,30 +191,11 @@ and (min-width: 0px) //TODO
       }
       h2 {
         font-weight: normal;
-        color: #700;
         text-transform: capitalize;
         display: inline;
         font-size: 200%;
       }
       .comment-counter {
-        float: right;
-      }
-    }
-    .post-info, .thread-info {
-      border-bottom: 2px dashed #999;
-      color: #888;
-      width: 100%;
-      a {
-        color: #755;
-        &:hover {
-          color: #d55;
-        }
-      }
-      .post-edit, .thread-edit {
-        float: right;
-        margin-right: 10px;
-      }
-      time {
         float: right;
       }
     }
@@ -204,48 +213,61 @@ and (min-width: 0px) //TODO
         }
       }
       td, th {
-        padding: 0.3em;
+        padding: 0.3em 1em;
       }
       thead {
-        background: #def;
+        background: #3F3F3F;
+        color: #fff;
       }
     }
   }
 
   pre {
-    background: #ddd;
-    padding: 0.5em;
-    overflow: auto;
+    background: #3F3F3F;
+    border-radius: 2px;
+    box-shadow: 0 0 16px #222 inset;
+    position: relative;
+    padding: 1em;
+    &:after {
+      color: #fff;
+      content: attr(lang); // show language on top right
+      font-style: italic;
+      margin: 10px;
+      position: absolute;
+      right: -10px;
+      top: 0;
+      opacity: 0;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    &:hover:after {
+      opacity: 1;
+      right: 0;
+    }
+    code {
+      background: transparent;
+      padding: 0;
+    }
   }
 
   code {
-    background: #ddd;
+    background: #3F3F3F;
+    padding: 0 2px;
+    border-radius: 3px;
+    color: #ddd;
+    text-shadow: 1px 1px #000;
   }
 
   table, tr, td, th {
     border-collapse: collapse;
   }
 
-  pre code {
-    background: inherit;
-    padding: 0;
-  }
-
   blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    quotes: "\201C""\201D""\2018""\2019";
-  }
-
-  blockquote:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
+    background: #F9F9F9;
+    border-left: 10px solid #3F3F3F;
+    display: inline-block;
+    margin: 0 0 0 2em;
+    padding: 0.5em 3em 0 10px;
   }
 
   blockquote p {
@@ -257,33 +279,33 @@ and (min-width: 0px) //TODO
     display: inline-block;
     a.role {
       display: inline-block;
-      color: #fff;
+      color: #fff !important;
       font-weight: bold;
       padding: 0 0.5em;
       border-radius: 3px;
       &.superadmin, &.admin {
-        background: #d22;
+        background: #d22 !important;
       }
       &.mod {
-        background: #6af;
+        background: #6af !important;
       }
       &.normal {
-        background: #aaa;
+        background: #aaa !important;
       }
       &.banned, &.disabled {
-        background: #ccc;
-        text-decoration: line-through;
-        color: #888;
+        background: #ccc !important;
+        text-decoration: line-through !important;
+        color: #888 !important;
       }
       &:hover {
-        color: #ddd;
+        color: #ddd !important;
       }
     }
     .donor {
-      background: #f60;
+      background: #f60 !important;
       border-radius: 3px;
-      color: #fff;
-      font-weight: bold;
+      color: #fff !important;
+      font-weight: bold !important;
       margin-left: 3px;
       padding: 0 0.5em;
       display: inline-block;
@@ -501,7 +523,7 @@ and (min-width: 0px) //TODO
   }
 
   .item-group {
-    margin: 10px 0;
+    margin: 30px 0;
     &.with-avatar {
       margin-left: 70px;
       .avatar {
@@ -516,10 +538,18 @@ and (min-width: 0px) //TODO
       margin-right: 0;
     }
     .header {
-      background: #ddd;
+      background: #3F3F3F;
       border-radius: 5px 5px 0 0;
       padding: 0.5em;
       border-bottom: 1px solid #ccc;
+      color: #fff;
+      text-shadow: 0 1px 1px #222;
+      a {
+        color: #fff;
+        &:hover {
+          color: #f66;
+        }
+      }
     }
     .items {
       border: 1px solid #ddd;
@@ -530,19 +560,19 @@ and (min-width: 0px) //TODO
         padding: 0.5em;
         border-bottom: 1px solid #ddd;
         &.locked:after {
-          background-image: url('/assets/lock.png');
+          background-image: url(image_path('/assets/lock.png'));
           width: 20px;
           height: 20px;
           display: inline-block;
         }
         &.sticky:after {
-          background-image: url('/assets/pin.png');
+          background-image: url(image_path('/assets/pin.png'));
           width: 20px;
           height: 20px;
           display: inline-block;
         }
         &.sticky-locked:after {
-          background-image: url('/assets/lock.png');
+          background-image: url(image_path('/assets/lock.png'));
           width: 20px;
           height: 20px;
           display: inline-block;

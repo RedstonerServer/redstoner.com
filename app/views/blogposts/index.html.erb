@@ -10,7 +10,7 @@
         </span>
       </div>
       <div class="items">
-        <div class="item content">
+        <div class="item content post">
           <h2 class="headline"><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
           <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>
         </div>
