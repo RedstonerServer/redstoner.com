@@ -2,7 +2,6 @@
 <p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, placeholder: "Title" %>
-  <%= f.hidden_field :content, id: "epic-textarea", placeholder: "Text", input_html: {class: "full-width vertical"} %>
-  <div id="epic"></div>
+  <%= f.hidden_field :content, placeholder: "Text", input_html: {class: "full-width vertical"} %>
   <%= f.submit "Create Post", class: "btn blue left" %>
 <% end %>

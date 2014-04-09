@@ -16,7 +16,6 @@
   <div id="form_inputs">
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
-  <%= f.hidden_field :content, id: "epic-textarea", placeholder: "Text" %>
-  <div id="epic"></div>
+  <%= f.hidden_field :content, placeholder: "Text" %>
   <p><%= f.submit "Create thread", class: "btn blue" %></p>
 <% end %>

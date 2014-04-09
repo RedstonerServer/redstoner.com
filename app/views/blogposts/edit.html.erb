@@ -2,8 +2,7 @@
 <p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, :label => false %>
-  <%= f.hidden_field :content, id: "epic-textarea", :label => false, input_html: {class: "full-width vertical"} %>
-  <div id="epic"></div>
+  <%= f.hidden_field :content, :label => false, input_html: {class: "full-width vertical"} %>
   <%= f.submit "Update Post", class: "btn blue left" %>
 <% end %>
 <%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post & comments forever?", class: "btn red right" %>

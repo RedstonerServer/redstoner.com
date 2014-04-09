@@ -21,26 +21,4 @@ $(function(){
       })
     });
   }, 4000);
-
-
-  var editor = new EpicEditor({
-    container: 'epic',
-    textarea: 'epic-textarea',
-    basePath: '/assets',
-    clientSideStorage: false,
-    theme: {
-      base: '/base/epiceditor.css',
-      preview: '/preview/github.css',
-      editor: '/editor/epic-light.css'
-    },
-    button: {
-      bar: true
-    },
-    autogrow: {
-      minHeight: 300
-    }
-  });
-  try {
-    editor.load();
-  } catch (e) {}
 });

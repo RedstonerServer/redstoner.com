@@ -3,4 +3,4 @@
 \[yt\]\(([a-zA-Z0-9\-_]+)\)
 
 
-https://www.youtube.com/embed/{id}?theme=light&iv_load_policy=3&showinfo=1&showsearch=0&rel=0&modestbranding&hd=1&autohide=1
+https://www.youtube.com/embed/{id}?theme=light&iv_load_policy=3&showinfo=1&showsearch=0&rel=0&modestbranding&hd=1&autohide=1&html5=1
