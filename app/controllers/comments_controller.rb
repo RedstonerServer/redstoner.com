@@ -11,12 +11,11 @@ class CommentsController < ApplicationController
 
   def create
     if confirmed?
-      params[:comment].slice!("content") if params[:comment]
-      @comment = Comment.new(params[:comment])
+      @comment = Comment.new(comment_params)
       @comment.user_author = current_user
       @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
-        redirect_to @comment.blogpost, notice: 'Comment created!'
+        redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}", notice: 'Comment created!'
       else
         flash[:alert] = "Could not create comment."
         redirect_to Blogpost.find(params[:blogpost_id])
@@ -30,10 +29,9 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if mod? || @comment.author.is?(current_user)
-      params[:comment].slice!("content") if params[:comment]
-      if @comment.update_attributes(params[:comment])
+      if @comment.update_attributes(comment_params)
         flash[:notice] = "Comment updated!"
-        redirect_to @comment.blogpost
+        redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}"
       else
         flash[:alert] = "There was a problem while updating your comment"
         render action: "edit"
@@ -56,5 +54,11 @@ class CommentsController < ApplicationController
       flash[:alert] = "You are not allowed to delete this comment"
     end
     redirect_to @comment.blogpost
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end

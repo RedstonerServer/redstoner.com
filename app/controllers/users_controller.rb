@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-require 'open-uri'
+  require 'open-uri'
 
   def index
     if params[:role]
@@ -10,10 +10,10 @@ require 'open-uri'
         @users = User.find_all_by_role_id(Role.get(params[:role]))
       end
     else
-      @users = User.all
-      @users.shift() #Remove first user
+      @users = User.all.to_a
+      @users.shift #Remove first user
     end
-    @users = @users.sort_by{|u| u.role}.reverse!
+    @users = @users.to_a.sort_by{|u| u.role}.reverse!
   end
 
   def show
@@ -80,7 +80,7 @@ require 'open-uri'
       flash[:notice] = "You are already signed up!"
       redirect_to current_user
     else
-      @user = User.new(params[:user] ? params[:user].slice(:ign, :email, :password, :password_confirmation) : {} )
+      @user = User.new(user_params)
       user_profile = @user.get_profile
       if user_profile
         @user.uuid = user_profile["id"]
@@ -125,7 +125,7 @@ require 'open-uri'
   def update
     @user = User.find(params[:id])
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
-      userdata = params[:user] ? params[:user].slice(:name, :ign, :role_id, :skype, :skype_public, :youtube, :twitter, :about, :password, :password_confirmation) : {}
+      userdata = user_params([:name, :role_id, :skype, :skype_public, :youtube, :twitter, :about])
       if userdata[:role_id]
         role = Role.find(userdata[:role_id])
         if (mod? && role <= current_user.role)
@@ -235,4 +235,8 @@ require 'open-uri'
     user_token && user_token.token == token
   end
 
+  def user_params(add = [])
+    a = [:ign, :email, :password, :password_confirmation] + add
+    params.require(:user).permit(a)
+  end
 end

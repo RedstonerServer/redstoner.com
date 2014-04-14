@@ -1,3 +1,4 @@
+<h1>News</h1>
 <%= link_to 'Make new Post', new_blogpost_path, class: "btn blue" if mod? %>
 <div id="posts">
   <% @posts.each do |p| %>
@@ -12,7 +13,7 @@
       <div class="items">
         <div class="item content post">
           <h2 class="headline"><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
-          <%= Sanitize.clean(GitHub::Markdown.render_gfm(p.content), Sanitize::Config::RELAXED).html_safe %>
+          <%= Sanitize.clean(render_md(p.content), Sanitize::Config::RELAXED).html_safe %>
         </div>
       </div>
     </div>

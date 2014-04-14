@@ -17,4 +17,6 @@
     </div>
   <% end %>
 </div>
-<p><%= link_to "New thread", new_forumthread_path(forum_id: @forum), class: "btn blue" %></p>
+<% if @forum.can_write?(current_user) %>
+  <p><%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %></p>
+<% end %>

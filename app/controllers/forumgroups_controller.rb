@@ -5,7 +5,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def show
-    redirect_to forums_path + "#forums-#{params[:id]}"
+    redirect_to forums_path + "#forum-#{params[:id]}"
   end
 
   def edit
@@ -19,7 +19,7 @@ class ForumgroupsController < ApplicationController
   def update
     if admin?
       @group = Forumgroup.find(params[:id])
-      if @group.update_attributes(params[:forumgroup])
+      if @group.update_attributes(group_params)
         flash[:notice] = "Forum group updated"
         redirect_to @group
       else
@@ -42,7 +42,7 @@ class ForumgroupsController < ApplicationController
 
   def create
     if admin?
-      @group = Forumgroup.new(params[:forumgroup])
+      @group = Forumgroup.new(group_params)
       if @group.save
         flash[:notice] = "Forum group created."
         redirect_to @group
@@ -56,6 +56,11 @@ class ForumgroupsController < ApplicationController
     end
   end
 
+  private
 
+  def group_params(add = [])
+    a = [:name, :position, :role_read, :role_write] + add
+    params.require(:forumgroup).permit(a)
+  end
 
 end

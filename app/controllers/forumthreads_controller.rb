@@ -12,7 +12,7 @@ class ForumthreadsController < ApplicationController
   def update
     if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
-      if @thread.update_attributes(params[:forumthread].slice(:title, :content, :user_editor))
+      if @thread.update_attributes thread_params([:user_editor])
         redirect_to @thread, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"
@@ -28,16 +28,15 @@ class ForumthreadsController < ApplicationController
   end
 
   def new
-    @forum = Forum.find(params[:forum_id])
-    unless @forum.can_write?(current_user)
-      flash[:alert] = "You are not allowed to view this forum"
+    @thread = Forumthread.new(forum: Forum.find(params[:forum]))
+    unless @thread.forum.can_write?(current_user)
+      flash[:alert] = "You are not allowed to write in this forum"
       redirect_to forums_path
     end
-    @thread = Forumthread.new(forum: @forum)
   end
 
   def create
-    @thread = Forumthread.new(mod? ? params[:forumthread] : params[:forumthread].slice(:title, :content))
+    @thread = Forumthread.new(mod? ? thread_params([:sticky, :locked]) : thread_params)
     if @thread.can_write?(current_user)
       @thread.user_author = current_user
       @thread.forum       = @thread.forum
@@ -69,5 +68,9 @@ class ForumthreadsController < ApplicationController
     end
   end
 
-
+  def thread_params(add = [])
+    a = [:title, :content]
+    a += add
+    params.require(:Forumthread).permit(a)
+  end
 end

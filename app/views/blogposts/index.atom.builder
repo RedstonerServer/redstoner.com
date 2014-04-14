@@ -11,7 +11,7 @@ atom_feed do |feed|
       end
       entry.url blogpost_url(post)
       entry.title post.title
-      entry.content Sanitize.clean(GitHub::Markdown.render_gfm(post.content), Sanitize::Config::RELAXED).html_safe, :type => 'html'
+      entry.content Sanitize.clean(render_md(post.content), Sanitize::Config::RELAXED).html_safe, :type => 'html'
     end
   end
 end

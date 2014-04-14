@@ -29,7 +29,7 @@ class BlogpostsController < ApplicationController
 
   def create
     if mod?
-      @post = Blogpost.new(params[:blogpost].slice(:title, :content))
+      @post = Blogpost.new(post_params)
       @post.user_author = current_user
       if @post.save
         redirect_to @post, notice: 'Post has been created.'
@@ -47,7 +47,7 @@ class BlogpostsController < ApplicationController
     @post = Blogpost.find(params[:id])
     if mod? || @comment.author.is?(current_user)
       @post.user_editor = current_user
-      if @post.update_attributes(params[:blogpost].slice(:title, :content, :user_editor))
+      if @post.update_attributes(post_params([:user_editor]))
         redirect_to @post, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"
@@ -68,5 +68,14 @@ class BlogpostsController < ApplicationController
       flash[:alert] = "You are not allowed to delete this Post"
     end
     redirect_to blogposts_path
+  end
+
+
+  private
+
+  def post_params(add = [])
+    a = [:title, :content]
+    a += add
+    params.require(:blogpost).permit(a)
   end
 end

@@ -1,3 +1,4 @@
+<%= link_to "News", blogposts_path %> → <%= link_to @post.title %>
 <div class="item-group post with-avatar" id="post-<%= @post.id %>">
   <%= link_to(image_tag(@post.author.avatar_url(64), class: "avatar"), @post.author, title: @post.author.ign) %>
   <div class="header">
@@ -7,14 +8,14 @@
   <div class="items">
     <div class="item content">
       <h2 class="headline"><%= link_to truncate(@post.title, length: 60, omission: " …"), p %></h2>
-      <%= Sanitize.clean(GitHub::Markdown.render_gfm(@post.content), Sanitize::Config::RELAXED).html_safe %>
+      <%= Sanitize.clean(render_md(@post.content), Sanitize::Config::RELAXED).html_safe %>
     </div>
   </div>
 </div>
 <div id="comments">
   <h3><%= "#{pluralize(@post.comments.length, 'comment')}." %></h3>
   <% @post.comments.each do |c| %>
-    <%= render "comments/comment", :c => c %>
+    <%= render "comments/comment", c: c %>
   <% end %>
   <%= render "comments/new" %>
 </div>

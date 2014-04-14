@@ -2,6 +2,6 @@
 
 <%= simple_form_for [@comment.blogpost, @comment] do |f| %>
   <%= f.input :content, label: false, as: "text", placeholder: "Comment" %>
-  <%= f.submit "Update Comment", class: "btn blue left" %>
+  <p><%= f.submit "Update Comment", class: "btn blue left" %></p>
 <% end %>
-<%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", confirm: "Delete comment forever?", class: "btn red right" %>
+<p><%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", confirm: "Delete comment forever?", class: "btn red right" %></p>

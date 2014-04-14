@@ -1,7 +1,7 @@
 <h1>New Post</h1>
-<p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
 <%= simple_form_for @post do |f|%>
   <%= f.input :title, placeholder: "Title" %>
-  <%= f.hidden_field :content, placeholder: "Text", input_html: {class: "full-width vertical"} %>
-  <%= f.submit "Create Post", class: "btn blue left" %>
+  <p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
+  <%= f.text_area :content, placeholder: "Text", input_html: {class: "full-width vertical"} %>
+  <p><%= f.submit "Create Post", class: "btn blue left" %></p>
 <% end %>

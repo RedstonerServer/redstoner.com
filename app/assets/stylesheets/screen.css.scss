@@ -1,4 +1,12 @@
-/* CSS for PCs only */
+@keyframes wiggle {
+  0% {transform: rotate(-3deg);}
+  100% {transform: rotate(3deg);}
+}
+@-webkit-keyframes wiggle {
+  0% {transform: rotate(-3deg);}
+  100% {transform: rotate(3deg);}
+}
+
 
 @media only screen
 and (min-width: 0px) //TODO
@@ -59,7 +67,6 @@ and (min-width: 0px) //TODO
       height: 50px;
       border-bottom: 1px solid #363636;
       position: relative;
-      text-shadow: 0 1px 1px #222;
       #logo {
         width: 100px;
         height: 100px;
@@ -81,7 +88,7 @@ and (min-width: 0px) //TODO
           display: inline-block;
           color: #fff;
           &:hover {
-            color: #bbb;
+            color: #f66;
           }
         }
         li {
@@ -355,7 +362,7 @@ and (min-width: 0px) //TODO
       background: #ddd;
       border: none;
       height: 3em;
-      margin: 0;
+      margin: 4px 0 0 0;
       padding: 0.5em 1em;
       width: 100%;
     }
@@ -399,7 +406,7 @@ and (min-width: 0px) //TODO
       box-shadow: 0 0 5px #faa inset;
       border-bottom: none;
     }
-    .validation-error {
+    .validation-error, .error {
       display: inline-block;
       padding: 0 1em;
       width: 100%;
@@ -589,6 +596,10 @@ and (min-width: 0px) //TODO
 
   .bold {
     font-weight: bold;
+  }
+
+  del {
+    background: rgba(255, 200, 200, 0.5);
   }
 
   .comment-counter {

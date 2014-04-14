@@ -1,5 +1,5 @@
-<%= link_to @group, forumgroup_path(@group) %> →  New forum
-<h1>New forum forum</h1>
+<%= link_to @forum.group, forumgroup_path(@forum.group) %> →  New forum
+<h1>New Forum</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
 <%= form_for @forum do |f|%>
   <table>
@@ -20,6 +20,6 @@
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
   </table>
-  <%= f.hidden_field :forumgroup_id, value: @group.id %>
-  <%= f.submit "Create forum", class: "btn blue" %>
+  <%= f.hidden_field :forumgroup_id, value: @forum.group.id %>
+  <p><%= f.submit "Create forum", class: "btn blue" %></p>
 <% end %>

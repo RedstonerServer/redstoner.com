@@ -1,4 +1,17 @@
-<h1>Edit forum group</h1>
+<h1>Manage Forums</h1>
+<div class="item-group">
+  <div class="header">
+    Forums
+  </div>
+  <div class="items bold">
+    <% @group.forums.each do |forum| %>
+      <%= link_to forum.name, edit_forum_path(forum), class: "item" %>
+    <% end %>
+    <div class="item"><%= link_to "Add Forum", new_forum_path(forumgroup: @group), class: "btn blue" %></div>
+  </div>
+</div>
+<hr>
+<h1>Edit Forum Group</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
 <%= form_for @group do |f|%>
   <table>
@@ -19,6 +32,6 @@
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
   </table>
-  <%= f.submit "Update group", class: "btn blue" %>
+  <p><%= f.submit "Update group", class: "btn blue" %></p>
 <% end %>
-<%= button_to "Delete group", @post, :method => "delete", :confirm => "Delete group?\nForums + Threads will not be accessible!", class: "btn red right" %>
+<p><%= button_to "Delete group", @post, :method => "delete", :confirm => "Delete group?\nForums + Threads will not be accessible!", class: "btn red right" %></p>

@@ -8,7 +8,7 @@
   <div class="items">
     <div class="item content">
       <h2 class="headline"><%= link_to truncate(@thread.title, length: 60, omission: " …"), p %></h2>
-      <%= Sanitize.clean(GitHub::Markdown.render_gfm(@thread.content), Sanitize::Config::RELAXED).html_safe %>
+      <%= Sanitize.clean(render_md(@thread.content), Sanitize::Config::RELAXED).html_safe %>
     </div>
   </div>
 </div>

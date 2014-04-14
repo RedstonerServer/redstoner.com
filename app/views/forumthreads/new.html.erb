@@ -1,6 +1,6 @@
-<%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum, @forum %> →  New thread
+<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
 <h1>New thread</h1>
-<%= form_for [@forum, @thread] do |f|%>
+<%= form_for @thread do |f|%>
   <table>
     <% if mod? %>
       <tr>
@@ -16,6 +16,6 @@
   <div id="form_inputs">
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
-  <%= f.hidden_field :content, placeholder: "Text" %>
+  <%= f.text_area :content, placeholder: "Text" %>
   <p><%= f.submit "Create thread", class: "btn blue" %></p>
 <% end %>

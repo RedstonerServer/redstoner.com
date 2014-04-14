@@ -1,6 +1,7 @@
-<h1>New forum group</h1>
+<%= link_to @forum.group, forumgroup_path(@forum.group) %> →  <%= link_to @forum.name, @forum %>
+<h1>Edit Forum</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
-<%= form_for @group do |f|%>
+<%= form_for @forum do |f|%>
   <table>
     <tr>
       <td><%= f.label :name %></td>
@@ -19,5 +20,5 @@
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
   </table>
-  <p><%= f.submit "Create group", class: "btn blue" %></p>
+  <p><%= f.submit "Update forum", class: "btn blue" %></p>
 <% end %>

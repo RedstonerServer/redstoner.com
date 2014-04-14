@@ -27,7 +27,7 @@ Site::Application.routes.draw do
   resources :forumthreads, path: '/forums/threads'
   resources :forumgroups, path: 'forums/groups'
 
-  match '/status' => 'status#show'
+  get '/status' => 'status#show'
 
   get "logout" => 'sessions#destroy'
   get 'login' => 'sessions#new'

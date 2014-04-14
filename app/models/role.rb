@@ -1,7 +1,7 @@
 class Role < ActiveRecord::Base
   include Comparable
   has_many :users
-  attr_accessible :name, :value
+
 
   def to_s
     self.name

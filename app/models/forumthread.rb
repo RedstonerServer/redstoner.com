@@ -4,7 +4,7 @@ class Forumthread < ActiveRecord::Base
   belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
   has_many   :threadreplies
 
-  attr_accessible :title, :content, :sticky, :locked, :user_author, :user_editor, :forum
+
 
   validates_presence_of :title, :author, :forum
   validates_presence_of :content

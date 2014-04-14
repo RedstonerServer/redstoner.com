@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   belongs_to :role
-  attr_accessible :uuid, :confirmed, :name, :password, :password_confirmation, :ign, :email, :email_token, :about, :last_ip, :skype, :skype_public, :youtube, :youtube_channelname, :twitter, :last_seen, :role, :role_id
+
 
   has_secure_password
 
@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
   validates_length_of :about, maximum: 5000
   validates_length_of :ign, minimum: 2, maximum: 16
 
-  validates :email, uniqueness: {case_sensitive: false}, format: {with: /^.+@.+\..{2,}$/i, message: "That doesn't look like an email adress."}
-  validates :ign, uniqueness: {case_sensitive: false}, format: {with: /^[a-z\d_]+$/i, message: "That is probably not your username."}
+  validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@.+\..{2,}\z/i, message: "That doesn't look like an email adress."}
+  validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "That is probably not your username."}
 
   validate :has_paid, :if => lambda {|user| user.ign_changed? }
 
@@ -101,12 +101,10 @@ class User < ActiveRecord::Base
       response = open("https://sessionserver.mojang.com/session/minecraft/profile/#{CGI.escape(self.uuid)}", read_timeout: 0.5)
       if response.status[0] == "200"
         session_profile = JSON.load(response.read)
-        if session_profile["legacy"] == true
-          return open("https://minecraft.net/haspaid.jsp?#{{user: self.ign}.to_query}", read_timeout: 0.5).read == "true"
-        else
-          return true
-        end
+        # unpaid accounts are called 'demo' accounts
+        return session_profile["demo"] == true
       elsif response.status[0] == "204"
+        # user doesn't exist
         return false
       else
         puts "---"

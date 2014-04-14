@@ -21,7 +21,7 @@ Hi <%= @user.name %>!
 
 <p>Please click this link to confirm your registration:
   <div style="background-color: #eeeeee; padding: 1em; margin: 0; text-align: center;" width="100%">
-    <%= link_to "confirm my email", confirm_user_path(@user, code: @user.email_token, only_path: false), style: "text-decoration: none; color: #f2f2f2; padding: 0.5em 2em; background-color: #4096EE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; display: inline-block; text-transform: uppercase;" %>
+    <%= link_to "confirm registration", confirm_user_path(@user, code: @user.email_token, only_path: false), style: "text-decoration: none; color: #f2f2f2; padding: 0.5em 2em; background-color: #4096EE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; display: inline-block; text-transform: uppercase;" %>
   </div>
 </p>
 

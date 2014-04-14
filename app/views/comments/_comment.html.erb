@@ -6,7 +6,7 @@
   </div>
   <div class="items">
     <div class="item content">
-      <%= h(c.content).gsub(/(\s*?[\r\n]){3,}/, "\n\n").gsub("\n", "<br>").html_safe %>
+      <%= Sanitize.clean(render_mini_md(c.content.gsub(/([\r\n]+\s*?){3,}/, "\n\n")), Sanitize::Config::BASIC).html_safe %>
     </div>
   </div>
 </div>
