@@ -6,7 +6,7 @@
   </div>
   <div class="items">
     <div class="item content">
-      <%= Sanitize.clean(render_mini_md(c.content.gsub(/([\r\n]+\s*?){3,}/, "\n\n")), Sanitize::Config::BASIC).html_safe %>
+      <%= render_mini_md(c.content).html_safe %>
     </div>
   </div>
 </div>

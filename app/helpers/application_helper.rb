@@ -32,11 +32,12 @@ module ApplicationHelper
       lax_spacing: true,
       disable_indented_code_blocks: false,
       space_after_headers: false,
+      superscript: true,
       underline: true,
       highlight: true,
       footnotes: true
     })
-    md.render(content)
+    render_youtube(md.render(content))
   end
 
   def render_mini_md(content)
@@ -57,10 +58,23 @@ module ApplicationHelper
       lax_spacing: false,
       disable_indented_code_blocks: true,
       space_after_headers: true,
+      superscript: true,
       underline: true,
       highlight: true,
       footnotes: false
     })
-    md.render(content)
+    md.render(content.gsub(/([\r\n]+\s*?){3,}/, "\n\n").gsub(/^\s*#/, "\\#"))
+  end
+
+
+  private
+
+  def render_youtube(content)
+    # TODO: render only in text blocks, not in code/quotes/etc
+    return content.gsub(
+      /\[yt:([a-zA-Z0-9\-_]+)\]/,
+      "<iframe class='youtube' allowfullscreen src='
+        https://www.youtube-nocookie.com/embed/\\1?theme=light&vq=hd720&hd=1&iv_load_policy=3&showinfo=1&showsearch=0&rel=0&modestbranding&hd=1&autohide=1&html5=1'>
+      </iframe>")
   end
 end

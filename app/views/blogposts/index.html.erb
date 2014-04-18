@@ -13,7 +13,7 @@
       <div class="items">
         <div class="item content post">
           <h2 class="headline"><%= link_to truncate(p.title, length: 60, omission: " …"), p %></h2>
-          <%= Sanitize.clean(render_md(p.content), Sanitize::Config::RELAXED).html_safe %>
+          <%= render_md(p.content).html_safe %>
         </div>
       </div>
     </div>

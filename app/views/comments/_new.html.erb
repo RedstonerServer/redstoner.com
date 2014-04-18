@@ -1,7 +1,7 @@
 <% if current_user %>
   <h3>New comment</h3>
   <%= simple_form_for [@post, @comment] do |f| %>
-    <p>> quote | _underline_ | *italic* | **bold** | `code` | [link](https://example.com)
+    <p><blockquote>&gt; quote</blockquote> | _underline_ | <i>*italic*</i> | <b>**bold**</b> | <code>`code`</code> | <mark>==mark==</mark> | <a>[link](https://example.com)</a>
     <%= f.input :content, :label => false, :as => "text", :placeholder => "Comment", input_html: {class: "comment"} %>
     <%= f.submit class: "btn blue" %>
   <% end %>

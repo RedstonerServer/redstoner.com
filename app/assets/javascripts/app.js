@@ -33,4 +33,11 @@ $(function(){
       $('img').css('transform', 'rotate(180deg)');
     }
   });
+  $('pre code').each(function() {
+    if ($(this).attr("class")) {
+      $(this).parent().attr("lang", $(this).attr("class").replace("hljs", "").trim());
+    } else {
+      $(this).parent().attr("lang", "(language unknown)")
+    }
+  });
 });

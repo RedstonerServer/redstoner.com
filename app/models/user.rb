@@ -15,12 +15,12 @@ class User < ActiveRecord::Base
   validates_length_of :password, in: 8..256, :on => :create
   validates_length_of :name, in: 2..30
   validates_length_of :about, maximum: 5000
-  validates_length_of :ign, minimum: 2, maximum: 16
+  validates_length_of :ign, minimum: 1, maximum: 16
 
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@.+\..{2,}\z/i, message: "That doesn't look like an email adress."}
-  validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "That is probably not your username."}
+  validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "Username is invalid (a-z, 0-9, _)."}
 
-  validate :has_paid, :if => lambda {|user| user.ign_changed? }
+  validate :account_exists?, :if => lambda {|user| user.ign_changed? }
 
   has_many :blogposts
   has_many :comments
@@ -96,31 +96,31 @@ class User < ActiveRecord::Base
     end
   end
 
-  def haspaid?
-    begin
-      response = open("https://sessionserver.mojang.com/session/minecraft/profile/#{CGI.escape(self.uuid)}", read_timeout: 0.5)
-      if response.status[0] == "200"
-        session_profile = JSON.load(response.read)
-        # unpaid accounts are called 'demo' accounts
-        return session_profile["demo"] == true
-      elsif response.status[0] == "204"
-        # user doesn't exist
-        return false
-      else
-        puts "---"
-        puts "ERROR: unexpected response code while checking '#{self.uuid}' for premium account"
-        puts "code: #{reponse.status}, body: '#{reponse.read}'"
-        puts "---"
-      end
-    rescue => e
-      puts "---"
-      puts "ERROR: failed to check for premium account for '#{self.uuid}'. Minecraft servers down?"
-      puts e.message
-      puts "---"
-    end
-    # mojang servers have trouble
-    return true
-  end
+  # def haspaid?
+  #   begin
+  #     response = open("https://sessionserver.mojang.com/session/minecraft/profile/#{CGI.escape(self.uuid)}", read_timeout: 0.5)
+  #     if response.status[0] == "200"
+  #       session_profile = JSON.load(response.read)
+  #       # unpaid accounts are called 'demo' accounts
+  #       return session_profile["demo"] == true
+  #     elsif response.status[0] == "204"
+  #       # user doesn't exist
+  #       return false
+  #     else
+  #       puts "---"
+  #       puts "ERROR: unexpected response code while checking '#{self.uuid}' for premium account"
+  #       puts "code: #{reponse.status}, body: '#{reponse.read}'"
+  #       puts "---"
+  #     end
+  #   rescue => e
+  #     puts "---"
+  #     puts "ERROR: failed to check for premium account for '#{self.uuid}'. Minecraft servers down?"
+  #     puts e.message
+  #     puts "---"
+  #   end
+  #   # mojang servers have trouble
+  #   return true
+  # end
 
   # def correct_case?(ign)
   #   begin
@@ -183,8 +183,11 @@ class User < ActiveRecord::Base
     self.role ||= Role.get(:normal)
   end
 
-  def has_paid
-    errors.add(:ign, "'#{self.ign}' is not a paid account!") unless self.haspaid?
+  def account_exists?
+    profile = self.get_profile
+    if !profile || profile["demo"] == true
+      errors.add(:ign, "'#{self.ign}' is not a paid account!")
+    end
   end
 
   def strip_whitespaces

@@ -230,11 +230,9 @@ and (min-width: 0px) //TODO
   }
 
   pre {
-    background: #3F3F3F;
     border-radius: 2px;
-    box-shadow: 0 0 16px #222 inset;
     position: relative;
-    padding: 1em;
+    background: #3F3F3F;
     &:after {
       color: #fff;
       content: attr(lang); // show language on top right
@@ -252,17 +250,20 @@ and (min-width: 0px) //TODO
       right: 0;
     }
     code {
-      background: transparent;
       padding: 0;
+      box-shadow: 0 0 16px #222 inset;
+      background: #3F3F3F !important;
+      border: none;
+      border-radius: 3px;
     }
   }
 
   code {
-    background: #3F3F3F;
-    padding: 0 2px;
-    border-radius: 3px;
-    color: #ddd;
-    text-shadow: 1px 1px #000;
+    background: #A2A2A2;
+    padding: 2px 5px 2px 2px;
+    border-radius: 0 3px 3px 0;
+    color: #000;
+    border-left: 3px solid #3F3F3F;
   }
 
   table, tr, td, th {
@@ -271,10 +272,10 @@ and (min-width: 0px) //TODO
 
   blockquote {
     background: #F9F9F9;
-    border-left: 10px solid #3F3F3F;
+    border-left: 3px solid #3F3F3F;
     display: inline-block;
-    margin: 0 0 0 2em;
-    padding: 0.5em 3em 0 10px;
+    margin: 0;
+    padding: 2px 5px 2px 2px;
   }
 
   blockquote p {
@@ -598,8 +599,17 @@ and (min-width: 0px) //TODO
     font-weight: bold;
   }
 
-  del {
-    background: rgba(255, 200, 200, 0.5);
+  iframe.youtube {
+    border: none;
+    width: 640px;
+    max-width: 100%;
+    height: 360px;
+  }
+
+  mark {
+    background: #faa;
+    padding: 0 2px;
+    border-radius: 3px;
   }
 
   .comment-counter {
