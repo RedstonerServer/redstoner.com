@@ -17,5 +17,6 @@
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
   <%= f.text_area :content, placeholder: "Text" %>
+  <%= f.hidden_field :forum_id %>
   <p><%= f.submit "Create thread", class: "btn blue" %></p>
 <% end %>

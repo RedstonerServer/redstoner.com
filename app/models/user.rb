@@ -136,17 +136,23 @@ class User < ActiveRecord::Base
   # end
 
   def get_profile
-    uri  = URI.parse("https://api.mojang.com/profiles")
+    uri  = URI.parse("https://api.mojang.com/profiles/minecraft")
     http = Net::HTTP.new(uri.host, uri.port)
     http.open_timeout = 5
     http.read_timeout = 20
     http.use_ssl = true
 
-    payload = { agent: "Minecraft", name: self.ign }
     begin
-      response = http.post(uri.request_uri, payload.to_json, "Content-Type" => "application/json")
+      response = http.post(uri.request_uri, [self.ign].to_json, "Content-Type" => "application/json")
       if response.code == "200"
-        return JSON.load(response.body)["profiles"][0]
+        data = JSON.load(response.body)
+        if data.length == 1
+          return data[0]
+        elsif data.length > 1
+          raise "Multiple accounts for user #{self.ign}: '#{response.body}'"
+        elsif data.length < 1
+          return nil
+        end
       end
     rescue => e
       puts "----"

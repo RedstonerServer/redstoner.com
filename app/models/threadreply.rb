@@ -8,6 +8,10 @@ class Threadreply < ActiveRecord::Base
   validates_presence_of :content
   validates_length_of :content, in: 2..10000
 
+  def thread
+    forumthread
+  end
+
   def author
     @author ||= if self.user_author.present?
       user_author

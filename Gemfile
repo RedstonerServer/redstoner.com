@@ -13,6 +13,7 @@ gem 'hirb' #pretty console output
 gem 'rb-readline'
 gem 'rest-client'
 gem 'activerecord-session_store'
+gem 'highlight_js-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

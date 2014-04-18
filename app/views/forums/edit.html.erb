@@ -1,4 +1,4 @@
-<%= link_to @forum.group, forumgroup_path(@forum.group) %> →  <%= link_to @forum.name, @forum %>
+<%= link_to "(Edit) #{@forum.group.name}", edit_forumgroup_path(@forum.group) %> →  <%= link_to @forum.name, @forum %>
 <h1>Edit Forum</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
 <%= form_for @forum do |f|%>

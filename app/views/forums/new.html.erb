@@ -20,6 +20,6 @@
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
   </table>
-  <%= f.hidden_field :forumgroup_id, value: @forum.group.id %>
+  <%= f.hidden_field :forumgroup_id %>
   <p><%= f.submit "Create forum", class: "btn blue" %></p>
 <% end %>

@@ -39,8 +39,7 @@ class ForumsController < ApplicationController
 
   def create
     if admin?
-      @forum = Forum.new(forum_params)
-      @forum.forumgroup = Forumgroup.find(params[:forum][:forumgroup_id])
+      @forum = Forum.new(forum_params([:forumgroup_id]))
       if @forum.save
         flash[:notice] = "Forum created."
         redirect_to @forum
@@ -66,7 +65,7 @@ class ForumsController < ApplicationController
   end
 
   def forum_params(add = [])
-    a = [:name, :position, :role_read, :role_write] + add
+    a = [:name, :position, :role_read_id, :role_write_id] + add
     params.require(:forum).permit(a)
   end
 end

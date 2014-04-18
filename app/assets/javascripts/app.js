@@ -1,4 +1,5 @@
 $(function(){
+  hljs.initHighlightingOnLoad();
   $('.flash').click(function(){
     $('.flash').animate({
       opacity: 0

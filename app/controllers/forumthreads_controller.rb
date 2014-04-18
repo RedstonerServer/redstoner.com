@@ -36,10 +36,9 @@ class ForumthreadsController < ApplicationController
   end
 
   def create
-    @thread = Forumthread.new(mod? ? thread_params([:sticky, :locked]) : thread_params)
+    @thread = Forumthread.new(mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params([:forum_id]))
     if @thread.can_write?(current_user)
       @thread.user_author = current_user
-      @thread.forum       = @thread.forum
       if @thread.save
         flash[:notice] = "Thread created!"
         redirect_to forumthread_path( @thread)
@@ -71,6 +70,6 @@ class ForumthreadsController < ApplicationController
   def thread_params(add = [])
     a = [:title, :content]
     a += add
-    params.require(:Forumthread).permit(a)
+    params.require(:forumthread).permit(a)
   end
 end

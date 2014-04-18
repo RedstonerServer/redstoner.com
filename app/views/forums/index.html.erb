@@ -8,7 +8,9 @@
 
       <div class="items bold">
         <% group.forums.each do |f| %>
-          <%= link_to f.name, f, class: "item" %>
+          <% if f.can_read?(current_user) %>
+            <%= link_to f.name, f, class: "item" %>
+          <% end %>
         <% end %>
       </div>
 

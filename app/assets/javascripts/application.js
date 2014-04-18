@@ -13,3 +13,5 @@
 //= require jquery_ujs
 //= require app
 //= require moment
+//= require highlight
+
