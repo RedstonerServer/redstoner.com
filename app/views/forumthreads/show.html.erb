@@ -3,7 +3,7 @@
   <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
   <div class="header">
     <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
-    <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if mod? %>
+    <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if (@thread.author.is?(current_user) || mod?) %>
   </div>
   <div class="items">
     <div class="item content">

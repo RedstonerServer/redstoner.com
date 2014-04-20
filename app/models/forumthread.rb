@@ -4,8 +4,6 @@ class Forumthread < ActiveRecord::Base
   belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
   has_many   :threadreplies
 
-
-
   validates_presence_of :title, :author, :forum
   validates_presence_of :content
   validates_length_of :content, in: 5..10000
@@ -37,6 +35,6 @@ class Forumthread < ActiveRecord::Base
   end
 
   def can_write?(user)
-    forum.can_write?(user) && (!locked? || mod?)
+    forum.can_write?(user) && (!locked? || user.mod?)
   end
 end

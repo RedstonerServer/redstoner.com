@@ -3,7 +3,7 @@
     Hi <%= @user.name %>!
 
     <p>Thank you for registering on Redstoner.com!</p>
-    <p>To use your account, you need to <%= link_to "confirm", confirm_user_path(@user, code: @user.email_token, only_path: false) %>your email address.</p>
+    <p>To use your account, you need to <%= link_to "confirm", confirm_user_path(@user, code: @user.email_token, only_path: false) %> your email address.</p>
 
     <div>
 
