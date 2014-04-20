@@ -23,7 +23,7 @@ group :assets do
   gem 'uglifier'
 end
 
-group :development do
+group :development, :rs_dev do
   gem 'webrick'
   gem 'better_errors'
   gem 'binding_of_caller'
