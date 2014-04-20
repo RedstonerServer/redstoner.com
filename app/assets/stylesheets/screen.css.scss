@@ -263,6 +263,9 @@ and (min-width: 0px) //TODO
     padding: 2px 5px;
     border-radius: 3px;
     color: #000;
+    border: 1px solid #888;
+    display: inline-block;
+    line-height: 1em;
   }
 
   table, tr, td, th {
