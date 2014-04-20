@@ -1,8 +1,22 @@
 <h1>Edit thread</h1>
-<p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
-<%= simple_form_for [@thread.forum, @thread] do |f|%>
-  <%= f.input :title, label: false %>
-  <%= f.text_area :content, label: false, input_html: {class: "full-width vertical"} %>
-  <%= f.submit "Update thread", class: "btn blue left" %>
+<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
+<%= form_for @thread do |f|%>
+  <table>
+    <% if mod? %>
+      <tr>
+        <td><%= f.label :sticky %></td>
+        <td><%= f.check_box :sticky %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :locked %></td>
+        <td><%= f.check_box :locked %></td>
+      </tr>
+    <% end %>
+  </table>
+  <div id="form_inputs">
+    <%= f.text_field :title, placeholder: "Title" %>
+  </div>
+  <%= f.text_area :content, placeholder: "Text" %>
+  <p><%= f.submit "Update thread", class: "btn blue" %></p>
 <% end %>
-<%= button_to "Delete thread", [@thread.forum, @thread], :method => "delete", :confirm => "Delete thread & comments forever?", class: "btn red right" %>
+<%= button_to "Delete thread", @thread, :method => "delete", data: {confirm: "Delete thread & comments forever?"}, class: "btn red right" %>

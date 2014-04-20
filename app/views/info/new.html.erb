@@ -1,0 +1,6 @@
+<h1>New Info</h1>
+<%= form_for @info, url: info_index_path do |f|%>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= f.text_area :content, placeholder: "Text", input_html: {class: "full-width vertical"} %>
+  <p><%= f.submit "Create Info", class: "btn blue left" %></p>
+<% end %>

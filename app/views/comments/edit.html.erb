@@ -4,4 +4,4 @@
   <%= f.input :content, label: false, as: "text", placeholder: "Comment" %>
   <p><%= f.submit "Update Comment", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", confirm: "Delete comment forever?", class: "btn red right" %></p>
+<p><%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", data: {confirm: "Delete comment forever?"}, class: "btn red right" %></p>

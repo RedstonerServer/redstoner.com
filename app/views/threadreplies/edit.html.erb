@@ -1,0 +1,6 @@
+<%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread %> → Edit reply
+<h1>Edit reply</h1>
+<%= form_for [@reply.thread, @reply] do |f| %>
+  <%= f.text_area :content, placeholder: "Text" %>
+  <p><%= f.submit "Reply", class: "btn blue" %></p>
+<% end %>

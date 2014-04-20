@@ -5,4 +5,4 @@
   <%= f.text_area :content, :label => false, input_html: {class: "full-width vertical"} %>
   <p><%= f.submit "Update Post", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete post", @post, :method => "delete", :confirm => "Delete post & comments forever?", class: "btn red right" %></p>
+<p><%= button_to "Delete post", @post, method: "delete", data: {confirm: "Delete post & comments forever?"}, class: "btn red right" %></p>

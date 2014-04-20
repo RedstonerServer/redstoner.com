@@ -11,7 +11,7 @@ Site::Application.routes.draw do
     end
   end
 
-  resources :roles
+  resources :info
 
   resources :users do
     member do
@@ -23,18 +23,20 @@ Site::Application.routes.draw do
     end
   end
 
-  resources :forums, path: 'forums'
-  resources :forumthreads, path: '/forums/threads'
   resources :forumgroups, path: 'forums/groups'
+  resources :forums, path: 'forums'
+  resources :forumthreads, path: '/forums/threads' do
+    resources :threadreplies, path: '/forums/threads/replies'
+  end
 
-  get '/status' => 'status#show'
+  # get '/status' => 'status#show'
 
-  get "logout" => 'sessions#destroy'
   get 'login' => 'sessions#new'
-  get 'signup' => 'users#new'
   post 'login' => 'sessions#create'
+  get "logout" => 'sessions#destroy'
+  get 'signup' => 'users#new'
 
-  post 'paypal' => 'paypal#create'
+  # post 'paypal' => 'paypal#create'
 
   root to: 'statics#index'
 end

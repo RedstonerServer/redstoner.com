@@ -29,7 +29,9 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if mod? || @comment.author.is?(current_user)
-      if @comment.update_attributes(comment_params)
+      @comment.user_editor = current_user
+      @comment.attributes = comment_params
+      if @comment.save
         flash[:notice] = "Comment updated!"
         redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}"
       else

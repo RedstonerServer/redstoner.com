@@ -1,0 +1,4 @@
+<%= form_for [reply.thread, reply] do |f| %>
+  <%= f.text_area :content, placeholder: "Text" %>
+  <p><%= f.submit "Reply", class: "btn blue" %></p>
+<% end %>

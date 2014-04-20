@@ -1,0 +1,9 @@
+<h1>Info</h1>
+<ul>
+  <% @info.each do |info| %>
+    <li><%= link_to info.title, info %></li>
+  <% end %>
+</ul>
+<% if mod? %>
+  <%= link_to "New Info", new_info_path, class: "btn blue" %>
+<% end %>

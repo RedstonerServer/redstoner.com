@@ -12,7 +12,8 @@ class ForumthreadsController < ApplicationController
   def update
     if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
-      if @thread.update_attributes thread_params([:user_editor])
+      @thread.attributes = thread_params([:user_editor])
+      if @thread.save
         redirect_to @thread, notice: 'Post has been updated.'
       else
         flash[:alert] = "There was a problem while updating the post"

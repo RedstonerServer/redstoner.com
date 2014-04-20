@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  belongs_to :user_author, class_name: "User", foreign_key: "user_author_id"
+  belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
 
   validates_presence_of :content, :author, :blogpost
   validates_length_of :content, in: 4..1000

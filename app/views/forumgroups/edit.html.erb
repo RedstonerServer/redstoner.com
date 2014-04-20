@@ -34,4 +34,4 @@
   </table>
   <p><%= f.submit "Update group", class: "btn blue" %></p>
 <% end %>
-<p><%= button_to "Delete group", @post, :method => "delete", :confirm => "Delete group?\nForums + Threads will not be accessible!", class: "btn red right" %></p>
+<p><%= button_to "Delete group", @post, :method => "delete", data: {confirm: "Delete group?\nForums + Threads will not be accessible!"}, class: "btn red right" %></p>
