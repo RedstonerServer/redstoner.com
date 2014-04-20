@@ -19,11 +19,11 @@ class ThreadrepliesController < ApplicationController
         redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}", notice: 'Reply created!'
       else
         flash[:alert] = "Could not create reply."
-        redirect_to Blogpost.find(params[:forumthread_id])
+        redirect_to Forumthread.find(params[:forumthread_id])
       end
     else
       flash[:alert] = "You are not allowed to create replies."
-      redirect_to Blogpost.find(params[:forumthread_id])
+      redirect_to Forumthread.find(params[:forumthread_id])
     end
   end
 
