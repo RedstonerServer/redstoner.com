@@ -56,6 +56,19 @@ class ForumthreadsController < ApplicationController
   end
 
 
+  def destroy
+    if mod? || @thread.author.is?(current_user)
+      if @thread.destroy
+        flash[:notice] = "Thread deleted!"
+      else
+        flash[:alert] = "There was a problem while deleting this thread"
+      end
+    else
+      flash[:alert] = "You are not allowed to delete this thread"
+    end
+    redirect_to @thread.forum
+  end
+
   private
 
   def check_permission
