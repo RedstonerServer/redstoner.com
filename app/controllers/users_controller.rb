@@ -85,13 +85,16 @@ class UsersController < ApplicationController
       if user_profile
         @user.uuid = user_profile["id"]
         @user.ign  = user_profile["name"] # correct case
-        if validate_token(@user.uuid, @user.email, params[:registration_token])
+        # TODO: uncomment when MC part works
+        if true # validate_token(@user.uuid, @user.email, params[:registration_token])
           @user.last_ip = request.remote_ip # showing in mail
           if @user.save
             session[:user_id] = @user.id
             if @user.uses_mc_password?(params[:user][:password])
               is_idiot = true
               flash[:alert] = "Really? That's your Minecraft password!"
+            else
+              is_idiot = false
             end
             begin
               RedstonerMailer.register_mail(@user, is_idiot).deliver
@@ -116,7 +119,7 @@ class UsersController < ApplicationController
         end
       else
         flash[:alert] = "Error. Your username is not correct or Mojang's servers are down."
-        render action: new
+        render action: "new"
         return
       end
     end

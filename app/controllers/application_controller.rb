@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_filter :update_ip, :update_seen
   # force_ssl
 
+  http_basic_authenticate_with name: "redstone", password: "sheep_"
+
   helper :all
   include UsersHelper
   include ApplicationHelper
