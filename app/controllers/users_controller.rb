@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       if params[:role].downcase == "staff"
         @users = User.all.select {|u| u.role >= Role.get(:mod) }
       else
-        @users = User.find_all_by_role_id(Role.get(params[:role]))
+        @users = User.where(role: Role.get(params[:role]))
       end
     else
       @users = User.all.to_a
