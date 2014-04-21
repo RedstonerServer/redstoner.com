@@ -559,23 +559,17 @@ and (min-width: 0px) //TODO
         display: block;
         padding: 0.5em;
         border-bottom: 1px solid #ddd;
-        &.locked:after {
-          background-image: url(image_path('/assets/lock.png'));
-          width: 20px;
-          height: 20px;
-          display: inline-block;
+        &.locked:before {
+          content: "(locked) ";
+          color: #000;
         }
-        &.sticky:after {
-          background-image: url(image_path('/assets/pin.png'));
-          width: 20px;
-          height: 20px;
-          display: inline-block;
+        &.sticky:before {
+          content: "(sticky) ";
+          color: #000;
         }
-        &.sticky-locked:after {
-          background-image: url(image_path('/assets/lock.png'));
-          width: 20px;
-          height: 20px;
-          display: inline-block;
+        &.lockedsticky:before {
+          content: "(locked sticky) ";
+          color: #000;
         }
         &.content {
           .headline {

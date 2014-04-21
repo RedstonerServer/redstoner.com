@@ -1,6 +1,9 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %>
 
 <h1><%= @forum %></h1>
+<% if @forum.can_write?(current_user) %>
+  <p><%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %></p>
+<% end %>
 <div id="forum_groups">
   <% @threads.each do |thread| %>
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">
@@ -12,11 +15,8 @@
         </span>
       </div>
       <div class="items bold">
-        <%= link_to thread.title, forumthread_path(thread), class: "item#{" locked" if thread.locked}#{" sticky" if thread.sticky}" %>
+        <%= link_to thread.title, forumthread_path(thread), class: "item #{"locked" if thread.locked}#{"sticky" if thread.sticky}" %>
       </div>
     </div>
   <% end %>
 </div>
-<% if @forum.can_write?(current_user) %>
-  <p><%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %></p>
-<% end %>
