@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :update_ip, :update_seen
+  before_filter :update_ip, :update_seen, :check_banned
   # force_ssl
 
   http_basic_authenticate_with name: "redstone", password: "sheep_"
@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
   helper_method :superadmin?
   helper_method :donor?
   helper_method :confirmed?
+
+
   private
 
   def update_ip
@@ -31,6 +33,15 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by_id(session[:user_id])
   end
+
+  def check_banned
+    if current_user && current_user.banned?
+      session.delete(:user_id)
+      flash[:alert] = "You are banned!"
+      redirect_to login_path
+    end
+  end
+
 
   #roles
   def disabled?

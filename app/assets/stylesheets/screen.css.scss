@@ -438,16 +438,7 @@ and (min-width: 0px) //TODO
     float: right;
   }
 
-  .user-banned {
-    background: #AB0000;
-    color: white;
-    font-weight: bold;
-    padding: 4px;
-    display: block;
-    border-radius: 3px;
-  }
-
-  .user-unconfirmed {
+  .user-unconfirmed, .user-banned {
     background:  #AB0000;
     color: white;
     font-weight: bold;
@@ -455,7 +446,6 @@ and (min-width: 0px) //TODO
     display: inline-block;
     border-radius: 3px;
     margin: 10px 0;
-    box-shadow: 0 0 10px #000;
   }
 
   .btn {
