@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_email_token
+  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_email_token, set_role
 
   validates_presence_of :password, :password_confirmation, :email_token, :on => :create
   validates_presence_of :name, :email, :ign
@@ -172,6 +172,10 @@ class User < ActiveRecord::Base
 
 
   private
+
+  def set_role
+    self.role ||= Role.get(:normal)
+  end
 
   def set_uuid
     if !self.uuid.present?

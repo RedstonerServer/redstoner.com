@@ -379,9 +379,14 @@ select {
 input , select, textarea {
   margin: 4px;
   vertical-align: middle;
+
   &[type=submit] {
     margin: 0;
+    &.btn {
+      cursor: pointer;
+    }
   }
+
   option {
     padding: 0.5em;
 
