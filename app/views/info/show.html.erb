@@ -1,3 +1,5 @@
 <%= link_to "Info", info_index_path %> → <%= @info.title %>
+<%= link_to "Edit Info", edit_info_path(@info), class: "btn blue right" %>
+<div class="clear"></div>
 <h1><%= @info.title %></h1>
 <div class="post"><%= render_md(@info.content).html_safe %></div>

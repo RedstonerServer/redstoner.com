@@ -15,7 +15,12 @@ class Blogpost < ActiveRecord::Base
   end
 
   def editor
+    # can be nil
     @editor ||= user_editor
+  end
+
+  def edited?
+    !!user_editor_id
   end
 
 end

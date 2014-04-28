@@ -3,11 +3,15 @@ class ForumsController < ApplicationController
 
   def index
      @groups = Forumgroup.select {|g| g.can_read?(current_user) }
-     @groups.sort_by!{|g| g[:position]}
+     @groups.sort_by!{ |g| g.position || 0 }
   end
 
   def show
-    @threads = @forum.forumthreads.order("sticky desc, updated_at desc")
+    @threads = @forum.forumthreads.to_a
+    @threads.sort_by! do |t|
+      # sticky goes first, then sort by last activity (new replies)
+      [t.sticky ? 0 : 1, -(t.replies.last.try(:created_at) || t.created_at).to_i]
+    end
   end
 
   def edit

@@ -16,4 +16,13 @@ class Comment < ActiveRecord::Base
       User.first
     end
   end
+
+  def editor
+    # can be nil
+    @editor ||= user_editor
+  end
+
+  def edited?
+    !!user_editor_id
+  end
 end

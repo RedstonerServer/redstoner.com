@@ -11,12 +11,21 @@
         <td><%= f.label :locked %></td>
         <td><%= f.check_box :locked %></td>
       </tr>
+      <tr>
+        <td><%= f.label :forum_id, "Move thread" %></td>
+        <%
+          forums = []
+          Forum.all.sort_by{ |f| f.forumgroup.position || 0 }.each do |f|
+            forums << ["#{f.forumgroup.name} → #{f.name}", f.id]
+          end
+        %>
+        <td><%= f.select :forum_id, forums %></td>
+      </tr>
     <% end %>
   </table>
-  <div id="form_inputs">
-    <%= f.text_field :title, placeholder: "Title" %>
-  </div>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= render partial: "mdhelp" %>
   <%= f.text_area :content, placeholder: "Text" %>
-  <p><%= f.submit "Update thread", class: "btn blue" %></p>
+  <p><%= f.submit "Update thread", class: "btn blue left" %></p>
 <% end %>
 <%= button_to "Delete thread", @thread, :method => "delete", data: {confirm: "Delete thread & comments forever?"}, class: "btn red right" %>

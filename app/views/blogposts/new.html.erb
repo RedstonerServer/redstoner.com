@@ -1,7 +1,7 @@
 <h1>New Post</h1>
-<%= simple_form_for @post do |f|%>
-  <%= f.input :title, placeholder: "Title" %>
-  <p id="markdown-note">Note: You can use <%= link_to "Markdown", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: "_blank" %>!</p>
-  <%= f.text_area :content, placeholder: "Text", input_html: {class: "full-width vertical"} %>
+<%= form_for @post do |f|%>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= render partial: "mdhelp" %>
+  <%= f.text_area :content, placeholder: "Text", input_html: {class: "vertical"} %>
   <p><%= f.submit "Create Post", class: "btn blue left" %></p>
 <% end %>

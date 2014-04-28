@@ -3,9 +3,9 @@
 <div id="posts">
   <% @posts.each do |p| %>
     <div class="item-group with-avatar" id="post-<%= p.id %>">
-      <%= link_to(image_tag(p.author.avatar_url(64), class: "avatar"), p.author, title: p.author.ign) %>
       <div class="header">
-        <%= render partial: "users/username", locals: { user: p.author } %> <time><%= link_to p.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+        <%= link_to(image_tag(p.author.avatar_url(64), class: "avatar"), p.author, title: p.author.ign) %>
+        <%= render partial: "users/username", locals: { user: p.author } %> <time><%= link_to p.created_at.strftime("%e. %b %Y, %H:%M"), p %></time>
         <span class="comment-counter">
           <%= link_to pluralize(p.comments.count, "Comment"), p %>
         </span>

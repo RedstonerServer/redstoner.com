@@ -109,9 +109,9 @@ ActiveRecord::Schema.define(version: 11) do
     t.string   "email_token"
     t.boolean  "confirmed",           default: false
     t.datetime "last_seen"
-    t.integer  "role_id",                             null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "role_id",             default: 3,     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

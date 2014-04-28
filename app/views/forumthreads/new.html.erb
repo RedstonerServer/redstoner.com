@@ -13,9 +13,8 @@
       </tr>
     <% end %>
   </table>
-  <div id="form_inputs">
-    <%= f.text_field :title, placeholder: "Title" %>
-  </div>
+  <%= f.text_field :title, placeholder: "Title" %>
+  <%= render partial: "mdhelp" %>
   <%= f.text_area :content, placeholder: "Text" %>
   <%= f.hidden_field :forum_id %>
   <p><%= f.submit "Create thread", class: "btn blue" %></p>

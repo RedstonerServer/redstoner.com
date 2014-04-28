@@ -6,7 +6,6 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'bcrypt-ruby' # To use ActiveModel's has_secure_password
-gem 'simple_form'
 gem 'sanitize'
 gem 'redcarpet'
 gem 'hirb' #pretty console output

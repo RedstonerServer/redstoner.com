@@ -1,8 +1,8 @@
 <%= link_to "News", blogposts_path %> → <%= link_to @post.title %>
 <div class="item-group post with-avatar" id="post-<%= @post.id %>">
-  <%= link_to(image_tag(@post.author.avatar_url(64), class: "avatar"), @post.author, title: @post.author.ign) %>
   <div class="header">
-    <%= render partial: "users/username", locals: { user: @post.author } %> <time><%= link_to @post.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+    <%= link_to(image_tag(@post.author.avatar_url(64), class: "avatar"), @post.author, title: @post.author.ign) %>
+    <%= render partial: "users/username", locals: { user: @post.author } %> <time><%= link_to @post.created_at.strftime("%e. %b %Y, %H:%M"), p %></time>
     <%= link_to "edit", edit_blogpost_path(@post.id), class: "editlink" if mod? %>
   </div>
   <div class="items">

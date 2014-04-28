@@ -2,12 +2,21 @@
 @media only screen
 and (max-width: 999px)
 {
+
+
   #mobile-info {
-    background: none repeat scroll 0 0 #AB0000;
-    color: #FFFFFF;
+    background: none repeat scroll 0 0 #ab0000;
+    color: #fff;
     text-align: center;
     display: block;
     font-size: 0.7em;
+  }
+
+  th, td {
+    // force tables into line-mode
+    // it's a bit ugly, but probably the best
+    // solution for small screens
+    display: block;
   }
 
   #head {
@@ -23,5 +32,22 @@ and (max-width: 999px)
     opacity: 1;
     margin-right: 0;
   }
+
+  .item-group {
+    margin: 30px 0;
+
+    &.with-avatar {
+      margin-left: 0;
+      .avatar {
+        float: none;
+        margin: 0;
+        border: none;
+        height: 32px;
+        width: 32px;
+        vertical-align: middle;
+      }
+    }
+  }
+
 
 }

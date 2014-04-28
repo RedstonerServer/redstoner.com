@@ -5,7 +5,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def show
-    redirect_to forums_path + "#forum-#{params[:id]}"
+    redirect_to forums_path + "#group-#{params[:id]}"
   end
 
   def edit

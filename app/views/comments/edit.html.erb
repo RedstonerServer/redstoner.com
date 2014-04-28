@@ -1,7 +1,8 @@
 <h1>Edit comment</h1>
 
-<%= simple_form_for [@comment.blogpost, @comment] do |f| %>
-  <%= f.input :content, label: false, as: "text", placeholder: "Comment" %>
+<%= form_for [@comment.blogpost, @comment] do |f| %>
+  <%= render partial: "mdhelp" %>
+  <%= f.text_area :content, placeholder: "Comment" %>
   <p><%= f.submit "Update Comment", class: "btn blue left" %></p>
 <% end %>
 <p><%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", data: {confirm: "Delete comment forever?"}, class: "btn red right" %></p>

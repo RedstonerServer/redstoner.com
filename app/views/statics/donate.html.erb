@@ -24,21 +24,30 @@
   <div class="donation">
     <h1>Donate to Redstone Sheep</h1>
     <h4>Sheep is our admin. He fixes everything &amp; keeps the server running.</h4>
-    <form target="_top" method="post" action="https://www.paypal.com/cgi-bin/webscr">
-      <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
+
+    <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
+      <% if current_user %>
+        <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
+      <% else %>
+        <input name="custom" type="text" placeholder="Your Minecraft name">
+      <% end %>
       <input value="_s-xclick" name="cmd" type="hidden">
       <input value="HPWLQLL87GTHC" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit" class="btn blue">
+      <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
     </form>
   </div>
   <div class="donation">
     <h1>Donate to PanFritz</h1>
     <h4>Pan hosts the Server.</h4>
-    <form target="_top" method="post" action="https://www.paypal.com/cgi-bin/webscr">
-      <input name="custom" type="text" placeholder="Your Minecraft name" value="<%= current_user.try(:ign) %>">
+    <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
+      <% if current_user %>
+        <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
+      <% else %>
+        <input name="custom" type="text" placeholder="Your Minecraft name">
+      <% end %>
       <input value="_s-xclick" name="cmd" type="hidden">
       <input value="SW8TJLDK9FX3W" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit" class="btn blue">
+      <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
     </form>
   </div>
 </div>

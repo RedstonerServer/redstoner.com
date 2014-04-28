@@ -1,0 +1,12 @@
+<% users = User.select{|u| u.online?} %>
+<div id="footer">
+  <div id="online-users">
+    <p title="Seen within the last 5 minutes">Users currently online: <%= users.length %></p>
+    <% users.each do |u| %>
+      <%= render partial: "users/username", locals: { user: u } %>
+    <% end %>
+  </div>
+  <div class="note">
+    Website made by <a href="/users/2">Redstone Sheep</a> with design by <a href="/users/12">ColoArtz</a>.
+  </div>
+</div>

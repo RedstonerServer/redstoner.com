@@ -1,11 +1,16 @@
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
-  <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
   <div class="header">
-    <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%m"), p %></time>
+    <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
+    <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%M"), p %></time>
     <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if (@thread.author.is?(current_user) || mod?) %>
   </div>
   <div class="items">
+    <% if @thread.edited? %>
+      <div class="item edited">
+        Last edited <time><%= @thread.updated_at.strftime("%e. %b %Y, %H:%M") %></time> by <%= link_to @thread.editor.name, @thread.editor %>.
+      </div>
+    <% end %>
     <div class="item content">
       <h2 class="headline"><%= link_to truncate(@thread.title, length: 60, omission: " …"), p %></h2>
       <%= render_md(@thread.content).html_safe %>

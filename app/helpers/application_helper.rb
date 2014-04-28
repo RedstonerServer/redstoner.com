@@ -20,6 +20,7 @@ module ApplicationHelper
       filter_html: true,
       no_styles: true,
       safe_links_only: true,
+      with_toc_data: true,
       hard_wrap: true,
       link_attributes: {target: "_blank", rel: "nofollow"}
     })
@@ -46,6 +47,7 @@ module ApplicationHelper
       no_images: true,
       no_styles: true,
       safe_links_only: true,
+      with_toc_data: false,
       hard_wrap: false,
       link_attributes: {target: "_blank", rel: "nofollow"}
     })

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_role, :set_email_token
+  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_email_token
 
   validates_presence_of :password, :password_confirmation, :email_token, :on => :create
   validates_presence_of :name, :email, :ign
@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
 
   def confirmed?
     !!self.confirmed
+  end
+
+  def online?
+    last_seen && last_seen > 5.minutes.ago
   end
 
   #roles
@@ -177,10 +181,6 @@ class User < ActiveRecord::Base
 
   def set_name
     self.name ||= self.ign
-  end
-
-  def set_role
-    self.role ||= Role.get(:normal)
   end
 
   def account_exists?

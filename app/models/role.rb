@@ -15,8 +15,14 @@ class Role < ActiveRecord::Base
     !!(Role.find_by_name(name) == self)
   end
 
-  def self.get (name)
-    Role.find_by_name(name)
+  def self.get (input)
+    if input.is_a?(String) || input.is_a?(Symbol)
+      Role.find_by_name(input)
+    elsif input.is_a?(Fixnum)
+      Role.find_by_id(input)
+    elsif input.is_a?(Role)
+      return input
+    end
   end
 
   def <=> (role)

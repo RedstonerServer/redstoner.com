@@ -1,7 +1,8 @@
 <h1>Edit Info</h1>
 <%= form_for @info do |f|%>
-  <%= f.text_field :title, :label => false %>
-  <%= f.text_area :content, :label => false, input_html: {class: "full-width vertical"} %>
+  <%= f.text_field :title%>
+  <%= render partial: "mdhelp" %>
+  <%= f.text_area :content, class: "vertical" %>
   <p><%= f.submit "Update Info", class: "btn blue left" %></p>
 <% end %>
 <p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Delete Info forever?"}, class: "btn red right" %></p>

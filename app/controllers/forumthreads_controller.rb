@@ -12,7 +12,7 @@ class ForumthreadsController < ApplicationController
   def update
     if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
-      @thread.attributes = thread_params([:user_editor])
+      @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params)
       if @thread.save
         redirect_to @thread, notice: 'Post has been updated.'
       else

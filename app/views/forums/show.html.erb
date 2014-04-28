@@ -7,9 +7,9 @@
 <div id="forum_groups">
   <% @threads.each do |thread| %>
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">
-      <%= link_to(image_tag(thread.author.avatar_url(64), class: "avatar"), thread.author, title: thread.author.ign) %>
       <div class="header">
-        <%= render partial: "users/username", locals: { user: thread.author } %> <time><%= link_to thread.created_at.strftime("%e. %b %Y, %H:%m"), thread %></time>
+        <%= link_to(image_tag(thread.author.avatar_url(64), class: "avatar"), thread.author, title: thread.author.ign) %>
+        <%= render partial: "users/username", locals: { user: thread.author } %> <time><%= link_to thread.created_at.strftime("%e. %b %Y, %H:%M"), thread %></time>
         <span class="comment-counter">
           <%= link_to pluralize(thread.replies.count, "Reply"), thread %>
         </span>

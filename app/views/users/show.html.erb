@@ -11,6 +11,7 @@
       <%= link_to "revert", unbecome_users_path, :class => "btn blue" %>
     <% end %>
   </div>
+  <div class="clear"></div>
 
   <% if @user.banned? %>
     <span class="user-banned">This user is banned!</span>
@@ -63,7 +64,7 @@
       <% end %>
       <tr>
         <td>Joined</td>
-        <td><%= @user.created_at.strftime("%e. %b %Y, %H:%m") %></td>
+        <td><%= @user.created_at.strftime("%e. %b %Y, %H:%M") %></td>
       </tr>
       <% if mod? || @user.is?(current_user) %>
         <tr>

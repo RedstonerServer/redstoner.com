@@ -18,7 +18,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean    :confirmed, default: false
       t.datetime   :last_seen
 
-      t.references :role, null: false
+      t.references :role, null: false, default: Role.get(:normal)
 
       t.timestamps
     end

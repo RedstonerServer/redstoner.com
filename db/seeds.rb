@@ -18,7 +18,7 @@ deleted_user = User.create!(
   uuid: "8667ba71b85a4004af54457a9734eed7",
   name: "Deleted user",
   email: "redstonerserver@gmail.com",
-  ign: "Steve",
+  ign: "Notch", # just need any valid ign here, overriding later
   about: "Hey, apparently, I do no longer exist. This is just a placeholder profile",
   password: userpw,
   password_confirmation: userpw,
