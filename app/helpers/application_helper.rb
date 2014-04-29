@@ -22,7 +22,32 @@ module ApplicationHelper
       safe_links_only: true,
       with_toc_data: true,
       hard_wrap: true,
-      link_attributes: {target: "_blank", rel: "nofollow"}
+      link_attributes: {rel: "nofollow"}
+    })
+    md = Redcarpet::Markdown.new(renderer, {
+      no_intra_emphasis: true,
+      tables: true,
+      fenced_code_blocks: true,
+      autolink: true,
+      strikethrough: true,
+      lax_spacing: true,
+      disable_indented_code_blocks: false,
+      space_after_headers: false,
+      superscript: true,
+      underline: true,
+      highlight: true,
+      footnotes: true
+    })
+    render_youtube(md.render(content))
+  end
+
+  def render_trusted_md(content)
+    renderer = Redcarpet::Render::HTML.new({
+      filter_html: false,
+      no_styles: false,
+      safe_links_only: false,
+      with_toc_data: true,
+      hard_wrap: true,
     })
     md = Redcarpet::Markdown.new(renderer, {
       no_intra_emphasis: true,
@@ -49,7 +74,7 @@ module ApplicationHelper
       safe_links_only: true,
       with_toc_data: false,
       hard_wrap: false,
-      link_attributes: {target: "_blank", rel: "nofollow"}
+      link_attributes: {rel: "nofollow"}
     })
     md = Redcarpet::Markdown.new(renderer, {
       no_intra_emphasis: true,

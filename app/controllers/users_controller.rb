@@ -85,6 +85,7 @@ class UsersController < ApplicationController
       if user_profile
         @user.uuid = user_profile["id"]
         @user.ign  = user_profile["name"] # correct case
+
         # TODO: uncomment when MC part works
         if true # validate_token(@user.uuid, @user.email, params[:registration_token])
           @user.last_ip = request.remote_ip # showing in mail
