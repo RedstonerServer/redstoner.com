@@ -28,4 +28,29 @@ class Threadreply < ActiveRecord::Base
   def edited?
     !!user_editor_id
   end
+
+  def send_new_reply_mail
+    userids = []
+
+    # thread + replies
+    (thread.replies.to_a << thread).each do |post|
+      # don't send mail to the user who wrote this
+      if post.author != author # && user.send_threadreply_mail (TODO)
+        userids << post.author.id
+      end
+    end
+    # making sure we don't send multiple mails to the same user
+    userids.uniq!
+
+    userids.each do |uid|
+      begin
+        RedstonerMailer.thread_reply_mail(User.find(uid), self).deliver
+      rescue => e
+        puts "---"
+        puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+        puts e.message
+        puts "---"
+      end
+    end
+  end
 end

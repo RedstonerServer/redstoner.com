@@ -16,6 +16,7 @@ class ThreadrepliesController < ApplicationController
       @reply.user_author = current_user
       @reply.forumthread = thread
       if @reply.save
+        @reply.send_new_reply_mail
         redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}", notice: 'Reply created!'
       else
         flash[:alert] = "Could not create reply."

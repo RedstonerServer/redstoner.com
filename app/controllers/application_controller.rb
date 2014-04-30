@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :update_ip, :update_seen, :check_banned
-  # force_ssl
+  # TODO: force_ssl
 
   http_basic_authenticate_with name: "redstone", password: "sheep_"
 
