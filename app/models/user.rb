@@ -205,7 +205,7 @@ class User < ActiveRecord::Base
   end
 
   def set_email_token
-    self.email_token = SecureRandom.hex(16)
+    self.email_token ||= SecureRandom.hex(16)
   end
 
   # def ign_is_not_skull
