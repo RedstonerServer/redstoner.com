@@ -454,13 +454,10 @@ textarea {
   width: 100%;
   padding: 1em;
   min-height: 3.5em;
+  resize: vertical;
 
   &.comment {
     height: 75px;
-  }
-
-  &.vertical {
-    resize: vertical;
   }
 }
 
