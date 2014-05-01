@@ -129,14 +129,14 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
-      userdata = user_params([:name, :role_id, :skype, :skype_public, :youtube, :twitter, :about])
-      if userdata[:role_id]
-        role = Role.find(userdata[:role_id])
+      userdata = user_params([:name, :role, :skype, :skype_public, :youtube, :twitter, :about])
+      if userdata[:role]
+        role = Role.get(userdata[:role])
         if (mod? && role <= current_user.role)
-          userdata[:role_id] = role.id
+          userdata[:role] = role
         else
           #reset role
-          userdata[:role_id] = @user.role.id
+          userdata.delete[:role]
         end
       end
       unless userdata[:ign] && (mod? && current_user.role >= @user.role)
