@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       logout_user = current_user
       session[:user_id] = original_user.try(:id)
       session.delete(:original_user_id)
-      flash[:notice] = "You are no longer #{logout_user.name}!"
+      flash[:notice] = "You are no longer '#{logout_user.name}'!"
       redirect_to original_user
     else
       session.delete(:user_id)
@@ -56,14 +56,14 @@ class SessionsController < ApplicationController
     new_user = User.find_by_id(params[:user])
     if original_user && new_user && admin? && current_user.role >= new_user.role
       if original_user == new_user
-        flash[:alert] = "You are already \"#{new_user.name}\"!"
+        flash[:alert] = "You are already '#{new_user.name}'!"
       else
         if session[:original_user_id]
           flash[:alert] = "Please revert to your account first"
         else
           session[:original_user_id] = original_user.id
           session[:user_id] = new_user.id
-          flash[:notice] = "You are now \"#{new_user.name}\"!"
+          flash[:notice] = "You are now '#{new_user.name}'!"
         end
       end
     else
