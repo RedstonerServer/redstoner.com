@@ -2,6 +2,6 @@
 <%= form_for @post do |f|%>
   <%= f.text_field :title, placeholder: "Title" %>
   <%= render partial: "mdhelp" %>
-  <%= f.text_area :content, placeholder: "Text", input_html: {class: "vertical"} %>
+  <%= f.text_area :content, placeholder: "Text" %>
   <p><%= f.submit "Create Post", class: "btn blue left" %></p>
 <% end %>

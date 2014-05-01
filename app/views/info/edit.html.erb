@@ -2,7 +2,7 @@
 <%= form_for @info do |f|%>
   <%= f.text_field :title%>
   <%= render partial: "mdhelp" %>
-  <%= f.text_area :content, class: "vertical" %>
+  <%= f.text_area :content %>
   <p><%= f.submit "Update Info", class: "btn blue left" %></p>
 <% end %>
 <p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Delete Info forever?"}, class: "btn red right" %></p>

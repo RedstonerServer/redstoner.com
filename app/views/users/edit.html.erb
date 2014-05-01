@@ -54,7 +54,7 @@
         <td>About you</td>
         <td>
           <%= render partial: "mdhelp" %>
-          <%= f.text_area :about, class: "vertical", placeholder: "Tell us something about you...", disabled: !can_edit? %>
+          <%= f.text_area :about, placeholder: "Tell us something about you...", disabled: !can_edit? %>
         </td>
       </tr>
     </tbody>
