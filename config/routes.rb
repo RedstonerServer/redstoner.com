@@ -1,4 +1,4 @@
-Site::Application.routes.draw do
+Redstoner::Application.routes.draw do
 
   resources :blogposts, path: '/blog' do
     resources :comments
