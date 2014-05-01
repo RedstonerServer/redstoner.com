@@ -556,6 +556,9 @@ tr.spacer {
       border: 1px solid;
       border-radius: 3px;
       color: #222;
+      display: inline-block;
+      height: 66px; // 64px + 1px border on each side
+      width: 66px;
       &:hover {
         color: #ab0000;
       }

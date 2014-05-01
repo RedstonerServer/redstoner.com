@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include UsersHelper
+  include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
   belongs_to :role
@@ -67,9 +68,11 @@ class User < ActiveRecord::Base
     !!(self.role >= :superadmin)
   end
 
-
-  def avatar_url(size)
-    return "https://minotar.net/helm/#{CGI.escape(self.ign)}/#{CGI.escape(size.to_s)}"
+  def avatar(size, options = {})
+    options[:class] ||= "avatar"
+    options[:size]  ||= size.to_s
+    options[:alt]   ||= "avatar"
+    return image_tag("https://minotar.net/helm/#{CGI.escape(self.ign)}/#{CGI.escape(size.to_s)}", options)
   end
 
 

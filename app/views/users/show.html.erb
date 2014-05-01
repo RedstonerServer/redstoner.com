@@ -32,7 +32,7 @@
   <% end %>
 
 
-  <%= image_tag @user.avatar_url(128), :class => "user-avatar avatar", :alt => "avatar" %>
+  <%= @user.avatar(128, class: "user-avatar avatar") %>
   <%= render partial: "users/username", locals: {user: @user} %>
   <table>
     <tbody>

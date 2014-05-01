@@ -1,7 +1,7 @@
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
   <div class="header">
-    <%= link_to(image_tag(@thread.author.avatar_url(64), class: "avatar"), @thread.author, title: @thread.author.ign) %>
+    <%= link_to(@thread.author.avatar(64), @thread.author, title: @thread.author.ign) %>
     <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%M"), p %></time>
     <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if (@thread.author.is?(current_user) || mod?) %>
     <div class="clear-right"></div>

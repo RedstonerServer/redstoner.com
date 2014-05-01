@@ -1,6 +1,6 @@
 <div class="item-group with-avatar comment" id="comment-<%= c.id %>">
   <div class="header <%= "op" if c.author.is?(c.blogpost.author) %>">
-    <%= link_to(image_tag(c.author.avatar_url(64), class: "avatar"), c.author, title: c.author.ign) %>
+    <%= link_to(c.author.avatar(64), c.author, title: c.author.ign) %>
     <%= render partial: "users/username", locals: { user: c.author } %>
     <time><%= link_to c.created_at.strftime("%e. %b %Y, %H:%M"), "#comment-#{c.id}" %></time>
 

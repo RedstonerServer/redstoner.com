@@ -7,7 +7,7 @@
 <div id="userlist">
   <% @users.each do |u| %>
     <div class="list-user">
-      <%= link_to(image_tag(u.avatar_url(64)), u) %>
+      <%= link_to(u.avatar(64), u) %>
       <div class="detail">
         <%= render partial: "users/username", locals: { user: u } %><br>
         <i><%= u.ign %></i>
