@@ -5,6 +5,7 @@
     <time><%= link_to reply.created_at.strftime("%e. %b %Y, %H:%M"), "#reply-#{reply.id}" %></time>
 
     <%= link_to "edit", edit_forumthread_threadreply_path(reply.thread, reply), class: "editlink" if mod? || reply.thread.author.is?(current_user) %>
+    <div class="clear-right"></div>
   </div>
   <div class="items">
     <div class="item content">

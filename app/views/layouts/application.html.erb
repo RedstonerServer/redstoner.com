@@ -10,7 +10,6 @@
   <link type="application/atom+xml" rel="alternate" href="<%= blogposts_path(:atom) %>">
 </head>
 <body>
-  <div id="mobile-info">We don't have a mobile style yet. It might look shitty.<br>Tip: Hold your device in landscape mode.</div>
   <%= render partial: "/layouts/head" %>
   <div id="main-content">
     <%= "<div class='flash alert'>#{alert}</div>".html_safe if alert %>

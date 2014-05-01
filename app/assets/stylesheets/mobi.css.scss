@@ -1,16 +1,7 @@
 /* CSS for Phones only */
 @media only screen
-and (max-width: 999px)
+and (max-width: 700px)
 {
-
-
-  #mobile-info {
-    background: none repeat scroll 0 0 #ab0000;
-    color: #fff;
-    text-align: center;
-    display: block;
-    font-size: 0.7em;
-  }
 
   th, td {
     // force tables into line-mode
@@ -20,7 +11,11 @@ and (max-width: 999px)
   }
 
   #head {
-    text-align: left;
+    #menu {
+      #logo:hover {
+        transition: none;
+      }
+    }
   }
 
   #main-content {
@@ -38,6 +33,7 @@ and (max-width: 999px)
 
     &.with-avatar {
       margin-left: 0;
+
       .avatar {
         float: none;
         margin: 0;

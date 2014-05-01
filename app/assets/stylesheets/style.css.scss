@@ -35,7 +35,7 @@ body {
   color: #3f3f3f;
   padding: 0 !important;
   margin: 0 !important;
-  font: 14px/1.6 'Oswald','Calibri','Arial','DejaVu Sans', 'Open Sans','Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif;
+  font: 14px 'Oswald','Calibri','Arial','DejaVu Sans', 'Open Sans','Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif;
 }
 
 ::selection {
@@ -46,10 +46,6 @@ body {
 ::-moz-selection {
   color: #fff;
   background: #363636;
-}
-
-#mobile-info {
-  display: none;
 }
 
 a {
@@ -77,41 +73,52 @@ a {
     border-bottom: 3px dashed #fdd;
   }
 }
+
 #head {
+  background: #3f3f3f;
+
   #menu {
-    background: #3f3f3f;
-    height: 50px;
+    margin: auto;
+    max-width: 100%;
+    width: 1600px;
     border-bottom: 1px solid #363636;
+    height: 100%;
     position: relative;
+
     #logo {
+      display: inline-block;
       width: 100px;
       height: 100px;
       position: absolute;
       background: url(image_path('logo.png')) no-repeat;
       background-position: 0 -100px;
-      left: 85px;
+
       &:hover {
-        transition: all 0.3s ease 0;
+        transition: all 0.3s ease 0s;
         background-position: 0 0;
       }
     }
 
     ul {
-      margin: 0 0 0 185px;
+      margin: 0 0 0 100px;
       padding: 0;
       list-style: none;
       line-height: 0;
-      a {
-        display: inline-block;
-        color: #fff;
-        &:hover {
-          color: #f66;
-        }
-      }
+
       li {
-        margin: 15px 10px;
-        font-size: 20px;
-        line-height: 1em;
+        display: inline-block;
+
+        a {
+          margin: 15px 10px;
+          font-size: 20px;
+          line-height: 1em;
+          display: inline-block;
+          color: #fff;
+
+          &:hover {
+            color: #f66;
+          }
+        }
       }
     }
   }
@@ -124,26 +131,31 @@ a {
     display: inline-block;
     width: 100%;
     background: #eaeaea;
+
     #userinfo {
       display: inline-block;
       margin-right: 10px;
       text-shadow: 0 1px 1px #fff;
+
       a {
         color: #3f3f3f;
         &:hover {
           color: #f00;
         }
       }
+
       img.avatar {
         border: 1px solid #000;
         border-radius: 16px;
         vertical-align: middle;
         height: 32px;
         width: 32px;
+
         &:hover {
           box-shadow: 0 0 2px;
         }
       }
+
       #userinfo-box {
         display: inline-block;
         text-align: right;
@@ -153,6 +165,7 @@ a {
     }
   }
 }
+
 img.user-avatar {
   border: 1px solid #000;
   border-radius: 4px;
@@ -178,8 +191,10 @@ span.no-about {
   width: 1600px;
   max-width: 100%;
   margin: auto;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 0 10px 10px #ddd;
+  border: 1px solid #ddd;
+  border-top: none;
+  box-shadow: 0 0 5px #fff;
+  border-radius: 0 0 4px 4px;
 
   h1 {
     font-weight: normal;
@@ -202,11 +217,13 @@ span.no-about {
 
 .post, .thread, .thread-reply {
   margin-bottom: 50px;
+
   .post-content, .thread-content {
     margin-top: 10px;
     clear: both;
     word-wrap: break-word;
     overflow: hidden;
+
     img {
       max-width: 100%;
     }
@@ -214,35 +231,39 @@ span.no-about {
   .post-title, .thread-title {
     margin-bottom: 10px;
     word-wrap: break-word;
+
     h1 {
       text-transform: capitalize;
     }
+
     h2 {
       font-weight: normal;
       text-transform: capitalize;
       display: inline;
       font-size: 200%;
     }
-    .comment-counter {
-      float: right;
-    }
   }
+
   table {
     tr, td, th {
       border-collapse: collapse;
       border: 1px solid #aaa;
     }
+
     tbody {
       tr:nth-child(odd) {
         background: #fff;
       }
+
       tr:nth-child(even) {
         background: #ddd;
       }
     }
+
     td, th {
       padding: 0.3em 1em;
     }
+
     thead {
       background: #3f3f3f;
       color: #fff;
@@ -254,6 +275,7 @@ pre {
   border-radius: 2px;
   position: relative;
   background: #3f3f3f;
+
   &:after {
     color: #fff;
     content: attr(lang); // show language on top right
@@ -266,6 +288,7 @@ pre {
     transition: all 0.3s;
     cursor: default;
   }
+
   &:hover:after {
     opacity: 1;
     right: 0;
@@ -312,6 +335,7 @@ blockquote p {
 
 .user {
   display: inline-block;
+
   a.role {
     display: inline-block;
     color: #fff !important;
@@ -344,6 +368,7 @@ blockquote p {
       color: #ddd !important;
     }
   }
+
   .donor {
     background: #f60 !important;
     border-radius: 3px;
@@ -353,6 +378,7 @@ blockquote p {
     padding: 0 0.5em;
     display: inline-block;
   }
+
   .ign {
     display: block;
     color: #000;
@@ -382,6 +408,7 @@ input , select, textarea {
 
   &[type=submit] {
     margin: 0;
+
     &.btn {
       cursor: pointer;
     }
@@ -570,11 +597,18 @@ tr.spacer {
   visibility: hidden;
 }
 
+.clear-right {
+  clear: right;
+  display: block;
+  visibility: hidden;
+}
+
 .item-group {
   margin: 30px 0;
 
   &.with-avatar {
     margin-left: 70px;
+
     .avatar {
       margin: -7px 0 0 -77px;
       border: 1px solid #ccc;
@@ -600,8 +634,10 @@ tr.spacer {
     border-bottom: 1px solid #ccc;
     color: #fff;
     text-shadow: 0 1px 1px #222;
+
     a {
       color: #fff;
+
       &:hover {
         color: #f66;
       }
@@ -617,6 +653,7 @@ tr.spacer {
       display: block;
       padding: 0.5em;
       border-bottom: 1px solid #ddd;
+
       &:target {
         animation: target 2.5s;
         -webkit-animation: target 2.5s;
@@ -712,7 +749,7 @@ img {
 }
 
 #footer {
-  padding: 0 100px 30px;
+  padding: 30px 0;
   width: 1600px;
   max-width: 100%;
   margin: auto;

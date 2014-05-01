@@ -2,12 +2,12 @@
   <div id="menu">
     <%= link_to "", root_path, id: "logo" %>
     <ul>
-      <%= link_to statics_path do %><li>Home</li><% end %>
-      <%= link_to blogposts_path do %><li>News</li><% end %>
-      <%= link_to info_index_path do %><li>Info</li><% end %>
-      <%= link_to forums_path do %><li>Forums</li><% end %>
-      <%= link_to users_path do %><li>Users</li><% end %>
-      <%= link_to donate_statics_path do %><li>Donate</li><% end %>
+      <li><%= link_to "Home", statics_path %></li>
+      <li><%= link_to "News", blogposts_path %></li>
+      <li><%= link_to "Info", info_index_path %></li>
+      <li><%= link_to "Forums", forums_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <li><%= link_to "Donate", donate_statics_path %></li>
     </ul>
   </div>
   <div id="userbar">
