@@ -4,7 +4,7 @@ Site::Application.routes.draw do
     resources :comments
   end
 
-  resources :statics, only: [:index, :donate], path: '' do
+  resources :statics, only: [:index, :donate], path: '/' do
     collection do
       get 'donate'
       get 'index'
@@ -15,26 +15,24 @@ Site::Application.routes.draw do
 
   resources :users do
     member do
-      get 'become'
       get 'confirm'
-    end
-    collection do
-      get 'unbecome'
     end
   end
 
-  resources :forumgroups, path: 'forums/groups'
-  resources :forums, path: 'forums'
+  resources :forumgroups,  path: '/forums/groups'
+  resources :forums,       path: '/forums'
   resources :forumthreads, path: '/forums/threads' do
-    resources :threadreplies, path: '/forums/threads/replies'
+    resources :threadreplies, path: 'replies'
   end
 
   # get '/status' => 'status#show'
 
-  get 'login' => 'sessions#new'
-  post 'login' => 'sessions#create'
-  get "logout" => 'sessions#destroy'
-  get 'signup' => 'users#new'
+  get  'login'  => 'sessions#new'
+  post 'login'  => 'sessions#create'
+  get  'become' => 'sessions#become'
+  get  'revert' => 'sessions#revert'
+  get  'logout' => 'sessions#destroy'
+  get  'signup' => 'users#new'
 
   # post 'paypal' => 'paypal#create'
 

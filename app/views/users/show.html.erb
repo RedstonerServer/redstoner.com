@@ -6,9 +6,9 @@
   <% end %>
   <div class="profile-action" >
     <% if !session[:original_user_id] && admin? %>
-      <%= link_to "become this user", become_user_path(@user), :class => "btn blue" %>
+      <%= link_to "become this user", become_path(user: @user), :class => "btn blue" %>
     <% elsif session[:original_user_id] %>
-      <%= link_to "revert", unbecome_users_path, :class => "btn blue" %>
+      <%= link_to "revert", revert_path, :class => "btn blue" %>
     <% end %>
   </div>
   <div class="clear"></div>
