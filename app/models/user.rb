@@ -92,10 +92,10 @@ class User < ActiveRecord::Base
         return http.post(uri.request_uri, payload.to_json, "Content-Type" => "application/json").code == "200"
       end
     rescue => e
-      puts "---"
-      puts "ERROR: failed to check mc password for '#{self.uuid}'. Login servers down?"
-      puts e.message
-      puts "---"
+      Rails.logger.error "---"
+      Rails.logger.error "ERROR: failed to check mc password for '#{self.uuid}'. Login servers down?"
+      Rails.logger.error e.message
+      Rails.logger.error "---"
       return false
     end
   end
@@ -111,16 +111,16 @@ class User < ActiveRecord::Base
   #       # user doesn't exist
   #       return false
   #     else
-  #       puts "---"
-  #       puts "ERROR: unexpected response code while checking '#{self.uuid}' for premium account"
-  #       puts "code: #{reponse.status}, body: '#{reponse.read}'"
-  #       puts "---"
+  #       Rails.logger.error "---"
+  #       Rails.logger.error "ERROR: unexpected response code while checking '#{self.uuid}' for premium account"
+  #       Rails.logger.error "code: #{reponse.status}, body: '#{reponse.read}'"
+  #       Rails.logger.error "---"
   #     end
   #   rescue => e
-  #     puts "---"
-  #     puts "ERROR: failed to check for premium account for '#{self.uuid}'. Minecraft servers down?"
-  #     puts e.message
-  #     puts "---"
+  #     Rails.logger.error "---"
+  #     Rails.logger.error "ERROR: failed to check for premium account for '#{self.uuid}'. Minecraft servers down?"
+  #     Rails.logger.error e.message
+  #     Rails.logger.error "---"
   #   end
   #   # mojang servers have trouble
   #   return true
@@ -132,9 +132,9 @@ class User < ActiveRecord::Base
   #     skin = http.get("/MinecraftSkins/#{CGI.escape(ign)}.png")
   #     http.finish
   #   rescue
-  #     puts "---"
-  #     puts "ERROR: failed to get skin status code for '#{ign}'. Skin servers down?"
-  #     puts "---"
+  #     Rails.logger.error "---"
+  #     Rails.logger.error "ERROR: failed to get skin status code for '#{ign}'. Skin servers down?"
+  #     Rails.logger.error "---"
   #   end
   #   skin.code != "404"
   # end
@@ -159,10 +159,10 @@ class User < ActiveRecord::Base
         end
       end
     rescue => e
-      puts "----"
-      puts "Failed to get mojang profile for #{self.ign}"
-      puts e.message
-      puts "----"
+      Rails.logger.error "----"
+      Rails.logger.error "Failed to get mojang profile for #{self.ign}"
+      Rails.logger.error e.message
+      Rails.logger.error "----"
       return nil
     end
   end

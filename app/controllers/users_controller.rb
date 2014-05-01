@@ -98,13 +98,14 @@ class UsersController < ApplicationController
               is_idiot = false
             end
             begin
+              # these shouldn't be send in the background
               RedstonerMailer.register_mail(@user, is_idiot).deliver
               RedstonerMailer.register_info_mail(@user, is_idiot).deliver
             rescue => e
-              puts "---"
-              puts "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
-              puts e.message
-              puts "---"
+              Rails.logger.error "---"
+              Rails.logger.error "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+              Rails.logger.error e.message
+              Rails.logger.error "---"
               flash[:alert] = "Registration mail failed. Please contact us in-game."
             end
             flash[:notice] = "Successfully signed up! Check your email!"

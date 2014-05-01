@@ -1,0 +1,22 @@
+module MailerHelper
+  def background_mailer(mails)
+    Thread.new do
+      begin
+        mails.each do |mail|
+          begin
+            mail.deliver
+          rescue => e
+            Rails.logger.error "---"
+            Rails.logger.error "WARNING: '#{mail.try(:subject)}' failed for user #{@user.name}, #{@user.email}"
+            Rails.logger.error e.message
+            Rails.logger.error "---"
+          end
+        end
+      ensure
+        # threads open their own DB connection
+        ActiveRecord::Base.connection.close
+        Rails.logger.flush
+      end
+    end
+  end
+end
