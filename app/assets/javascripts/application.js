@@ -12,6 +12,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require app
-//= require moment
+//= require ago
 //= require highlight
-

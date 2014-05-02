@@ -8,7 +8,7 @@ $(function(){
         height: 0
       }, 'slow', function(){
         $(this).hide();
-      })
+      });
     });
   });
   setTimeout(function(){
@@ -19,7 +19,7 @@ $(function(){
         height: 0
       }, 'slow', function(){
         $(this).hide();
-      })
+      });
     });
   }, 4000);
   var pressed = new Array(10);
@@ -37,7 +37,15 @@ $(function(){
     if ($(this).attr("class")) {
       $(this).parent().attr("lang", $(this).attr("class").replace("hljs", "").trim());
     } else {
-      $(this).parent().attr("lang", "(language unknown)")
+      $(this).parent().attr("lang", "(language unknown)");
     }
   });
+  updateTimestamps();
+  setInterval(updateTimestamps, 1000*10);
 });
+
+function updateTimestamps() {
+  $('time').ago(function(elem){
+    return new Date($(elem).attr('datetime'));
+  });
+}

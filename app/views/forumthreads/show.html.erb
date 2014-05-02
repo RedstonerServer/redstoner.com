@@ -2,14 +2,14 @@
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
   <div class="header">
     <%= link_to(@thread.author.avatar(64), @thread.author, title: @thread.author.ign) %>
-    <%= render partial: "users/username", locals: { user: @thread.author } %> <time><%= link_to @thread.created_at.strftime("%e. %b %Y, %H:%M"), p %></time>
+    <%= render partial: "users/username", locals: { user: @thread.author } %> <%= link_to p do %><time datetime="<%= @thread.created_at.to_datetime.rfc3339 %>"><%= @thread.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
     <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if (@thread.author.is?(current_user) || mod?) %>
     <div class="clear-right"></div>
   </div>
   <div class="items">
     <% if @thread.edited? %>
       <div class="item edited">
-        Last edited <time><%= @thread.updated_at.strftime("%e. %b %Y, %H:%M") %></time> by <%= link_to @thread.editor.name, @thread.editor %>.
+        Last edited <time datetime="<%= @thread.updated_at.to_datetime.rfc3339 %>"><%= @thread.updated_at.strftime("%e %b %Y, %H:%M") %></time> by <%= link_to @thread.editor.name, @thread.editor %>.
       </div>
     <% end %>
     <div class="item content">

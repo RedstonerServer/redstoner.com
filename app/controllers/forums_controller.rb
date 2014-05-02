@@ -57,6 +57,21 @@ class ForumsController < ApplicationController
     end
   end
 
+  def destroy
+    if admin?
+      if @forum.destroy
+        flash[:notice] = "Forum deleted."
+      else
+        flash[:alert] = "Something went wrong"
+        render :new
+        return
+      end
+    else
+      flash[:alert] = "You are not allowed to delete a forum."
+    end
+    redirect_to forums_path
+  end
+
 
   private
 

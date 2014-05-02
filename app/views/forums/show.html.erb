@@ -9,7 +9,7 @@
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">
       <div class="header">
         <%= link_to(thread.author.avatar(64), thread.author, title: thread.author.ign) %>
-        <%= render partial: "users/username", locals: { user: thread.author } %> <time><%= link_to thread.created_at.strftime("%e. %b %Y, %H:%M"), thread %></time>
+        <%= render partial: "users/username", locals: { user: thread.author } %> <%= link_to thread do %><time datetime="<%= thread.created_at.to_datetime.rfc3339 %>"><%= thread.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
         <span class="comment-counter">
           <%= link_to pluralize(thread.replies.count, "Reply"), thread %>
         </span>

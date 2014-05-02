@@ -22,5 +22,5 @@
   </table>
   <p><%= f.submit "Update forum", class: "btn blue left" %></p>
 <% end %>
-<%# TODO delete %>
+<p><%= button_to "Delete forum", @forum, method: "delete", data: {confirm: "Delete forum forever?\nThreads won't be accessible!"}, class: "btn red right" %></p>
 <div class="clear"></div>
