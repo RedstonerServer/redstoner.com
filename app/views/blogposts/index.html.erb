@@ -5,7 +5,7 @@
     <div class="item-group with-avatar" id="post-<%= p.id %>">
       <div class="header">
         <%= link_to(p.author.avatar(64), p.author, title: p.author.ign) %>
-        <%= render partial: "users/username", locals: { user: p.author } %> <%= link_to p do %><time datetime="<%= p.created_at.to_datetime.rfc3339 %>"><%= p.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
+        <%= render partial: "users/username", locals: { user: p.author } %> <%= link_to p do %><time title="<%= p.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= p.created_at.to_datetime.rfc3339 %>"><%= p.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
         <span class="comment-counter">
           <%= link_to pluralize(p.comments.count, "Comment"), p %>
         </span>
