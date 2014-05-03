@@ -57,6 +57,9 @@ class UsersController < ApplicationController
           flash[:alert] = "Your account has already been confirmed!"
         end
         redirect_to @user
+      elsif !@user.is?(current_user)
+        flash[:alert] = "Wrong user, please log in as '#{@user.name}' first!"
+        redirect_to root_path
       else
         flash[:alert] = "Something is wrong with your confirmation code"
         redirect_to root_path
@@ -131,19 +134,19 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
-      userdata = user_params([:name, :role, :skype, :skype_public, :youtube, :twitter, :about])
+      if mod?
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed])
+      else
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about])
+      end
       if userdata[:role]
         role = Role.get(userdata[:role])
-        if (mod? && role <= current_user.role)
+        if role <= current_user.role
           userdata[:role] = role
         else
-          #reset role
+          # don't change role
           userdata.delete[:role]
         end
-      end
-      unless userdata[:ign] && (mod? && current_user.role >= @user.role)
-        #reset ign
-        userdata[:ign] = @user.ign
       end
       if @user.youtube != userdata[:youtube]
         youtube = get_youtube(userdata[:youtube])

@@ -20,9 +20,15 @@
         <tr>
           <td>Role</td>
           <td>
-            <% if mod? && current_user.role >= @user.role %>
+            <% if current_user.role >= @user.role %>
               <%= f.select :role, Role.all_to(current_user.role) %>
             <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>Confirmed email adress</td>
+          <td>
+            <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
         </tr>
       <% end %>
