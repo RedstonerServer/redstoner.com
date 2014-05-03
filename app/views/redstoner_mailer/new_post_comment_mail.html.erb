@@ -1,0 +1,29 @@
+<div style="font-family: 'Oswald','Calibri','Arial','DejaVu Sans','Open Sans','Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif; background: #F2F2F2">
+  <div style="color: #3f3f3f; width: 600px; max-width: 100%; padding: 2em; margin: auto;">
+    Hi <%= @user.name %>!
+
+    <p><%= link_to @comment.author.name, user_url(@comment.author), style: "text-decoration: none; color: #4096EE;" %> has replied to '<%= @comment.blogpost.title %>' on the Redstoner blog!</p>
+
+    <blockquote>
+      <%# TODO: fix relative links + iframes %>
+      <%= render_mini_md(@comment.content).html_safe %>
+    </blockquote>
+
+    <p><%= link_to "Click here", blogpost_url(@comment.blogpost) + "#comment-#{@comment.id}", style: "text-decoration: none; color: #4096EE;" %> to view the blog post.</p>
+
+      <p>If you have any questions or problems, just ask one of our <%= link_to "Staff", users_url(role: "staff"), style: "text-decoration: none; color: #4096EE;" %> in-game or on the forums!</p>
+      <p>Your Redstoner team</p>
+
+    </div>
+  </div>
+  <div style="background: #444; width: 100%; padding: 2em; color: #fff; margin: auto; text-align: center;">
+    <p><i>You cannot (yet) unsubscribe from these mails, sorry about that. Will add this ASAP!</i>
+    </p>
+    <p>You can contact us via:
+      <%= link_to "Website", root_url, style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Twitter", "https://twitter.com/RedstonerServer", style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Google+", "https://google.com/+Redstoner", style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Email", "mailto:redstonerserver+website@gmail.com", style: "text-decoration: none; color: #4096EE;" %>
+    </p>
+  </div>
+</div>
