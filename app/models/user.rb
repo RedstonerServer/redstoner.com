@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def online?
-    last_seen && last_seen > 5.minutes.ago
+    last_seen && last_seen > 2.minutes.ago
   end
 
   #roles
