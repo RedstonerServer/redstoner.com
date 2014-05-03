@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  include MailerHelper
+
   def edit
     @comment = Comment.find(params[:id])
     if mod? || @comment.author.is?(current_user)
@@ -15,6 +17,7 @@ class CommentsController < ApplicationController
       @comment.user_author = current_user
       @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
+        @comment.send_new_comment_mail
         redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}", notice: 'Comment created!'
       else
         flash[:alert] = "Could not create comment."

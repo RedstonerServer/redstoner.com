@@ -16,10 +16,16 @@ class RedstonerMailer < ActionMailer::Base
     mail(to: "redstonerserver@gmail.com", subject: "#{@user.name} registered on Redstoner")
   end
 
-  def thread_reply_mail(user, reply)
+  def new_thread_reply_mail(user, reply)
     @user  = user
     @reply = reply
     mail(to: @user.email, subject: "#{reply.author.name} replied to '#{reply.thread.title}' on Redstoner")
+  end
+
+  def new_post_comment_mail(user, comment)
+    @user    = user
+    @comment = comment
+    mail(to: @user.email, subject: "#{comment.author.name} replied to '#{comment.blogpost.title}' on Redstoner")
   end
 
   def email_change_confirm_mail(user)

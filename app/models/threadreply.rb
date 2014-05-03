@@ -50,7 +50,7 @@ class Threadreply < ActiveRecord::Base
     mails = []
     userids.each do |uid|
       begin
-        mails << RedstonerMailer.thread_reply_mail(User.find(uid), self)
+        mails << RedstonerMailer.new_thread_reply_mail(User.find(uid), self)
       rescue => e
         Rails.logger.error "---"
         Rails.logger.error "WARNING: Failed to create thread_reply mail (view) for reply#: #{@self.id}, user: #{@user.name}, #{@user.email}"
