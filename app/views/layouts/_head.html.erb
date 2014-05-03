@@ -2,12 +2,13 @@
   <div id="menu">
     <%= link_to "", root_path, id: "logo" %>
     <ul>
-      <li><%= link_to "Home", statics_path %></li>
-      <li><%= link_to "News", blogposts_path %></li>
-      <li><%= link_to "Info", info_index_path %></li>
-      <li><%= link_to "Forums", forums_path %></li>
-      <li><%= link_to "Users", users_path %></li>
-      <li><%= link_to "Donate", donate_statics_path %></li>
+      <% con = params[:controller] %>
+      <li><%= link_to "Home", statics_path, class: ("active" if con == "statics" && params[:action] == "index") %></li>
+      <li><%= link_to "News", blogposts_path, class: ("active" if con == "blogposts" || con == "comments") %></li>
+      <li><%= link_to "Info", info_index_path, class: ("active" if con == "info") %></li>
+      <li><%= link_to "Forums", forums_path, class: ("active" if con == "forums" || con == "forumgroups" || con == "forumthreads" || con == "threadreplies") %></li>
+      <li><%= link_to "Users", users_path, class: ("active" if con == "users") %></li>
+      <li><%= link_to "Donate", donate_statics_path, class: ("active" if con == "statics" && params[:action] == "donate") %></li>
     </ul>
   </div>
   <div id="userbar">

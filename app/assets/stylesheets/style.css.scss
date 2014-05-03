@@ -115,7 +115,7 @@ a {
           display: inline-block;
           color: #fff;
 
-          &:hover {
+          &:hover, &.active {
             color: #f66;
           }
         }
