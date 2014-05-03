@@ -23,4 +23,8 @@ class RegistrationPreview < ActionMailer::Preview
     reply  = Threadreply.new(id: 312, user_author: @@user, content: "# Markdown!\n\n`incline code`\n\n<b>html?</b>\n\n[yt:abcd1234]\n\n[link](/forums)", forumthread: thread)
     RedstonerMailer.thread_reply_mail(@@user, reply)
   end
+
+  def email_change_confirm_mail
+    RedstonerMailer.email_change_confirm_mail(@@user)
+  end
 end

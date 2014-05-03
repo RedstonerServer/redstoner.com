@@ -1,0 +1,31 @@
+<div style="font-family: 'Oswald','Calibri','Arial','DejaVu Sans','Open Sans','Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif; background: #F2F2F2">
+  <div style="color: rgb(63, 63, 63); width: 600px; max-width: 100%; padding: 2em; margin: auto">
+    Hi <%= @user.name %>!
+
+    <p>You changed your email on Redstoner.com!</p>
+    <p>Please <%= link_to "confirm", confirm_user_url(@user, code: @user.email_token), style: "text-decoration: none; color: #4096EE;" %> your new email address (<b><%= @user.email %></b>).</p>
+
+    <div>
+      <p>Please click this link to confirm your new email:
+      </p>
+      <div width="100%" style="background-color: #ddd; padding: 1em; margin: 0; text-align: center;">
+        <%= link_to "confirm email change", confirm_user_url(@user, code: @user.email_token), style: "text-decoration: none; color: #f2f2f2; padding: 0.5em 2em; background-color: #4096EE; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; display: inline-block; text-transform: uppercase;" %>
+      </div>
+      <p></p>
+
+      <p>If you have any questions or problems, just ask one of our <%= link_to "Staff", users_url(role: "staff"), style: "text-decoration: none; color: #4096EE;" %> in-game.</p>
+      <p>Your Redstoner team</p>
+
+    </div>
+  </div>
+  <div style="background: none repeat scroll 0% 0% rgb(68, 68, 68); width: 100%; padding: 2em; color: rgb(255, 255, 255); margin:auto; text-align: center;">
+    <p><i>If you did not change your mail on redstoner.com please ignore this email!</i>
+    </p>
+    <p>You can contact us via:
+      <%= link_to "Website", root_url, style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Twitter", "https://twitter.com/RedstonerServer", style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Google+", "https://google.com/+Redstoner", style: "text-decoration: none; color: #4096EE;" %> |
+      <%= link_to "Email", "mailto:redstonerserver+website@gmail.com", style: "text-decoration: none; color: #4096EE;" %>
+    </p>
+  </div>
+</div>

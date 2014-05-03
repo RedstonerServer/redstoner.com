@@ -7,11 +7,16 @@ module MailerHelper
             mail.deliver
           rescue => e
             Rails.logger.error "---"
-            Rails.logger.error "WARNING: '#{mail.try(:subject)}' failed for user #{@user.name}, #{@user.email}"
+            Rails.logger.error "WARNING: '#{mail.try(:subject)}' failed for user #{@user.try(:name)}, #{@user.try(:email)}"
             Rails.logger.error e.message
             Rails.logger.error "---"
           end
         end
+      rescue => e
+        Rails.logger.error "---"
+        Rails.logger.error "WARNING: Problem while processing mails:"
+        Rails.logger.error e.message
+        Rails.logger.error "---"
       ensure
         # threads open their own DB connection
         ActiveRecord::Base.connection.close

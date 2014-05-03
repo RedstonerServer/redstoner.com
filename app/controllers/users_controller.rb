@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   require 'open-uri'
+  include MailerHelper
 
   def index
     if params[:role]
@@ -42,8 +43,8 @@ class UsersController < ApplicationController
         if !confirmed?
           @user.confirmed = true
           if @user.save
-            flash[:notice] = "Registration mail confirmed."
-            redirect_to edit_user_path(@user)
+            flash[:notice] = "Your email has been confirmed."
+            redirect_to @user
             return
           else
             flash[:alert] = "Something went wrong, please contact us ingame."
@@ -103,7 +104,7 @@ class UsersController < ApplicationController
               RedstonerMailer.register_info_mail(@user, is_idiot).deliver
             rescue => e
               Rails.logger.error "---"
-              Rails.logger.error "WARNING: registration mail failed for user #{@user.name}, #{@user.email}"
+              Rails.logger.error "WARNING: registration mail failed for user #{@user.try(:name)}, #{@user.try(:email)}"
               Rails.logger.error e.message
               Rails.logger.error "---"
               flash[:alert] = "Registration mail failed. Please contact us in-game."
@@ -197,6 +198,59 @@ class UsersController < ApplicationController
       end
     else
       flash[:alert] = "You are not allowed to delete this user"
+      redirect_to @user
+    end
+  end
+
+  def edit_login
+    @user = User.find(params[:id])
+    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+      flash[:alert] = "You are not allowed to edit this user's login details!"
+      redirect_to @user
+    end
+  end
+
+  def update_login
+    @user = User.find(params[:id])
+    if @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+      authenticated = !@user.is?(current_user) || @user.authenticate(params[:current_password])
+      if params[:user][:password].present?
+        @user.password              = params[:user][:password]
+        @user.password_confirmation = params[:user][:password_confirmation]
+      end
+      @user.email       = params[:user][:email] if params[:user][:email].present?
+      mail_changed      = @user.email_changed?
+      @user.email_token = SecureRandom.hex(16) if mail_changed
+      @user.confirmed   = !mail_changed
+
+      # checking here for password so we can send back changes to the view
+      if authenticated
+        if @user.save
+          flash[:notice] = "Login details updated!"
+          if mail_changed
+            begin
+              background_mailer([RedstonerMailer.email_change_confirm_mail(@user)])
+              flash[:notice] += " Please check your inbox."
+            rescue
+              Rails.logger.error "---"
+              Rails.logger.error "WARNING: email change confirmation mail (view) failed for user #{@user.try(:name)}, #{@user.try(:email)}"
+              Rails.logger.error e.message
+              Rails.logger.error "---"
+              flash[:alert] = "We're having problems with your confirmation mail, please contact us!"
+            end
+          end
+          redirect_to @user
+        else
+          flash[:alert] = "Error while updating your login details!"
+          render action: "edit_login"
+        end
+      else
+        flash[:alert] = "Wrong password!"
+        render action: "edit_login"
+      end
+
+    else
+      flash[:alert] = "You are not allowed to edit this user's login details!"
       redirect_to @user
     end
   end

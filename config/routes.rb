@@ -16,6 +16,8 @@ Redstoner::Application.routes.draw do
   resources :users do
     member do
       get 'confirm'
+      get 'edit_login'
+      put 'update_login'
     end
   end
 
