@@ -1,10 +1,10 @@
 $.fn.ago = function(callback) {
   units = [
-    ['m', 60],
-    ['h', 3600],
-    ['d', 86400],
-    ['w', 604800],
-    ['y', 31536000]
+    ['minute', 60],
+    ['hour', 3600],
+    ['day', 86400],
+    ['week', 604800],
+    ['year', 31536000]
   ];
   this.each(function() {
     ago_date = callback ? callback(this) : new Date($(this).text());
@@ -20,8 +20,13 @@ $.fn.ago = function(callback) {
     });
 
     if (ago_unit !== null) {
-      unit    = units[ago_unit];
-      ago_str = Math.abs(Math.floor(ago_time/unit[1])).toString() + unit[0] + (ago_time < 0 ? " ahead" : " ago");
+      unit     = units[ago_unit];
+      ago_time = Math.abs(Math.floor(ago_time/unit[1]))
+      ago_str  = ago_time.toString() + " " + unit[0]
+      if (ago_time != 1) {
+        ago_str += "s";
+      }
+      ago_str += (ago_time < 0 ? " ahead" : " ago");
     } else {
       ago_str = "just now";
     }
