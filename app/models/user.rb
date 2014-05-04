@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates_length_of :about, maximum: 5000
   validates_length_of :ign, minimum: 1, maximum: 16
 
-  validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[[0-9:.]+\])\z/i, message: "That doesn't look like an email adress."}
+  validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[[0-9a-f:.]+\])\z/i, message: "That doesn't look like an email adress."}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "Username is invalid (a-z, 0-9, _)."}
 
   validate :account_exists?, :if => lambda {|user| user.ign_changed? }
