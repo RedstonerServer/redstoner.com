@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
       redirect_to cookies[:return_path]
       cookies.delete(:return_path)
     else
-      redirect_to root_path
+      redirect_to blogposts_path
     end
   end
 
