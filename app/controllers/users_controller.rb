@@ -90,7 +90,7 @@ class UsersController < ApplicationController
         @user.uuid = user_profile["id"]
         @user.ign  = user_profile["name"] # correct case
 
-        if true validate_token(@user.uuid, @user.email, params[:registration_token])
+        if validate_token(@user.uuid, @user.email, params[:registration_token])
           @user.last_ip = request.remote_ip # showing in mail
           if @user.save
             session[:user_id] = @user.id
