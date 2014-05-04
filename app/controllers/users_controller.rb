@@ -119,7 +119,7 @@ class UsersController < ApplicationController
           end
           @user.email_token = SecureRandom.hex(16)
         else
-          flash[:alert] = "Token invalid for this username"
+          flash[:alert] = "Token invalid for this username/email"
           render action: "new"
         end
       else
