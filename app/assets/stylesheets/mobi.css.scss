@@ -11,8 +11,8 @@
 
   #head {
     #menu {
-      #logo:hover {
-        transition: none;
+      #logo {
+        display: none;
       }
     }
   }
@@ -40,6 +40,18 @@
         height: 32px;
         width: 32px;
         vertical-align: middle;
+      }
+    }
+  }
+
+  #user-info {
+    tbody {
+      tr {
+        display: block;
+        margin-bottom: 0.5em;
+      }
+      td:first-child:after {
+        content: ":";
       }
     }
   }

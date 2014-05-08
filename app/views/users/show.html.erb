@@ -1,6 +1,4 @@
 <div id="user-info">
-  <h1><%= @user.name %></h1>
-
   <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
     <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %></div>
   <% end %>
@@ -11,6 +9,9 @@
       <%= link_to "revert", revert_path, :class => "btn blue" %>
     <% end %>
   </div>
+
+  <h1><%= @user.name %></h1>
+
   <div class="clear"></div>
 
   <% if @user.banned? %>
@@ -37,46 +38,46 @@
   <table>
     <tbody>
       <tr>
-        <td>IGN</td>
+        <td><b>IGN</b></td>
         <td><%= @user.ign %></td>
       </tr>
       <tr>
-        <td>Role</td>
+        <td><b>Role</b></td>
         <td><%= link_to @user.role, users_path(:role => @user.role.name) %></td>
       </tr>
       <% if current_user && !@user.skype.blank? && (@user.skype_public || current_user == @user || mod?) %>
       <tr>
-        <td>Skype</td>
+        <td><b>Skype</b></td>
         <td><%= link_to @user.skype, "skype:#{@user.skype}?chat", target: "_blank" %></a></td>
       </tr>
       <% end %>
       <% if !@user.youtube.blank? && !@user.youtube_channelname.blank? %>
       <tr>
-        <td>YouTube</td>
+        <td><b>YouTube</b></td>
         <td><%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI.escape(@user.youtube)}", :target => "_blank" %></td>
       </tr>
       <% end %>
       <% if !@user.twitter.blank? %>
       <tr>
-        <td>Twitter</td>
+        <td><b>Twitter</b></td>
         <td><%= link_to "@#{@user.twitter}", "https://twitter.com/#{CGI.escape(@user.twitter)}", :target => "_blank" %></td>
       </tr>
       <% end %>
       <tr>
-        <td>Joined</td>
+        <td><b>Joined</b></td>
         <td><time title="<%= @user.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.created_at.to_datetime.rfc3339 %>"><%= @user.created_at.strftime("%e %b %Y, %H:%M") %></time></td>
       </tr>
       <% if mod? || @user.is?(current_user) %>
         <tr>
-          <td>Last IP</td>
+          <td><b>Last IP</b></td>
           <td><%= @user.last_ip %></td>
         </tr>
         <tr>
-          <td>Email</td>
+          <td><b>Email</b></td>
           <td><%= mail_to @user.email, @user.email, :subject => "Redstoner" %></td>
         </tr>
         <tr>
-          <td>Last seen</td>
+          <td><b>Last seen</b></td>
           <td><time title="<%= @user.last_seen.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.last_seen.to_datetime.rfc3339 %>"><%= @user.last_seen.strftime("%e %b %Y, %H:%M") %></time></td>
         </tr>
       <% end %>

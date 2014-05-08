@@ -100,10 +100,11 @@ a {
     }
 
     ul {
-      margin: 0 0 0 100px;
+      margin: 0;
       padding: 0;
       list-style: none;
       line-height: 0;
+      text-align: center;
 
       li {
         display: inline-block;
@@ -199,7 +200,7 @@ span.no-about {
   h1 {
     font-weight: normal;
     font-size: 200%;
-    margin: 0;
+    margin: 1em 0 0.5em;
     text-shadow: 0 1px #999;
     word-wrap: break-word;
   }
@@ -727,6 +728,10 @@ table {
   width: 100%;
   max-width: 100%;
   table-layout: fixed;
+
+  label {
+    font-weight: bold;
+  }
 }
 
 img {
