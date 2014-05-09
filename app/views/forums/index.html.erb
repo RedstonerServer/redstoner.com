@@ -10,7 +10,17 @@
       <div class="items bold">
         <% group.forums.sort_by{ |f| f.position || 0 }.each do |f| %>
           <% if f.can_read?(current_user) %>
-            <%= link_to f.name, f, id: "forum-#{f.id}", class: "item" %>
+            <div class="item">
+              <%= link_to f.name, f, id: "forum-#{f.id}"%>
+              <div class="item-info">
+                <% if trd = f.threads.last %>
+                  <%= trd.author.name %> <%= link_to "posted", forumthread_path(f) %> <time title="<%= trd.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= trd.created_at.to_datetime.rfc3339 %>"><%= trd.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+                <% else %>
+                  No replies yet.
+                <% end %>
+              </div>
+              <div class="clear"></div>
+            </div>
           <% end %>
         <% end %>
       </div>

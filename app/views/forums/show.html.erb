@@ -16,7 +16,17 @@
         <div class="clear-right"></div>
       </div>
       <div class="items bold">
-        <%= link_to thread.title, forumthread_path(thread), class: "item #{"locked" if thread.locked}#{"sticky" if thread.sticky}" %>
+        <div class="item">
+          <%= link_to thread.title, forumthread_path(thread), class: "#{"locked" if thread.locked}#{"sticky" if thread.sticky}" %>
+          <div class="item-info">
+            <% if rpl = thread.replies.last %>
+              <%= rpl.author.name %> <%= link_to "replied", forumthread_path(thread) + "#reply-#{rpl.id}" %> <time title="<%= rpl.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= rpl.created_at.to_datetime.rfc3339 %>"><%= rpl.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+            <% else %>
+              No replies yet.
+            <% end %>
+          </div>
+          <div class="clear"></div>
+        </div>
       </div>
     </div>
   <% end %>
