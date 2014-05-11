@@ -1,0 +1,11 @@
+<div class="md_editor <%= "mini" if mini %>">
+  <%= render partial: 'mdhelp' %>
+  <div class="field_container">
+    <div class="preview-button btn dark">Preview</div>
+    <% options = (defined?(options) && options || {}) %>
+    <% options[:class] = "#{options[:class]} editor_field" %>
+    <% options[:placeholder] ||= "Text" %>
+    <%= text_area_tag name, content, options %>
+    <div class="preview"><i>(Loading...)</i></div>
+  </div>
+</div>

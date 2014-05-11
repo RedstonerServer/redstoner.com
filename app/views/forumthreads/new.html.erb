@@ -14,8 +14,7 @@
     <% end %>
   </table>
   <%= f.text_field :title, placeholder: "Title" %>
-  <%= render partial: "mdhelp" %>
-  <%= f.text_area :content, placeholder: "Text" %>
+  <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content, mini: false} %>
   <%= f.hidden_field :forum_id %>
   <p><%= f.submit "Create thread", class: "btn blue left" %></p>
   <div class="clear"></div>

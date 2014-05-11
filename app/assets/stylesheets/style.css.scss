@@ -216,7 +216,7 @@ span.no-about {
   display: block;
 }
 
-.post, .thread, .thread-reply {
+.post, .thread, .thread-reply, .preview {
   margin-bottom: 50px;
 
   .post-content, .thread-content {
@@ -224,11 +224,8 @@ span.no-about {
     clear: both;
     word-wrap: break-word;
     overflow: hidden;
-
-    img {
-      max-width: 100%;
-    }
   }
+
   .post-title, .thread-title {
     margin-bottom: 10px;
     word-wrap: break-word;
@@ -297,7 +294,9 @@ pre {
 
   // code blocks
   code {
-    padding: 0;
+    display: block;
+    padding: 0.5em;
+    color: #C5C8C6; //hljs
     box-shadow: 0 0 16px #222 inset;
     background: #3f3f3f !important;
     border: none;
@@ -388,6 +387,28 @@ blockquote p {
   }
 }
 
+.md_editor {
+  .field_container {
+    position: relative;
+
+    .preview-button {
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      z-index: 10;
+    }
+    .editor_field {
+      padding-top: 4em;
+      min-height: 5em;
+    }
+
+    .preview {
+      display: none;
+      padding: 4em 1em 1em;
+    }
+  }
+}
+
 #comments {
   margin: 50px 0 0 40px;
 }
@@ -457,10 +478,6 @@ textarea {
   padding: 1em;
   min-height: 3.5em;
   resize: vertical;
-
-  &.comment {
-    height: 75px;
-  }
 }
 
 tr.spacer {

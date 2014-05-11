@@ -1,8 +1,7 @@
 <% if current_user %>
   <h3>New comment</h3>
   <%= form_for [@post, @comment] do |f| %>
-    <%= render partial: "mdhelp" %>
-    <%= f.text_area :content, placeholder: "Comment", class: "comment" %>
+    <%= render partial: "md_editor", locals: {name: "comment[content]", content: @comment.content, mini: true} %>
     <p><%= f.submit class: "btn blue" %></p>
   <% end %>
 <% end %>

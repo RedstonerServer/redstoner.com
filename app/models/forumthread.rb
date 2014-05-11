@@ -15,16 +15,11 @@ class Forumthread < ActiveRecord::Base
   end
 
   def author
-    @author ||= if self.user_author.present?
-      user_author
-    else
-      User.first
-    end
+    @author ||= (user_author || User.first)
   end
 
   def editor
-    # can be nil
-    @editor ||= user_editor
+    @editor ||= (self.user_editor || User.first)
   end
 
   def edited?

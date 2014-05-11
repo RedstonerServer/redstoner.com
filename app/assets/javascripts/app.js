@@ -40,6 +40,7 @@ $(function(){
       $(this).parent().attr("lang", "(language unknown)");
     }
   });
+
   updateTimestamps();
   setInterval(updateTimestamps, 1000*10);
 });

@@ -1,8 +1,7 @@
 <h1>New Post</h1>
 <%= form_for @post do |f|%>
   <%= f.text_field :title, placeholder: "Title" %>
-  <%= render partial: "mdhelp" %>
-  <%= f.text_area :content, placeholder: "Text" %>
+  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content, mini: false} %>
   <p><%= f.submit "Create Post", class: "btn blue left" %></p>
   <div class="clear"></div>
 <% end %>

@@ -59,8 +59,7 @@
       <tr>
         <td>About you</td>
         <td>
-          <%= render partial: "mdhelp" %>
-          <%= f.text_area :about, placeholder: "Tell us something about you...", disabled: !can_edit? %>
+          <%= render partial: "md_editor", locals: {name: "user[about]", content: @user.about, mini: true, options: {disabled: !can_edit?, placeholder: "Tell us something about you ..."}} %>
         </td>
       </tr>
     </tbody>

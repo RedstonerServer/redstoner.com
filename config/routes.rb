@@ -27,6 +27,13 @@ Redstoner::Application.routes.draw do
     resources :threadreplies, path: 'replies'
   end
 
+  resources :tools do
+    collection do
+      post 'render_markdown'
+      post 'render_mini_markdown'
+    end
+  end
+
   # get '/status' => 'status#show'
 
   get  'login'  => 'sessions#new'
