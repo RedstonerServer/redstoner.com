@@ -4,8 +4,8 @@
 <% if mod? %>
   <%= link_to "New Info", new_info_path, class: "btn blue" %>
 <% end %>
-<ul>
+<div class="info">
   <% @info.each do |info| %>
-    <li><%= link_to info.title, info %></li>
+    <%= link_to info.title, info %>
   <% end %>
-</ul>
+</div>

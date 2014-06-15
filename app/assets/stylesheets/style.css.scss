@@ -269,6 +269,21 @@ span.no-about {
   }
 }
 
+.info {
+  margin-top: 2em;
+
+  a {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    padding: 1em;
+
+    &:hover {
+      background: #3f3f3f;
+      color: #fff
+    }
+  }
+}
+
 pre {
   border-radius: 2px;
   position: relative;
