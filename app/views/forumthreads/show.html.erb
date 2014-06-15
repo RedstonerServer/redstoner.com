@@ -1,6 +1,8 @@
 <% title @thread.title %>
 
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
+<h1><%= truncate(@thread.title, length: 60, omission: " …") %></h1>
+
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
   <div class="header">
     <%= link_to(@thread.author.avatar(64), @thread.author, title: @thread.author.ign) %>
@@ -15,7 +17,6 @@
       </div>
     <% end %>
     <div class="item content">
-      <h2 class="headline"><%= link_to truncate(@thread.title, length: 60, omission: " …"), p %></h2>
       <%= render_md(@thread.content).html_safe %>
     </div>
   </div>

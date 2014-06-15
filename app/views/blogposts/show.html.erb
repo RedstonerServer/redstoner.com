@@ -1,6 +1,8 @@
 <% title "#{@post.title}" %>
 
 <%= link_to "News", blogposts_path %> → <%= link_to @post.title %>
+<h1><%= truncate(@post.title, length: 60, omission: " …") %></h1>
+
 <div class="item-group post with-avatar" id="post-<%= @post.id %>">
   <div class="header">
     <%= link_to(@post.author.avatar(64), @post.author, title: @post.author.ign) %>
@@ -10,7 +12,6 @@
   </div>
   <div class="items">
     <div class="item content">
-      <h2 class="headline"><%= link_to truncate(@post.title, length: 60, omission: " …"), p %></h2>
       <%= render_md(@post.content).html_safe %>
     </div>
   </div>
