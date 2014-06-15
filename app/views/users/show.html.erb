@@ -1,3 +1,5 @@
+<% title @user.name %>
+
 <div id="user-info">
   <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
     <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %></div>

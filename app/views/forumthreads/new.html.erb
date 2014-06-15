@@ -1,3 +1,5 @@
+<% title "New Thread: #{@thread.forum.title}" %>
+
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
 <h1>New thread</h1>
 <%= form_for @thread do |f|%>

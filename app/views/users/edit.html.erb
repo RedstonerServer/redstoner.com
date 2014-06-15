@@ -1,3 +1,5 @@
+<% title "Edit User: #{@user.name}" %>
+
 <%
   def can_edit?
     (@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)

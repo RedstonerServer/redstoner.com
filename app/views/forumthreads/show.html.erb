@@ -1,3 +1,5 @@
+<% title @thread.title %>
+
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread %>
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">
   <div class="header">
