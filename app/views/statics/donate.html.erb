@@ -2,28 +2,28 @@
 
 <p>Running a server is really stressful and expensive.<br>
   Donating keeps us motivated to do all the work and allows us to pay our bills, etc.</p>
-<p>Donations are made via <a href="https://www.paypal.com" target="_blank">PayPal</a>.
-<p>We do appreciate every amount of donation but we have decided to create two special ranks:</p>
+<p>Donations are made via <a href="https://www.paypal.com" target="_blank">PayPal</a>. We will eventually add more payment methods if we get many requests.</p>
+<p>If you cannot, or do not want to donate, that's totally fine!<br>
+  Just thank us, it really makes us happy :)</p>
+<p>While we do appreciate every amount of donation, we have decided to create two special ranks:</p>
 <ul>
-  <li>Donator  ($5  or more)
+  <li>Donator ($5  or more)
   <li>Donator+ ($20 or more)
 </ul>
 </p>
 <h3>Perks for you</h3>
 <p>For <i>Donator</i> and <i>Donator+</i></p>
 <ul>
-  <li>The warm feeling of donating and a big thank you!
-  <li>Commands <i>/speed</i> and <i>/enchant</i>
-  <li>You can have a nickname. See <i>/nick</i>
+  <li>The warm feeling of donating for a good thing, plus a huge "<b>thank you</b>"!
+  <li>You can have a nickname. See <code>/nick</code>
   <li>A "$" next to your name <i>(Including website)</i>
-  <li>The name above your head gets a special color
-  <li>Your head + a sign with your name at <i>/warp donors</i>
+  <li>Your head + a sign with your name at <code>/warp donors</code>
 </ul>
 <hr>
 <div class="donations">
   <div class="donation">
     <h1>Donate to Redstone Sheep</h1>
-    <h4>Sheep is our admin. He fixes everything &amp; keeps the server running.</h4>
+    <h4>Sheep is our admin. He solves problems &amp; keeps the server running.</h4>
 
     <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
       <% if current_user %>
@@ -38,7 +38,7 @@
   </div>
   <div class="donation">
     <h1>Donate to PanFritz</h1>
-    <h4>Pan hosts the Server.</h4>
+    <h4>Pan owns the hardware.</h4>
     <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
       <% if current_user %>
         <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
@@ -51,3 +51,7 @@
     </form>
   </div>
 </div>
+<p>Can't decide? Just split the money and donate to both!</p>
+<hr>
+
+<p class="small">Please note that you are not buying anything. We do not guarantee for these perks, however, we will try hard to make sure you'll get them!</p>
