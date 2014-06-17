@@ -20,6 +20,10 @@ Redstoner::Application.routes.draw do
       get 'edit_notifications'
       put 'update_login'
     end
+    collection do
+      get  'lost_password'
+      post 'reset_password'
+    end
   end
 
   resources :forumgroups,  path: '/forums/groups'

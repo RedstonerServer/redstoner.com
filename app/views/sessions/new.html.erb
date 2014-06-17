@@ -10,6 +10,10 @@
       <td><%= label_tag :password %></td>
       <td><%= password_field_tag :password, nil, placeholder: "******" %></td>
     </tr>
+    <tr>
+      <td></td>
+      <td><%= link_to "Lost your password?", lost_password_users_path %></td>
+    </tr>
   </table>
   <p><%= submit_tag "Log in", class: "btn blue" %></p>
 <% end %>

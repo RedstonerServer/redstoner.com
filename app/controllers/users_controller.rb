@@ -91,6 +91,7 @@ class UsersController < ApplicationController
         @user.ign  = user_profile["name"] # correct case
 
         if validate_token(@user.uuid, @user.email, params[:registration_token])
+          destroy_token(@user.email, params[:registration_token]) # tokens can be used to reset password
           @user.last_ip = request.remote_ip # showing in mail
           if @user.save
             session[:user_id] = @user.id
@@ -265,13 +266,42 @@ class UsersController < ApplicationController
     end
   end
 
+  def lost_password
+    if current_user
+      flash[:notice] = "You're already logged in!"
+      redirect_to current_user
+    end
+  end
 
+  def reset_password
+    user = User.find_by_email(params[:email])
+    if user && validate_token(user.uuid, user.email, params[:secret_token])
+      destroy_token(user.email, params[:secret_token]) # tokens can be used to reset password
+      user.password              = params[:new_password]
+      user.password_confirmation = params[:new_password]
+      if user.save
+        flash[:notice] = "Password reset"
+        redirect_to login_path
+      else
+        flash[:alert] = "Failed to update password"
+        render action: "lost_password"
+      end
+    else
+      flash[:alert] = "Token or Email adress invalid!"
+      render action: "lost_password"
+    end
+  end
 
   private
 
   def validate_token(uuid, email, token)
     user_token = RegisterToken.where(uuid: uuid, email: email).first
     user_token && user_token.token == token
+  end
+
+  def destroy_token(email, token)
+    user_token = RegisterToken.where(token: token, email: email).first
+    user_token && user_token.destroy
   end
 
   def user_params(add = [])
