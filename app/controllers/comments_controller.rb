@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    if mod? || @comment.author.is?(current_user)
+    if (mod? && current_user.role >= @comment.author.role) || @comment.author.is?(current_user)
     else
       flash[:alert] = "You are not allowed to edit this comment"
       redirect_to @comment.blogpost
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    if mod? || @comment.author.is?(current_user)
+    if (mod? && current_user.role >= @comment.author.role) || @comment.author.is?(current_user)
       if @comment.destroy
         flash[:notice] = "Comment deleted!"
       else

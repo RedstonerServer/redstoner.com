@@ -204,6 +204,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_notifications
+    @user = User.find(params[:id])
+    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+      flash[:alert] = "You are not allowed to edit this user's notification settings!"
+      redirect_to @user
+    end
+  end
+
   def edit_login
     @user = User.find(params[:id])
     unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
@@ -267,7 +275,7 @@ class UsersController < ApplicationController
   end
 
   def user_params(add = [])
-    a = [:ign, :email, :password, :password_confirmation] + add
+    a = [:ign, :email, :password, :password_confirmation, :mail_own_thread_reply, :mail_other_thread_reply, :mail_own_blogpost_comment, :mail_other_blogpost_comment, :mail_mention] + add
     params.require(:user).permit(a)
   end
 end

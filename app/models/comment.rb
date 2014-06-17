@@ -31,13 +31,13 @@ class Comment < ActiveRecord::Base
   def send_new_comment_mail
     userids = []
 
-    # thread + replies
-    posts = blogpost.comments.to_a
-    posts << blogpost # if thread.author.send_own_post_comment_mail (TODO)
-    posts.each do |post|
-      # don't send mail to the author, don't send to banned/disabled users
-      if post.author != author && post.author.normal? && post.author.confirmed? # &&
-        userids << post.author.id # && post.author.send_commented_comment_mail (TODO)
+    # post + comments
+    comments = blogpost.comments.to_a
+    comments << blogpost if blogpost.author.mail_own_blogpost_comment?
+    comments.each do |comment|
+      # don't send mail to the author of this comment, don't send to banned/disabled users
+      if comment.author != author && comment.author.normal? && comment.author.confirmed? # &&
+        userids << comment.author.id if comment.author.mail_other_blogpost_comment?
       end
     end
     # making sure we don't send multiple mails to the same user

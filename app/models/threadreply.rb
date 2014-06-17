@@ -37,11 +37,11 @@ class Threadreply < ActiveRecord::Base
 
     # thread + replies
     posts = thread.replies.to_a
-    posts << thread # if thread.author.send_own_thread_reply_mail (TODO)
+    posts << thread if thread.author.mail_own_thread_reply?
     posts.each do |post|
-      # don't send mail to the author, don't send to banned/disabled users
+      # don't send mail to the author of this reply, don't send to banned/disabled users
       if post.author != author && post.author.normal? && post.author.confirmed? # &&
-        userids << post.author.id # && post.author.send_replied_reply_mail (TODO)
+        userids << post.author.id if post.author.mail_other_thread_reply?
       end
     end
     # making sure we don't send multiple mails to the same user

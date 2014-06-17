@@ -1,0 +1,51 @@
+<% title "Edit Notification Settings: #{@user.name}" %>
+
+<%= link_to @user.name, @user %> → Edit Notification Settings
+<h1>Edit Notification Settings</h1>
+
+
+<%= form_for @user do |f| %>
+<p>Email me when someone...</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>replies to my thread</td>
+        <td>
+          <%= f.check_box :mail_own_thread_reply %>
+        </td>
+      </tr>
+      <tr>
+        <td>replies to a thread I already replied to</td>
+        <td>
+          <%= f.check_box :mail_other_thread_reply %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          comments my blog post<br>
+          <i>(Currently used for staff only)</i>
+        </td>
+        <td>
+          <%= f.check_box :mail_own_blogpost_comment %>
+        </td>
+      </tr>
+      <tr>
+        <td>comments a blog post I already commented</td>
+        <td>
+          <%= f.check_box :mail_other_blogpost_comment %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          mentions me in a thread or comment<br>
+          <i>(Not yet implemented)</i>
+        </td>
+        <td>
+          <%= f.check_box :mail_mention %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <div class="clear"></div>
+<% end %>

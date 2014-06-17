@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 11) do
+ActiveRecord::Schema.define(version: 20140617183755) do
 
   create_table "blogposts", force: true do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "user_author_id"
     t.integer  "user_editor_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "comments", force: true do |t|
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 11) do
     t.integer  "user_author_id"
     t.integer  "user_editor_id"
     t.integer  "blogpost_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "forumgroups", force: true do |t|
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 11) do
     t.integer  "user_author_id"
     t.integer  "user_editor_id"
     t.integer  "forum_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "info", force: true do |t|
@@ -63,10 +63,9 @@ ActiveRecord::Schema.define(version: 11) do
     t.text   "content"
   end
 
-  create_table "register_tokens", force: true do |t|
-    t.string "uuid",  limit: 32, null: false
-    t.string "token", limit: 6,  null: false
-    t.string "email",            null: false
+  create_table "register_tokens", primary_key: "uuid", force: true do |t|
+    t.string "token", limit: 6, null: false
+    t.string "email",           null: false
   end
 
   create_table "roles", force: true do |t|
@@ -77,8 +76,8 @@ ActiveRecord::Schema.define(version: 11) do
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
@@ -89,30 +88,35 @@ ActiveRecord::Schema.define(version: 11) do
     t.integer  "user_author_id"
     t.integer  "user_editor_id"
     t.integer  "forumthread_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: true do |t|
-    t.string   "uuid",                                null: false
-    t.string   "name",                                null: false
-    t.string   "password_digest",                     null: false
-    t.string   "ign",                                 null: false
-    t.string   "email",                               null: false
+    t.string   "uuid",                                        null: false
+    t.string   "name",                                        null: false
+    t.string   "password_digest",                             null: false
+    t.string   "ign",                                         null: false
+    t.string   "email",                                       null: false
     t.text     "about"
     t.string   "last_ip"
     t.string   "skype"
-    t.boolean  "skype_public",        default: false
+    t.boolean  "skype_public",                default: false
     t.string   "youtube"
     t.string   "youtube_channelname"
     t.string   "twitter"
-    t.boolean  "donor",               default: false
+    t.boolean  "donor",                       default: false
     t.string   "email_token"
-    t.boolean  "confirmed",           default: false
+    t.boolean  "confirmed",                   default: false
     t.datetime "last_seen"
-    t.integer  "role_id",                             null: false
+    t.integer  "role_id",                     default: 3,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "mail_own_thread_reply",       default: true
+    t.boolean  "mail_other_thread_reply",     default: true
+    t.boolean  "mail_own_blogpost_comment",   default: true
+    t.boolean  "mail_other_blogpost_comment", default: true
+    t.boolean  "mail_mention",                default: true
   end
 
 end

@@ -68,7 +68,10 @@
   </table>
 
 <p><%= f.submit "Save profile", class: "btn blue left", disabled: (!@user.confirmed? && @user.is?(current_user)) %></p>
-<p><%= link_to "Edit login details", edit_login_user_path(@user), class: "btn blue right" %></p>
+<p>
+  <%= link_to "Edit login details", edit_login_user_path(@user), class: "btn blue right" %>
+  <%= link_to "Notification settings", edit_notifications_user_path(@user), class: "btn blue right" %>
+</p>
 <div class="clear"></div>
 
 <% if !@user.confirmed? %>
