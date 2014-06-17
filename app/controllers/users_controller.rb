@@ -283,7 +283,7 @@ class UsersController < ApplicationController
         flash[:notice] = "Password reset"
         redirect_to login_path
       else
-        flash[:alert] = "Failed to update password"
+        flash[:alert] = "Failed to update password, please generate a new Token!"
         render action: "lost_password"
       end
     else
