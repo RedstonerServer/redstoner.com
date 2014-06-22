@@ -170,8 +170,25 @@ a {
 .front-page {
   margin: auto;
   text-align: center;
+
   h1 {
-    font-size: 6em !important;
+    font-size: 65px !important;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  #join-now {
+    background: #080;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000 inset;
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 1em;
+    padding: 1em;
   }
 }
 
