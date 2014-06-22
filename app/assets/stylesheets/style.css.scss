@@ -359,6 +359,7 @@ blockquote p {
 
 .user {
   display: inline-block;
+  font-size: 0;
 
   a.role {
     display: inline-block;
@@ -369,6 +370,7 @@ blockquote p {
     text-shadow: none;
     line-height: 1em;
     margin: 1px 0;
+    font-size: 14px;
 
     &.superadmin, &.admin {
       background: #d22 !important;
@@ -395,12 +397,7 @@ blockquote p {
 
   .donor {
     background: #f60 !important;
-    border-radius: 3px;
-    color: #fff !important;
-    font-weight: bold !important;
-    margin-left: 3px;
-    padding: 3px 7px;
-    display: inline-block;
+    margin-left: 2px;
   }
 
   .ign {
