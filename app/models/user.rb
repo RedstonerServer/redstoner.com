@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def online?
+    # when you change this, change footer.html.erb as well!
     last_seen && last_seen > 2.minutes.ago
   end
 

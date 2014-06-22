@@ -1,7 +1,7 @@
 <% users = User.select{|u| u.online?} %>
 <div id="footer">
   <div id="online-users">
-    <p title="Seen within the last 2 minutes">Users currently online: <%= users.length %></p>
+    <p title="Seen within the last 2 minutes">Users seen within the last 2 minutes: <%= users.length %></p>
     <% users.each do |u| %>
       <%= render partial: "users/username", locals: { user: u } %>
     <% end %>
