@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :update_ip, :update_seen, :check_banned
   # TODO: force_ssl
 
+  # TODO: remove this!
   http_basic_authenticate_with name: "redstone", password: "sheep_"
 
   helper :all
