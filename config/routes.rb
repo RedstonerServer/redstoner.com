@@ -8,7 +8,7 @@ Redstoner::Application.routes.draw do
     collection do
       get 'donate'
       get 'home'
-      get 'index', to: redirect('/home')
+      get 'index'
     end
   end
 
