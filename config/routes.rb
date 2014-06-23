@@ -51,5 +51,5 @@ Redstoner::Application.routes.draw do
 
   # post 'paypal' => 'paypal#create'
 
-  root to: 'statics#home'
+  root to: 'statics#index'
 end
