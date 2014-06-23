@@ -4,10 +4,11 @@ Redstoner::Application.routes.draw do
     resources :comments
   end
 
-  resources :statics, only: [:index, :donate], path: '/' do
+  resources :statics, only: [:home, :donate], path: '/' do
     collection do
       get 'donate'
-      get 'index'
+      get 'home'
+      get 'index', to: redirect('/home')
     end
   end
 
@@ -50,5 +51,5 @@ Redstoner::Application.routes.draw do
 
   # post 'paypal' => 'paypal#create'
 
-  root to: 'statics#index'
+  root to: 'statics#home'
 end

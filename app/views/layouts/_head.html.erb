@@ -3,7 +3,7 @@
     <%= link_to "", root_path, id: "logo" %>
     <ul>
       <% con = params[:controller] %>
-      <li><%= link_to "Home", statics_path, class: ("active" if con == "statics" && params[:action] == "index") %></li>
+      <li><%= link_to "Home", home_statics_path, class: ("active" if con == "statics" && params[:action] == "home") %></li>
       <li><%= link_to "News", blogposts_path, class: ("active" if con == "blogposts" || con == "comments") %></li>
       <li><%= link_to "Info", info_index_path, class: ("active" if con == "info") %></li>
       <li><%= link_to "Forums", forums_path, class: ("active" if con == "forums" || con == "forumgroups" || con == "forumthreads" || con == "threadreplies") %></li>

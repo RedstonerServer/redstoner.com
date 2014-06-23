@@ -1,6 +1,6 @@
 class StaticsController < ApplicationController
 
-  def index
+  def home
   end
 
   def donate

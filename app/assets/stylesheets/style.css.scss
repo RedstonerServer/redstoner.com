@@ -177,6 +177,11 @@ a {
 
   p {
     font-size: 16px;
+
+    span {
+      // used to control eventual line breaks a bit
+      display: inline-block;
+    }
   }
 
   img {
