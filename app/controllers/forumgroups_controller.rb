@@ -56,6 +56,19 @@ class ForumgroupsController < ApplicationController
     end
   end
 
+  def destroy
+    if admin?
+      if @group.destroy
+        flash[:notice] = "forum group deleted."
+      else
+        flash[:alert] = "Something went wrong"
+      end
+    else
+      flash[:alert] = "You are not allowed to delete forum groups."
+    end
+    redirect_to forums_path
+  end
+
   private
 
   def group_params(add = [])
