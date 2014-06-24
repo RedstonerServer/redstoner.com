@@ -1,4 +1,4 @@
-root = "/var/rails_site/"
+root = "/home/www-data/apps/redstoner"
 working_directory root
 pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
