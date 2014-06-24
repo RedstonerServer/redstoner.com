@@ -120,8 +120,6 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-graphviz (1.0.9)
-    rvm-capistrano (1.5.2)
-      capistrano (~> 2.15.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
     sass (3.2.19)
@@ -178,7 +176,6 @@ DEPENDENCIES
   rb-readline
   redcarpet
   rest-client
-  rvm-capistrano
   sanitize
   sass-rails
   therubyracer
