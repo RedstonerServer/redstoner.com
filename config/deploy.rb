@@ -9,7 +9,7 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@bitbucket.org/redstonesheep/redstoner.git"
+set :repository, "ssh://git@bitbucket.org/redstonesheep/redstoner.git"
 set :branch, "master"
 
 
