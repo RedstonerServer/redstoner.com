@@ -1,5 +1,4 @@
 require "bundler/capistrano"
-require "rvm/capistrano"
 
 server "redstoner", :web, :app, :db, primary: true
 
