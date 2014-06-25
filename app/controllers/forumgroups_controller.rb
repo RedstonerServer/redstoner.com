@@ -58,6 +58,7 @@ class ForumgroupsController < ApplicationController
 
   def destroy
     if admin?
+      @group = Forumgroup.find(params[:id])
       if @group.destroy
         flash[:notice] = "forum group deleted."
       else
