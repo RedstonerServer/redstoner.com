@@ -10,6 +10,10 @@
 ### END INIT INFO
 set -e
 
+# not sure why, but .bash_profile is not being executed
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 # Feel free to change any of the following variables for your app:
 TIMEOUT="${TIMEOUT-60}"
 APP_ROOT="/home/www-data/apps/redstoner/current"
