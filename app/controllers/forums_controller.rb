@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-  before_filter :check_permission, only: [:show, :edit, :update]
+  before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
      @groups = Forumgroup.select {|g| g.can_read?(current_user) }
