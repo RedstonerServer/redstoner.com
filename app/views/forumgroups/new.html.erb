@@ -1,4 +1,4 @@
-<% title "New Forum: #{@group.title}" %>
+<% title "New Forum: #{@group.name}" %>
 
 <h1>New forum group</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
