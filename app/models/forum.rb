@@ -17,7 +17,7 @@ class Forum < ActiveRecord::Base
   end
 
   def can_read?(user)
-    group.can_read?(user) && (role_read.nil? || (!user.nil? && user.role >= role_read))
+    group && group.can_read?(user) && (role_read.nil? || (!user.nil? && user.role >= role_read))
   end
 
   def can_write?(user)

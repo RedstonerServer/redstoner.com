@@ -31,7 +31,7 @@ class Forumthread < ActiveRecord::Base
   end
 
   def can_read?(user)
-    forum.can_read?(user)
+    forum && forum.can_read?(user)
   end
 
   def can_write?(user)
