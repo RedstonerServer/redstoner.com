@@ -759,11 +759,13 @@ tr.spacer {
       }
 
       &.content {
+        overflow-x: auto;
+        word-wrap: break-word;
+
         .headline {
           margin: 0;
           border-bottom: 1px solid #ddd;
         }
-        overflow-x: auto;
       }
 
       .item-info {
