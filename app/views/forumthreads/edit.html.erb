@@ -17,8 +17,8 @@
         <td><%= f.label :forum_id, "Move thread" %></td>
         <%
           forums = []
-          Forum.all.sort_by{ |f| f.forumgroup.position || 0 }.each do |f|
-            forums << ["#{f.forumgroup.name} → #{f.name}", f.id]
+          Forum.all.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
+            forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
           end
         %>
         <td><%= f.select :forum_id, forums %></td>
