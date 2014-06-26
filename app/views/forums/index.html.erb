@@ -16,7 +16,7 @@
               <%= link_to f.name, f, id: "forum-#{f.id}"%>
               <div class="item-info">
                 <% if trd = f.threads.last %>
-                  <%= trd.author.name %> <%= link_to "posted", forumthread_path(f) %> <time title="<%= trd.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= trd.created_at.to_datetime.rfc3339 %>"><%= trd.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+                  <%= trd.author.name %> <%= link_to "posted", forumthread_path(trd) %> <time title="<%= trd.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= trd.created_at.to_datetime.rfc3339 %>"><%= trd.created_at.strftime("%e %b %Y, %H:%M") %></time>.
                 <% else %>
                   No posts yet.
                 <% end %>
