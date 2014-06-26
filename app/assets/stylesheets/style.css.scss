@@ -238,6 +238,11 @@ span.no-about {
     margin: 1em 0 0.5em;
     text-shadow: 0 1px #999;
     word-wrap: break-word;
+
+    &.info-title {
+      font-size: 3em;
+      margin-bottom: 0.6em;
+    }
   }
 }
 
