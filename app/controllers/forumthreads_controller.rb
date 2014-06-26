@@ -1,6 +1,6 @@
 class ForumthreadsController < ApplicationController
 
-  before_filter :check_permission
+  before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
     redirect_to forum_path(@thread.forum.forumgroup, f)
