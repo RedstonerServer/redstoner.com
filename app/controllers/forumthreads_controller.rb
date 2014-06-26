@@ -72,12 +72,10 @@ class ForumthreadsController < ApplicationController
   private
 
   def check_permission
-    if params[:id]
-      @thread = Forumthread.find(params[:id])
-      unless @thread.can_read?(current_user)
-        flash[:alert] = "You are not allowed to view this thread"
-        redirect_to forums_path
-      end
+    @thread = Forumthread.find(params[:id])
+    unless @thread.can_read?(current_user)
+      flash[:alert] = "You are not allowed to view this thread"
+      redirect_to forums_path
     end
   end
 
