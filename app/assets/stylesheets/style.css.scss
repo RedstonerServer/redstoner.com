@@ -403,6 +403,8 @@ blockquote p {
     line-height: 1em;
     margin: 1px 0;
     font-size: 14px;
+    text-overflow: ellipsis;
+    max-width: 27em; // works with the 30 character limit
 
     &.superadmin, &.admin {
       background: #d22 !important;
@@ -625,7 +627,12 @@ tr.spacer {
 }
 
 #userlist {
+  text-align: center;
+
   .list-user {
+    display: inline-block;
+    text-align: left;
+    width: 463px;
     margin: 15px 0;
 
     a img {
