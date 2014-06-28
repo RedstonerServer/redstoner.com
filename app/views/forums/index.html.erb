@@ -15,8 +15,13 @@
             <div class="item">
               <%= link_to f.name, f, id: "forum-#{f.id}"%>
               <div class="item-info">
-                <% if trd = f.threads.last %>
-                  <%= trd.author.name %> <%= link_to "posted", forumthread_path(trd) %> <time title="<%= trd.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= trd.created_at.to_datetime.rfc3339 %>"><%= trd.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+                <% if last_thread = f.threads.last %>
+                  <% last_reply = Threadreply.where(forumthread: f.threads).order(:created_at).last %>
+                  <% if last_reply && last_reply.created_at > last_thread.created_at %>
+                    <%= last_reply.author.name %> <%= link_to "replied", forumthread_path(last_reply.thread) + "#reply-#{last_reply.id}" %> <time title="<%= last_reply.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= last_reply.created_at.to_datetime.rfc3339 %>"><%= last_reply.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+                  <% else %>
+                    <%= last_thread.author.name %> <%= link_to "posted", forumthread_path(last_thread) %> <time title="<%= last_thread.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= last_thread.created_at.to_datetime.rfc3339 %>"><%= last_thread.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+                  <% end %>
                 <% else %>
                   No posts yet.
                 <% end %>
