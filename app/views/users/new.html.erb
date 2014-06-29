@@ -2,8 +2,6 @@
 
 <h1>Sign up</h1>
 
-<p>To get your <i>token</i>, join the Minecraft server (redstoner.com) and use the <mark>/token</mark> command.</p>
-
 <%= form_for @user do |f| %>
   <table>
     <tr>
@@ -16,7 +14,9 @@
     </tr>
     <tr>
       <td><%= f.label :registration_token, "Token" %></td>
-      <td><%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %></td>
+      <td><%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %><br>
+      To get your <i>token</i>, join the Minecraft server (redstoner.com) and <b>use the <mark>/token</mark> command</b>.
+      </td>
     </tr>
     <tr>
       <td><%= f.label :password, "Password" %></td>
