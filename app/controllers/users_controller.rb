@@ -91,7 +91,7 @@ class UsersController < ApplicationController
         @user.ign  = user_profile["name"] # correct case
 
         if validate_token(@user.uuid, @user.email, params[:registration_token])
-          destroy_token(@user.email, params[:registration_token]) # tokens can be used to reset password
+          destroy_token(@user.email) # tokens can be used to reset password
           @user.last_ip = request.remote_ip # showing in mail
           if @user.save
             session[:user_id] = @user.id
@@ -120,7 +120,8 @@ class UsersController < ApplicationController
           end
           @user.email_token = SecureRandom.hex(16)
         else
-          flash[:alert] = "Token invalid for this username/email"
+          flash[:alert] = "Token invalid for this username/email. Please generate a new token!"
+          destroy_token(@user.email) # no chance to brute force
           render action: "new"
         end
       else
@@ -276,7 +277,7 @@ class UsersController < ApplicationController
   def reset_password
     user = User.find_by_email(params[:email])
     if user && validate_token(user.uuid, user.email, params[:secret_token])
-      destroy_token(user.email, params[:secret_token]) # tokens can be used to reset password
+      destroy_token(user.email) # tokens can be used to reset password
       user.password              = params[:new_password]
       user.password_confirmation = params[:new_password]
       if user.save
@@ -299,8 +300,8 @@ class UsersController < ApplicationController
     user_token && user_token.token == token
   end
 
-  def destroy_token(email, token)
-    user_token = RegisterToken.where(token: token, email: email).first
+  def destroy_token(email)
+    user_token = RegisterToken.where(email: email).first
     user_token && user_token.destroy
   end
 
