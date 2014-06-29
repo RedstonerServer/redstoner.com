@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   def self.seen(time)
     # when you change this, change footer.html.erb as well?
-    User.where("last_seen >= ?", time.ago).order("last_seen, desc")
+    User.where("last_seen >= ?", time.ago).order("last_seen desc")
   end
 
   def online?
