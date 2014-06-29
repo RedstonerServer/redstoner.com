@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   require 'open-uri'
   include MailerHelper
 
+  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password]
+
   def index
     if params[:role]
       if params[:role].downcase == "staff"
@@ -23,11 +25,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_id(params[:id])
-    unless @user
-      flash[:alert] = "User does not exist!"
-      redirect_to users_path
-    end
   end
 
   # SIGNUP
@@ -42,7 +39,6 @@ class UsersController < ApplicationController
 
   def confirm
     if current_user
-      @user = User.find(params[:id])
       code = params[:code]
       if @user && @user.is?(current_user) && code && @user.email_token == code
         if !confirmed?
@@ -77,7 +73,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
     unless (mod? && current_user.role >= @user.role) || current_user == @user
       flash[:alert] = "You are not allowed to edit this user"
       redirect_to user_path(@user)
@@ -138,7 +133,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
         userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed])
@@ -174,7 +168,6 @@ class UsersController < ApplicationController
   end
 
   def ban
-    @user = User.find(params[:id])
     if mod? && current_user.role >= @user.role
       @user.role = Role.get :banned
       flash[:notice] = "'#{@user.name}' has been banned!"
@@ -185,7 +178,6 @@ class UsersController < ApplicationController
   end
 
   def unban
-    @user = User.find(params[:id])
     if mod? && current_user.role >= @user.role
       @user.role = Role.get :normal
       flash[:notice] = "\"#{@user.name}\" has been unbanned!"
@@ -196,7 +188,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     if superadmin?
       if @user.destroy
         flash[:notice] = "User deleted forever."
@@ -212,7 +203,6 @@ class UsersController < ApplicationController
   end
 
   def edit_notifications
-    @user = User.find(params[:id])
     unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
       flash[:alert] = "You are not allowed to edit this user's notification settings!"
       redirect_to @user
@@ -220,7 +210,6 @@ class UsersController < ApplicationController
   end
 
   def edit_login
-    @user = User.find(params[:id])
     unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
       flash[:alert] = "You are not allowed to edit this user's login details!"
       redirect_to @user
@@ -228,7 +217,6 @@ class UsersController < ApplicationController
   end
 
   def update_login
-    @user = User.find(params[:id])
     if @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
       authenticated = !@user.is?(current_user) || @user.authenticate(params[:current_password])
       if params[:user][:password].present?
@@ -308,6 +296,20 @@ class UsersController < ApplicationController
   def destroy_token(email)
     user_token = RegisterToken.where(email: email).first
     user_token && user_token.destroy
+  end
+
+  def set_user
+    id = params[:id]
+    if id == "me"
+      if current_user
+        id = current_user.id
+      else
+        flash[:alert] = "Please log in"
+        redirect_to login_path(return_path: request.env['PATH_INFO'])
+        return
+      end
+    end
+    @user = User.find(id)
   end
 
   def user_params(add = [])
