@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
     payload = { agent: { name: "Minecraft", version: 1 }, username: self.email, password: password }
     begin
       response = http.post(uri.request_uri, payload.to_json, "Content-Type" => "application/json").code
-      if response.code == "200"
+      if response == "200"
         return true
       else
         payload[:username] = self.ign

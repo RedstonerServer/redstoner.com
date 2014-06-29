@@ -11,10 +11,9 @@ class UsersController < ApplicationController
         @users = User.where(role: Role.get(params[:role]))
       end
     else
-      @users = User.all.to_a
-      @users.shift #Remove first user
+      @users = User.where.not(id: User.first.id) #Remove first user
     end
-    @users = @users.to_a.sort_by{|u| u.role}.reverse!
+    @users = @users.order("role_id desc", :name).to_a
   end
 
   def show
