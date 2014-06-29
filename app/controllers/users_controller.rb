@@ -8,7 +8,13 @@ class UsersController < ApplicationController
       if params[:role].downcase == "staff"
         @users = User.all.select {|u| u.role >= Role.get(:mod) }
       else
-        @users = User.where(role: Role.get(params[:role]))
+        if role = Role.get(params[:role])
+          @users = User.where(role: role)
+        else
+          flash[:alert] = "role '#{params[:role]}' does not exist!"
+          redirect_to users_path
+          return
+        end
       end
     else
       @users = User.where.not(id: User.first.id) #Remove first user
