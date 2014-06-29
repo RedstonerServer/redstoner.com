@@ -49,6 +49,8 @@ Redstoner::Application.routes.draw do
   get  'logout' => 'sessions#destroy'
   get  'signup' => 'users#new'
 
+  post 'raise_500' => 'statics#raise_500'
+
   # post 'paypal' => 'paypal#create'
 
   root to: 'statics#index'
