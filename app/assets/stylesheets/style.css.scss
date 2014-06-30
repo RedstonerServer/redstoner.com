@@ -430,6 +430,10 @@ blockquote p {
       color: #888 !important;
     }
 
+    &.unconfirmed {
+      color: #bbb !important;
+    }
+
     &:hover {
       color: #ddd !important;
     }
