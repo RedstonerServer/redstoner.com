@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
         redirect_to Blogpost.find(params[:blogpost_id])
       end
     else
-      flash[:alert] = "You are not allowed to create comments."
+      flash[:alert] = "Please confirm your email address first!"
       redirect_to Blogpost.find(params[:blogpost_id])
     end
   end
