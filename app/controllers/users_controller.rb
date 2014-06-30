@@ -281,7 +281,7 @@ class UsersController < ApplicationController
         render action: "lost_password"
       end
     else
-      flash[:alert] = "Token or Email adress invalid!"
+      flash[:alert] = "Token or Email address invalid!"
       render action: "lost_password"
     end
   end

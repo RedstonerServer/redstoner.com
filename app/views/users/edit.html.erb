@@ -28,7 +28,7 @@
           </td>
         </tr>
         <tr>
-          <td>Confirmed email adress</td>
+          <td>Confirmed email address</td>
           <td>
             <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
@@ -76,7 +76,7 @@
 
 <% if !@user.confirmed? %>
   <% if @user.is?(current_user) %>
-      <span class='red-alert'>Please confirm your email adress first!</span>
+      <span class='red-alert'>Please confirm your email address first!</span>
     <% else %>
       <span class='red-alert'>This user has not confirmed his email!</span>
     <% end %>
