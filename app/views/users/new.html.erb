@@ -20,13 +20,17 @@
     </tr>
     <tr>
       <td><%= f.label :registration_token, "Token" %></td>
-      <td><%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %><br>
-      To get your <i>token</i>, join the Minecraft server (redstoner.com) and <b>use the <mark>/token</mark> command</b>.
+      <td>
+        <%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %><br>
+        To get your <i>token</i>, join the Minecraft server (redstoner.com) and <b>use the <mark>/token</mark> command</b>.
       </td>
     </tr>
     <tr>
       <td><%= f.label :password, "Password" %></td>
-      <td><%= f.password_field :password, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %></td>
+      <td>
+        <%= f.password_field :password, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %><br>
+        Choose a <b>strong</b> password which you are <b>not using anywhere else</b>!
+      </td>
     </tr>
     <tr>
       <td><%= f.label :password_confirmation, "Confirm" %></td>
