@@ -30,6 +30,7 @@ $(function(){
     if ( pressed.toString() == keys.toString() ) {
       $('html').css('overflow-x', 'hidden');
       $('body').css('animation', '1s alternate-reverse infinite wiggle');
+      $('body').css('-webkit-animation', '1s alternate-reverse infinite wiggle');
       $('img').css('transform', 'rotate(180deg)');
     }
   });
