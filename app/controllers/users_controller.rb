@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     if params[:role]
       if params[:role].downcase == "staff"
-        @users = User.all.select {|u| u.role >= Role.get(:mod) }
+        @users = User.where("role >= ?", Role.get(:mod).to_i)
       else
         if role = Role.get(params[:role])
           @users = User.where(role: role)
