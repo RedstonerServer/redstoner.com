@@ -15,3 +15,4 @@
 //= require editor
 //= require ago
 //= require highlight
+//= require autocomplete

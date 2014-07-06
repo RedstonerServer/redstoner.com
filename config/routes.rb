@@ -24,6 +24,7 @@ Redstoner::Application.routes.draw do
     collection do
       get  'lost_password'
       post 'reset_password'
+      post 'suggestions'
     end
   end
 

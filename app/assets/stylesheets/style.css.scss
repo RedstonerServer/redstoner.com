@@ -467,14 +467,63 @@ blockquote p {
       left: 1em;
       z-index: 10;
     }
+
     .editor_field {
       padding-top: 4em;
       min-height: 5em;
+      margin: 0;
     }
 
     .preview {
       display: none;
       padding: 4em 1em 1em;
+    }
+
+    .suggestions {
+      background: #ddd;
+      padding: 0.5em;
+
+      .name {
+        display: inline-block;
+        font-style: italic;
+        padding: 1px 2px;
+        margin-right: 1em;
+        border: 1px solid #6cf;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+ul.auto-list {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #000;
+  background-color: #363636;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 999;
+  color: #fff;
+
+  li {
+    cursor: pointer;
+    padding: 2px;
+
+    &:hover, &[data-selected=true] {
+      background-color: #f66;
+    }
+
+    mark {
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+      background: inherit;
+      text-decoration: underline;
+      color: inherit;
     }
   }
 }
@@ -484,7 +533,7 @@ blockquote p {
 }
 
 .markdown-help {
-  margin: 4px 0 -4px;
+  margin: 4px 0 0;
   background: #ddd;
   padding: 0.5em 1em;
   border-bottom: 1px solid;

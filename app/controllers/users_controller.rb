@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   require 'open-uri'
   include MailerHelper
 
-  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password]
+  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
   def index
     if params[:role]
@@ -283,6 +283,17 @@ class UsersController < ApplicationController
     else
       flash[:alert] = "Token or Email address invalid!"
       render action: "lost_password"
+    end
+  end
+
+  def suggestions
+    query = params[:name]
+    if current_user && query.present? && query =~ /\A[a-zA-Z0-9_]{1,16}\Z/
+      @users = User.where("ign LIKE ?", "#{query}%").order(:ign).limit(7)
+      @users = @users.to_a.map{|u| u.ign}
+      render json: @users
+    else
+      render json: []
     end
   end
 

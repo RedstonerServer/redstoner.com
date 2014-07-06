@@ -52,4 +52,37 @@ $(function() {
     });
   }
 
+  var query_history = {};
+  $('.md_editor .editor_field').autocomplete({
+    wordCount: 1,
+    mode: "inner",
+    on: {
+      query: function(text, callback) {
+        console.log(query_history)
+        if (text.length > 2 && text[0] == "@") {
+          text = text.slice(1)
+          if (query_history[text]) {
+            callback(query_history[text]);
+          } else {
+            $.ajax("/users/suggestions", {
+              type: 'post',
+              data: {name: text},
+              dataType: 'json',
+              headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+              },
+              success: function(data) {
+                query_history[text] = data;
+                callback(data);
+              },
+              error: function(xhr, status, err) {
+                callback([]);
+              }
+            });
+          }
+        }
+      }
+    }
+  });
+
 });
