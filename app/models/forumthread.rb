@@ -47,7 +47,7 @@ class Forumthread < ActiveRecord::Base
     mails = []
     new_mentions.each do |user|
       begin
-        mails << RedstonerMailer.new_thread_mention_mail(user, self)
+        mails << RedstonerMailer.new_thread_mention_mail(user, self) if user.normal? && user.confirmed? && user.mail_mention?
       rescue => e
         Rails.logger.error "---"
         Rails.logger.error "WARNING: Failed to create new_thread_mention_mail (view) for reply#: #{@self.id}, user: #{@user.name}, #{@user.email}"
