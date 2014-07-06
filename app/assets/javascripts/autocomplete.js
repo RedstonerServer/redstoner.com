@@ -223,7 +223,9 @@
       "overflow-x" : "hidden",
       "line-height" :  $(data.ta).css("line-height"),
       "overflow-y" : "hidden",
-      "z-index" : -10
+      "z-index" : -10,
+      "color" : "transparent",
+      "visibility" : "hidden"
     });
 
     //console.log("createClone: ta width=",$(data.ta).css("width")," ta clientWidth=",data.ta.clientWidth, "scrollWidth=",data.ta.scrollWidth," offsetWidth=",data.ta.offsetWidth," jquery.width=",$(data.ta).width());

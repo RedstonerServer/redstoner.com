@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
       @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
         @comment.send_new_comment_mail
+        @comment.send_new_mention_mail
         redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}", notice: 'Comment created!'
       else
         flash[:alert] = "Could not create comment."
@@ -34,7 +35,9 @@ class CommentsController < ApplicationController
     if mod? || @comment.author.is?(current_user)
       @comment.user_editor = current_user
       @comment.attributes = comment_params
+      old_content = @comment.content_was
       if @comment.save
+        @comment.send_new_mention_mail(old_content)
         flash[:notice] = "Comment updated!"
         redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}"
       else

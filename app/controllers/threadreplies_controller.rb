@@ -17,6 +17,7 @@ class ThreadrepliesController < ApplicationController
       @reply.forumthread = thread
       if @reply.save
         @reply.send_new_reply_mail
+        @reply.send_new_mention_mail
         redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}", notice: 'Reply created!'
       else
         flash[:alert] = "Could not create reply."
@@ -31,7 +32,9 @@ class ThreadrepliesController < ApplicationController
   def update
     @reply = Threadreply.find(params[:id])
     if mod? || @reply.author.is?(current_user)
+      old_content = @reply.content_was
       if @reply.update_attributes(reply_params)
+        @reply.send_new_mention_mail(old_content)
         flash[:notice] = "Reply updated!"
         redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}"
       else

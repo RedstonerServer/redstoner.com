@@ -2,7 +2,7 @@
   <div style="color: #3f3f3f; width: 600px; max-width: 100%; padding: 2em 0; margin: auto;">
     Hi <%= @user.name %>!
 
-    <p><%= link_to @comment.author.name, user_url(@comment.author), style: "text-decoration: none; color: #4096EE;" %> has replied to '<%= @comment.blogpost.title %>' on the Redstoner blog!</p>
+    <p><%= link_to @comment.author.name, user_url(@comment.author), style: "text-decoration: none; color: #4096EE;" %> has mentioned you in '<%= @comment.blogpost.title %>' on the Redstoner blog!</p>
 
     <blockquote>
       <%# TODO: fix relative links + iframes %>

@@ -1,5 +1,5 @@
 <div style="font-family: 'Oswald','Calibri','Arial','DejaVu Sans','Open Sans','Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif; background: #F2F2F2">
-  <div style="color: #3f3f3f; width: 600px; max-width: 100%; padding: 2em; margin: auto;">
+  <div style="color: #3f3f3f; width: 600px; max-width: 100%; padding: 2em 0; margin: auto;">
     Hi <%= @user.name %>!
 
     <p><%= link_to @reply.author.name, user_url(@reply.author), style: "text-decoration: none; color: #4096EE;" %> has replied to '<%= @reply.thread.title %>' on the Redstoner forums!</p>

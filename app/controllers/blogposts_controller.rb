@@ -22,6 +22,7 @@ class BlogpostsController < ApplicationController
     @post = Blogpost.new(post_params)
     @post.user_author = current_user
     if @post.save
+      @post.send_new_mention_mail
       redirect_to @post, notice: 'Post has been created.'
     else
       flash[:alert] = "Error creating blogpost"
@@ -32,7 +33,9 @@ class BlogpostsController < ApplicationController
   def update
     @post.user_editor = current_user
     @post.attributes = post_params([:user_editor])
+    old_content = @post.content_was
     if @post.save
+      @post.send_new_mention_mail(old_content)
       redirect_to @post, notice: 'Post has been updated.'
     else
       flash[:alert] = "There was a problem while updating the post"

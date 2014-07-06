@@ -9,22 +9,6 @@ class ForumthreadsController < ApplicationController
   def show
   end
 
-  def update
-    if mod? || @thread.author.is?(current_user)
-      @thread.user_editor = current_user
-      @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params)
-      if @thread.save
-        redirect_to @thread, notice: 'Post has been updated.'
-      else
-        flash[:alert] = "There was a problem while updating the post"
-        render action: "edit"
-      end
-    else
-      flash[:alert] = "You are not allowed to edit this thread!"
-      redirect_to @thread
-    end
-  end
-
   def edit
   end
 
@@ -41,6 +25,7 @@ class ForumthreadsController < ApplicationController
     if @thread.can_write?(current_user)
       @thread.user_author = current_user
       if @thread.save
+        @thread.send_new_mention_mail
         flash[:notice] = "Thread created!"
         redirect_to forumthread_path( @thread)
         return
@@ -55,6 +40,23 @@ class ForumthreadsController < ApplicationController
     end
   end
 
+  def update
+    if mod? || @thread.author.is?(current_user)
+      @thread.user_editor = current_user
+      @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params)
+      old_content = @thread.content_was
+      if @thread.save
+        @thread.send_new_mention_mail(old_content)
+        redirect_to @thread, notice: 'Post has been updated.'
+      else
+        flash[:alert] = "There was a problem while updating the post"
+        render action: "edit"
+      end
+    else
+      flash[:alert] = "You are not allowed to edit this thread!"
+      redirect_to @thread
+    end
+  end
 
   def destroy
     if mod? || @thread.author.is?(current_user)
