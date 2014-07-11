@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Redstoner<%= yield(:site_title).present? ? " › #{yield(:site_title)}" : "" %></title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1">
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag "favicon.ico" %>
