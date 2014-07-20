@@ -80,7 +80,13 @@
         </tr>
         <tr>
           <td><b>Last seen</b></td>
-          <td><time title="<%= @user.last_seen.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.last_seen.to_datetime.rfc3339 %>"><%= @user.last_seen.strftime("%e %b %Y, %H:%M") %></time></td>
+          <td>
+            <% if @user.last_seen %>
+              <time title="<%= @user.last_seen.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.last_seen.to_datetime.rfc3339 %>"><%= @user.last_seen.strftime("%e %b %Y, %H:%M") %></time>
+            <% else %>
+              Never
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
