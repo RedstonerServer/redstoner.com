@@ -4,7 +4,7 @@ class BlogpostsController < ApplicationController
   before_filter :auth, except: [:index, :show]
 
   def index
-    @posts = Blogpost.all.reverse
+    @posts = Blogpost.order("created_at desc")
   end
 
   def show
