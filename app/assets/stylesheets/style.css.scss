@@ -537,6 +537,11 @@ ul.auto-list {
   background: #ddd;
   padding: 0.5em 1em;
   border-bottom: 1px solid;
+
+  blockquote {
+    display: inline-block;
+    padding: 2px;
+  }
 }
 
 select {
