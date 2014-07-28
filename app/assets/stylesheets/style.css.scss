@@ -368,13 +368,14 @@ pre {
 
 // inline code
 code {
-  background: #ddd;
+  background: #eee;
   padding: 2px;
   border-radius: 3px;
   color: #000;
   border: 1px solid #aaa;
   display: inline-block;
   line-height: 1em;
+  vertical-align: middle;
 }
 
 table, tr, td, th {
@@ -383,11 +384,10 @@ table, tr, td, th {
 }
 
 blockquote {
-  background: #f9f9f9;
-  border-left: 3px solid #3f3f3f;
-  display: inline-block;
+  border-left: 2px solid #3f3f3f;
+  display: block;
   margin: 0;
-  padding: 2px 5px 2px 2px;
+  padding: 1em;
 }
 
 blockquote p {
