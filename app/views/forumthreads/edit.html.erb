@@ -6,12 +6,10 @@
   <table>
     <% if mod? %>
       <tr>
-        <td><%= f.label :sticky %></td>
-        <td><%= f.check_box :sticky %></td>
+        <td><%= f.check_box :sticky %> <%= f.label :sticky %></td>
       </tr>
       <tr>
-        <td><%= f.label :locked %></td>
-        <td><%= f.check_box :locked %></td>
+        <td><%= f.check_box :locked %> <%= f.label :locked %></td>
       </tr>
       <tr>
         <td><%= f.label :forum_id, "Move thread" %></td>
