@@ -2,7 +2,7 @@ atom_feed do |feed|
   feed.title "Redstoner News"
   feed.updated Time.now
 
-  @posts.limit(50).each do |post|
+  @posts.limit(100).each do |post|
     feed.entry post do |entry|
       entry.updated post.updated_at
       entry.author do |a|
