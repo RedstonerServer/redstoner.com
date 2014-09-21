@@ -5,6 +5,11 @@ module ApplicationHelper
     site_title
   end
 
+  def site_headers(site_headers)
+    content_for(:site_headers, site_headers.to_s.html_safe)
+    site_headers
+  end
+
   def render_md(content)
     renderer = Redcarpet::Render::HTML.new({
       filter_html: true,
