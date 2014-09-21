@@ -8,11 +8,12 @@ gem 'therubyracer'
 gem 'bcrypt-ruby' # To use ActiveModel's has_secure_password
 gem 'sanitize'
 gem 'redcarpet'
-gem 'hirb' #pretty console output
+gem 'hirb' # pretty console output
 gem 'rb-readline'
 gem 'rest-client'
 gem 'activerecord-session_store'
 gem 'highlight_js-rails'
+gem 'kaminari' # pagination
 
 # Gems used only for assets and not required
 # in production environments by default.
