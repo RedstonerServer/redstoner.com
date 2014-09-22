@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     end
     @users = @users.order("role_id desc", "confirmed desc", :name)
     @count = @users.length
-    @users = @users.page(params[:page])
+    @users = @users.page(params[:page]).per(100)
   end
 
   def show
