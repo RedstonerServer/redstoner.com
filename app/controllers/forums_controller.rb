@@ -12,6 +12,7 @@ class ForumsController < ApplicationController
       # sticky goes first, then sort by last activity (new replies)
       [t.sticky ? 0 : 1, -(t.replies.last.try(:created_at) || t.created_at).to_i]
     end
+    @threads = Kaminari.paginate_array(@threads).page(params[:page])
   end
 
   def edit
