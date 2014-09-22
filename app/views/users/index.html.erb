@@ -1,10 +1,12 @@
-<% if params[:role] %>
-  <h1><%= title "All '#{params[:role]}' role users" %></h1>
-  <%= link_to "show all", users_path %>
-<% else %>
-  <h1><%= title "All Users" %></h1>
-<% end %>
-<p>User count: <%= User.count - 1 %></p>
+<h1>
+  <% if params[:role] %>
+    <%= title "All #{params[:role]}-role users" %>
+  <% else %>
+    <%= title "All Users" %>
+  <% end %>
+  (<%= @count %>)
+</h1>
+<%= link_to "show all", users_path if params[:role] %>
 
 <div id="userlist">
   <% @users.each do |u| %>

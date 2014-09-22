@@ -21,7 +21,9 @@ class UsersController < ApplicationController
     else
       @users = User.where.not(id: User.first.id) #Remove first user
     end
-    @users = @users.order("role_id desc", "confirmed desc", :name).page(params[:page])
+    @users = @users.order("role_id desc", "confirmed desc", :name)
+    @count = @users.length
+    @users = @users.page(params[:page])
   end
 
   def show
