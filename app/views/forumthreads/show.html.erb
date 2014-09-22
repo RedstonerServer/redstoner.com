@@ -20,7 +20,7 @@
   </div>
 </div>
 <div id="replies">
-  <h3><%= "#{pluralize(@thread.replies.length, 'reply')}." %></h3>
+  <h3><%= "#{pluralize(@thread.replies.size, 'reply')}." %></h3>
   <% @replies.each do |reply| %>
     <%= render partial: "threadreplies/reply", locals: {reply: reply} %>
   <% end %>

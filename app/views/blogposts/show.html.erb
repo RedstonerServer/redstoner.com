@@ -17,9 +17,10 @@
   </div>
 </div>
 <div id="comments">
-  <h3><%= "#{pluralize(@post.comments.length, 'comment')}." %></h3>
-  <% @post.comments.each do |c| %>
+  <h3><%= "#{pluralize(@post.comments.size, 'comment')}." %></h3>
+  <% @comments.each do |c| %>
     <%= render "comments/comment", c: c %>
   <% end %>
+  <%= paginate @comments %>
   <%= render "comments/new" %>
 </div>

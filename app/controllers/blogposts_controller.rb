@@ -9,6 +9,7 @@ class BlogpostsController < ApplicationController
 
   def show
     @comment = Comment.new(blogpost: @post)
+    @comments = @post.comments.page(params[:page])
   end
 
   def new
