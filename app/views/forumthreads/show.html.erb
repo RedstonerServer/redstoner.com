@@ -21,9 +21,10 @@
 </div>
 <div id="replies">
   <h3><%= "#{pluralize(@thread.replies.length, 'reply')}." %></h3>
-  <% @thread.replies.each do |reply| %>
+  <% @replies.each do |reply| %>
     <%= render partial: "threadreplies/reply", locals: {reply: reply} %>
   <% end %>
+  <%= paginate @replies %>
   <% if @thread.can_write?(current_user) %>
     <%= render partial: "threadreplies/new", locals: {reply: Threadreply.new(forumthread: @thread)} %>
   <% else %>

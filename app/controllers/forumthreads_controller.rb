@@ -7,6 +7,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def show
+    @replies = @thread.replies.page(params[:page])
   end
 
   def edit
