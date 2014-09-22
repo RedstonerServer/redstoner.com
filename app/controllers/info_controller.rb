@@ -4,7 +4,7 @@ class InfoController < ApplicationController
   before_filter :auth, except: [:index, :show]
 
   def index
-    @info = Info.all.sort_by{|i| i.title}
+    @info = Info.order(:title).page(params[:page])
   end
 
   def show

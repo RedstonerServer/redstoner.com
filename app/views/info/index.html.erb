@@ -8,4 +8,5 @@
   <% @info.each do |info| %>
     <%= link_to info.title, info %>
   <% end %>
+  <%= paginate @info %>
 </div>
