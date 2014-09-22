@@ -4,7 +4,7 @@
 <% else %>
   <h1><%= title "All Users" %></h1>
 <% end %>
-<p>User count: <%= @users.length %></p>
+<p>User count: <%= User.count - 1 %></p>
 
 <div id="userlist">
   <% @users.each do |u| %>
@@ -16,4 +16,5 @@
       </div>
     </div>
   <% end %>
+  <%= paginate @users %>
 </div>
