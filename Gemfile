@@ -13,7 +13,7 @@ gem 'rb-readline'
 gem 'rest-client'
 gem 'activerecord-session_store'
 gem 'highlight_js-rails'
-gem 'kaminari' # pagination
+gem 'kaminari', github: 'jomo/kaminari', branch: 'patch-2' # pagination
 
 # Gems used only for assets and not required
 # in production environments by default.
