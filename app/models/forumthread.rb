@@ -57,4 +57,8 @@ class Forumthread < ActiveRecord::Base
     end
     background_mailer(mails)
   end
+
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
 end

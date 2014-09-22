@@ -23,4 +23,8 @@ class Forum < ActiveRecord::Base
   def can_write?(user)
     group.can_write?(user) && can_read?(user) && (role_write.nil? || (!user.nil? && user.role >= role_write))
   end
+
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
 end

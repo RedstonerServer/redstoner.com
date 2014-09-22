@@ -3,4 +3,12 @@ class Info < ActiveRecord::Base
 
   validates_presence_of :title, :content
 
+  def to_s
+    title
+  end
+
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
+
 end

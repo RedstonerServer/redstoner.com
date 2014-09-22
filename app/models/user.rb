@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
     return image_tag("https://minotar.net/helm/#{CGI.escape(self.ign)}/#{CGI.escape(size.to_s)}", options)
   end
 
+  def to_s
+    ign
+  end
+
 
 
   #check if this user is an idiot and uses their mc password.
@@ -175,6 +179,10 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
 
 
 

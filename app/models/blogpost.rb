@@ -26,6 +26,10 @@ class Blogpost < ActiveRecord::Base
     !!user_editor_id
   end
 
+  def to_s
+    title
+  end
+
   def send_new_mention_mail(old_content = "")
     new_mentions = mentions(content) - mentions(old_content)
     mails = []
@@ -42,4 +46,7 @@ class Blogpost < ActiveRecord::Base
     background_mailer(mails)
   end
 
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
 end

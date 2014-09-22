@@ -20,4 +20,8 @@ class Forumgroup < ActiveRecord::Base
   def can_write?(user)
     !user.nil? && can_read?(user) && user.confirmed? && (role_write.nil? || user.role >= role_write)
   end
+
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
 end
