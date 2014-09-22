@@ -316,7 +316,7 @@
     }
 
     var html = "";
-    var regEx = new RegExp("("+text.slice(1)+")");
+    var regEx = new RegExp("("+text.slice(1)+")", "i");
     var taWidth = $(data.ta).width()-5;
     var width = data.mode == "outter" ? "style='width:"+taWidth+"px;'" : "";
     for( var i=0; i< list.length; i++ ){
