@@ -21,7 +21,7 @@
         makeAutoComplete(element,obj);
       }
     });
-  }
+  };
 
   //var browser =  {isChrome: $.browser.webkit };
 
@@ -166,6 +166,13 @@
       chars:getDefaultCharArray()};
 
     var clone = createClone(_count);
+
+    // we need to fix the width
+    window.onresize = function() {
+      clone.remove();
+      clone = createClone(_count);
+      console.debug('window resized!');
+    };
     _data[_count].clone = clone;
     setCharSize(_data[_count]);
     //_data[_count].lineHeight = $(ta).css("font-size");
@@ -180,7 +187,7 @@
     return ul;
   }
 
-  function createClone(id){
+  function createClone(id) {
     var data = _data[id];
     var div = document.createElement("div");
     var offset = $(data.ta).offset();

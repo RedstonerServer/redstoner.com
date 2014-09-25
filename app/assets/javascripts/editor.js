@@ -58,9 +58,8 @@ $(function() {
     mode: "inner",
     on: {
       query: function(text, callback) {
-        console.log(query_history)
         if (text.length > 2 && text[0] == "@") {
-          text = text.slice(1)
+          text = text.slice(1);
           if (query_history[text]) {
             callback(query_history[text]);
           } else {
