@@ -376,6 +376,7 @@ code {
   display: inline-block;
   line-height: 1em;
   vertical-align: middle;
+  max-width: 100%; // force line break
 }
 
 table, tr, td, th {
