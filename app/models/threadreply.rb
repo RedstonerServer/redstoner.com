@@ -38,7 +38,7 @@ class Threadreply < ActiveRecord::Base
     mails = []
     new_mentions.each do |user|
       begin
-        mails << RedstonerMailer.new_thread_reply_mention_mail(user, self) if user.normal? && user.confirmed? && user.mail_mention?
+        mails << RedstonerMailer.new_thread_reply_mention_mail(user, self) if user.normal? && user.confirmed? && self.thread.can_read?(user) && user.mail_mention?
       rescue => e
         Rails.logger.error "---"
         Rails.logger.error "WARNING: Failed to create new_thread_reply_mention_mail (view) for reply#: #{@self.id}, user: #{@user.name}, #{@user.email}"
