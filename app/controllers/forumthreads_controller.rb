@@ -32,7 +32,7 @@ class ForumthreadsController < ApplicationController
         return
       else
         flash[:alert] = "Seomthing went wrong while creating your thread."
-        render "new"
+        render action: "new"
         return
       end
     else
