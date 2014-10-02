@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Redstoner<%= yield(:site_title).present? ? " › #{yield(:site_title)}" : "" %></title>
+  <title><%= yield(:site_title).present? ? "#{yield(:site_title)} – " : "" %>Redstoner</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1">
   <meta name="description" content="Redstoner is a creative minecraft server made for redstoners">
   <%= stylesheet_link_tag "application", :media => "all" %>
