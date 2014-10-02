@@ -1,4 +1,4 @@
-<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to truncate(@thread.title, length: 60, omission: " …") %>
+<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%=truncate(@thread.title, length: 60, omission: " …") %>
 <h1><%= title @thread.title %></h1>
 
 <div class="item-group thread with-avatar" id="thread-<%= @thread.id %>">

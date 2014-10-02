@@ -1,6 +1,6 @@
 <% title @forum.name %>
 
-<%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= link_to @forum %>
+<%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= @forum %>
 
 <h1><%= @forum %></h1>
 <% if @forum.can_write?(current_user) %>

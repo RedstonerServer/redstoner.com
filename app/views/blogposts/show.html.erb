@@ -1,6 +1,6 @@
 <% title "#{@post.title}" %>
 
-<%= link_to "News", blogposts_path %> → <%= link_to @post.title %>
+<%= link_to "News", blogposts_path %> → <%= @post.title %>
 <h1><%= truncate(@post.title, length: 60, omission: " …") %></h1>
 
 <div class="item-group post with-avatar" id="post-<%= @post.id %>">
