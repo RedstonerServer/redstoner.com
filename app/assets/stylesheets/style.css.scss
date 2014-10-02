@@ -931,3 +931,34 @@ nav.pagination {
     padding: 0 5px;
   }
 }
+
+.center {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.info-suggestions {
+  border-top: 1px solid #fff;
+  box-shadow: 0 -1px 0 0 #ddd;
+  font-size: 0;
+  margin-top: 50px;
+  padding-top: 30px;
+
+  a {
+    color: #444;
+    display: inline-block;
+    padding: 4px 1em;
+    width: 50%;
+    font-size: 18px;
+    vertical-align: middle;
+
+    &:first-child {
+      text-align: right;
+      border-right: 1px solid black;
+    }
+    &:last-child {
+      text-align: left; // just in case it's changed in a parent node
+    }
+  }
+}

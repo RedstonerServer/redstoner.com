@@ -1,9 +1,16 @@
-<% title @info.title %>
-
 <%= link_to "Info", info_index_path %> → <%= @info.title %>
 <% if mod? %>
   <%= link_to "Edit Info", edit_info_path(@info), class: "btn blue right" %>
 <% end %>
 <div class="clear"></div>
-<h1 class="info-title"><%= @info.title %></h1>
-<div class="post"><%= render_trusted_md(@info.content).html_safe %></div>
+<h1 class="info-title"><%= title @info.title %></h1>
+
+<div class="post">
+  <%= render_trusted_md(@info.content).html_safe %>
+</div>
+
+
+<div class="info-suggestions center">
+  <%= link_to "« #{@prev}", @prev %>
+  <%= link_to "#{@next} »", @next %>
+</div>
