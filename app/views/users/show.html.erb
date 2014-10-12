@@ -67,7 +67,7 @@
       <% end %>
       <tr>
         <td><b>Joined</b></td>
-        <td><time title="<%= @user.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.created_at.to_datetime.rfc3339 %>"><%= @user.created_at.strftime("%e %b %Y, %H:%M") %></time></td>
+        <td><%= time @user.created_at %></td>
       </tr>
       <% if mod? || @user.is?(current_user) %>
         <tr>
@@ -82,7 +82,7 @@
           <td><b>Last seen</b></td>
           <td>
             <% if @user.last_seen %>
-              <time title="<%= @user.last_seen.strftime("%e %b %Y, %H:%M") %>" datetime="<%= @user.last_seen.to_datetime.rfc3339 %>"><%= @user.last_seen.strftime("%e %b %Y, %H:%M") %></time>
+              <%= time @user.last_seen %>
             <% else %>
               Never
             <% end %>

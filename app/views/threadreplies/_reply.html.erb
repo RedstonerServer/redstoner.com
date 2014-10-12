@@ -2,7 +2,9 @@
   <div class="header">
     <%= link_to(reply.author.avatar(64), reply.author, title: reply.author.ign) %>
     <%= render partial: "users/username", locals: { user: reply.author } %>
-    <%= link_to "#reply-#{reply.id}" do %><time title="<%= reply.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= reply.created_at.to_datetime.rfc3339 %>"><%= reply.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
+    <%= link_to "#reply-#{reply.id}" do %>
+      <%= time reply.created_at %>
+    <% end %>
 
     <%= link_to "edit", edit_forumthread_threadreply_path(reply.thread, reply), class: "editlink" if mod? || reply.author.is?(current_user) %>
     <div class="clear-right"></div>

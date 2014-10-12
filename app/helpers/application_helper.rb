@@ -10,6 +10,14 @@ module ApplicationHelper
     site_headers
   end
 
+  def time(tm)
+    if tm
+      content_tag :time, title: tm.strftime("%e %b %Y, %H:%M"), datetime: tm.to_datetime.rfc3339 do
+        tm.strftime("%e %b %Y, %H:%M")
+      end
+    end
+  end
+
   def render_md(content)
     renderer = Redcarpet::Render::HTML.new({
       filter_html: true,

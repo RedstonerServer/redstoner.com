@@ -2,7 +2,9 @@
   <div class="header <%= "op" if c.author.is?(c.blogpost.author) %>">
     <%= link_to(c.author.avatar(64), c.author, title: c.author.ign) %>
     <%= render partial: "users/username", locals: { user: c.author } %>
-    <%= link_to "#comment-#{c.id}" do %><time title="<%= c.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= c.created_at.to_datetime.rfc3339 %>"><%= c.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
+    <%= link_to "#comment-#{c.id}" do %>
+      <%= time c.created_at %>
+    <% end %>
 
     <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c), class: "editlink" if (mod? || c.author.is?(current_user)) %>
     <div class="clear-right"></div>

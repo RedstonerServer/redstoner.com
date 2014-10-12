@@ -11,7 +11,10 @@
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">
       <div class="header">
         <%= link_to(thread.author.avatar(64), thread.author, title: thread.author.ign) %>
-        <%= render partial: "users/username", locals: { user: thread.author } %> <%= link_to thread do %><time title="<%= thread.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= thread.created_at.to_datetime.rfc3339 %>"><%= thread.created_at.strftime("%e %b %Y, %H:%M") %></time><% end %>
+        <%= render partial: "users/username", locals: { user: thread.author } %>
+        <%= link_to thread do %>
+          <%= time thread.created_at %>
+        <% end %>
         <span class="comment-counter">
           <%= link_to pluralize(thread.replies.count, "Reply"), thread %>
         </span>
@@ -22,7 +25,9 @@
           <%= link_to truncate(thread.title, length: 60, omission: " …"), forumthread_path(thread), title: thread.title %>
           <div class="item-info">
             <% if rpl = thread.replies.last %>
-              <%= rpl.author.name %> <%= link_to "replied", forumthread_path(thread) + "#reply-#{rpl.id}" %> <time title="<%= rpl.created_at.strftime("%e %b %Y, %H:%M") %>" datetime="<%= rpl.created_at.to_datetime.rfc3339 %>"><%= rpl.created_at.strftime("%e %b %Y, %H:%M") %></time>.
+              <%= rpl.author.name %>
+              <%= link_to "replied", forumthread_path(thread) + "#reply-#{rpl.id}" %>
+              <%= time rpl.created_at %>.
             <% else %>
               No replies yet.
             <% end %>
