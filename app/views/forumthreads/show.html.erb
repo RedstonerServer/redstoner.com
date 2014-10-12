@@ -24,10 +24,21 @@
   <% @replies.each do |reply| %>
     <%= render partial: "threadreplies/reply", locals: {reply: reply} %>
   <% end %>
+
   <%= paginate @replies %>
-  <% if @thread.can_write?(current_user) %>
-    <%= render partial: "threadreplies/new", locals: {reply: Threadreply.new(forumthread: @thread)} %>
+
+
+  <% if @thread.locked? %>
+    <div class="locked">This thread is locked.</div>
+  <% end %>
+
+  <% if current_user %>
+    <% if @thread.can_write?(current_user) %>
+      <%= render partial: "threadreplies/new", locals: {reply: Threadreply.new(forumthread: @thread)} %>
+    <% else %>
+      <p>You don't have the required permission to reply here.</p>
+    <% end %>
   <% else %>
-    You cannot reply here.
+    <p>Please <%= link_to "Log in", login_path(return_path: request.env['PATH_INFO']), action: "new" %> to post a reply.</p>
   <% end %>
 </div>
