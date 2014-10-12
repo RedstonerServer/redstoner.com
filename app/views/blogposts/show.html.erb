@@ -22,5 +22,15 @@
     <%= render "comments/comment", c: c %>
   <% end %>
   <%= paginate @comments %>
-  <%= render "comments/new" %>
+
+
+  <% if current_user %>
+    <% if @post.can_comment? current_user %>
+      <%= render "comments/new" %>
+    <% else %>
+      <p>You don't have the required permission to reply here.</p>
+    <% end %>
+  <% else %>
+    <p>Please <%= link_to "Log in", login_path(return_path: request.env['PATH_INFO']), action: "new" %> to post a reply.</p>
+  <% end %>
 </div>

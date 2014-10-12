@@ -1,7 +1,5 @@
-<% if current_user %>
-  <h3>New comment</h3>
-  <%= form_for [@post, @comment] do |f| %>
-    <%= render partial: "md_editor", locals: {name: "comment[content]", content: @comment.content, mini: true} %>
-    <p><%= f.submit class: "btn blue" %></p>
-  <% end %>
+<h3>New comment</h3>
+<%= form_for [@post, @comment] do |f| %>
+  <%= render partial: "md_editor", locals: {name: "comment[content]", content: @comment.content, mini: true} %>
+  <p><%= f.submit class: "btn blue" %></p>
 <% end %>

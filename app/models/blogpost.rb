@@ -30,6 +30,10 @@ class Blogpost < ActiveRecord::Base
     title
   end
 
+  def can_comment? user
+    !user.nil? && user.confirmed?
+  end
+
   def send_new_mention_mail(old_content = "")
     new_mentions = mentions(content) - mentions(old_content)
     mails = []
