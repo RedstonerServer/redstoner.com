@@ -114,6 +114,7 @@ a {
 
       li {
         display: inline-block;
+        vertical-align: top;
 
         a {
           margin: 15px 10px;
@@ -125,6 +126,13 @@ a {
           &:hover, &.active {
             color: #f66;
           }
+        }
+
+        .subtitle {
+          color: #aaa;
+          font-size: 11px;
+          height: 0;
+          margin-top: -5px;
         }
       }
     }

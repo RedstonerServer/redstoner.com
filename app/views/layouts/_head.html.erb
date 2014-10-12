@@ -3,12 +3,29 @@
     <%= link_to "", root_path, id: "logo" %>
     <ul>
       <% con = params[:controller] %>
-      <li><%= link_to "Home", home_statics_path, class: ("active" if con == "statics" && params[:action] == "home") %></li>
-      <li><%= link_to "News", blogposts_path, class: ("active" if con == "blogposts" || con == "comments") %></li>
-      <li><%= link_to "Info", info_index_path, class: ("active" if con == "info") %></li>
-      <li><%= link_to "Forums", forums_path, class: ("active" if con == "forums" || con == "forumgroups" || con == "forumthreads" || con == "threadreplies") %></li>
-      <li><%= link_to "Users", users_path, class: ("active" if con == "users") %></li>
-      <li><%= link_to "Donate", donate_statics_path, class: ("active" if con == "statics" && params[:action] == "donate") %></li>
+      <li>
+        <%= link_to "Home", home_statics_path, class: ("active" if con == "statics" && params[:action] == "home") %>
+      </li>
+      <li>
+        <%= link_to blogposts_path, class: ("active" if con == "blogposts" || con == "comments") do %>
+          News
+          <% if last_post = Blogpost.last %>
+            <div class="subtitle"><%= time last_post.created_at %></div>
+          <% end %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "Info", info_index_path, class: ("active" if con == "info") %>
+      </li>
+      <li>
+        <%= link_to "Forums", forums_path, class: ("active" if con == "forums" || con == "forumgroups" || con == "forumthreads" || con == "threadreplies") %>
+      </li>
+      <li>
+        <%= link_to "Users", users_path, class: ("active" if con == "users") %>
+      </li>
+      <li>
+        <%= link_to "Donate", donate_statics_path, class: ("active" if con == "statics" && params[:action] == "donate") %>
+      </li>
     </ul>
   </div>
   <div id="userbar">
