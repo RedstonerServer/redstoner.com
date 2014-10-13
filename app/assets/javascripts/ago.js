@@ -1,34 +1,42 @@
 $.fn.ago = function(callback) {
-  units = [
-    ['minute', 60],
-    ['hour', 3600],
-    ['day', 86400],
-    ['week', 604800],
-    ['year', 31536000]
-  ];
+  units = { // seconds
+    minute:     60,
+    //ocd:     100,
+    hour:     3600,
+    day:     86400,
+    week:   604800,
+    month: 2592000,
+    year: 31536000
+  };
+
   this.each(function() {
+    // use the callback or parse time from the node's text
     ago_date = callback ? callback(this) : new Date($(this).text());
-    ago_time = Math.floor((new Date().getTime() - ago_date.getTime())/1000);
-    ago_unit = null;
-    units.forEach(function(time, i) {
-      if (Math.abs(ago_time) >= time[1]) {
-        ago_unit = i;
+    // get seconds ago
+    ago_time = (new Date().getTime() - ago_date.getTime()) / 1000;
+    ago_time = Math.floor(Math.abs(ago_time));
+
+    // find unit
+    var unit_string = null;
+    var unit_time   = null;
+    for (var unit in units) {
+      var secs = units[unit];
+      if (ago_time >= secs) {
+        unit_string = unit;
+        unit_time   = secs;
       } else {
         // we found the greatest unit
-        return;
+        break;
       }
-    });
+    }
 
-    if (ago_unit !== null) {
-      unit     = units[ago_unit];
-      ago_time = Math.abs(Math.floor(ago_time/unit[1]))
-      ago_str  = ago_time.toString() + " " + unit[0]
-      if (ago_time != 1) {
-        ago_str += "s";
-      }
+    var ago_str = "just now";
+    if (unit_time !== null) {
+      ago_time = Math.floor(ago_time/unit_time);
+      if (ago_time != 1) unit_string += "s"; // plural
+      ago_str  = ago_time.toString() + " " + unit_string;
+      // future or past?
       ago_str += (ago_time < 0 ? " ahead" : " ago");
-    } else {
-      ago_str = "just now";
     }
 
     $(this).text(ago_str);
