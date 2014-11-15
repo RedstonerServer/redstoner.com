@@ -13,6 +13,5 @@
 //= require jquery_ujs
 //= require app
 //= require editor
-//= require ago
 //= require highlight
 //= require autocomplete
