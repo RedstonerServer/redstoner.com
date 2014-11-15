@@ -42,12 +42,5 @@ $(function(){
     }
   });
 
-  updateTimestamps();
-  setInterval(updateTimestamps, 1000*10);
+  var ago = new Ago();
 });
-
-function updateTimestamps() {
-  $('time').ago(function(elem){
-    return new Date($(elem).attr('datetime'));
-  });
-}

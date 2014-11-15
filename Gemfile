@@ -4,7 +4,6 @@ gem 'rails', '4.1.0'
 
 gem 'mysql2'
 gem 'jquery-rails'
-gem 'therubyracer'
 gem 'bcrypt-ruby' # To use ActiveModel's has_secure_password
 gem 'sanitize'
 gem 'redcarpet'
