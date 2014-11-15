@@ -10,7 +10,7 @@
         <%= link_to blogposts_path, class: ("active" if con == "blogposts" || con == "comments") do %>
           News
           <% if last_post = Blogpost.last %>
-            <div class="subtitle"><%= time last_post.created_at %></div>
+            <div class="subtitle"><%= ago last_post.created_at %></div>
           <% end %>
         <% end %>
       </li>

@@ -67,7 +67,7 @@
       <% end %>
       <tr>
         <td><b>Joined</b></td>
-        <td><%= time @user.created_at %></td>
+        <td><%= ago @user.created_at %></td>
       </tr>
       <% if mod? || @user.is?(current_user) %>
         <tr>
@@ -82,7 +82,7 @@
           <td><b>Last seen</b></td>
           <td>
             <% if @user.last_seen %>
-              <%= time @user.last_seen %>
+              <%= ago @user.last_seen %>
             <% else %>
               Never
             <% end %>

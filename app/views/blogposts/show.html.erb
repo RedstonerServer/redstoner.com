@@ -8,7 +8,7 @@
     <%= link_to(@post.author.avatar(64), @post.author, title: @post.author.ign) %>
     <%= render partial: "users/username", locals: { user: @post.author } %>
     <%= link_to p do %>
-      <%= time @post.created_at %>
+      <%= ago @post.created_at %>
     <% end %>
     <%= link_to "edit", edit_blogpost_path(@post.id), class: "editlink" if mod? %>
     <div class="clear-right"></div>

@@ -10,7 +10,7 @@ module ApplicationHelper
     site_headers
   end
 
-  def time(tm)
+  def ago(tm)
     if tm
       content_tag :time, title: tm.strftime("%e %b %Y, %H:%M %Z"), datetime: tm.to_datetime.rfc3339 do
         tm.strftime("%e %b %Y, %H:%M")

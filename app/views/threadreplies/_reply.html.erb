@@ -3,7 +3,7 @@
     <%= link_to(reply.author.avatar(64), reply.author, title: reply.author.ign) %>
     <%= render partial: "users/username", locals: { user: reply.author } %>
     <%= link_to "#reply-#{reply.id}" do %>
-      <%= time reply.created_at %>
+      <%= ago reply.created_at %>
     <% end %>
 
     <%= link_to "edit", edit_forumthread_threadreply_path(reply.thread, reply), class: "editlink" if mod? || reply.author.is?(current_user) %>
