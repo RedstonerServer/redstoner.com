@@ -18,8 +18,9 @@ function Ago(nodes, options) {
       ["year", 31536000]
     ],
     date: function(node) {
+      console.debug(node);
       // works on  HTML "time" nodes
-      return new Date(node.dateTime);
+      return new Date(node.getAttribute("datetime"));
     },
     format: function(time, unit) {
       if (!unit) {
