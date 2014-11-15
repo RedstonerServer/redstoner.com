@@ -42,5 +42,5 @@ $(function(){
     }
   });
 
-  var ago = new Ago();
+  Ago();
 });
