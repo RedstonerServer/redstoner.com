@@ -42,5 +42,13 @@ $(function(){
     }
   });
 
-  Ago();
+  Ago({
+    format: function(time, unit) {
+      time = Math.abs(time);
+      if (!unit) return "just now";
+      if (time === 1) time = "a";
+      var tail = time < 0 ? " ahead" : " ago";
+      return time + " " + unit + tail;
+    }
+  });
 });
