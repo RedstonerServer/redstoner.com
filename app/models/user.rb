@@ -74,10 +74,11 @@ class User < ActiveRecord::Base
   end
 
   def avatar(size, options = {})
-    options[:class] ||= "avatar"
-    options[:size]  ||= size.to_s
-    options[:alt]   ||= "avatar"
-    return image_tag("https://minotar.net/helm/#{CGI.escape(self.ign)}/#{CGI.escape(size.to_s)}", options)
+    options[:class]  ||= "avatar"
+    options[:width]  ||= size
+    options[:height] ||= size
+    options[:alt]    ||= "avatar"
+    return image_tag("https://crafatar.com/avatars/#{CGI.escape(self.uuid)}?size=#{size}&helm", options)
   end
 
   def to_s
