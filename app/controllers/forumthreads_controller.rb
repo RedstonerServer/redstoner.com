@@ -31,7 +31,7 @@ class ForumthreadsController < ApplicationController
         redirect_to forumthread_path( @thread)
         return
       else
-        flash[:alert] = "Seomthing went wrong while creating your thread."
+        flash[:alert] = "Something went wrong while creating your thread."
         render action: "new"
         return
       end
