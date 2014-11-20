@@ -3,6 +3,7 @@ class Forum < ActiveRecord::Base
   has_many :forumthreads
   belongs_to :role_read, class_name: "Role", foreign_key: "role_read_id"
   belongs_to :role_write, class_name: "Role", foreign_key: "role_write_id"
+  has_and_belongs_to_many :labels
 
   def to_s
     name

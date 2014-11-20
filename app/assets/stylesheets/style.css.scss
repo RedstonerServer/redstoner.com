@@ -985,3 +985,12 @@ nav.pagination {
   display: inline-block;
   padding: 2px 5px;
 }
+
+.label {
+  background: #d40;
+  padding: 0.1em 0.2em;
+  border-radius: 0.2em;
+  color: #b20;
+  border: 1px solid #B20;
+  text-shadow: -1px -1px #e50, 1px 1px #a10;
+}
