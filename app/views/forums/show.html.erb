@@ -22,7 +22,7 @@
       </div>
       <div class="items bold">
         <div class="item <%= "#{"locked" if thread.locked}#{"sticky" if thread.sticky}" %>">
-          <%= link_to truncate(thread.title, length: 60, omission: " …"), forumthread_path(thread), title: thread.title %>
+          <%= render partial: "labels/label", locals: {label: thread.label} %><%= link_to truncate(thread.title, length: 60, omission: " …"), forumthread_path(thread), title: thread.title %>
           <div class="item-info">
             <% if rpl = thread.replies.last %>
               <%= rpl.author.name %>
