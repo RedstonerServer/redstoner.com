@@ -1,7 +1,6 @@
 class Label < ActiveRecord::Base
   validates_presence_of :name
   validate :color_valid
-  belongs_to :role
   has_and_belongs_to_many :forums
   has_many :forumthreads
 

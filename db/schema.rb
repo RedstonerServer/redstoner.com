@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117134404) do
+ActiveRecord::Schema.define(version: 20150117154652) do
 
   create_table "blogposts", force: true do |t|
     t.string   "title"
@@ -70,9 +70,8 @@ ActiveRecord::Schema.define(version: 20150117134404) do
   end
 
   create_table "labels", force: true do |t|
-    t.string  "name"
-    t.integer "role_id"
-    t.string  "color"
+    t.string "name"
+    t.string "color"
   end
 
   create_table "register_tokens", force: true do |t|

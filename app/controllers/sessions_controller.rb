@@ -43,6 +43,7 @@ class SessionsController < ApplicationController
       logout_user = current_user
       session[:user_id] = original_user.try(:id)
       session.delete(:original_user_id)
+      puts "User #{original_user} reverted from #{logout_user}!"
       flash[:notice] = "You are no longer '#{logout_user.name}'!"
       redirect_to original_user
     else
@@ -63,6 +64,7 @@ class SessionsController < ApplicationController
         else
           session[:original_user_id] = original_user.id
           session[:user_id] = new_user.id
+          puts "User #{original_user} became #{new_user}!"
           flash[:notice] = "You are now '#{new_user.name}'!"
         end
       end

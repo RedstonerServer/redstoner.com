@@ -1,5 +1,12 @@
 <% title "New Thread: #{@thread.forum.name}" %>
 
+<%
+  labels = [["Label", nil]]
+  Label.order(:name).each do |l|
+    labels << [l.name, l.id]
+  end
+%>
+
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
 <h1>New thread</h1>
 <%= form_for @thread do |f|%>
@@ -15,7 +22,12 @@
       </tr>
     <% end %>
   </table>
-  <%= f.text_field :title, placeholder: "Title" %>
+  <div class="table-cell">
+    <%= f.select :label_id, labels, {}, class: "auto-width" %>
+  </div>
+  <div class="table-cell full-width">
+    <%= f.text_field :title, placeholder: "Title" %>
+  </div>
   <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content, mini: false} %>
   <%= f.hidden_field :forum_id %>
   <p><%= f.submit "Create thread", class: "btn blue left" %></p>

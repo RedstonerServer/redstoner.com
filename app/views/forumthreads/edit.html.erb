@@ -1,5 +1,16 @@
 <% title "Edit Thread: #{@thread}" %>
 
+<%
+  forums = []
+  Forum.all.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
+    forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
+  end
+  labels = [["Label", nil]]
+  Label.order(:name).each do |l|
+    labels << [l.name, l.id]
+  end
+%>
+
 <h1>Edit thread</h1>
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
 <%= form_for @thread do |f|%>
@@ -13,17 +24,16 @@
       </tr>
       <tr>
         <td><%= f.label :forum_id, "Move thread" %></td>
-        <%
-          forums = []
-          Forum.all.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
-            forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
-          end
-        %>
         <td><%= f.select :forum_id, forums %></td>
       </tr>
     <% end %>
   </table>
-  <%= f.text_field :title, placeholder: "Title" %>
+  <div class="table-cell">
+    <%= f.select :label_id, labels, {}, class: "auto-width" %>
+  </div>
+  <div class="table-cell full-width">
+    <%= f.text_field :title, placeholder: "Title" %>
+  </div>
   <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content, mini: false} %>
   <p><%= f.submit "Update thread", class: "btn blue left" %></p>
 <% end %>

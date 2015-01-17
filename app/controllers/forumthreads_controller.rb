@@ -83,7 +83,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def thread_params(add = [])
-    a = [:title, :content]
+    a = [:title, :content, :label_id]
     a += add
     params.require(:forumthread).permit(a)
   end

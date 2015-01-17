@@ -572,6 +572,7 @@ input , select, textarea {
 
   option {
     padding: 0.5em;
+    height: 2em;
 
     &:hover {
       background: #0f0;
@@ -588,14 +589,26 @@ input , select, textarea {
   }
 }
 
-input[type=text], input[type=email], input[type=password], input[type=number], textarea, select {
-    background: #ddd;
-    border: none;
-    height: 3em;
-    margin: 4px 0 0;
-    padding: 0.5em 1em;
+.table-cell {
+  display: table-cell;
+
+  &.full-width {
     width: 100%;
   }
+}
+
+input[type=text], input[type=email], input[type=password], input[type=number], textarea, select {
+  background: #ddd;
+  border: none;
+  height: 3em;
+  margin: 4px 0 0;
+  padding: 0.5em 1em;
+  width: 100%;
+
+  &.auto-width {
+    width: auto;
+  }
+}
 
 input, select, textarea {
   &.disabled, &[disabled] {
