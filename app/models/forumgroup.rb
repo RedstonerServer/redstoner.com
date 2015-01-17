@@ -18,7 +18,11 @@ class Forumgroup < ActiveRecord::Base
   end
 
   def can_write?(user)
-    !user.nil? && can_read?(user) && user.confirmed? && (role_write.nil? || user.role >= role_write)
+    !user.nil? && user.confirmed? && (role_write.nil? || user.role >= role_write)
+  end
+
+  def can_view?(user)
+    can_read?(user) || can_write?(user)
   end
 
   def to_param

@@ -1,11 +1,14 @@
-<% title @forum.name %>
-
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= @forum %>
 
-<h1><%= @forum %></h1>
+<h1><%= title @forum %></h1>
 <% if @forum.can_write?(current_user) %>
   <p><%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %></p>
 <% end %>
+
+<% if @forum.role_read && @forum.role_write && @forum.role_write < @forum.role_read %>
+  <div class="lockednote">This forum is write-only. You can only see your own posts.</div>
+<% end %>
+
 <div id="forum_groups">
   <% @threads.each do |thread| %>
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">

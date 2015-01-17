@@ -11,20 +11,28 @@
 
       <div class="items bold">
         <% group.forums.sort_by{ |f| f.position || 0 }.each do |f| %>
-          <% if f.can_read?(current_user) %>
+          <% if f.can_view?(current_user) %>
             <div class="item">
               <%= link_to f.name, f, id: "forum-#{f.id}"%>
               <div class="item-info">
                 <% if last_thread = f.threads.last %>
                   <% last_reply = Threadreply.where(forumthread: f.threads).order(:created_at).last %>
                   <% if last_reply && last_reply.created_at > last_thread.created_at %>
-                    <%= last_reply.author.name %>
-                    <%= link_to "replied", forumthread_path(last_reply.thread) + "#reply-#{last_reply.id}" %>
-                    <%= ago last_reply.created_at %>.
+                    <% if last_reply.thread.can_read?(current_user) %>
+                      <%= last_reply.author.name %>
+                      <%= link_to "replied", forumthread_path(last_reply.thread) + "#reply-#{last_reply.id}" %>
+                      <%= ago last_reply.created_at %>.
+                    <% else %>
+                      Hidden
+                    <% end %>
                   <% else %>
-                    <%= last_thread.author.name %>
-                    <%= link_to "posted", forumthread_path(last_thread) %>
-                    <%= ago last_thread.created_at %>.
+                    <% if last_thread.can_read?(current_user) %>
+                      <%= last_thread.author.name %>
+                      <%= link_to "posted", forumthread_path(last_thread) %>
+                      <%= ago last_thread.created_at %>.
+                    <% else %>
+                      Hidden
+                    <% end %>
                   <% end %>
                 <% else %>
                   No posts yet.

@@ -2,12 +2,12 @@ class ForumsController < ApplicationController
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-     @groups = Forumgroup.select {|g| g.can_read?(current_user) }
+     @groups = Forumgroup.select {|g| g.can_view?(current_user) }
      @groups.sort_by!{ |g| g.position || 0 }
   end
 
   def show
-    @threads = @forum.forumthreads.to_a
+    @threads = @forum.forumthreads.select {|f| f.can_read?(current_user) }.to_a
     @threads.sort_by! do |t|
       # sticky goes first, then sort by last activity (new replies)
       [t.sticky ? 0 : 1, -(t.replies.last.try(:created_at) || t.created_at).to_i]
@@ -78,7 +78,7 @@ class ForumsController < ApplicationController
 
   def check_permission
     @forum = Forum.find(params[:id])
-    unless @forum.can_read?(current_user)
+    unless @forum.can_view?(current_user)
       flash[:alert] = "You are not allowed to view this forum"
       redirect_to forums_path
     end

@@ -36,11 +36,14 @@ class Forumthread < ActiveRecord::Base
   end
 
   def can_read?(user)
-    forum && forum.can_read?(user)
+    # we might have threads without a forum
+    # e.g. forum deleted
+    forum && forum.can_read?(user) || author == user
   end
 
   def can_write?(user)
-    forum.can_write?(user) && (!locked? || user.mod?)
+    # unlike forums, you shouldn't be able to write when you can't read
+    can_read?(user) && forum.can_write?(user) && (!locked? || user.mod?)
   end
 
   def send_new_mention_mail(old_content = "")
