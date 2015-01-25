@@ -382,6 +382,7 @@ code {
   line-height: 1em;
   vertical-align: middle;
   max-width: 100%; // force line break
+  text-decoration: inherit;
 }
 
 table, tr, td, th {
