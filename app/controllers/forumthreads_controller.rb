@@ -44,7 +44,7 @@ class ForumthreadsController < ApplicationController
   def update
     if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
-      @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params)
+      @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id, :label_id]) : thread_params)
       old_content = @thread.content_was
       if @thread.save
         @thread.send_new_mention_mail(old_content)
@@ -83,7 +83,8 @@ class ForumthreadsController < ApplicationController
   end
 
   def thread_params(add = [])
-    a = [:title, :content, :label_id]
+    a = [:title, :content]
+    a << :label_id unless @thread.locked?
     a += add
     params.require(:forumthread).permit(a)
   end

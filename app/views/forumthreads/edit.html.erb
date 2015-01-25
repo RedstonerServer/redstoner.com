@@ -29,7 +29,7 @@
     <% end %>
   </table>
   <div class="table-cell">
-    <%= f.select :label_id, labels, {}, class: "auto-width" %>
+    <%= f.select :label_id, labels, {}, class: "auto-width", disabled: (@thread.locked? && !mod?) %>
   </div>
   <div class="table-cell full-width">
     <%= f.text_field :title, placeholder: "Title" %>
