@@ -5,8 +5,7 @@
     <p><%= link_to @post.author.name, user_url(@post.author), style: "text-decoration: none; color: #4096EE;" %> has mentioned you in '<%= @post.title %>' on the Redstoner blog!</p>
 
     <blockquote>
-      <%# TODO: fix relative links + iframes %>
-      <%= render_mini_md(@post.content).html_safe %>
+      <%= render_md(@post.content).html_safe %>
     </blockquote>
 
     <p><%= link_to "Click here", blogpost_url(@post), style: "text-decoration: none; color: #4096EE;" %> to view the blog post.</p>

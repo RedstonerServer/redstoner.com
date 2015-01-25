@@ -37,7 +37,6 @@ Redstoner::Application.routes.draw do
   resources :tools do
     collection do
       post 'render_markdown'
-      post 'render_mini_markdown'
     end
   end
 

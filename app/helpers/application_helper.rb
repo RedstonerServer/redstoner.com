@@ -69,34 +69,6 @@ module ApplicationHelper
     render_youtube(md.render(content))
   end
 
-  def render_mini_md(content)
-    renderer = Redcarpet::Render::HTML.new({
-      filter_html: true,
-      no_images: true,
-      no_styles: true,
-      safe_links_only: true,
-      with_toc_data: false,
-      hard_wrap: false,
-      link_attributes: {rel: "nofollow"}
-    })
-    md = Redcarpet::Markdown.new(renderer, {
-      no_intra_emphasis: true,
-      tables: false,
-      fenced_code_blocks: false,
-      autolink: true,
-      strikethrough: true,
-      lax_spacing: false,
-      disable_indented_code_blocks: true,
-      space_after_headers: true,
-      superscript: true,
-      underline: true,
-      highlight: true,
-      footnotes: false
-    })
-    md.render(content.gsub(/([\r\n]+\s*?){3,}/, "\n\n").gsub(/^\s*#/, "\\#"))
-  end
-
-
   private
 
   def render_youtube(content)

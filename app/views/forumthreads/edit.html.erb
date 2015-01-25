@@ -34,7 +34,7 @@
   <div class="table-cell full-width">
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
-  <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content, mini: false} %>
+  <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content} %>
   <p><%= f.submit "Update thread", class: "btn blue left" %></p>
 <% end %>
 <%= button_to "Delete thread", @thread, :method => "delete", data: {confirm: "Delete thread & comments forever?"}, class: "btn red right" %>

@@ -3,7 +3,7 @@
 <h1>Edit post</h1>
 <%= form_for @post do |f|%>
   <%= f.text_field :title %>
-  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content, mini: false} %>
+  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content} %>
   <p><%= f.submit "Update Post", class: "btn blue left" %></p>
 <% end %>
 <p><%= button_to "Delete post", @post, method: "delete", data: {confirm: "Delete post & comments forever?"}, class: "btn red right" %></p>

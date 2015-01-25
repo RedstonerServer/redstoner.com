@@ -28,7 +28,7 @@
   <div class="table-cell full-width">
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
-  <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content, mini: false} %>
+  <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content} %>
   <%= f.hidden_field :forum_id %>
   <p><%= f.submit "Create thread", class: "btn blue left" %></p>
   <div class="clear"></div>

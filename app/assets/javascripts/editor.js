@@ -23,11 +23,7 @@ $(function() {
     prev.html("<i>(Loading ...)</i>");
     prev.show();
     editor.hide();
-    if (target.parent().parent().hasClass('mini')) {
-      var url = '/tools/render_mini_markdown';
-    } else {
-      var url = '/tools/render_markdown';
-    }
+    var url = '/tools/render_markdown';
     $.ajax(url, {
       type: 'post',
       data: {text: editor.val()},
