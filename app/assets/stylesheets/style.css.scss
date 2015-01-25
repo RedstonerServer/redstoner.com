@@ -344,9 +344,9 @@ pre {
   background: #3f3f3f;
 
   &:after {
-    color: #fff;
     content: attr(lang); // show language on top right
     font-style: italic;
+    text-transform: capitalize;
     margin: 4px 10px;
     position: absolute;
     right: -10px;
@@ -365,10 +365,7 @@ pre {
   code {
     display: block;
     padding: 0.5em;
-    color: #C5C8C6; //hljs
-    box-shadow: 0 0 16px #222 inset;
-    background: #3f3f3f !important;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 3px;
     overflow-x: auto;
   }

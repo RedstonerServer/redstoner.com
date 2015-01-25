@@ -2,5 +2,5 @@
  *= require_self
  *= require style.css
  *= require mobi.css
- *= require highlight/tomorrow-night.css
+ *= require highlight/default.css
  */

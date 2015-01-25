@@ -36,7 +36,7 @@ $(function(){
   });
   $('pre code').each(function() {
     if ($(this).attr("class")) {
-      $(this).parent().attr("lang", $(this).attr("class").replace("hljs", "").trim());
+      $(this).parent().attr("lang", $(this).attr("class").replace("hljs", "").toLowerCase().trim());
     } else {
       $(this).parent().attr("lang", "(language unknown)");
     }

@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/RedstonerServer/highlight_js-rails.git
+  revision: 47f60d072950ebf99337e3ffb1a16ec3d4268f69
+  specs:
+    highlight_js-rails (8.4)
+      rails (>= 3.1.1)
+
+GIT
   remote: git://github.com/jomo/kaminari.git
   revision: e49066e94d77a6abb03a0819f3c4b0cc6923cb70
   branch: patch-2
@@ -68,8 +75,6 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.0.2)
-    highlight_js-rails (7.1.0)
-      rails (>= 3.1.1)
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.1)
@@ -171,7 +176,7 @@ DEPENDENCIES
   binding_of_caller
   capistrano
   coffee-rails
-  highlight_js-rails
+  highlight_js-rails!
   hirb
   jquery-rails
   kaminari!
