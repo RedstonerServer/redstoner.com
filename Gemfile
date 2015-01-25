@@ -11,8 +11,9 @@ gem 'hirb' # pretty console output
 gem 'rb-readline'
 gem 'rest-client'
 gem 'activerecord-session_store'
-gem 'highlight_js-rails', :git => 'git://github.com/RedstonerServer/highlight_js-rails.git'
+gem 'highlight_js-rails', github: 'RedstonerServer/highlight_js-rails'
 gem 'kaminari', github: 'jomo/kaminari', branch: 'patch-2' # pagination
+gem 'jquery-textcomplete-rails', github: 'RedstonerServer/jquery-textcomplete-rails' # @mentions
 
 # Gems used only for assets and not required
 # in production environments by default.

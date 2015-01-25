@@ -6,6 +6,15 @@ GIT
       rails (>= 3.1.1)
 
 GIT
+  remote: git://github.com/RedstonerServer/jquery-textcomplete-rails.git
+  revision: 8bf23af2d8fa1c5226c2b6889c7796adfe1f8772
+  specs:
+    jquery-textcomplete-rails (0.1.4)
+      coffee-rails (>= 3.2.0)
+      railties (>= 3.2.0)
+      sass-rails (>= 3.2.0)
+
+GIT
   remote: git://github.com/jomo/kaminari.git
   revision: e49066e94d77a6abb03a0819f3c4b0cc6923cb70
   branch: patch-2
@@ -179,6 +188,7 @@ DEPENDENCIES
   highlight_js-rails!
   hirb
   jquery-rails
+  jquery-textcomplete-rails!
   kaminari!
   mysql2
   rails (= 4.1.0)

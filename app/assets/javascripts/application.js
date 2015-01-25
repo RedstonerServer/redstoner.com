@@ -14,4 +14,4 @@
 //= require app
 //= require editor
 //= require highlight
-//= require autocomplete
+//= require jquery-textcomplete

@@ -485,20 +485,24 @@ blockquote p {
       display: none;
       padding: 4em 1em 1em;
     }
+  }
+}
 
-    .suggestions {
-      background: #ddd;
-      padding: 0.5em;
+ul.dropdown-menu {
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
 
-      .name {
-        display: inline-block;
-        font-style: italic;
-        padding: 1px 2px;
-        margin-right: 1em;
-        border: 1px solid #6cf;
-        border-radius: 4px;
-        font-weight: bold;
-      }
+  li.textcomplete-item {
+    padding: 0.5em 1em;
+    border: none;
+
+    &.active, &:hover {
+      background-color: #6cf;
+    }
+
+    a {
+      color: #000;
     }
   }
 }

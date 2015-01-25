@@ -19,10 +19,10 @@ $(function() {
     target.data('preview', 'true');
     target.text('Edit');
     var prev   = target.parent().find('.preview');
-    var editor = target.parent().find('.editor_field')
+    var editor = target.parent().find('.editor_field');
     prev.html("<i>(Loading ...)</i>");
     prev.show();
-    editor.hide()
+    editor.hide();
     if (target.parent().parent().hasClass('mini')) {
       var url = '/tools/render_mini_markdown';
     } else {
@@ -52,36 +52,45 @@ $(function() {
     });
   }
 
-  var query_history = {};
-  $('.md_editor .editor_field').autocomplete({
-    wordCount: 1,
-    mode: "inner",
-    on: {
-      query: function(text, callback) {
-        if (text.length > 2 && text[0] == "@") {
-          text = text.slice(1);
-          if (query_history[text]) {
-            callback(query_history[text]);
-          } else {
-            $.ajax("/users/suggestions", {
-              type: 'post',
-              data: {name: text},
-              dataType: 'json',
-              headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-              },
-              success: function(data) {
-                query_history[text] = data;
-                callback(data);
-              },
-              error: function(xhr, status, err) {
-                callback([]);
-              }
-            });
-          }
+  $('.md_editor .editor_field').textcomplete([{
+    // match up to 2 words (everything except some special characters)
+    // each word can have up to 16 characters (up to 32 total)
+    // words must be separated by a single space
+    match: /(^|\s)@(([^!"§$%&\/()=?.,;+*@\s]{1,16} ?){0,1}[^!"§$%&\/()=?.,;+*@\s]{1,16})$/,
+    search: function (text, callback, match) {
+      console.log("Searching " + text);
+      text = text.toLowerCase();
+      $.ajax("/users/suggestions", {
+        type: "post",
+        data: {name: text},
+        dataType: "json",
+        headers: {
+          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        },
+        success: function(data) {
+          callback(data);
+        },
+        error: function(xhr, status, err) {
+          console.error(err);
+          callback([]);
         }
+      });
+    },
+    template: function(user) {
+      var name = user[0];
+      var ign  = user[1];
+      if (name != ign) {
+        return name + " <small>(" + ign + ")</small>";
+      } else {
+        return ign;
       }
+    },
+    cache: true,
+    replace: function (word) {
+      return "$1@" + word[1] + " ";
     }
+  }], {
+    debounce: 300
   });
 
 });

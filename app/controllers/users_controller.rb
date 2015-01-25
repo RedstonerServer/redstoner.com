@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   require 'open-uri'
   include MailerHelper
+  include ERB::Util
 
   before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
@@ -290,11 +291,14 @@ class UsersController < ApplicationController
 
   def suggestions
     query = params[:name]
-    if current_user && query.present? && query =~ /\A[a-zA-Z0-9_]{1,16}\Z/
-      @users = User.where("ign LIKE ?", "#{query}%").order(:ign).limit(7)
-      @users = @users.to_a.map{|u| u.ign}
+    # same regex as the one used for textcomplete
+    if current_user && query.present? && query =~ /\A([^!"§$%&\/()=?.,;+*@\s]{1,16} ?){0,1}[^!"§$%&\/()=?.,;+*@\s]{1,16}\Z/
+      query.gsub!(/[_%]/) {|c|"\\#{c}"} # escape LIKE wildcard characters
+      @users = User.where("ign LIKE ? or name LIKE ?", "%#{query}%", "%#{query}%").order(:name, :ign).limit(7)
+      @users = @users.to_a.map{|u| [html_escape(u.name), html_escape(u.ign)]}
       render json: @users
     else
+      puts "'#{query}' does not match regex!"
       render json: []
     end
   end

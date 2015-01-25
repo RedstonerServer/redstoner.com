@@ -3,4 +3,5 @@
  *= require style.css
  *= require mobi.css
  *= require highlight/default.css
+ *= require jquery-textcomplete
  */
