@@ -84,7 +84,7 @@ class ForumthreadsController < ApplicationController
 
   def thread_params(add = [])
     a = [:title, :content]
-    a << :label_id unless @thread.locked?
+    a << :label_id if @thread && !@thread.locked?
     a += add
     params.require(:forumthread).permit(a)
   end
