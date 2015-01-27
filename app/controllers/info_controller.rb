@@ -8,8 +8,8 @@ class InfoController < ApplicationController
   end
 
   def show
-    @prev = Info.where(["id < ?", @info.id]).order(:title).last  || Info.order(:title).last
-    @next = Info.where(["id > ?", @info.id]).order(:title).first || Info.order(:title).first
+    @prev = Info.where(["title < ?", @info.title]).order(:title).last  || Info.order(:title).last
+    @next = Info.where(["title > ?", @info.title]).order(:title).first || Info.order(:title).first
   end
 
   def new
