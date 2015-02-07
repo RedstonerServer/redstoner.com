@@ -19,7 +19,9 @@ class CommentsController < ApplicationController
       if @comment.save
         @comment.send_new_comment_mail
         @comment.send_new_mention_mail
-        redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}", notice: 'Comment created!'
+        position = @comment.blogpost.comments.count - 1
+        page     = position / Kaminari.config.default_per_page + 1
+        redirect_to blogpost_path(@comment.blogpost, page: page) + "#comment-#{@comment.id}", notice: 'Comment created!'
       else
         flash[:alert] = "Could not create comment."
         redirect_to Blogpost.find(params[:blogpost_id])
@@ -39,7 +41,9 @@ class CommentsController < ApplicationController
       if @comment.save
         @comment.send_new_mention_mail(old_content)
         flash[:notice] = "Comment updated!"
-        redirect_to blogpost_path(@comment.blogpost) + "#comment-#{@comment.id}"
+        position = @comment.blogpost.comments.index(@comment)
+        page     = position / Kaminari.config.default_per_page + 1
+        redirect_to blogpost_path(@comment.blogpost, page: page) + "#comment-#{@comment.id}"
       else
         flash[:alert] = "There was a problem while updating your comment"
         render action: "edit"
