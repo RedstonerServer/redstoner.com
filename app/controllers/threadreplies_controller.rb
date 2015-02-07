@@ -18,7 +18,9 @@ class ThreadrepliesController < ApplicationController
       if @reply.save
         @reply.send_new_reply_mail
         @reply.send_new_mention_mail
-        redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}", notice: 'Reply created!'
+        position = thread.replies.count - 1
+        page     = position / Kaminari.config.default_per_page + 1
+        redirect_to forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}", notice: 'Reply created!'
       else
         flash[:alert] = "Could not create reply."
         redirect_to Forumthread.find(params[:forumthread_id])
@@ -36,7 +38,9 @@ class ThreadrepliesController < ApplicationController
       if @reply.update_attributes(reply_params)
         @reply.send_new_mention_mail(old_content)
         flash[:notice] = "Reply updated!"
-        redirect_to forumthread_path(@reply.thread) + "#reply-#{@reply.id}"
+        position = @reply.thread.replies.count - 1
+        page     = position / Kaminari.config.default_per_page + 1
+        redirect_to forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}"
       else
         flash[:alert] = "There was a problem while updating your reply"
         render action: "edit"
