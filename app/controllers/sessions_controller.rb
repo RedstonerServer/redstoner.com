@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  include UsersHelper
+
   def new
     if current_user
       flash[:alert] = "You are already logged in!"
@@ -19,8 +21,17 @@ class SessionsController < ApplicationController
           flash[:alert] = "You are banned!"
         else
           session[:user_id] = user.id
-          flash[:alert] = "Remember to validate your email! Your account may be deleted soon!" if !user.confirmed?
           flash[:notice] = "Logged in!"
+
+          new_ign = fetch_name(user.uuid)
+          if new_ign.present? && new_ign != user.ign
+            user.name = new_ign if user.ign == user.name
+            user.ign = new_ign
+            user.save
+            flash[:notice] += " Your name has been changed to #{new_ign}!"
+          end
+
+          flash[:alert] = "Remember to validate your email! Your account may be deleted soon!" if !user.confirmed?
         end
       else
         flash[:alert] = "You're doing it wrong!"

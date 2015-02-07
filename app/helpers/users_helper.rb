@@ -27,4 +27,26 @@ require "open-uri"
     yt
   end
 
+  def fetch_name(uuid)
+    uri  = URI.parse("https://api.mojang.com/user/profiles/#{CGI.escape(uuid)}/names")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.open_timeout = 3
+    http.read_timeout = 3
+    http.use_ssl = true
+
+    begin
+      response = http.get(uri)
+      if response.code == "200"
+        data = JSON.load(response.body)
+        return data.last["name"]
+      end
+    rescue => e
+      Rails.logger.error "----"
+      Rails.logger.error "Failed to get mojang profile for #{uuid}"
+      Rails.logger.error e.message
+      Rails.logger.error "----"
+      return nil
+    end
+  end
+
 end
