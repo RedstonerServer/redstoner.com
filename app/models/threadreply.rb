@@ -33,32 +33,19 @@ class Threadreply < ActiveRecord::Base
     !!user_editor_id
   end
 
-  def send_new_mention_mail(old_content = "")
-    new_mentions = mentions(content) - mentions(old_content)
-    mails = []
-    new_mentions.each do |user|
-      begin
-        mails << RedstonerMailer.new_thread_reply_mention_mail(user, self) if user.normal? && user.confirmed? && self.thread.can_read?(user) && user.mail_mention?
-      rescue => e
-        Rails.logger.error "---"
-        Rails.logger.error "WARNING: Failed to create new_thread_reply_mention_mail (view) for reply#: #{@self.id}, user: #{@user.name}, #{@user.email}"
-        Rails.logger.error e.message
-        Rails.logger.error "---"
-      end
-    end
-    background_mailer(mails)
-  end
-
-  def send_new_reply_mail
-    userids = []
+  def send_new_reply_mail(old_content = "")
+    userids = new_mentions = mentions(content) - mentions(old_content)
 
     # thread + replies
     posts = thread.replies.to_a
     posts << thread if thread.author.mail_own_thread_reply?
-    posts.each do |post|
-      # don't send mail to the author of this reply, don't send to banned/disabled users
-      if post.author != author && post.author.normal? && post.author.confirmed? # &&
-        userids << post.author.id if post.author.mail_other_thread_reply?
+    # only send "reply" mail when reply is new
+    unless old_content.present?
+      posts.each do |post|
+        # don't send mail to the author of this reply, don't send to banned/disabled users
+        if post.author != author && post.author.normal? && post.author.confirmed? # &&
+          userids << post.author.id if post.author.mail_other_thread_reply?
+        end
       end
     end
     # making sure we don't send multiple mails to the same user

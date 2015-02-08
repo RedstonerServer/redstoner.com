@@ -17,7 +17,6 @@ class ThreadrepliesController < ApplicationController
       @reply.forumthread = thread
       if @reply.save
         @reply.send_new_reply_mail
-        @reply.send_new_mention_mail
         position = thread.replies.count - 1
         page     = position / Kaminari.config.default_per_page + 1
         redirect_to forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}", notice: 'Reply created!'
@@ -36,7 +35,7 @@ class ThreadrepliesController < ApplicationController
     if mod? || @reply.author.is?(current_user)
       old_content = @reply.content_was
       if @reply.update_attributes(reply_params)
-        @reply.send_new_mention_mail(old_content)
+        @reply.send_new_reply_mail(old_content)
         flash[:notice] = "Reply updated!"
         position = @reply.thread.replies.count - 1
         page     = position / Kaminari.config.default_per_page + 1

@@ -28,12 +28,6 @@ class RedstonerMailer < ActionMailer::Base
     mail(to: @user.email, subject: "#{reply.author.name} replied to '#{reply.thread.title}' on Redstoner")
   end
 
-  def new_thread_reply_mention_mail(user, reply)
-    @user  = user
-    @reply = reply
-    mail(to: @user.email, subject: "#{reply.author.name} mentioned you in '#{reply.thread.title}' on Redstoner")
-  end
-
   def new_post_mention_mail(user, post)
     @user = user
     @post = post

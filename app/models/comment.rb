@@ -32,8 +32,6 @@ class Comment < ActiveRecord::Base
   def send_new_comment_mail(old_content = "")
     userids = mentions(content) - mentions(old_content)
 
-    puts "userids: #{userids}"
-
     # post + comments
     comments = blogpost.comments.to_a
     comments << blogpost if blogpost.author.mail_own_blogpost_comment?
