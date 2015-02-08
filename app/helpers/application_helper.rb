@@ -74,9 +74,9 @@ module ApplicationHelper
   def render_youtube(content)
     # TODO: render only in text blocks, not in code/quotes/etc
     return content.gsub(
-      /\[yt:([a-zA-Z0-9\-_]+)\]/,
+      /\[yt:([a-zA-Z0-9\-_]+)(:(\d+))?\]/,
       "<iframe class='youtube' allowfullscreen src='
-        https://www.youtube-nocookie.com/embed/\\1?theme=light&vq=hd720&hd=1&iv_load_policy=3&showinfo=1&showsearch=0&rel=0&modestbranding&hd=1&autohide=1&html5=1'>
+        https://www.youtube-nocookie.com/embed/\\1?theme=light&vq=hd720&hd=1&iv_load_policy=3&showinfo=1&showsearch=0&rel=0&modestbranding&hd=1&autohide=1&html5=1&start=\\3'>
       </iframe>")
   end
 end
