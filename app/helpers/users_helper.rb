@@ -2,12 +2,14 @@ module UsersHelper
 require "open-uri"
 
   def mentions(content)
+    users = []
     words = content.scan(/@[a-zA-Z0-9_]{1,16}/)
-    words.map! do |w|
-      w[0] = ""
-      w
+    words.each do |w|
+      puts w.inspect
+      user = User.find_by_ign(w[1..-1])
+      users << user if user && user.normal? && user.confirmed? && user.mail_mention?
     end
-    User.where(ign: words).uniq!
+    users
   end
 
   def get_youtube(yt_name)

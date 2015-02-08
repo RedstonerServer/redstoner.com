@@ -46,12 +46,6 @@ class RedstonerMailer < ActionMailer::Base
     mail(to: @user.email, subject: "#{comment.author.name} replied to '#{comment.blogpost.title}' on Redstoner")
   end
 
-  def new_post_comment_mention_mail(user, comment)
-    @user    = user
-    @comment = comment
-    mail(to: @user.email, subject: "#{comment.author.name} mentioned you in '#{comment.blogpost.title}' on Redstoner")
-  end
-
   def email_change_confirm_mail(user)
     @user = user
     mail(to: @user.email, subject: "Email change on Redstoner.com")

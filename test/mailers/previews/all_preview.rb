@@ -50,13 +50,6 @@ class AllPreview < ActionMailer::Preview
     RedstonerMailer.new_post_comment_mail(@@user, comment)
   end
 
-  def new_post_comment_mention_mail
-    op      = User.new(id: 32, name: "TheOP", email: "theopuser@example.com")
-    post    = Blogpost.new(id: 123, user_author: op, title: "Wow, test post!", content: "You should not see this...")
-    comment = Comment.new(id: 312, user_author: @@user, content: "@mention Wow, that is **cool**!", blogpost: post)
-    RedstonerMailer.new_post_comment_mail(@@user, comment)
-  end
-
   def email_change_confirm_mail
     RedstonerMailer.email_change_confirm_mail(@@user)
   end

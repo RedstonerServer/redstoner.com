@@ -18,7 +18,6 @@ class CommentsController < ApplicationController
       @comment.blogpost = Blogpost.find(params[:blogpost_id])
       if @comment.save
         @comment.send_new_comment_mail
-        @comment.send_new_mention_mail
         position = @comment.blogpost.comments.count - 1
         page     = position / Kaminari.config.default_per_page + 1
         redirect_to blogpost_path(@comment.blogpost, page: page) + "#comment-#{@comment.id}", notice: 'Comment created!'
@@ -39,7 +38,7 @@ class CommentsController < ApplicationController
       @comment.attributes = comment_params
       old_content = @comment.content_was
       if @comment.save
-        @comment.send_new_mention_mail(old_content)
+        @comment.send_new_comment_mail(old_content)
         flash[:notice] = "Comment updated!"
         position = @comment.blogpost.comments.index(@comment)
         page     = position / Kaminari.config.default_per_page + 1
