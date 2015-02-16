@@ -33,7 +33,7 @@ deleted_user.update_attribute(:ign, "Steve")
 
 User.create!(
   uuid: "9ff3d74f716940a3aa6f262ab632d2",
-  ign: "redstone_sheep",
+  ign: "jomo",
   email: "theredstonesheep@gmail.com",
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
