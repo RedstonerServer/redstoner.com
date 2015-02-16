@@ -36,22 +36,7 @@
       <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
     </form>
   </div>
-  <div class="donation">
-    <h1>Donate to PanFritz</h1>
-    <h4>Pan owns the hardware.</h4>
-    <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
-      <% if current_user %>
-        <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
-      <% else %>
-        <input name="custom" type="text" placeholder="Your Minecraft name">
-      <% end %>
-      <input value="_s-xclick" name="cmd" type="hidden">
-      <input value="SW8TJLDK9FX3W" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
-    </form>
-  </div>
 </div>
-<p>Can't decide? Just split the money and donate to both!</p>
 <hr>
 
 <p class="small">Please note that you are not buying anything. We do not guarantee for these perks, however, we will try hard to make sure you'll get them!</p>
