@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117154652) do
+ActiveRecord::Schema.define(version: 20150309221221) do
 
   create_table "blogposts", force: true do |t|
     t.string   "title"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150117154652) do
   create_table "roles", force: true do |t|
     t.string  "name"
     t.integer "value"
+    t.string  "color"
   end
 
   create_table "sessions", force: true do |t|

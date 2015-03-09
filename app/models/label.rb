@@ -8,20 +8,6 @@ class Label < ActiveRecord::Base
     name.upcase
   end
 
-  # calculate the foreground color
-  # either black or white, based on the bg color
-  def fcolor
-    bg = color.dup
-    # convert 3 char to 6 char hex
-    bg.gsub!(/./, '\&\&') if bg.length == 3
-    [0, 2, 4].each do |i|
-      if bg[i..i+1] >= "7f"
-        return "000"
-      end
-    end
-    return "fff"
-  end
-
   private
 
   def color_valid

@@ -2,12 +2,12 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 Role.create!([
-  {name: "disabled", value: 1},
-  {name: "banned", value: 2},
-  {name: "normal", value: 10},
-  {name: "mod", value: 100},
-  {name: "admin", value: 200},
-  {name: "superadmin", value: 500}
+  {name: "disabled", value: 1, color: "#ccc"},
+  {name: "banned", value: 2, color: "#ccc"},
+  {name: "normal", value: 10, color: "#282"},
+  {name: "mod", value: 100, color: "#6af"},
+  {name: "admin", value: 200, color: "#d22"},
+  {name: "superadmin", value: 500, color: "#d22"}
 ])
 
 userpw = SecureRandom.hex(64)

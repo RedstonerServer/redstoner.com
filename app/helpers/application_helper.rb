@@ -69,6 +69,19 @@ module ApplicationHelper
     render_youtube(md.render(content))
   end
 
+  # calculate the foreground color
+  # either +dark+ or +light+, based on the +bgcolor+
+  def fcolor(bgcolor = "#000", light = "#fff", dark = "#000")
+    bg = bgcolor.gsub(/[^0-9a-f]/i, "")
+    # convert 3 char to 6 char hex
+    bg.gsub!(/./, '\&\&') if bg.length == 3
+    sum = 0
+    [0, 2, 4].each do |i|
+      sum += bg[i..i+1].to_i(16)
+    end
+    return (sum/3 < 128) ? light : dark
+  end
+
   private
 
   def render_youtube(content)

@@ -2,6 +2,8 @@ class Role < ActiveRecord::Base
   include Comparable
   has_many :users
 
+  validates :color, format: {with: /#[0-9a-f]{3,6}/i}
+
 
   def to_s
     self.name

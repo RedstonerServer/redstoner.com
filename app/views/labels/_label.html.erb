@@ -1,3 +1,3 @@
 <% if label %>
-  <span class="label label-<%= label.name.downcase %>" style="color: #<%= label.fcolor %>;background-color: #<%= label.color %>"><%= label %></span>
+  <span class="label label-<%= label.name.downcase %>" style="color: <%= fcolor(label.color) %>;background-color: #<%= label.color %>"><%= label %></span>
 <% end %>

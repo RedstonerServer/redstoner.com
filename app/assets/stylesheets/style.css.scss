@@ -408,7 +408,6 @@ blockquote p {
 
   a.role {
     display: inline-block;
-    color: #fff !important;
     font-weight: bold;
     padding: 4px 0.5em;
     border-radius: 3px;
@@ -419,20 +418,7 @@ blockquote p {
     text-overflow: ellipsis;
     max-width: 27em; // works with the 30 character limit
 
-    &.superadmin, &.admin {
-      background: #d22 !important;
-    }
-
-    &.mod {
-      background: #6af !important;
-    }
-
-    &.normal {
-      background: #282 !important;
-    }
-
     &.banned, &.disabled {
-      background: #ccc !important;
       text-decoration: line-through !important;
       color: #888 !important;
     }
