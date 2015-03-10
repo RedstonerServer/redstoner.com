@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
       else
         if role = Role.get(params[:role])
-          @users = User.where(role: role)
+          @users = User.joins(:role).where(role: role)
         else
           flash[:alert] = "role '#{params[:role]}' does not exist!"
           redirect_to users_path
@@ -20,9 +20,9 @@ class UsersController < ApplicationController
         end
       end
     else
-      @users = User.where.not(id: User.first.id) #Remove first user
+      @users = User.joins(:role).where.not(id: User.first.id) #Remove first user
     end
-    @users = @users.order("role_id desc", "confirmed desc", :name)
+    @users = @users.order("roles.value desc", "confirmed desc", :name)
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
   end
