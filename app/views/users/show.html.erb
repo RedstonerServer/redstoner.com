@@ -44,6 +44,10 @@
         <td><%= @user.ign %></td>
       </tr>
       <tr>
+        <td><b>UUID</b></td>
+        <td><%= @user.uuid %></td>
+      </tr>
+      <tr>
         <td><b>Role</b></td>
         <td><%= link_to @user.role, users_path(:role => @user.role.name) %></td>
       </tr>
