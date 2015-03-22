@@ -5,7 +5,6 @@ require "open-uri"
     users = []
     words = content.scan(/@[a-zA-Z0-9_]{1,16}/)
     words.each do |w|
-      puts w.inspect
       user = User.find_by_ign(w[1..-1])
       users << user if user && user.normal? && user.confirmed? && user.mail_mention?
     end
