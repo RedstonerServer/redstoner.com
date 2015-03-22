@@ -14,8 +14,4 @@ class StaticsController < ApplicationController
   def donate
   end
 
-  def raise_500
-    raise "Someone called /raise_500! OMG!"
-  end
-
 end

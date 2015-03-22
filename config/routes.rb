@@ -50,9 +50,5 @@ Redstoner::Application.routes.draw do
   get  'signup' => 'users#new'
   get  '/dmca'  => redirect('https://www.youtube.com/watch?v=oHg5SJYRHA0')
 
-  post 'raise_500' => 'statics#raise_500'
-
-  # post 'paypal' => 'paypal#create'
-
   root to: 'statics#index'
 end
