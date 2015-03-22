@@ -1,38 +1,24 @@
-require "bundler/capistrano"
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-server "redstoner", :web, :app, :db, primary: true
+set :repo_url, 'git@bitbucket.org:redstonesheep/redstoner.git'
 
-set :application, "redstoner"
-set :user, "www-data"
-set :deploy_to, "/home/#{user}/apps/#{application}"
-set :deploy_via, :remote_cache
-set :use_sudo, false
+set :scm, :git
 
-set :scm, "git"
-set :repository, "ssh://git@bitbucket.org/redstonesheep/redstoner.git"
-set :branch, "master"
+set :ssh_options, { forward_agent: true }
 
+set :keep_releases, 5
 
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+set :deploy_to, -> { "/home/www-data/apps/#{fetch(:application)}" }
 
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
+set :rbenv_ruby, '2.0.0-p247'
+
+set :bundle_without, %w{development test}.join(' ')
+
+# Default value for linked_dirs is []
+set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
 namespace :deploy do
-  %w[start stop restart].each do |command|
-    desc "#{command} unicorn server"
-    task command, roles: :app, except: {no_release: true} do
-      run "/etc/init.d/unicorn_#{application} #{command}"
-    end
-  end
-
-  task :setup_config, roles: :app do
-    puts "Please run as root: 'ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}'"
-    puts "Please run as root: 'ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}'"
-    run "mkdir -p #{shared_path}/config"
-  end
-  after "deploy:setup", "deploy:setup_config"
-
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
     unless `git rev-parse HEAD` == `git rev-parse origin/master`
@@ -42,4 +28,6 @@ namespace :deploy do
     end
   end
   before "deploy", "deploy:check_revision"
+
+  after :publishing, :restart
 end
