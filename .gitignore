@@ -10,5 +10,4 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-*.sublime-workspace
-*.sublime-project
+*.sublime-*

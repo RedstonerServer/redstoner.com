@@ -936,9 +936,18 @@ img {
 
   .note {
     color: #888;
-    font-size: 12px;
-    font-style: italic;
     margin-top: 5em;
+
+    a {
+      color: inherit;
+      &:hover {
+        color: #555;
+      }
+    }
+
+    * {
+      vertical-align: middle;
+    }
   }
 }
 
