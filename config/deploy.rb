@@ -7,6 +7,10 @@ set :scm, :git
 
 set :ssh_options, { forward_agent: true }
 
+set :default_environment, {
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
+
 set :keep_releases, 5
 
 set :deploy_to, -> { "/home/www-data/apps/#{fetch(:application)}" }
