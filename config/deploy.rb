@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :repo_url, 'git@bitbucket.org:redstonesheep/redstoner.git'
+set :repo_url, 'git@github.com:RedstonerServer/redstoner.com.git'
 
 set :scm, :git
 
