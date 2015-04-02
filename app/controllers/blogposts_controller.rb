@@ -10,18 +10,6 @@ class BlogpostsController < ApplicationController
   def show
     @comment = Comment.new(blogpost: @post)
     @comments = @post.comments.page(params[:page])
-    @comments = @comments.select do |c|
-      # shadowban april fool comments
-      if c.author.is?(current_user) || !["april", "hoax", "fool", "troll", "joke", "prank", "legit"].any? { |word| c.content.downcase.include? word }
-        true
-      elsif current_user && current_user.mod?
-        c.content = "[HIDDEN] " + c.content
-        true
-      else
-        false
-      end
-    end
-    @comments = Kaminari.paginate_array(@comments).page(params[:page]).per(25)
   end
 
   def new

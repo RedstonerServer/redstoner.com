@@ -20,7 +20,7 @@
   </div>
 </div>
 <div id="comments">
-  <h3><%= "#{pluralize(@comments.size, 'comment')}." %></h3>
+  <h3><%= "#{pluralize(@post.comments.size, 'comment')}." %></h3>
   <% @comments.each do |c| %>
     <%= render "comments/comment", c: c %>
   <% end %>
