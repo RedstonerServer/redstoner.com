@@ -2,12 +2,6 @@
 
 <h1>Sign up</h1>
 
-<p>
-  Please note that email address and token are case-sensitive!<br>
-  When you entered an invalid token, it is removed for the used email address to give hackers no chance. This info page has some details about <a href="/info/15">tokens and website registration</a>.<br>
-  Contact us ingame when you have problems singing up!
-</p>
-
 <%= form_for @user do |f| %>
   <table>
     <tr>
@@ -15,21 +9,22 @@
       <td><%= f.text_field :ign, placeholder: "Steve", pattern: "[a-zA-Z0-9_]{2,16}", required: true, title: "Your IGN" %></td>
     </tr>
     <tr>
-      <td><%= f.label :email, "Email" %></td>
+      <td><%= f.label :email, "Email (case sensitive)" %></td>
       <td><%= f.email_field :email, placeholder: "steve@example.com", required: true, pattern: ".+@.+", title: "enter valid email address", "x-moz-errormessage" => "enter valid email address" %></td>
     </tr>
     <tr>
-      <td><%= f.label :registration_token, "Token" %></td>
+      <td><%= f.label :registration_token, "Token (case sensitive)" %></td>
       <td>
         <%= text_field_tag :registration_token, nil, placeholder: "abcdef", required: true, pattern: "[a-z]{6}", title: "6 character token", "x-moz-errormessage" => "6 character token" %><br>
-        To get your <i>token</i>, join the Minecraft server (redstoner.com) and <b>use the <mark>/token</mark> command</b>.
+        To get your <i>token</i>, join the Minecraft server (redstoner.com) and <b>use the <code>/token</code> command</b>.
       </td>
     </tr>
     <tr>
       <td><%= f.label :password, "Password" %></td>
       <td>
         <%= f.password_field :password, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %><br>
-        Choose a <b>strong</b> password which you are <b>not using anywhere else</b>!
+        Choose a <b>strong</b> password which you are <b>not using anywhere else</b>!<br>
+        <mark>Do <b>not</b> use your Minecraft password!</mark>
       </td>
     </tr>
     <tr>
@@ -37,5 +32,13 @@
       <td><%= f.password_field :password_confirmation, placeholder: "secret", required: true, pattern: ".{8,}", title: "minimum 8 characters", "x-moz-errormessage" => "minimum 8 characters" %></td>
     </tr>
   </table>
+
+  <p>
+    If you have entered an invalid token you have to generate a new token. This is done to give hackers no chance to brute-force your token<br>
+    You can find more details in our info page about <a href="/info/15">tokens and website registration</a>.
+  </p>
+
   <%= f.submit "Sign up", class: "btn blue" %>
+
+  <p>Contact us ingame if you have problems singing up!</p>
 <% end %>
