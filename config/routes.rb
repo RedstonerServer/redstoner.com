@@ -46,7 +46,7 @@ Redstoner::Application.routes.draw do
   post 'login'  => 'sessions#create'
   get  'become' => 'sessions#become'
   get  'revert' => 'sessions#revert'
-  get  'logout' => 'sessions#destroy'
+  delete  'logout' => 'sessions#destroy'
   get  'signup' => 'users#new'
   get  '/dmca'  => redirect('https://www.youtube.com/watch?v=oHg5SJYRHA0')
 

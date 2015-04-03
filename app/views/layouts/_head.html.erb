@@ -33,7 +33,7 @@
       <% if current_user %>
         <span id="userinfo-box">
           <%= link_to current_user.name, current_user %><br/>
-          <%= link_to "Logout", logout_path %>
+          <%= link_to "Logout", logout_path, method: :delete %>
         </span>
         <%= link_to current_user.avatar(32), current_user %>
       <% else %>
