@@ -876,6 +876,10 @@ tr.spacer {
     float: left;
     margin-right: 20px;
   }
+
+  input[name="custom"] {
+    width: auto;
+  }
 }
 
 .bold {
