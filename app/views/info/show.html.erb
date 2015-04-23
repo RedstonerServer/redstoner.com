@@ -4,6 +4,7 @@
 <% end %>
 <div class="clear"></div>
 <h1 class="info-title"><%= title @info.title %></h1>
+<small>Last edited <%= ago @info.updated_at %>.</small>
 
 <div class="post">
   <%= render_trusted_md(@info.content).html_safe %>
