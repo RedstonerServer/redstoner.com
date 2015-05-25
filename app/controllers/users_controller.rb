@@ -10,6 +10,8 @@ class UsersController < ApplicationController
     if params[:role]
       if params[:role].downcase == "staff"
         @users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
+      elsif params[:role].downcase == "donor"
+        @users = User.joins(:role).where(donor: true)
       else
         if role = Role.get(params[:role])
           @users = User.joins(:role).where(role: role)
