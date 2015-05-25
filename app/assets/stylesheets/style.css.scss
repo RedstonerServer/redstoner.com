@@ -875,6 +875,8 @@ tr.spacer {
   img.body {
     float: left;
     margin-right: 20px;
+    -webkit-filter: drop-shadow(0 5px 5px #888);
+    filter: drop-shadow(0 5px 5px #888);
   }
 
   input[name="custom"] {
