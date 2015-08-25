@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423221613) do
+ActiveRecord::Schema.define(version: 20150825232749) do
 
   create_table "blogposts", force: true do |t|
     t.string   "title"
@@ -82,6 +82,9 @@ ActiveRecord::Schema.define(version: 20150423221613) do
     t.string "email",            null: false
   end
 
+  add_index "register_tokens", ["email"], name: "index_register_tokens_on_email", unique: true, using: :btree
+  add_index "register_tokens", ["uuid"], name: "index_register_tokens_on_uuid", unique: true, using: :btree
+
   create_table "roles", force: true do |t|
     t.string  "name"
     t.integer "value"
@@ -133,5 +136,13 @@ ActiveRecord::Schema.define(version: 20150423221613) do
     t.boolean  "mail_other_blogpost_comment", default: true
     t.boolean  "mail_mention",                default: true
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["ign"], name: "index_users_on_ign", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+  add_index "users", ["skype"], name: "index_users_on_skype", unique: true, using: :btree
+  add_index "users", ["twitter"], name: "index_users_on_twitter", unique: true, using: :btree
+  add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
+  add_index "users", ["youtube"], name: "index_users_on_youtube", unique: true, using: :btree
 
 end

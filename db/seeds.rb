@@ -32,9 +32,9 @@ deleted_user = User.create!(
 deleted_user.update_attribute(:ign, "Steve")
 
 User.create!(
-  uuid: "9ff3d74f716940a3aa6f262ab632d2",
+  uuid: "ae795aa86327408e92ab25c8a59f3ba1",
   ign: "jomo",
-  email: "theredstonesheep@gmail.com",
+  email: "jomo@example.com",
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
   role: Role.get(:superadmin)
