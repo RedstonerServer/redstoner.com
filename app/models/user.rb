@@ -2,9 +2,9 @@ class User < ActiveRecord::Base
   include UsersHelper
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
+  strip_attributes
 
   belongs_to :role
-
 
   has_secure_password
 
