@@ -468,7 +468,8 @@ blockquote p {
     }
 
     .editor_field {
-      padding-top: 4em;
+      padding: 0 1em 1em;
+      border-top: 4em solid transparent;
       min-height: 5em;
       margin: 0;
     }
