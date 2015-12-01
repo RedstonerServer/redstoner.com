@@ -15,8 +15,8 @@
       Twitter <%= image_tag("twitter.png") %>
     <% end %>
     <% if current_user %>
-      | <%= link_to "http://slack-redstoner-public.herokuapp.com/?" + {mail: current_user.try(:email)}.to_param do %>
-        Join us on <img src="http://slack-redstoner-public.herokuapp.com/badge.svg" alt="Slack">
+      | <%= link_to "http://slack.redstoner.com/?" + {mail: current_user.try(:email)}.to_param do %>
+        Join us on <img src="http://slack.redstoner.com/badge.svg" alt="Slack">
       <% end %>
     <% end %>
   </div>
