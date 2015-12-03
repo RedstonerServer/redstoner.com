@@ -5,4 +5,5 @@
 # (create the session table with "rails generate session_migration")
 Redstoner::Application.config.session_store :active_record_store,
   key: 'redstoner_session',
-  expire_after: 5.days
+  expire_after: 5.days,
+  secure: Rails.env.production?
