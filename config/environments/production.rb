@@ -67,7 +67,6 @@ Redstoner::Application.configure do
 
   config.action_mailer.default_url_options = {
     host: 'redstoner.com',
-    port: 80,
     protocol: 'https'
   }
 
