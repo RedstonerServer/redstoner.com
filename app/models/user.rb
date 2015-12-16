@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :password_confirmation, :email_token, on: :create
   validates_presence_of :name, :email, :ign
 
-  validates_length_of :password, in: 8..256, on: [:create, :update], allow_nil: true
+  validates_length_of :password, in: 8..72, on: [:create, :update], allow_nil: true
   validates_length_of :name, in: 2..30
   validates_length_of :about, maximum: 5000
   validates_length_of :ign, minimum: 1, maximum: 16

@@ -10,7 +10,7 @@ Role.create!([
   {name: "superadmin", value: 500, color: "#d22"}
 ])
 
-userpw = SecureRandom.hex(64)
+userpw = SecureRandom.hex(36)
 
 
 # fallback profile for deleted users
