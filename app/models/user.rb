@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     options[:width]  ||= size
     options[:height] ||= size
     options[:alt]    ||= "avatar"
-    return image_tag("https://crafatar.com/avatars/#{CGI.escape(self.uuid)}?size=#{size}&helm", options)
+    return image_tag("https://crafatar.com/avatars/#{CGI.escape(self.uuid)}?size=#{size}&overlay", options)
   end
 
   def to_s
