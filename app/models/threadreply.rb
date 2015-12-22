@@ -34,7 +34,7 @@ class Threadreply < ActiveRecord::Base
   end
 
   def send_new_reply_mail(old_content = "")
-    userids = new_mentions = mentions(content) - mentions(old_content)
+    users = mentions(content) - mentions(old_content)
 
     # thread + replies
     posts = thread.replies.to_a
@@ -44,17 +44,17 @@ class Threadreply < ActiveRecord::Base
       posts.each do |post|
         # don't send mail to the author of this reply, don't send to banned/disabled users
         if post.author != author && post.author.normal? && post.author.confirmed? # &&
-          userids << post.author.id if post.author.mail_other_thread_reply?
+          users << post.author if post.author.mail_other_thread_reply?
         end
       end
     end
     # making sure we don't send multiple mails to the same user
-    userids.uniq!
+    users.uniq!
 
     mails = []
-    userids.each do |uid|
+    users.each do |usr|
       begin
-        mails << RedstonerMailer.new_thread_reply_mail(User.find(uid), self)
+        mails << RedstonerMailer.new_thread_reply_mail(usr, self)
       rescue => e
         Rails.logger.error "---"
         Rails.logger.error "WARNING: Failed to create new_thread_reply_mail (view) for reply#: #{@self.id}, user: #{@user.name}, #{@user.email}"

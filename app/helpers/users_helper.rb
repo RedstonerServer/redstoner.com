@@ -8,7 +8,7 @@ require "open-uri"
       user = User.find_by_ign(w[1..-1])
       users << user if user && user.normal? && user.confirmed? && user.mail_mention?
     end
-    users
+    users.uniq
   end
 
   def get_youtube(yt_name)
