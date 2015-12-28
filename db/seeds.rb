@@ -5,6 +5,8 @@ Role.create!([
   {name: "disabled", value: 1, color: "#ccc"},
   {name: "banned", value: 2, color: "#ccc"},
   {name: "normal", value: 10, color: "#282"},
+  {name: "trainingmod", value: 40, color: "#fa5"},
+  {name: "developer", value: 70, color: "#a0a"},
   {name: "mod", value: 100, color: "#6af"},
   {name: "admin", value: 200, color: "#d22"},
   {name: "superadmin", value: 500, color: "#d22"}

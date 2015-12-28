@@ -61,6 +61,14 @@ class User < ActiveRecord::Base
     !!(self.role >= :normal)
   end
 
+  def trainingmod?
+    !!(self.role >= :trainingmod)
+  end
+
+  def developer?
+    !!(self.role >= :developer)
+  end
+
   def mod?
     !!(self.role >= :mod)
   end
