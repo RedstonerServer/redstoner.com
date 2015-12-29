@@ -35,6 +35,18 @@ class User < ActiveRecord::Base
     !!self.donor
   end
 
+  def developer?
+    !!self.developer
+  end
+
+  def trainingmod?
+    !!self.trainingmod
+  end
+
+  def lead_mod?
+    !!self.lead_mod
+  end
+
   def confirmed?
     !!self.confirmed
   end
@@ -59,14 +71,6 @@ class User < ActiveRecord::Base
 
   def normal?
     !!(self.role >= :normal)
-  end
-
-  def trainingmod?
-    !!(self.role >= :trainingmod)
-  end
-
-  def developer?
-    !!(self.role >= :developer)
   end
 
   def mod?
