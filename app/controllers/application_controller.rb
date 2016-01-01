@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
   helper_method :admin?
   helper_method :superadmin?
   helper_method :donor?
+  helper_method :developer?
+  helper_method :trainingmod?
+  helper_method :lead_mod?
   helper_method :confirmed?
 
 
@@ -69,6 +72,18 @@ class ApplicationController < ActionController::Base
 
   def donor?
     !!(current_user && current_user.donor?)
+  end
+
+  def developer?
+    !!(current_user && current_user.developer?)
+  end
+
+  def trainingmod?
+    !!(current_user && current_user.trainingmod?)
+  end
+
+  def lead_mod?
+    !!(current_user && current_user.lead_mod?)
   end
 
   def confirmed?
