@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     !!self.donor
   end
 
+  def retired?
+    !!self.retired
+  end
+
   def developer?
     !!self.developer
   end

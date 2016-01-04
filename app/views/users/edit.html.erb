@@ -39,6 +39,12 @@
             <%= f.select :donor, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
         </tr>
+        <tr>
+          <td>Retired</td>
+          <td>
+            <%= f.select :retired, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          </td>
+        </tr>
       <% end %>
       <% if admin? %>
         <tr>
