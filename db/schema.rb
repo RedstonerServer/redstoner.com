@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826002927) do
+ActiveRecord::Schema.define(version: 20150825232749) do
 
   create_table "blogposts", force: true do |t|
     t.string   "title"
@@ -124,6 +124,10 @@ ActiveRecord::Schema.define(version: 20150826002927) do
     t.string   "youtube_channelname"
     t.string   "twitter"
     t.boolean  "donor",                       default: false
+    t.boolean  "mit",                         default: false
+    t.boolean  "retired",                     default: false
+    t.boolean  "dev",                         default: false
+    t.boolean  "lead",                        default: false
     t.string   "email_token"
     t.boolean  "confirmed",                   default: false
     t.datetime "last_seen"

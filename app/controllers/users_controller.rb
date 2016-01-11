@@ -12,6 +12,14 @@ class UsersController < ApplicationController
         @users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
       elsif params[:role].downcase == "donor"
         @users = User.joins(:role).where(donor: true)
+      elsif params[:role].downcase == "retired"
+        @users = User.joins(:role).where(retired: true)
+      elsif params[:role].downcase == "mit"
+        @users = User.joins(:role).where(mit: true)
+      elsif params[:role].downcase == "dev"
+        @users = User.joins(:role).where(dev: true)
+      elsif params[:role].downcase == "lead"
+        @users = User.joins(:role).where(lead: true)
       else
         if role = Role.get(params[:role])
           @users = User.joins(:role).where(role: role)
@@ -140,7 +148,7 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor, :retired, :dev, :mit, :lead])
       else
         userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about])
       end

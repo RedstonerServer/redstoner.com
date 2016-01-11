@@ -12,7 +12,6 @@ Role.create!([
 
 userpw = SecureRandom.hex(36)
 
-
 # fallback profile for deleted users
 deleted_user = User.create!(
   uuid: "8667ba71b85a4004af54457a9734eed7",
