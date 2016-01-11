@@ -14,6 +14,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string     :youtube_channelname
       t.string     :twitter
       t.boolean    :donor, default: false
+      t.boolean    :retired, default: false
+      t.boolean    :mit, default: false
+      t.boolean    :dev, default: false
+      t.boolean    :lead, default: false
       t.string     :email_token
       t.boolean    :confirmed, default: false
       t.datetime   :last_seen

@@ -21,8 +21,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[[0-9a-f:.]+\])\z/i, message: "That doesn't look like an email address."}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "Username is invalid (a-z, 0-9, _)."}
 
-  validate :account_exists?, :if => lambda {|user| user.ign_changed? }
-
   has_many :blogposts
   has_many :comments
 
@@ -33,6 +31,22 @@ class User < ActiveRecord::Base
 
   def donor?
     !!self.donor
+  end
+
+  def retired?
+    !!self.retired
+  end
+
+  def dev?
+    !!self.dev
+  end
+
+  def mit?
+    !!self.mit
+  end
+
+  def lead?
+    !!self.lead
   end
 
   def confirmed?
@@ -113,32 +127,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # def haspaid?
-  #   begin
-  #     response = open("https://sessionserver.mojang.com/session/minecraft/profile/#{CGI.escape(self.uuid)}", read_timeout: 0.5)
-  #     if response.status[0] == "200"
-  #       session_profile = JSON.load(response.read)
-  #       # unpaid accounts are called 'demo' accounts
-  #       return session_profile["demo"] == true
-  #     elsif response.status[0] == "204"
-  #       # user doesn't exist
-  #       return false
-  #     else
-  #       Rails.logger.error "---"
-  #       Rails.logger.error "ERROR: unexpected response code while checking '#{self.uuid}' for premium account"
-  #       Rails.logger.error "code: #{reponse.status}, body: '#{reponse.read}'"
-  #       Rails.logger.error "---"
-  #     end
-  #   rescue => e
-  #     Rails.logger.error "---"
-  #     Rails.logger.error "ERROR: failed to check for premium account for '#{self.uuid}'. Minecraft servers down?"
-  #     Rails.logger.error e.message
-  #     Rails.logger.error "---"
-  #   end
-  #   # mojang servers have trouble
-  #   return true
-  # end
-
   # def correct_case?(ign)
   #   begin
   #     http = Net::HTTP.start("skins.minecraft.net")
@@ -202,13 +190,6 @@ class User < ActiveRecord::Base
 
   def set_name
     self.name ||= self.ign
-  end
-
-  def account_exists?
-    profile = self.get_profile
-    if !profile || profile["demo"] == true
-      errors.add(:ign, "'#{self.ign}' is not a paid account!")
-    end
   end
 
   def strip_whitespaces

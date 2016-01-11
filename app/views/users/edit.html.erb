@@ -39,6 +39,33 @@
             <%= f.select :donor, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
         </tr>
+        <tr>
+          <td>Retired</td>
+          <td>
+            <%= f.select :retired, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          </td>
+        </tr>
+      <% end %>
+      <% if admin? %>
+        <tr>
+          <td>Developer</td>
+          <td>
+            <%= f.select :dev, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          </td>
+        </tr>
+        <tr>
+          <td>Mod In Training</td>
+          <td>
+            <%= f.select :mit, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          </td>
+        </tr>
+        <tr>
+          <td>Lead Mod</td>
+          <td>
+            <%= f.select :lead, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          </td>
+        </tr>
+        
       <% end %>
       <tr>
         <td>Skype username</td>
