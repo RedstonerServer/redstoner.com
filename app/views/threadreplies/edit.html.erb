@@ -1,6 +1,6 @@
 <% title "Edit Thread Reply: #{@reply.thread.title}" %>
 
-<%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread %> → Edit reply
+<%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread, @reply.thread %> → Edit reply
 <h1>Edit reply</h1>
 <%= form_for [@reply.thread, @reply] do |f| %>
   <%= render partial: "md_editor", locals: {name: "threadreply[content]", content: @reply.content} %>
