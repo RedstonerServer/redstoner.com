@@ -12,7 +12,6 @@ development:
   database: redstoner-web
   username: root
 
-
 production:
   <<: *default
   # please set ENV["DATABASE_URL"]

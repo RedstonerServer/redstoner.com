@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 gem 'jquery-rails'
+gem 'bcrypt'
 gem 'bcrypt-ruby' # To use ActiveModel's has_secure_password
 gem 'sanitize'
 gem 'strip_attributes'
@@ -15,6 +16,8 @@ gem 'activerecord-session_store'
 gem 'highlight_js-rails', github: 'RedstonerServer/highlight_js-rails'
 gem 'kaminari', github: 'jomo/kaminari', branch: 'patch-2' # pagination
 gem 'jquery-textcomplete-rails', github: 'RedstonerServer/jquery-textcomplete-rails' # @mentions
+gem 'coffee-script-source', '1.8.0'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,4 +39,6 @@ group :development do
 end
 
 # Use unicorn as the app server
-gem 'unicorn'
+group :production do
+  # gem 'unicorn'
+end
