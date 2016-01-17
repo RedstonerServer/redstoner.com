@@ -38,7 +38,7 @@ class Forumthread < ActiveRecord::Base
   def can_read?(user)
     # we might have threads without a forum
     # e.g. forum deleted
-    forum && forum.can_read?(user) || (forum.can_write?(user) && self.sticky?) || author == user
+    forum && (forum.can_read?(user) || (forum.can_write?(user)) && self.sticky?) || author == user
   end
 
   def can_write?(user)
