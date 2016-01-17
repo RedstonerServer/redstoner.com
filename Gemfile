@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0'
+gem 'rails', github: 'rails/rails', branch: '4-2-stable'
 
 gem 'mysql2'
 gem 'jquery-rails'
-gem 'bcrypt-ruby' # To use ActiveModel's has_secure_password
+gem 'bcrypt' # To use ActiveModel's has_secure_password
 gem 'sanitize'
 gem 'strip_attributes'
 gem 'redcarpet', '~> 3.2.3'
@@ -20,7 +20,6 @@ gem 'jquery-textcomplete-rails', github: 'RedstonerServer/jquery-textcomplete-ra
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
-  gem 'coffee-rails'
   gem 'uglifier'
 end
 
@@ -33,7 +32,15 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.2'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.1.3'
+  # windows timezone foo
+  gem 'tzinfo-data', platforms: [:mingw, :mswin]
 end
 
-# Use unicorn as the app server
-gem 'unicorn'
+group :test do
+  gem 'sqlite3'
+end
+
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
+end

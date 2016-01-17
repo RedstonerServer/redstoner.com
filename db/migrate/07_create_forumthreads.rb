@@ -11,7 +11,7 @@ class CreateForumthreads < ActiveRecord::Migration
 
       t.references :forum
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

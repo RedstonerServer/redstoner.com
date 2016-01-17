@@ -7,7 +7,7 @@ class CreateThreadreplies < ActiveRecord::Migration
       t.references :user_editor
       t.references :forumthread
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

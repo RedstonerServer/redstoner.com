@@ -20,7 +20,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.references :role, null: false, default: Role.get(:normal)
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

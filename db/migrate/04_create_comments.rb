@@ -7,7 +7,7 @@ class CreateComments < ActiveRecord::Migration
       t.references :user_editor
       t.references :blogpost
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

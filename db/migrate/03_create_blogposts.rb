@@ -7,7 +7,7 @@ class CreateBlogposts < ActiveRecord::Migration
       t.references :user_author
       t.references :user_editor
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

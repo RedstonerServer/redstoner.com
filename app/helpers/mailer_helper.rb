@@ -4,7 +4,7 @@ module MailerHelper
       begin
         mails.each do |mail|
           begin
-            mail.deliver
+            mail.deliver_now
           rescue => e
             Rails.logger.error "---"
             Rails.logger.error "WARNING: '#{mail.try(:subject)}' failed for recipient #{mail.try(:to)}"

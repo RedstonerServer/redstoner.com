@@ -108,8 +108,8 @@ class UsersController < ApplicationController
             end
             begin
               # these shouldn't be send in the background
-              RedstonerMailer.register_mail(@user, is_idiot).deliver
-              RedstonerMailer.register_info_mail(@user, is_idiot).deliver
+              RedstonerMailer.register_mail(@user, is_idiot).deliver_now
+              RedstonerMailer.register_info_mail(@user, is_idiot).deliver_now
             rescue => e
               Rails.logger.error "---"
               Rails.logger.error "WARNING: registration mail failed for user #{@user.try(:name)}, #{@user.try(:email)}"
