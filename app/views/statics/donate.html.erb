@@ -23,38 +23,24 @@
 <hr>
 <div class="donations">
   <div class="donation">
-    <img src="https://crafatar.com/renders/body/ae795aa86327408e92ab25c8a59f3ba1?scale=3&amp;overlay" alt="jomo's skin" class="body">
-    <h1>Donate to jomo</h1>
-    <h4>jomo is our admin. He solves problems &amp; keeps the server running.</h4>
-
-    <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
-      <% if current_user %>
-        <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
-      <% else %>
-        <input name="custom" type="text" placeholder="Your Minecraft name">
-      <% end %>
-      <input value="_s-xclick" name="cmd" type="hidden">
-      <input value="HPWLQLL87GTHC" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
-    </form>
-    <div class="clear"></div>
-  </div>
-  <div class="donation">
-    <img src="https://crafatar.com/renders/body/51f2ad3c6cc840eaaa2bf25970316921?scale=3&amp;overlay" alt="Dico's skin" class="body">
-    <h1>Donate to Dico</h1>
-    <h4>Dico spends a lot of his time developing custom features for the server.</h4>
-
-    <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
-      <% if current_user %>
-        <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
-      <% else %>
-        <input name="custom" type="text" placeholder="Your Minecraft name">
-      <% end %>
-      <input value="_s-xclick" name="cmd" type="hidden">
-      <input value="UVUF9SJRWYU4C" name="hosted_button_id" type="hidden">
-      <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
-    </form>
-    <div class="clear"></div>
+    <div class="left">
+      <img src="<%= image_url("anonymous_skin.png") %>" alt="sponsor's skin" class="body">
+    </div>
+    <div>
+      <h1>Donate to our server sponsor</h1>
+      <h4>They pay for our server, but prefer to stay anonymous</h4>
+      <form target="_blank" method="post" action="https://www.paypal.com/cgi-bin/webscr">
+        <% if current_user %>
+          <input name="custom" type="hidden" placeholder="Your Minecraft name" value="<%= current_user.ign %>">
+        <% else %>
+          <input name="custom" type="text" placeholder="Your Minecraft name">
+        <% end %>
+        <input value="_s-xclick" name="cmd" type="hidden">
+        <input value="NWNLH88XR3TM4" name="hosted_button_id" type="hidden">
+        <input value="Donate" name="Donate" type="submit" class="btn dark donate paypal">
+      </form>
+      <div class="clear"></div>
+    </div>
   </div>
 </div>
 <hr>
