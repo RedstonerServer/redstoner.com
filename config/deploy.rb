@@ -15,7 +15,7 @@ set :keep_releases, 5
 
 set :deploy_to, -> { "/home/www-data/apps/#{fetch(:application)}" }
 
-set :rbenv_ruby, '2.0.0-p247'
+set :rbenv_ruby, '2.0.0-p648'
 
 set :bundle_without, %w{development test}.join(' ')
 
