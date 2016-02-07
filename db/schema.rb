@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150825232749) do
 
   create_table "blogposts", force: :cascade do |t|
-    t.string   "title",          limit: 255
+    t.string   "title"
     t.text     "content",        limit: 65535
     t.integer  "user_author_id", limit: 4
     t.integer  "user_editor_id", limit: 4
@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20150825232749) do
   end
 
   create_table "forumgroups", force: :cascade do |t|
-    t.string  "name",          limit: 255
+    t.string  "name"
     t.integer "position",      limit: 4
     t.integer "role_read_id",  limit: 4
     t.integer "role_write_id", limit: 4
   end
 
   create_table "forums", force: :cascade do |t|
-    t.string  "name",          limit: 255
+    t.string  "name"
     t.integer "position",      limit: 4
     t.integer "role_read_id",  limit: 4
     t.integer "role_write_id", limit: 4
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20150825232749) do
   end
 
   create_table "forumthreads", force: :cascade do |t|
-    t.string   "title",          limit: 255
+    t.string   "title"
     t.text     "content",        limit: 65535
     t.boolean  "sticky",                       default: false
     t.boolean  "locked",                       default: false
@@ -65,34 +65,34 @@ ActiveRecord::Schema.define(version: 20150825232749) do
   end
 
   create_table "info", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title"
     t.text     "content",    limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "labels", force: :cascade do |t|
-    t.string "name",  limit: 255
-    t.string "color", limit: 255
+    t.string "name"
+    t.string "color"
   end
 
   create_table "register_tokens", force: :cascade do |t|
-    t.string "uuid",  limit: 32,  null: false
-    t.string "token", limit: 6,   null: false
-    t.string "email", limit: 255, null: false
+    t.string "uuid",              null: false
+    t.string "token",             null: false
+    t.string "email",             null: false
   end
 
   add_index "register_tokens", ["email"], name: "index_register_tokens_on_email", unique: true, using: :btree
   add_index "register_tokens", ["uuid"], name: "index_register_tokens_on_uuid", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
-    t.string  "name",  limit: 255
+    t.string  "name"
     t.integer "value", limit: 4
-    t.string  "color", limit: 255
+    t.string  "color"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 255,   null: false
+    t.string   "session_id",               null: false
     t.text     "data",       limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -111,20 +111,20 @@ ActiveRecord::Schema.define(version: 20150825232749) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "uuid",                        limit: 255,                   null: false
-    t.string   "name",                        limit: 255,                   null: false
-    t.string   "password_digest",             limit: 255,                   null: false
-    t.string   "ign",                         limit: 255,                   null: false
-    t.string   "email",                       limit: 255,                   null: false
+    t.string   "uuid",                                                      null: false
+    t.string   "name",                                                      null: false
+    t.string   "password_digest",                                           null: false
+    t.string   "ign",                                                       null: false
+    t.string   "email",                                                     null: false
     t.text     "about",                       limit: 65535
-    t.string   "last_ip",                     limit: 255
-    t.string   "skype",                       limit: 255
+    t.string   "last_ip"
+    t.string   "skype"
     t.boolean  "skype_public",                              default: false
-    t.string   "youtube",                     limit: 255
-    t.string   "youtube_channelname",         limit: 255
-    t.string   "twitter",                     limit: 255
+    t.string   "youtube"
+    t.string   "youtube_channelname"
+    t.string   "twitter"
     t.boolean  "donor",                                     default: false
-    t.string   "email_token",                 limit: 255
+    t.string   "email_token"
     t.boolean  "confirmed",                                 default: false
     t.datetime "last_seen"
     t.integer  "role_id",                     limit: 4,                     null: false
