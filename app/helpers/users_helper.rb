@@ -1,6 +1,7 @@
-module UsersHelper
 require "open-uri"
+require "rexml/document"
 
+module UsersHelper
   def mentions(content)
     users = []
     words = content.scan(/@[a-zA-Z0-9_]{1,16}/)
@@ -11,15 +12,16 @@ require "open-uri"
     users.uniq
   end
 
-  def get_youtube(yt_name)
-    yt = {channel: yt_name}
-    if yt_name.blank?
+  def get_youtube(yt_channel)
+    yt = {channel: yt_channel}
+    if yt_channel.blank?
       yt[:channel] = nil
       yt[:channel_name] = nil
       yt[:is_correct?] = true
     else
       begin
-        yt[:channel_name] = JSON.parse(open("https://gdata.youtube.com/feeds/api/users/#{CGI.escape(yt_name)}?alt=json", :read_timeout => 1).read)["entry"]["title"]["$t"]
+        # TODO: This whole thing needs to be gone badly
+        yt[:channel_name] = REXML::Document.new(open("https://www.youtube.com/feeds/videos.xml?channel_id=#{CGI.escape(yt_channel)}", :read_timeout => 1)).root.elements.find{ |n| n.name == "title" }.text
         yt[:is_correct?] = true
       rescue
         yt[:is_correct?] = false

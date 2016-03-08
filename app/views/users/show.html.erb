@@ -60,7 +60,7 @@
       <% if !@user.youtube.blank? && !@user.youtube_channelname.blank? %>
       <tr>
         <td><b>YouTube</b></td>
-        <td><%= link_to @user.youtube_channelname, "https://youtube.com/user/#{CGI.escape(@user.youtube)}", :target => "_blank" %></td>
+        <td><%= link_to @user.youtube_channelname, "https://youtube.com/channel/#{CGI.escape(@user.youtube)}", :target => "_blank" %></td>
       </tr>
       <% end %>
       <% if !@user.twitter.blank? %>
