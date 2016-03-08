@@ -22,7 +22,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def create
-    @thread = Forumthread.new(mod? ? thread_params([:sticky, :locked, :forum_id]) : thread_params([:forum_id]))
+    @thread = Forumthread.new(mod? ? thread_params([:sticky, :locked, :forum_id, :label_id]) : thread_params([:forum_id, :label_id]))
     if @thread.forum.can_write?(current_user)
       @thread.user_author = current_user
       if @thread.save
