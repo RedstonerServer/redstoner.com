@@ -7,7 +7,9 @@ class SessionsController < ApplicationController
       flash[:alert] = "You are already logged in!"
       redirect_to current_user
     else
-      cookies[:return_path] = params[:return_path] if params[:return_path]
+      if params[:return_path] && params[:return_path][0] == "/"
+        cookies[:return_path] = params[:return_path]
+      end
     end
   end
 
@@ -42,7 +44,14 @@ class SessionsController < ApplicationController
       flash[:alert] = "You are already logged in!"
     end
     if cookies[:return_path]
-      redirect_to cookies[:return_path]
+      begin
+        # might be invalid path
+        URI.parse(cookies[:return_path])
+        redirect_to cookies[:return_path]
+      rescue URI::Error
+        flash[:alert] = "Invalid return path!"
+        redirect_to blogposts_path
+      end
       cookies.delete(:return_path)
     else
       redirect_to blogposts_path

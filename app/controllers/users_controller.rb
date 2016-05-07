@@ -72,7 +72,7 @@ class UsersController < ApplicationController
       end
     else
       flash[:alert] = "Please login first"
-      cookies[:return_path] = request.fullpath
+      cookies[:return_path] = request.env['PATH_INFO']
       redirect_to login_path
     end
   end
