@@ -1,6 +1,11 @@
 <% title "Edit Thread Reply: #{@reply.thread.title}" %>
 
-<%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread, @reply.thread %> → Edit reply
+<%
+  position = @reply.thread.replies.index(@reply)
+  page     = position / Kaminari.config.default_per_page + 1
+%>
+
+<%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread, forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}" %> → Edit reply
 <h1>Edit reply</h1>
 <%= form_for [@reply.thread, @reply] do |f| %>
   <%= render partial: "md_editor", locals: {name: "threadreply[content]", content: @reply.content} %>

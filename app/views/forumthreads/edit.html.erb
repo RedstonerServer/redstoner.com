@@ -12,7 +12,7 @@
 %>
 
 <h1>Edit thread</h1>
-<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> →  New thread
+<%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread, @thread %> → Edit thread
 <%= form_for @thread do |f|%>
   <table>
     <% if mod? %>
