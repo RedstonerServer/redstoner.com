@@ -96,7 +96,7 @@ class UsersController < ApplicationController
         @user.ign  = user_profile["name"] # correct case
 
         if validate_token(@user.uuid, @user.email, params[:registration_token])
-          destroy_token(@user.email) # tokens can be used to reset password
+          destroy_token(params[:email])
           @user.last_ip = request.remote_ip # showing in mail
           if @user.save
             session[:user_id] = @user.id
@@ -125,12 +125,13 @@ class UsersController < ApplicationController
           end
           @user.email_token = SecureRandom.hex(16)
         else
+          destroy_token(params[:email])
           flash[:alert] = "Token invalid for this username/email. Please generate a new token!"
-          destroy_token(@user.email) # no chance to brute force
           render action: "new"
         end
       else
-        flash[:alert] = "Error. Your username is not correct or Mojang's servers are down."
+        destroy_token(params[:email])
+        flash[:alert] = "Username is not correct or Mojang's servers are down. Please generate a new token!"
         render action: "new"
         return
       end
@@ -273,22 +274,29 @@ class UsersController < ApplicationController
   end
 
   def reset_password
-    user = User.find_by_email(params[:email])
-    if user && validate_token(user.uuid, user.email, params[:secret_token])
-      destroy_token(user.email) # tokens can be used to reset password
-      user.password              = params[:new_password]
-      user.password_confirmation = params[:new_password]
-      if user.save
-        flash[:notice] = "Password reset"
-        redirect_to login_path
+    if profile = User.new(ign: params[:ign]).get_profile
+      uuid = profile && profile["id"]
+      user = uuid && User.find_by(email: params[:email], uuid: uuid)
+      if user && validate_token(user.uuid, user.email, params[:secret_token])
+        destroy_token(params[:email])
+        user.password              = params[:new_password]
+        user.password_confirmation = params[:new_password]
+        if user.save
+          flash[:notice] = "Password has been reset"
+          redirect_to login_path
+          return
+        else
+          flash[:alert] = "Failed to update password. Please generate a new token!"
+        end
       else
-        flash[:alert] = "Failed to update password, please generate a new Token!"
-        render action: "lost_password"
+        destroy_token(params[:email])
+        flash[:alert] = "Token or Email address invalid. Please generate a new token!"
       end
     else
-      flash[:alert] = "Token or Email address invalid!"
-      render action: "lost_password"
+      destroy_token(params[:email])
+      flash[:alert] = "Username is not correct or Mojang's servers are down. Please generate a new token!"
     end
+    render action: "lost_password"
   end
 
   def suggestions
@@ -312,9 +320,10 @@ class UsersController < ApplicationController
     user_token && user_token.token == token
   end
 
+  # delete tokens that have been queried, regardless of matching token
+  # prevents brute forcing
   def destroy_token(email)
-    user_token = RegisterToken.where(email: email).first
-    user_token && user_token.destroy
+    RegisterToken.where(email: email).destroy_all
   end
 
   def set_user
