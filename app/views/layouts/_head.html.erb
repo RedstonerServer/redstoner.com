@@ -29,7 +29,7 @@
     </ul>
   </div>
   <div id="userbar">
-    <div id="userinfo" <%= "class=\"logged-out\"".html_safe unless current_user %>>
+    <div id="userinfo" class="<%= "logged-out" unless current_user %>">
       <% if current_user %>
         <span id="userinfo-box">
           <%= link_to current_user.name, current_user %><br/>

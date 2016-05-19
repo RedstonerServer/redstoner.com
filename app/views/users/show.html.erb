@@ -102,5 +102,9 @@
     </tbody>
   </table>
   About:<br>
-  <%= @user.about.blank? ? "<span class=\"no-about\">nothing</span>".html_safe : render_md(@user.about).html_safe %>
+  <% if @user.about.blank? %>
+    <span class="no-about">nothing</span>
+  <% else %>
+    <%= render_md(@user.about).html_safe %>
+  <% end %>
 </div>
