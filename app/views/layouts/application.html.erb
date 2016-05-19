@@ -15,8 +15,12 @@
 <body>
   <%= render partial: "/layouts/head" %>
   <div id="main-content" class="<%= yield(:main_class) %>">
-    <%= "<div class='flash alert'>#{alert}</div>".html_safe if alert %>
-    <%= "<div class='flash notice'>#{notice}</div>".html_safe if notice %>
+    <% if alert %>
+      <div class='flash alert'><%= alert %></div>
+    <% end %>
+    <% if notice %>
+      <div class='flash notice'><%= notice %></div>
+    <% end %>
     <%= yield %>
   </div>
   <%= render partial: "/layouts/footer" %>
