@@ -147,11 +147,11 @@ class UsersController < ApplicationController
       end
       if userdata[:role]
         role = Role.get(userdata[:role])
-        if role <= current_user.role
+        if role && role <= current_user.role
           userdata[:role] = role
         else
           # don't change role
-          userdata.delete[:role]
+          userdata.delete(:role)
         end
       end
       if @user.youtube != userdata[:youtube]
