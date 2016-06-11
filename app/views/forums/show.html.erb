@@ -6,7 +6,13 @@
 <% end %>
 
 <% if @forum.role_read && @forum.role_write && @forum.role_write < @forum.role_read %>
-  <div class="lockednote">This forum is write-only. You can only see your own posts.</div>
+  <div class="lockednote">
+    <% if @forum.role_read > current_user.role %>
+      This forum is write-only. You can only see your own posts.
+    <% else %>
+      This forum is write-only for users ranked under <%= @forum.role_read %>. They can only see their own posts.
+    <% end %>
+  </div>
 <% end %>
 
 <div id="forum_groups">
