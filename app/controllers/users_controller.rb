@@ -138,6 +138,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def resend_mail
+    RedstonerMailer.register_mail(@user, false).deliver_now
+    flash[:notice] = "Check your mail for the confirmation link."
+    redirect_to users_path(@user)
+  end
+
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
