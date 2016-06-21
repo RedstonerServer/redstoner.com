@@ -139,8 +139,12 @@ class UsersController < ApplicationController
   end
 
   def resend_mail
-    RedstonerMailer.register_mail(@user, false).deliver_now
-    flash[:notice] = "Check your inbox for the confirmation mail."
+    if @user.is?(current_user) && !confirmed?
+      RedstonerMailer.register_mail(@user, false).deliver_now
+      flash[:notice] = "Check your inbox for the confirmation mail."
+    else
+      flash[:alert] = "You're not allowed to resend this user's confirmation email"
+    end
     redirect_to user_path(@user)
   end
 
