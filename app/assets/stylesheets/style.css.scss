@@ -654,6 +654,7 @@ tr.spacer {
   font-weight: bold;
   padding: 4px 10px;
   display: inline-block;
+  vertical-align: middle;
   border-radius: 3px;
   margin: 10px 0;
 }
@@ -937,6 +938,10 @@ img {
 .small {
   font-size: 10px;
   color: #888;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 #footer {
