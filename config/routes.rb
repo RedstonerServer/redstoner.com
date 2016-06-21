@@ -18,6 +18,7 @@ Redstoner::Application.routes.draw do
     member do
       get 'confirm'
       get 'edit_login'
+      post 'resend_mail'
       get 'edit_notifications'
       put 'update_login'
     end
