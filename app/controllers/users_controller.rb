@@ -139,7 +139,7 @@ class UsersController < ApplicationController
   end
 
   def resend_mail
-    if (@user.is?(current_user) || mod) && !confirmed?
+    if (@user.is?(current_user) || mod?) && !@user.confirmed?
       RedstonerMailer.register_mail(@user, false).deliver_now
       flash[:notice] = "Check your inbox for the confirmation mail."
     else
