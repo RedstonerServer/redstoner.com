@@ -11,6 +11,10 @@ class ForumthreadsController < ApplicationController
   end
 
   def edit
+    unless mod? || @thread.author.is?(current_user)
+      flash[:alert] = "You are not allowed to edit this thread!"
+      redirect_to @thread
+    end
   end
 
   def new

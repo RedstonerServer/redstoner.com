@@ -16,6 +16,10 @@ class ForumsController < ApplicationController
   end
 
   def edit
+    unless admin?
+      flash[:alert] = "You are not allowed to change a forum"
+      redirect_to forums_path
+    end
   end
 
   def new
