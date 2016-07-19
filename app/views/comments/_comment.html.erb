@@ -6,7 +6,7 @@
       <%= ago c.created_at %>
     <% end %>
 
-    <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c), class: "editlink" if (mod? || c.author.is?(current_user)) %>
+    <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c), class: "editlink" if (mod? && current_user.role >= c.author.role) || c.author.is?(current_user) %>
     <div class="clear-right"></div>
   </div>
   <div class="items">
