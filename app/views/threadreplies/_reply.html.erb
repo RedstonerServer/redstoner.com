@@ -6,7 +6,7 @@
       <%= ago reply.created_at %>
     <% end %>
 
-    <%= link_to "edit", edit_forumthread_threadreply_path(reply.thread, reply), class: "editlink" if (mod? && current_user.role >= reply.author.role) || reply.author.is?(current_user) %>
+    <%= link_to "edit", edit_forumthread_threadreply_path(reply.thread, reply), class: "editlink" if mod? || reply.author.is?(current_user) %>
     <div class="clear-right"></div>
   </div>
   <div class="items">

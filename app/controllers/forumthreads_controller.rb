@@ -11,7 +11,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def edit
-    unless (mod? && current_user.role >= @thread.author.role) || @thread.author.is?(current_user)
+    unless mod? || @thread.author.is?(current_user)
       flash[:alert] = "You are not allowed to edit this thread!"
       redirect_to @thread
     end
@@ -46,7 +46,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def update
-    if (mod? && current_user.role >= @thread.author.role) || @thread.author.is?(current_user)
+    if mod? || @thread.author.is?(current_user)
       @thread.user_editor = current_user
       @thread.attributes = (mod? ? thread_params([:sticky, :locked, :forum_id, :label_id]) : thread_params)
       old_content = @thread.content_was
@@ -64,7 +64,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def destroy
-    if (mod? && current_user.role >= @thread.author.role) || @thread.author.is?(current_user)
+    if mod? || @thread.author.is?(current_user)
       if @thread.destroy
         flash[:notice] = "Thread deleted!"
       else

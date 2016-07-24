@@ -2,7 +2,7 @@ class ThreadrepliesController < ApplicationController
 
   def edit
     @reply = Threadreply.find(params[:id])
-    if (mod? && current_user.role >= @reply.author.role) || @reply.author.is?(current_user)
+    if mod? || @reply.author.is?(current_user)
     else
       flash[:alert] = "You are not allowed to edit this reply"
       redirect_to @reply.thread
@@ -32,7 +32,7 @@ class ThreadrepliesController < ApplicationController
 
   def update
     @reply = Threadreply.find(params[:id])
-    if (mod? && current_user.role >= @reply.author.role) || @reply.author.is?(current_user)
+    if mod? || @reply.author.is?(current_user)
       old_content = @reply.content_was
       if @reply.update_attributes(reply_params)
         @reply.send_new_reply_mail(old_content)
@@ -52,7 +52,7 @@ class ThreadrepliesController < ApplicationController
 
   def destroy
     @reply = Threadreply.find(params[:id])
-    if (mod? && current_user.role >= @reply.author.role) || @reply.author.is?(current_user)
+    if mod? || @reply.author.is?(current_user)
       if @reply.destroy
         flash[:notice] = "Reply deleted!"
       else

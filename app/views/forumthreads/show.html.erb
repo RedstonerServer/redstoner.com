@@ -8,7 +8,7 @@
     <%= link_to p do %>
       <%= ago @thread.created_at %>
     <% end %>
-    <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if (mod? && current_user.role >= @thread.author.role) || @thread.author.is?(current_user) %>
+    <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if mod? || @thread.author.is?(current_user) %>
     <div class="clear-right"></div>
   </div>
   <div class="items">
