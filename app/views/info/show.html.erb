@@ -2,6 +2,7 @@
 <% if mod? %>
   <%= link_to "Edit Info", edit_info_path(@info), class: "btn blue right" %>
 <% end %>
+
 <div class="clear"></div>
 <h1 class="info-title"><%= title @info.title %></h1>
 <small>Last edited <%= ago @info.updated_at %>.</small>

@@ -1,4 +1,6 @@
-<% title @user.name %>
+<div class="title">
+  <% title @user.name %>
+</div>
 
 <div id="user-info">
   <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
@@ -21,7 +23,7 @@
   <% end %>
 
   <% if !@user.confirmed? %>
-    <% if @user.is?(current_user) %>
+    <% if @user.is?(current_user) || mod? %>
       <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
       <%= button_to "Resend the confirmation mail", resend_mail_user_path, class: "btn dark", form_class: "inline-block", data: {confirm: "Did you check your spam folder?"} %>
     <% else %>
