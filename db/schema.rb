@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825232749) do
+ActiveRecord::Schema.define(version: 20160926220738) do
 
   create_table "blogposts", force: :cascade do |t|
     t.string   "title"
@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(version: 20150825232749) do
     t.string "email",             null: false
   end
 
-  add_index "register_tokens", ["email"], name: "index_register_tokens_on_email", unique: true, using: :btree
   add_index "register_tokens", ["uuid"], name: "index_register_tokens_on_uuid", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
