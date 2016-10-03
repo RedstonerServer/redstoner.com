@@ -11,7 +11,7 @@ class Forumthread < ActiveRecord::Base
 
   validates_presence_of :title, :author, :forum
   validates_presence_of :content
-  validates_length_of :content, in: 5..10000
+  validates_length_of :content, in: 5..20000
 
   accepts_nested_attributes_for :threadreplies
 
