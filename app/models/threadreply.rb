@@ -10,7 +10,7 @@ class Threadreply < ActiveRecord::Base
 
 
   validates_presence_of :content
-  validates_length_of :content, in: 2..10000
+  validates_length_of :content, in: 2..20000
 
   def thread
     forumthread
