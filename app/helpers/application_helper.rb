@@ -28,7 +28,6 @@ module ApplicationHelper
       link_attributes: {rel: "nofollow"}
     })
     md = Redcarpet::Markdown.new(renderer, {
-      no_intra_emphasis: true,
       tables: true,
       fenced_code_blocks: true,
       autolink: true,
@@ -53,7 +52,6 @@ module ApplicationHelper
       hard_wrap: true,
     })
     md = Redcarpet::Markdown.new(renderer, {
-      no_intra_emphasis: true,
       tables: true,
       fenced_code_blocks: true,
       autolink: true,

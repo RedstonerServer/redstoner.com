@@ -6,4 +6,4 @@
 Redstoner::Application.config.session_store :active_record_store,
   key: 'redstoner_session',
   expire_after: 5.days,
-  secure: Rails.env.production?
+  secure: nil # see config/initializers/auto_secure_cookies.rb

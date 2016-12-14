@@ -29,8 +29,11 @@ class SessionsController < ApplicationController
           if new_ign.present? && new_ign != user.ign
             user.name = new_ign if user.ign == user.name
             user.ign = new_ign
-            user.save
-            flash[:notice] += " Your name has been changed to #{new_ign}!"
+            if (user.save rescue false)
+              flash[:notice] += " Your name has been changed to #{new_ign}!"
+            else
+              flash[:alert] = "Failed to save your new username #{new_ign}! Please contact admins."
+            end
           end
 
           flash[:alert] = "Remember to validate your email! Your account may be deleted soon!" if !user.confirmed?
