@@ -2,6 +2,7 @@
 
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> →  New forum
 <h1>New Forum</h1>
+
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
 <%= form_for @forum do |f|%>
   <table>

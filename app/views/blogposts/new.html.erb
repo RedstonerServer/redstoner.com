@@ -1,6 +1,7 @@
 <% title "New Blog Post" %>
 
 <h1>New Post</h1>
+
 <%= form_for @post do |f|%>
   <%= f.text_field :title, placeholder: "Title" %>
   <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content} %>

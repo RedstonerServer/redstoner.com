@@ -2,6 +2,7 @@
 
 <h1>News</h1>
 <%= link_to 'Make new Post', new_blogpost_path, class: "btn blue" if mod? %>
+
 <div id="posts">
   <% @posts.each do |p| %>
     <div class="item-group with-avatar" id="post-<%= p.id %>">

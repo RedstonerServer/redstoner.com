@@ -1,4 +1,6 @@
-<% title @user.name %>
+<div class="title">
+  <% title @user.name %>
+</div>
 
 <div id="user-info">
   <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>

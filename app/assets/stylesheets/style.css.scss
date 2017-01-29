@@ -82,6 +82,9 @@ a {
 
 #head {
   background: #3f3f3f;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 
   #menu {
     margin: auto;
@@ -237,7 +240,7 @@ span.no-about {
 }
 
 #main-content {
-  padding: 30px 100px;
+  padding: 130px 100px;
   width: 1600px;
   max-width: 100%;
   margin: auto;
@@ -458,6 +461,8 @@ blockquote p {
 }
 
 .md_editor {
+  z-index: -1;
+
   .field_container {
     position: relative;
 
@@ -465,7 +470,7 @@ blockquote p {
       position: absolute;
       top: 1em;
       left: 1em;
-      z-index: 10;
+      z-index: 0;
     }
 
     .editor_field {
