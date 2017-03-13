@@ -14,4 +14,7 @@ class StaticsController < ApplicationController
   def donate
   end
 
+  def whosplaying
+  end
+
 end
