@@ -151,7 +151,7 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :badge, :confirmed, :donor])
       else
         userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about])
       end
@@ -163,6 +163,9 @@ class UsersController < ApplicationController
           # don't change role
           userdata.delete(:role)
         end
+      end
+      if userdata[:badge]
+        userdata[:badge] = Badge.get(userdata[:badge])
       end
       if @user.youtube != userdata[:youtube]
         youtube = get_youtube(userdata[:youtube])
