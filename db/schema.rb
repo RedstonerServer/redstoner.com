@@ -40,10 +40,11 @@ ActiveRecord::Schema.define(version: 20160926220738) do
 
   create_table "forums", force: :cascade do |t|
     t.string  "name"
-    t.integer "position",      limit: 4
-    t.integer "role_read_id",  limit: 4
-    t.integer "role_write_id", limit: 4
-    t.integer "forumgroup_id", limit: 4
+    t.integer "position",          limit: 4
+    t.integer "role_read_id",      limit: 4
+    t.integer "role_write_id",     limit: 4
+    t.integer "forumgroup_id",     limit: 4
+    t.boolean "necropost_warning", default: true
   end
 
   create_table "forums_labels", id: false, force: :cascade do |t|

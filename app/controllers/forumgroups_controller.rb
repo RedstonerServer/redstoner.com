@@ -73,7 +73,7 @@ class ForumgroupsController < ApplicationController
   private
 
   def group_params(add = [])
-    a = [:name, :position, :role_read_id, :role_write_id] + add
+    a = [:name, :position, :role_read_id, :role_write_id, :necropost_warning] + add
     params.require(:forumgroup).permit(a)
   end
 

@@ -1,5 +1,15 @@
 <h3>New comment</h3>
 <%= form_for [@post, @comment] do |f| %>
   <%= render partial: "md_editor", locals: {name: "comment[content]", content: @comment.content} %>
-  <p><%= f.submit class: "btn blue" %></p>
+  <% nec_msg = "" %>
+  <% if Comment.where(blogpost_id: @post).count != 0 %>
+    <% prevAgo = Comment.where(blogpost_id: @post).order(:id).last.created_at %>
+    <% if prevAgo < 1.month.ago.utc %>
+      <% nec_msg = "You may be necroposting, as the last comment was made over a month ago. If you still wish to make this comment, press 'Ok'." %>
+    <% end %>
+  <% elsif @post.created_at < 1.month.ago.utc %>
+    <% nec_msg = "You may be necroposting, as this blog post was made over a month ago. If you still wish to make this comment, press 'Ok'." %>
+  <% end %>
+  <p><%= f.submit class: "btn blue", data: { confirm: nec_msg } %></p>
+  <% nec_msg = "" %>
 <% end %>

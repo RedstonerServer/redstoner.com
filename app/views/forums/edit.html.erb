@@ -21,6 +21,10 @@
       <td><%= f.label :role_write_id, "Min. write role" %></td>
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
+    <tr>
+      <td><%= f.label :necropost_warning, "Necropost Warning" %></td>
+      <td><%= f.check_box :necropost_warning %></td>
+    </tr>
   </table>
   <p><%= f.submit "Update forum", class: "btn blue left" %></p>
 <% end %>
