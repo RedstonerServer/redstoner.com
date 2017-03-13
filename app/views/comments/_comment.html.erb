@@ -3,9 +3,12 @@
     <%= link_to(c.author.avatar(64), c.author, title: c.author.ign) %>
     <%= render partial: "users/username", locals: { user: c.author } %>
     <%= link_to "#comment-#{c.id}" do %>
-      <%= ago c.created_at %>
+      <% if current_user.utc_time == false %>
+        <%= ago c.created_at %>
+      <% else %>
+        <%= c.created_at %>
+      <% end %>
     <% end %>
-
     <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c), class: "editlink" if mod? || c.author.is?(current_user) %>
     <div class="clear-right"></div>
   </div>
