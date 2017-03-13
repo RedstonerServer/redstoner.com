@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20160926220738) do
     t.boolean  "mail_own_blogpost_comment",                 default: true
     t.boolean  "mail_other_blogpost_comment",               default: true
     t.boolean  "mail_mention",                              default: true
+    t.boolean  "header_scroll",                             default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

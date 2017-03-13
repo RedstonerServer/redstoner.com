@@ -80,7 +80,7 @@ a {
   }
 }
 
-#head {
+#head_top {
   background: #3f3f3f;
 
   #menu {
@@ -181,6 +181,13 @@ a {
   }
 }
 
+#head_scroll {
+  @extend #head_top;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
 .front-page {
   margin: auto;
   text-align: center;
@@ -237,7 +244,7 @@ span.no-about {
 }
 
 #main-content {
-  padding: 30px 100px;
+  padding: 130px 100px;
   width: 1600px;
   max-width: 100%;
   margin: auto;
@@ -439,7 +446,6 @@ blockquote p {
   }
 
   .donor {
-    color: #fff;
     background: #f60 !important;
     margin-left: 2px !important;
   }
@@ -458,6 +464,8 @@ blockquote p {
 }
 
 .md_editor {
+  z-index: -1;
+
   .field_container {
     position: relative;
 
@@ -465,7 +473,7 @@ blockquote p {
       position: absolute;
       top: 1em;
       left: 1em;
-      z-index: 10;
+      z-index: 0;
     }
 
     .editor_field {
