@@ -1,4 +1,5 @@
 <div class="user">
   <%= link_to user.name, user, class: "role #{user.role.name} #{"banned" if user.banned?} #{"disabled" if user.disabled?} #{"unconfirmed" unless user.confirmed?}", title: "#{user.ign} – #{user.role}", style: "color: #{fcolor(user.role.color)}; background-color: #{user.role.color}" %>
+  <%= link_to "L", info_path("5-ranks"), class: "role lead", title: "Lead" if user.lead? %>
   <%= link_to "$", donate_statics_path, class: "role donor", title: "Donator" if user.donor? %>
 </div>
