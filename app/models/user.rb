@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     !!self.donor
   end
 
+  def retired?
+    !!self.retired
+  end
+
   def confirmed?
     !!self.confirmed
   end
@@ -69,10 +73,6 @@ class User < ActiveRecord::Base
 
   def superadmin?
     !!(self.role >= :superadmin)
-  end
-
-  def retired?
-    !!(self.role == :retired)
   end
 
   def avatar(size, options = {})
