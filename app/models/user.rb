@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
     !!(self.role >= :superadmin)
   end
 
+  def retired?
+    !!(self.role == :retired)
+  end
+
   def avatar(size, options = {})
     options[:class]  ||= "avatar"
     options[:width]  ||= size
