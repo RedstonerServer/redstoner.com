@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     !!self.donor
   end
 
+  def lead?
+    !!self.lead
+  end
+
   def confirmed?
     !!self.confirmed
   end
