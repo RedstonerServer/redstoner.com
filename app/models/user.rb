@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     !!self.donor
   end
 
+  def retired?
+    !!self.retired
+  end
+
   def confirmed?
     !!self.confirmed
   end

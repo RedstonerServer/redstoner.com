@@ -37,5 +37,8 @@ User.create!(
   email: "jomo@example.com",
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
+  donor: true,
+  retired: true,
+  confirmed: true,
   role: Role.get(:superadmin)
 )
