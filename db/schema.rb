@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20160926220738) do
     t.string   "youtube_channelname"
     t.string   "twitter"
     t.boolean  "donor",                                     default: false
+    t.boolean  "developer",                                     default: false
     t.string   "email_token"
     t.boolean  "confirmed",                                 default: false
     t.datetime "last_seen"
