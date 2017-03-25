@@ -1,0 +1,20 @@
+<% title "Edit Website Settings: #{@user.name}" %>
+
+<%= link_to @user.name, @user %> → Edit Login credentials
+<h1>Edit Website Settings</h1>
+
+
+<%= form_for @user do |f| %>
+  <table>
+    <tbody>
+      <tr>
+        <td>Show exact UTC times for posts and comments</td>
+        <td>
+          <%= f.select :utc_time, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <div class="clear"></div>
+<% end %>
