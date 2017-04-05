@@ -80,7 +80,7 @@ a {
   }
 }
 
-#head {
+#head_top {
   background: #3f3f3f;
 
   #menu {
@@ -179,6 +179,13 @@ a {
       }
     }
   }
+}
+
+#head_scroll {
+  @extend #head_top;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .front-page {
@@ -437,7 +444,7 @@ blockquote p {
       color: #ddd !important;
     }
   }
-
+  
   .ign {
     display: block;
     color: #000;
@@ -456,6 +463,8 @@ blockquote p {
 }
 
 .md_editor {
+  z-index: -1;
+
   .field_container {
     position: relative;
 
@@ -463,7 +472,7 @@ blockquote p {
       position: absolute;
       top: 1em;
       left: 1em;
-      z-index: 10;
+      z-index: 0;
     }
 
     .editor_field {

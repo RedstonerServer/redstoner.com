@@ -22,6 +22,7 @@ Redstoner::Application.routes.draw do
       post 'resend_mail'
       get 'edit_notifications'
       put 'update_login'
+      get 'edit_website_settings'
     end
     collection do
       get  'lost_password'
