@@ -28,15 +28,17 @@
           </td>
         </tr>
         <tr>
-          <td>Confirmed email address</td>
+          <td>Badge</td>
           <td>
-            <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+            <% if current_user.role >= Role.get(:mod) %>
+              <%= f.select :badge, Badge.all_from(:none) %>
+            <% end %>
           </td>
         </tr>
         <tr>
-          <td>Donator</td>
+          <td>Confirmed email address</td>
           <td>
-            <%= f.select :donor, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+            <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
         </tr>
       <% end %>

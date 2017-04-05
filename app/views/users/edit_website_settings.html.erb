@@ -10,7 +10,13 @@
       <tr>
         <td>Show exact UTC times for posts and comments</td>
         <td>
-          <%= f.select :utc_time, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+          <%= f.check_box :utc_time %>
+        </td>
+      </tr>
+      <tr>
+        <td>Header moves with scrolling</td>
+        <td>
+          <%= f.check_box :header_scroll %>
         </td>
       </tr>
     </tbody>
