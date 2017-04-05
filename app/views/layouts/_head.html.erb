@@ -1,6 +1,8 @@
 <% head = "head_top" %>
-<% if current_user.respond_to? :header_scroll= %>
-  <% head = "head_scroll" %>
+<% if current_user != nil %>
+  <% if current_user.header_scroll == true %>
+    <% head = "head_scroll" %>
+  <% end %>
 <% end %>
 
 <div id="<%= head %>">

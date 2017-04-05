@@ -14,7 +14,13 @@
 </head>
 <body>
   <%= render partial: "/layouts/head" %>
-  <div id="main-content" class="<%= yield(:main_class) %>">
+  <% content = "main-content" %>
+  <% if current_user != nil%>
+    <% if current_user.header_scroll == true %>
+      <% content = "main-content-scroll" %>
+    <% end %>
+  <% end %>
+  <div id="<%=content%>" class="<%=yield(:main_class) %>">
     <% if alert %>
       <div class='flash alert'><%= alert %></div>
     <% end %>

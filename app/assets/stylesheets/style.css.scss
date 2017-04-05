@@ -184,7 +184,7 @@ a {
 #head_scroll {
   @extend #head_top;
   position: fixed;
-  width: 100%;
+  width: 100%; 
   z-index: 1;
 }
 
@@ -265,6 +265,11 @@ span.no-about {
       margin-bottom: 0.6em;
     }
   }
+}
+
+#main-content-scroll {
+  @extend #main-content;
+  padding: 130px 100px;
 }
 
 #user-info {
@@ -463,8 +468,6 @@ blockquote p {
 }
 
 .md_editor {
-  z-index: -1;
-
   .field_container {
     position: relative;
 
@@ -472,7 +475,7 @@ blockquote p {
       position: absolute;
       top: 1em;
       left: 1em;
-      z-index: 0;
+      z-index: 10;
     }
 
     .editor_field {
