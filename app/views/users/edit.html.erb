@@ -28,6 +28,14 @@
           </td>
         </tr>
         <tr>
+          <td>Badge</td>
+          <td>
+            <% if current_user.role >= Role.get(:mod) %>
+              <%= f.select :badge, Badge.all_from(:none) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
           <td>Confirmed email address</td>
           <td>
             <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
