@@ -1,0 +1,32 @@
+<% title "Who's Playing?" %>
+<h1> These players are currently on redstoner.com: </h1>
+<% json = File.read("/etc/minecraft/redstoner/plugins/JavaUtils/players.json") %>
+<% nouserlist = JSON.parse(json)["players"] %>
+<% namelist = Array.new %>
+<% nouserlist.each do |n| %>
+  <% if User.find_by(ign: n["name"] ) != nil %>
+    <% namelist.push n["name"] %>
+    <% nouserlist.delete n %>
+  <% end %>
+<% end %>
+<div id="userlist">
+  <% namelist.sort_by{|p| User.find_by(ign: p).role}.reverse.each do |player| %>
+    <% user = User.find_by(ign: player) %>
+    <div class="list-user">
+      <%= link_to(user.avatar(64), user) %>
+      <div class="detail">
+        <%= render partial: "users/username", locals: { user: user } %><br>
+        <i><%= user.ign %></i>
+      </div>
+    </div>
+  <% end %>
+  <% nouserlist.sort_by{|n| n["name"].downcase}.each do |player| %>
+    <div class="list-user">
+      <a><%= image_tag("https://crafatar.com/avatars/#{CGI.escape(player["uuid"])}?size=64&overlay") %></a>
+      <div class="detail">
+        <%= simple_format player["name"], class: "nouser", title: "#{player["name"]} – No Website Account", style: "color: #D3D3D3; background-color: #A9A9A9" %><br>
+        <i><%= player["name"] %></i>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -444,16 +444,15 @@ blockquote p {
       color: #ddd !important;
     }
   }
-
-  .donor {
-    background: #f60 !important;
-    margin-left: 2px !important;
-  }
-
+  
   .ign {
     display: block;
     color: #000;
     font-style: italic;
+  }
+
+  .badge {
+    margin-left: 2px !important;
   }
 }
 
@@ -745,6 +744,20 @@ tr.spacer {
       display: inline-block;
       vertical-align: middle;
       margin-left: 3px;
+
+      .nouser {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 4px 0.5em;
+        border: 1px solid #3f3f3f;
+        border-radius: 3px;
+        text-shadow: none;
+        line-height: 1em;
+        margin: 1px 0;
+        text-overflow: ellipsis;
+        max-width: 27em;
+      }
     }
   }
 }

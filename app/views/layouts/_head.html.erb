@@ -31,6 +31,9 @@
       <li>
         <%= link_to "Donate", donate_statics_path, class: ("active" if con == "statics" && params[:action] == "donate") %>
       </li>
+      <li>
+        <%= link_to "Who's Playing?", whosplaying_statics_path, class: ("active" if con == "statics" && params[:action] == "whosplaying") %>
+      </li>
     </ul>
   </div>
   <div id="userbar">
