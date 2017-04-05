@@ -15,7 +15,13 @@
         <%= link_to blogposts_path, class: ("active" if con == "blogposts" || con == "comments") do %>
           News
           <% if last_post = Blogpost.last %>
-            <div class="subtitle"><%= ago last_post.created_at %></div>
+            <div class="subtitle">
+              <% if current_user.utc_time == false %>
+                <%= ago last_post.created_at %>
+              <% else %>
+                <%= last_post.created_at %>
+              <% end %>
+            </div>
           <% end %>
         <% end %>
       </li>
