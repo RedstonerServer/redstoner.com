@@ -6,10 +6,10 @@
     <%= link_to(@thread.author.avatar(64), @thread.author, title: @thread.author.ign) %>
     <%= render partial: "users/username", locals: { user: @thread.author } %>
     <%= link_to p do %>
-      <% if current_user.utc_time == false %>
-        <%= ago @thread.created_at %>
-      <% else %>
+      <% if current_user != nil && current_user.utc_time == true %>
         <%= @thread.created_at %>
+      <% else %>
+        <%= ago @thread.created_at %>
       <% end %>
     <% end %>
     <%= link_to "edit", edit_forumthread_path( @thread), class: "editlink" if mod? || @thread.author.is?(current_user) %>
@@ -19,10 +19,10 @@
     <% if @thread.edited? %>
       <div class="item edited">
         Last edited
-        <% if current_user.utc_time == false %>
-          <%= ago @thread.updated_at %>
-        <% else %>
+        <% if current_user != nil && current_user.utc_time == true %>
           at <%= @thread.updated_at %>
+        <% else %>
+          <%= ago @thread.updated_at %>
         <% end %>
         by <%= link_to @thread.editor.name, @thread.editor %>.
       </div>

@@ -18,10 +18,10 @@
           News
           <% if last_post = Blogpost.last %>
             <div class="subtitle">
-              <% if current_user.utc_time == false %>
-                <%= ago last_post.created_at %>
-              <% else %>
+              <% if current_user != nil && current_user.utc_time == true %>
                 <%= last_post.created_at %>
+              <% else %>
+                <%= ago last_post.created_at %>
               <% end %>
             </div>
           <% end %>

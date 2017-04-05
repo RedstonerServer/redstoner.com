@@ -3,10 +3,10 @@
     <%= link_to(reply.author.avatar(64), reply.author, title: reply.author.ign) %>
     <%= render partial: "users/username", locals: { user: reply.author } %>
     <%= link_to "#reply-#{reply.id}" do %>
-      <% if current_user.utc_time == false %>
-        <%= ago reply.created_at %>
-      <% else %>
+      <% if current_user != nil && current_user.utc_time == true %>
         <%= reply.created_at %>
+      <% else %>
+        <%= ago reply.created_at %>
       <% end %>
     <% end %>
 

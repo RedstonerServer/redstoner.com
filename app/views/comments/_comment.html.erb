@@ -3,10 +3,10 @@
     <%= link_to(c.author.avatar(64), c.author, title: c.author.ign) %>
     <%= render partial: "users/username", locals: { user: c.author } %>
     <%= link_to "#comment-#{c.id}" do %>
-      <% if current_user.utc_time == false %>
-        <%= ago c.created_at %>
-      <% else %>
+      <% if current_user != nil && current_user.utc_time == true %>
         <%= c.created_at %>
+      <% else %>
+        <%= ago c.created_at %>
       <% end %>
     <% end %>
     <%= link_to "edit", edit_blogpost_comment_path(c.blogpost, c), class: "editlink" if mod? || c.author.is?(current_user) %>

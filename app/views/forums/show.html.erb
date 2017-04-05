@@ -22,10 +22,10 @@
         <%= link_to(thread.author.avatar(64), thread.author, title: thread.author.ign) %>
         <%= render partial: "users/username", locals: { user: thread.author } %>
         <%= link_to thread do %>
-          <% if current_user.utc_time == false %>
-            <%= ago thread.created_at %>
-          <% else %>
+          <% if current_user != nil && current_user.utc_time == true %>
             <%= thread.created_at %>
+          <% else %>
+            <%= ago thread.created_at %>
           <% end %>
         <% end %>
         <span class="comment-counter">
@@ -44,10 +44,10 @@
                 page     = position / Kaminari.config.default_per_page + 1
               %>
               <%= link_to "replied", forumthread_path(thread, page: page) + "#reply-#{rpl.id}" %>
-              <% if current_user.utc_time == false %>
-                <%= ago rpl.created_at %>.
-              <% else %>
+              <% if current_user != nil && current_user.utc_time == true %>
                 at <%= rpl.created_at %>.
+              <% else %>
+                <%= ago rpl.created_at %>.
               <% end %>
             <% else %>
               No replies yet.

@@ -79,10 +79,10 @@
       <tr>
         <td><b>Joined</b></td>
         <td>
-          <% if current_user.utc_time == false %>
-            <%= ago @user.created_at %>
-          <% else %>
+          <% if current_user != nil && current_user.utc_time == true %>
             <%= @user.created_at %>
+          <% else %>
+            <%= ago @user.created_at %>
           <% end %>
         </td>
       </tr>
@@ -99,10 +99,10 @@
           <td><b>Last seen</b></td>
           <td>
             <% if @user.last_seen %>
-              <% if current_user.utc_time == false %>
-                <%= ago @user.last_seen %>
-              <% else %>
+              <% if current_user != nil && current_user.utc_time == true %>
                 <%= @user.last_seen %>
+              <% else %>
+                <%= ago @user.last_seen %>
               <% end %>
             <% else %>
               Never
