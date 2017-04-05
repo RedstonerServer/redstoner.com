@@ -10,6 +10,14 @@ Role.create!([
   {name: "superadmin", value: 500, color: "#d22"}
 ])
 
+Badge.create!([
+  {name: "none", symbol: "", value: 0, color: "#000"},
+  {name: "donor", symbol: "$", value: 1, color: "#f60"},
+  {name: "developer", symbol: "D", value: 2, color: "#a0a"},
+  {name: "retired", symbol: "R", value: 10, color: "#0aa"},
+  {name: "lead", symbol: "L", value: 100, color: "#a00"}
+])
+
 userpw = SecureRandom.hex(36)
 
 
@@ -23,6 +31,7 @@ deleted_user = User.create!(
   password: userpw,
   password_confirmation: userpw,
   role: Role.get(:disabled),
+  badge: Badge.get(:none),
   skype: "echo123",
   skype_public: true,
   last_ip: "0.0.0.0",
@@ -37,5 +46,47 @@ User.create!(
   email: "jomo@example.com",
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
-  role: Role.get(:superadmin)
+  role: Role.get(:superadmin),
+  badge: Badge.get(:donor),
+  confirmed: true
+)
+User.create!(
+  uuid: "7f52491ab5d64c11b4a43806db47a101",
+  ign: "YummyRedstone",
+  email: "yummy@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:admin),
+  badge: Badge.get(:lead),
+  confirmed: true
+)
+User.create!(
+  uuid: "d2693e9193e14e3f929ff38e1ce8df03",
+  ign: "Pepich1851",
+  email: "pepe@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:superadmin),
+  badge: Badge.get(:retired),
+  confirmed: true
+)
+User.create!(
+  uuid: "c69f8316c60a4f8ca922bda933e01acd",
+  ign: "Doomblah",
+  email: "doom@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:normal),
+  badge: Badge.get(:developer),
+  confirmed: true
+)
+User.create!(
+  uuid: "b85a91b558b0474da2a42d5dd025f9e5",
+  ign: "Futsy",
+  email: "futsy@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:mod),
+  badge: Badge.get(:none),
+  confirmed: true
 )
