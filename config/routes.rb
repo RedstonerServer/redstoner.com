@@ -4,10 +4,11 @@ Redstoner::Application.routes.draw do
     resources :comments
   end
 
-  resources :statics, only: [:home, :donate], path: '/' do
+  resources :statics, only: [:home, :donate, :whosplaying], path: '/' do
     collection do
       get 'donate'
       get 'home'
+      get 'whosplaying'
       get 'index'
     end
   end
@@ -21,6 +22,7 @@ Redstoner::Application.routes.draw do
       post 'resend_mail'
       get 'edit_notifications'
       put 'update_login'
+      get 'edit_website_settings'
     end
     collection do
       get  'lost_password'

@@ -25,7 +25,11 @@
                         page     = position / Kaminari.config.default_per_page + 1
                       %>
                       <%= link_to "replied", forumthread_path(last_reply.thread, page: page) + "#reply-#{last_reply.id}" %>
-                      <%= ago last_reply.created_at %>.
+                      <% if current_user != nil && current_user.utc_time == true %>
+                        at <%= last_reply.created_at %>.
+                      <% else %>
+                        <%= ago last_reply.created_at %>.
+                      <% end %>
                     <% else %>
                       Hidden
                     <% end %>
@@ -33,7 +37,11 @@
                     <% if last_thread.can_read?(current_user) %>
                       <%= last_thread.author.name %>
                       <%= link_to "posted", forumthread_path(last_thread) %>
-                      <%= ago last_thread.created_at %>.
+                      <% if current_user != nil && current_user.utc_time == true %>
+                        at <%= last_thread.created_at %>.
+                      <% else %>
+                        <%= ago last_thread.created_at %>.
+                      <% end %>
                     <% else %>
                       Hidden
                     <% end %>

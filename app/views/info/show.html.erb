@@ -4,7 +4,13 @@
 <% end %>
 <div class="clear"></div>
 <h1 class="info-title"><%= title @info.title %></h1>
-<small>Last edited <%= ago @info.updated_at %>.</small>
+<small>Last edited
+  <% if current_user != nil && current_user.utc_time == true %>
+    at <%= @info.updated_at %>.
+  <% else %>
+    <%= ago @info.updated_at %>.
+  <% end %>
+</small>
 
 <div class="post">
   <%= render_trusted_md(@info.content).html_safe %>

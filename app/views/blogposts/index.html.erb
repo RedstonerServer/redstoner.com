@@ -9,7 +9,11 @@
         <%= link_to(p.author.avatar(64), p.author, title: p.author.ign) %>
         <%= render partial: "users/username", locals: { user: p.author } %>
         <%= link_to p do %>
-          <%= ago p.created_at %>
+          <% if current_user != nil && current_user.utc_time == true %>
+            <%= p.created_at %>
+          <% else %>
+            <%= ago p.created_at %>
+          <% end %>
         <% end %>
         <span class="comment-counter">
           <%= link_to pluralize(p.comments.count, "Comment"), p %>

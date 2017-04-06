@@ -1,4 +1,11 @@
-<div id="head">
+<% head = "head_top" %>
+<% if current_user != nil %>
+  <% if current_user.header_scroll == true %>
+    <% head = "head_scroll" %>
+  <% end %>
+<% end %>
+
+<div id="<%= head %>">
   <div id="menu">
     <%= link_to "", root_path, id: "logo" %>
     <ul>
@@ -10,7 +17,13 @@
         <%= link_to blogposts_path, class: ("active" if con == "blogposts" || con == "comments") do %>
           News
           <% if last_post = Blogpost.last %>
-            <div class="subtitle"><%= ago last_post.created_at %></div>
+            <div class="subtitle">
+              <% if current_user != nil && current_user.utc_time == true %>
+                <%= last_post.created_at %>
+              <% else %>
+                <%= ago last_post.created_at %>
+              <% end %>
+            </div>
           <% end %>
         <% end %>
       </li>
@@ -25,6 +38,9 @@
       </li>
       <li>
         <%= link_to "Donate", donate_statics_path, class: ("active" if con == "statics" && params[:action] == "donate") %>
+      </li>
+      <li>
+        <%= link_to "Who's Playing?", whosplaying_statics_path, class: ("active" if con == "statics" && params[:action] == "whosplaying") %>
       </li>
     </ul>
   </div>
