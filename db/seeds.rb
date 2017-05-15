@@ -27,7 +27,10 @@ deleted_user = User.create!(
   skype_public: true,
   last_ip: "0.0.0.0",
   confirmed: true,
-  last_seen: Time.utc(0).to_datetime
+  last_seen: Time.utc(0).to_datetime,
+  header_scroll: false,
+  utc_time: false,
+  dark: false
 )
 deleted_user.update_attribute(:ign, "Steve")
 
@@ -37,5 +40,8 @@ User.create!(
   email: "jomo@example.com",
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
-  role: Role.get(:superadmin)
+  role: Role.get(:superadmin),
+  header_scroll: false,
+  utc_time: false,
+  dark: false
 )

@@ -151,9 +151,9 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor, :header_scroll, :utc_time, :dark])
       else
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
       end
       if userdata[:role]
         role = Role.get(userdata[:role])
@@ -228,6 +228,13 @@ class UsersController < ApplicationController
   def edit_login
     unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
       flash[:alert] = "You are not allowed to edit this user's login details!"
+      redirect_to @user
+    end
+  end
+
+  def edit_website_settings
+    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+      flash[:alert] = "You are not allowed to edit this user's website settings!"
       redirect_to @user
     end
   end
