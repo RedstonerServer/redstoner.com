@@ -1,0 +1,56 @@
+<% title "Thread Search" %>
+<h1>Thread Search</h1>
+<h3>Leave a field blank to ignore that search aspect.</h3>
+<% label = Label.where(name: params[:label]).first %>
+<table>
+  <tbody>
+<%= form_tag({controller: "forumthreads", action: "search_redirect"}, method: :post) do %>
+  <%
+    forums = []
+    Forum.all.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
+      if current_user != nil && current_user.role_id > f.role_read_id.to_i || current_user == nil && f.role_read_id == nil
+        forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
+      end
+    end
+  %>
+  <% label_list = Label.pluck(:name).insert(0, "Label").insert(1, "No Label") %>
+  <tr>
+    <td>Forum</td>
+    <td><%= select_tag "id", options_for_select(["Search All Threads"] + forums, params[:id]) %></td>
+  </tr>
+  <tr>
+    <td>Label</td>
+    <td>
+      <%= select_tag "label", options_for_select(label_list, params[:label]), class: "auto-width" %>
+    </td>
+  </tr>
+  <tr>
+    <td>Title</td>
+    <td>
+      <%= text_field_tag "title", params[:title], placeholder: "Search Titles" %>
+    </td>
+  </tr>
+  <tr>
+    <td>Content</td>
+    <td>
+      <%= text_field_tag "content", params[:content], placeholder: "Search Contents" %>
+    </td>
+  <tr>
+    <td>Author</td>
+    <td>
+      <%= text_field_tag "author", params[:author], placeholder: "Search specific Authors" %>
+    </td>
+  </tr>
+    <td>Replies</td>
+    <td>
+      <%= text_field_tag "reply", params[:reply], placeholder: "Search Replies" %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= submit_tag "Go", class: "btn blue", style: "width:50px" %>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>

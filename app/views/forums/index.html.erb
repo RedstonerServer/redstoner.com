@@ -1,5 +1,7 @@
 <% title "Forums" %>
 
+<%= link_to "All threads", forumthreads_path(params.except("controller", "action")), class: "btn blue right" %>
+
 <div id="forum_groups">
   <% @groups.each do |group| %>
     <div class="item-group" id="group-<%= group.id %>">

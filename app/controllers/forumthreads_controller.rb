@@ -3,9 +3,13 @@ class ForumthreadsController < ApplicationController
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-    redirect_to forum_path(@thread.forum.forumgroup, f)
+    if params[:id] == "threads"
+      params[:id] = 0
+      redirect_to forumthreads_path(params)
+      return
+    end
+    @threads = Forumthread.display_threads(current_user, params, flash)
   end
-
   def show
     @replies = @thread.replies.page(params[:page])
   end
@@ -74,6 +78,19 @@ class ForumthreadsController < ApplicationController
       flash[:alert] = "You are not allowed to delete this thread"
     end
     redirect_to @thread.forum
+  end
+
+  def search
+  end
+
+  def search_redirect
+    params.each do |key, value|
+      params[key] = nil if params[key] == ""
+    end
+    params[:id] = nil if params[:id] == "Search All Threads"
+    params[:label] = nil if params[:label] != nil && params[:label].downcase == "label"
+    params_list = Hash[params.except(:commit, :utf8, :authenticity_token)]
+    redirect_to forumthreads_path(params_list)
   end
 
   private
