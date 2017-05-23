@@ -173,4 +173,8 @@ class User < ActiveRecord::Base
   def set_email_token
     self.email_token ||= SecureRandom.hex(16)
   end
+
+  def self.search (users, search)
+    return users.where("users.name like ? OR ign like ?", "%#{User.send(:sanitize_sql_like, search)}%", "%#{User.send(:sanitize_sql_like, search)}%")
+  end
 end

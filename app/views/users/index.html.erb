@@ -1,10 +1,27 @@
+<%= form_tag({controller: "users", action: "search_redirect"}, method: :post, style: "margin:0px;height:40px") do %>
+  <%= text_field_tag "search", nil, placeholder: "Search for a user", style: "margin:0px;height:40px;width:300px" %>
+  <%= submit_tag "Go", class: "btn blue", style: "margin:0px;height:40px;width:40px" %>
+  <%= hidden_field_tag "role", params[:role] %>
+<% end %>
+
 <h1>
+  <% text = "" %>
   <% if params[:role] %>
-    <%= title "All '#{params[:role]}' users" %>
+    <%= text = "All '#{params[:role]}' users" %>
   <% else %>
-    <%= title "All Users" %>
+    <%= text = "All Users" %>
   <% end %>
-  (<%= @count %>)
+  <% if params[:search] %>
+    <% text += " that contain '#{params[:search]}'" %>
+  <% end %>
+
+  <%= title text %>
+  <% if params[:search] %>
+    (<%= @users.select {|u| u.name.downcase.include?(params[:search].downcase) || u.ign.downcase.include?(params[:search].downcase) }.size %>)
+  <% else %>
+    (<%= @count %>)
+  <% end %>
+
 </h1>
 <%= link_to "show all", users_path if params[:role] %>
 

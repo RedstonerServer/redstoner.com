@@ -62,6 +62,10 @@ class Forumthread < ActiveRecord::Base
     background_mailer(mails)
   end
 
+  def to_param
+    [id, to_s.parameterize].join("-")
+  end
+
   def self.display_threads (current_user, params, flash)
 
     if params[:content] || params[:title] || params[:reply] || params[:label] || params[:author] || params[:query]
