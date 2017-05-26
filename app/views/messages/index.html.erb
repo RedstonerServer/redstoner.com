@@ -1,0 +1,23 @@
+<%= link_to "Create new message", new_message_path, class: "btn blue right" %>
+<h3>Your private messages:</h3>
+<div id="forum_groups">
+  <% @messages.each do |message| %>
+    <div class="item-group with-avatar">
+      <div class="header">
+        <%= link_to(message.user_sender.avatar(64), message.user_sender, title: message.user_sender.ign) %>
+        <%= render partial: "users/username", locals: { user: message.user_sender } %>
+        <%= ago message.created_at %>
+        <div class="right">
+          <%= link_to "Delete message", message, :method => "delete", data: {confirm: "Delete this message forever?"} %>
+        </div>
+        <div class="clear-right"></div>
+      </div>
+      <div class="items">
+        <div class="item">
+          <%= render_md(message.text).html_safe %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate @messages %>
+</div>

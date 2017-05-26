@@ -39,3 +39,27 @@ User.create!(
   password_confirmation: "123456789",
   role: Role.get(:superadmin)
 )
+User.create!(
+  uuid: "7f52491ab5d64c11b4a43806db47a101",
+  ign: "Yummy_",
+  name: "Yummy",
+  email: "yummy@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:superadmin)
+)
+User.create!(
+  uuid: "62fe35da05ae437ea44b4deae1be1dc4",
+  ign: "Logal",
+  email: "logal@example.com",
+  password: "123456789", # high seructity!
+  password_confirmation: "123456789",
+  role: Role.get(:superadmin)
+)
+
+Message.create!(
+  user_sender_id: 2,
+  user_target_id: 2,
+  text: "This is a very long message that I will be using to test a plentitude of things. :)",
+  created_at: Time.utc(0).to_datetime
+)

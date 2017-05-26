@@ -480,6 +480,11 @@ blockquote p {
       padding: 4em 1em 1em;
     }
   }
+  .field_container_user {
+    position: relative;
+    .editor_field {
+    }
+  }
 }
 
 ul.dropdown-menu {
