@@ -3,12 +3,13 @@ class ForumthreadsController < ApplicationController
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:id] == "threads"
-      params[:id] = 0
-      redirect_to forumthreads_path(params)
+    if params[:label] && !Label.where("lower(name) = ?", params[:label].downcase).try(:first) && params[:label].downcase != "no label"
+      flash[:alert] = "'#{params[:label]}' is not a valid label."
+      redirect_to forumthreads_path(params.except(:label, :controller, :action))
       return
     end
-    @threads = Forumthread.display_threads(current_user, params, flash)
+    @threads = Forumthread.filter(current_user, params[:title], params[:content], params[:reply], params[:label], User.where("lower(ign) = ?", params[:author].to_s.downcase).try(:first), params[:query], Forum.where(id: params[:id]).try(:first))
+    .page(params[:page]).per(30)
   end
   def show
     @replies = @thread.replies.page(params[:page])
@@ -88,7 +89,8 @@ class ForumthreadsController < ApplicationController
       params[key] = nil if params[key] == ""
     end
     params[:id] = nil if params[:id] == "Search All Threads"
-    params[:label] = nil if params[:label] != nil && params[:label].downcase == "label"
+    params[:label] = nil if params[:label] && params[:label].downcase == "label"
+    params[:author] = params[:author].tr("@ ", "") if params[:author]
     params_list = Hash[params.except(:commit, :utf8, :authenticity_token)]
     redirect_to forumthreads_path(params_list)
   end

@@ -67,11 +67,7 @@
                 page     = position / Kaminari.config.default_per_page + 1
               %>
               <%= link_to "replied", forumthread_path(thread, page: page) + "#reply-#{rpl.id}" %>
-              <% if current_user != nil && current_user.utc_time == true %>
-                at <%= rpl.created_at %>.
-              <% else %>
-                <%= ago rpl.created_at %>.
-              <% end %>
+              <%= ago rpl.created_at %>.
             <% else %>
               No replies yet.
             <% end %>

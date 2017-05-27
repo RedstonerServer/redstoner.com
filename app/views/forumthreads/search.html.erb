@@ -38,7 +38,7 @@
   <tr>
     <td>Author</td>
     <td>
-      <%= text_field_tag "author", params[:author], placeholder: "Search specific Authors" %>
+      <%= render partial: "md_editor_user", locals: {name: "author", content: params[:author]} %>
     </td>
   </tr>
     <td>Replies</td>

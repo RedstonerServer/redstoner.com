@@ -64,7 +64,9 @@ ActiveRecord::Schema.define(version: 20170522210610) do
     t.integer  "label_id",       limit: 4
   end
 
+  add_index "forumthreads", ["content"], name: "index_forumthreads_on_content", type: :fulltext
   add_index "forumthreads", ["title", "content"], name: "index_forumthreads_on_title_and_content", type: :fulltext
+  add_index "forumthreads", ["title"], name: "index_forumthreads_on_title", type: :fulltext
 
   create_table "info", force: :cascade do |t|
     t.string   "title",      limit: 191

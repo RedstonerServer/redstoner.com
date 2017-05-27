@@ -66,75 +66,46 @@ class Forumthread < ActiveRecord::Base
     [id, to_s.parameterize].join("-")
   end
 
-  def self.display_threads (current_user, params, flash)
+  def self.filter (user, title, content, reply, label, author, query, forum)
+  userid = user.try(:id).to_i
+  role = user.try(:role).to_i
 
-    if params[:content] || params[:title] || params[:reply] || params[:label] || params[:author] || params[:query]
+  can_read = "COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?"
+  sticky_can_write = "sticky = true AND (COALESCE(forum_role_write.value, 0) <= ? OR COALESCE(forumgroup_role_write.value, 0) <= ?)"
 
-      if params[:id] == nil
-        @threads = Forumthread.where("forumthreads.user_author_id = ? OR COALESCE(roles.value, 0) <= ?", current_user.try(:id).to_i, current_user.try(:role).to_i)
-        .joins("LEFT JOIN threadreplies ON forumthreads.id = threadreplies.forumthread_id")
-        .joins(forum: :forumgroup).joins("LEFT JOIN roles ON forums.role_read_id = roles.id")
-      else
-        @threads = Forumthread.where(forum_id: params[:id]).where("forumthreads.user_author_id = ? OR COALESCE(roles.value, 0) <= ?", current_user.try(:id).to_i, current_user.try(:role).to_i).joins("LEFT JOIN threadreplies ON forumthreads.id = threadreplies.forumthread_id")
-        .joins(forum: :forumgroup).joins("LEFT JOIN roles ON forums.role_read_id = roles.id")
-      end
+  threads = forum.try(:forumthreads) || Forumthread
+  threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write})", userid, role, role, role, role)
+  .joins("LEFT JOIN threadreplies ON forumthreads.id = threadreplies.forumthread_id")
+  .joins(forum: :forumgroup)
+  .joins("LEFT JOIN roles as forum_role_read ON forums.role_read_id = forum_role_read.id")
+  .joins("LEFT JOIN roles as forum_role_write ON forums.role_write_id = forum_role_write.id")
+  .joins("LEFT JOIN roles as forumgroup_role_read ON forumgroups.role_read_id = forumgroup_role_read.id")
+  .joins("LEFT JOIN roles as forumgroup_role_write ON forumgroups.role_write_id = forumgroup_role_write.id")
 
-      if params[:query]
-        etotal = params[:query]
-        @threads = @threads.where("MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)", params[:query], params[:query])
-      else
-        etotal = [params[:title].to_s, params[:content].to_s].reject(&:empty?).join(' ')
-        if params[:title]
-          @threads = @threads.where("MATCH (title) AGAINST (?)", params[:title])
-        end
-
-        if params[:content]
-        vv@threads = @threads.where("MATCH (forumthreads.content) AGAINST (?)", params[:content])
-        end
-
-        if params[:reply]
-          @threads = @threads.where("MATCH (threadreplies.content) AGAINST (?)", params[:reply])
-        end
-      end
-
-      label = Label.find_by(name: params[:label])
-      if label
-        @threads = @threads.where(label_id: label.id)
-      elsif params[:label]
-        if params[:label].downcase == "no label"
-          @threads = @threads.where(label_id: nil)
-        else
-          flash[:alert] = "'#{params[:label]}' is not a valid label."
-        end
-      end
-
-      if params[:author]
-        authors = User.where("ign = ? OR name = ?", params[:author], params[:author])
-        if authors.try(:count) > 0
-          @threads = @threads.where(user_author: authors)
-        else
-          @threads = @threads.where(user_author: nil)
-        end
-      end
-
-      if params[:title] || params[:content] || params[:reply]
-        if @threads.size > 0
-          @threads = @threads.group("threadreplies.id", "forumthreads.id").order("(MATCH (title, forumthreads.content) AGAINST ('#{etotal}')) DESC")
-        end
-      else
-        @threads = @threads.order("sticky desc", "COALESCE(threadreplies.created_at, forumthreads.created_at) desc")
-      end
-    else
-      if params[:id] == nil
-        @threads = Forumthread.where("forumthreads.user_author_id = ? OR COALESCE(roles.value, 0) <= ?", current_user.try(:id).to_i, current_user.try(:role).to_i)
-        .joins(forum: :forumgroup).joins("LEFT JOIN roles ON forums.role_read_id = roles.id")
-      else
-        @threads = Forum.find(params[:id]).forumthreads.where("forumthreads.user_author_id = ? OR COALESCE(roles.value, 0) <= ?", current_user.try(:id).to_i, current_user.try(:role).to_i)
-        .joins(forum: :forumgroup).joins("LEFT JOIN roles ON forums.role_read_id = roles.id")
-      end
-      @threads = @threads.joins("LEFT JOIN threadreplies ON forumthreads.id = threadreplies.forumthread_id").order("sticky desc", "COALESCE(threadreplies.created_at, forumthreads.created_at) desc")
+  if [content, title, reply, label, author, query].any?
+    label_o = Label.find_by(name: label)
+    if label_o
+      threads = threads.where(label: label_o)
+    elsif label.try(:downcase) == "no label"
+      threads = threads.where(label: nil)
     end
-    @threads = @threads.page(params[:page]).per(30)
-    return @threads.uniq
+
+    threads = threads.where(user_author: author) if author
+
+    if query
+      threads = threads.where("MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)", query, query)
+    elsif [title, content, reply].any?
+      query = [title, content, reply].select(&:present?).join(" ")
+      threads = threads.where("MATCH (title) AGAINST (?)", title) if title
+      threads = threads.where("MATCH (forumthreads.content) AGAINST (?)", content) if content
+      threads = threads.where("MATCH (threadreplies.content) AGAINST (?)", reply) if reply
+      threads = threads.group("threadreplies.id", "forumthreads.id")
+      threads = threads.order("(MATCH (title, forumthreads.content) AGAINST ('#{query}')) DESC")
+    end
+  end
+
+  threads = threads.order("sticky desc", "threadreplies.created_at desc", "forumthreads.created_at desc") if threads.order_values.empty?
+
+    threads
   end
 end
