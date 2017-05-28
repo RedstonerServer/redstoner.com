@@ -1,8 +1,15 @@
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> → <%= @forum %>
 
-<h1><%= title @forum %></h1>
+<h1>
+  <%= title @forum %>
+  <% params[:id] = params[:id].split("-")[0] %>
+  <%= link_to "Search Threads", forumthreads_path(params.except("action", "controller")), class: "btn blue right" %>
+</h1>
 <% if @forum.can_write?(current_user) %>
-  <p><%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %></p>
+  <p>
+    <%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %>
+    <% params[:id] = params[:id].split("-")[0] %>
+  </p>
 <% end %>
 
 <% if @forum.role_read && @forum.role_write && @forum.role_write < @forum.role_read %>
