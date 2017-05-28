@@ -10,6 +10,14 @@ Role.create!([
   {name: "superadmin", value: 500, color: "#d22"}
 ])
 
+Badge.create!([
+  {name: "none", symbol: "", color: "#000"},
+  {name: "donor", symbol: "$", color: "#f60"},
+  {name: "developer", symbol: "D", color: "#a0a"},
+  {name: "retired", symbol: "R", color: "#0aa"},
+  {name: "lead", symbol: "L", color: "#a00"}
+])
+
 userpw = SecureRandom.hex(36)
 
 
@@ -23,6 +31,7 @@ deleted_user = User.create!(
   password: userpw,
   password_confirmation: userpw,
   role: Role.get(:disabled),
+  badge: Badge.get(:none),
   skype: "echo123",
   skype_public: true,
   last_ip: "0.0.0.0",
@@ -44,4 +53,6 @@ User.create!(
   header_scroll: false,
   utc_time: false,
   dark: false
+  badge: Badge.get(:donor),
+  confirmed: true
 )

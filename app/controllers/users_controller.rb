@@ -10,8 +10,6 @@ class UsersController < ApplicationController
     if params[:role]
       if params[:role].downcase == "staff"
         @users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
-      elsif params[:role].downcase == "donor"
-        @users = User.joins(:role).where(donor: true)
       else
         if role = Role.get(params[:role])
           @users = User.joins(:role).where(role: role)
@@ -21,10 +19,18 @@ class UsersController < ApplicationController
           return
         end
       end
+    elsif params[:badge]
+      if badge = Badge.get(params[:badge])
+        @users = User.joins(:badge).where(badge: badge)
+      else
+        flash[:alert] = "badge '#{params[:badge]}' does not exist!"
+        redirect_to users_path
+        return
+      end
     else
       @users = User.joins(:role).where.not(id: User.first.id) #Remove first user
     end
-    @users = @users.order("roles.value desc", "confirmed desc", :name)
+    @users = @users.order("roles.value desc", "confirmed desc", :name) unless params[:badge]
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
   end
@@ -151,7 +157,7 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :confirmed, :donor, :header_scroll, :utc_time, :dark])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
       else
         userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
       end
@@ -163,6 +169,9 @@ class UsersController < ApplicationController
           # don't change role
           userdata.delete(:role)
         end
+      end
+      if userdata[:badge]
+        userdata[:badge] = Badge.get(userdata[:badge])
       end
       if @user.youtube != userdata[:youtube]
         youtube = get_youtube(userdata[:youtube])

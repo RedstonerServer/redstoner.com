@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170515200733) do
     t.integer "role_read_id",  limit: 4
     t.integer "role_write_id", limit: 4
     t.integer "forumgroup_id", limit: 4
+    t.integer "necro_length",  limit: 4,   default: -1
   end
 
   create_table "forums_labels", id: false, force: :cascade do |t|
@@ -90,6 +91,12 @@ ActiveRecord::Schema.define(version: 20170515200733) do
     t.string  "color", limit: 191
   end
 
+  create_table "badges", force: :cascade do |t|
+    t.string  "name"
+    t.string  "symbol"
+    t.string  "color"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 191,   null: false
     t.text     "data",       limit: 65535
@@ -119,14 +126,14 @@ ActiveRecord::Schema.define(version: 20170515200733) do
     t.string   "last_ip",                     limit: 191
     t.string   "skype",                       limit: 191
     t.boolean  "skype_public",                              default: false
-    t.string   "youtube",                     limit: 191
-    t.string   "youtube_channelname",         limit: 191
-    t.string   "twitter",                     limit: 191
-    t.boolean  "donor",                                     default: false
-    t.string   "email_token",                 limit: 191
+    t.string   "youtube"
+    t.string   "youtube_channelname"
+    t.string   "twitter"
+    t.string   "email_token"
     t.boolean  "confirmed",                                 default: false
     t.datetime "last_seen"
     t.integer  "role_id",                     limit: 4,                     null: false
+    t.integer  "badge_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "mail_own_thread_reply",                     default: true

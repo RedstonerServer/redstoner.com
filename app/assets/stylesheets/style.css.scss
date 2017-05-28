@@ -449,17 +449,13 @@ blockquote p {
       color: #ddd !important;
     }
   }
-
-  .donor {
-    color: #fff;
-    background: #f60 !important;
-    margin-left: 2px !important;
-  }
-
   .ign {
     display: block;
     color: #000;
     font-style: italic;
+  }
+  .badge {
+    margin-left: 2px !important;
   }
 }
 
