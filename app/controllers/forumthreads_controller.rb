@@ -7,7 +7,11 @@ class ForumthreadsController < ApplicationController
   end
 
   def show
-    @replies = @thread.replies.page(params[:page])
+    if params[:reverse]
+      @replies = @thread.replies.reverse_order.page(params[:page])
+    else
+      @replies = @thread.replies.page(params[:page])
+    end
   end
 
   def edit
