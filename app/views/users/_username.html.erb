@@ -1,4 +1,4 @@
 <div class="user">
   <%= link_to user.name, user, class: "role #{user.role.name} #{"banned" if user.banned?} #{"disabled" if user.disabled?} #{"unconfirmed" unless user.confirmed?}", title: "#{user.ign} – #{user.role}", style: "color: #{fcolor(user.role.color)}; background-color: #{user.role.color}" %>
-  <%= link_to "$", donate_statics_path, class: "role donor", title: "Donator" if user.donor? %>
+  <%= link_to user.badge.symbol, users_path(badge: user.badge.name), class: "role badge", title: user.badge.name, style: "color: #{fcolor(user.badge.color)}; background-color: #{user.badge.color}" unless user.badge.value == 0 %>
 </div>

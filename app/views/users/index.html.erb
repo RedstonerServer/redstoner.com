@@ -5,16 +5,18 @@
 <% end %>
 
 <h1>
-  <% text = "" %>
-  <% if params[:role] %>
-    <%= text = "All '#{params[:role]}' users" %>
-  <% else %>
-    <%= text = "All Users" %>
-  <% end %>
-  <% if params[:search] %>
-    <% text += " that contain '#{params[:search]}'" %>
-  <% end %>
-
+  <%
+    if params[:role] && !params[:badge]
+      text = "All '#{params[:role]}' users"
+    elsif params[:badge] && !params[:role]
+      text = "All '#{params[:badge]}' users"
+    elsif params[:role] && params[:badge]
+      text = "All '#{params[:role]}' and '#{params[:badge]}' users"
+    else
+      text = "All users"
+    end
+    text += " that contain '#{params[:search]}'" if params[:search]
+  %>
   <%= title text %>
   <% if params[:search] %>
     (<%= @users.select {|u| u.name.downcase.include?(params[:search].downcase) || u.ign.downcase.include?(params[:search].downcase) }.size %>)
@@ -23,7 +25,7 @@
   <% end %>
 
 </h1>
-<%= link_to "show all", users_path if params[:role] %>
+<%= link_to "show all", users_path if params[:role] || params[:badge] %>
 
 <div id="userlist">
   <% @users.each do |u| %>

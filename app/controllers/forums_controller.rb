@@ -89,7 +89,7 @@ class ForumsController < ApplicationController
   end
 
   def forum_params(add = [])
-    a = [:name, :position, :role_read_id, :role_write_id] + add
+    a = [:name, :position, :role_read_id, :role_write_id, :necro_length] + add
     params.require(:forum).permit(a)
   end
 end

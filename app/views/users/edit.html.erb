@@ -28,15 +28,17 @@
           </td>
         </tr>
         <tr>
-          <td>Confirmed email address</td>
+          <td>Badge</td>
           <td>
-            <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+            <% if current_user.role >= Role.get(:mod) %>
+              <%= f.select :badge, Badge.all %>
+            <% end %>
           </td>
         </tr>
         <tr>
-          <td>Donator</td>
+          <td>Confirmed email address</td>
           <td>
-            <%= f.select :donor, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
+            <%= f.select :confirmed, [["No", false], ["Yes", true]], {}, { disabled: !can_edit? } %>
           </td>
         </tr>
       <% end %>
@@ -73,10 +75,11 @@
     </tbody>
   </table>
 
-<p><%= f.submit "Save profile", class: "btn blue left", disabled: (!@user.confirmed? && @user.is?(current_user)) %></p>
+<p><%= f.submit "Save profile", class: "btn variable-size left", disabled: (!@user.confirmed? && @user.is?(current_user)) %></p>
 <p>
-  <%= link_to "Edit login details", edit_login_user_path(@user), class: "btn blue right" %>
-  <%= link_to "Notification settings", edit_notifications_user_path(@user), class: "btn blue right" %>
+  <%= link_to "Edit login details", edit_login_user_path(@user), class: "btn variable-size right" %>
+  <%= link_to "Notification settings", edit_notifications_user_path(@user), class: "btn variable-size right" %>
+  <%= link_to "Website settings", edit_website_settings_user_path(@user), class: "btn variable-size right" %>
 </p>
 <div class="clear"></div>
 

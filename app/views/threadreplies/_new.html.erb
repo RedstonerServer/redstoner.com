@@ -1,4 +1,17 @@
 <%= form_for [reply.thread, reply] do |f| %>
   <%= render partial: "md_editor", locals: {name: "threadreply[content]", content: reply.content} %>
-  <p><%= f.submit "Reply#{ ' (Locked)' if reply.thread.locked? }", class: "btn blue" %></p>
+  <% nec_msg = "" %>
+  <% forum = Forum.find(reply.thread.forum_id) %>
+  <% if forum.necro_length != nil %>
+    <% if Threadreply.where(forumthread: reply.thread).count != 0 %>
+      <% prevAgo = Threadreply.where(forumthread: reply.thread).order(:id).last.created_at  %>
+      <% if prevAgo <= forum.necro_length.days.ago.utc %>
+        <% nec_msg = "You may be necroposting, as the last reply was made at least #{forum.necro_length} days ago. If you still wish to make this reply, press 'Ok'." %>
+      <% end %>
+    <% elsif reply.thread.created_at <= forum.necro_length.days.ago.utc %>
+      <% nec_msg = "You may be necroposting, as this thread was posted at least #{forum.necro_length} days ago. If you still wish to make this reply, press 'Ok'." %>
+    <% end %>
+  <% end %>
+  <p><%= f.submit "Reply#{ ' (Locked)' if reply.thread.locked? }", class: "btn blue", data: { confirm: nec_msg } %></p>
+  <% nec_msg = "" %>
 <% end %>
