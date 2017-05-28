@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   strip_attributes
 
   belongs_to :role
+  belongs_to :badge
 
   has_secure_password
 
