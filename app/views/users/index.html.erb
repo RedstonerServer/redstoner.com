@@ -1,12 +1,16 @@
 <h1>
-  <% if params[:role] %>
+  <% if params[:role] && !params[:badge]%>
     <%= title "All '#{params[:role]}' users" %>
+  <% elsif params[:badge] && !params[:role] %>
+    <%= title "All '#{params[:badge]}' users" %>
+  <% elsif params[:role] && params[:badge] %>
+    <%= title "All '#{params[:role]}' and '#{params[:badge]}' users" %>
   <% else %>
     <%= title "All Users" %>
   <% end %>
   (<%= @count %>)
 </h1>
-<%= link_to "show all", users_path if params[:role] %>
+<%= link_to "show all", users_path if params[:role] || params[:badge] %>
 
 <div id="userlist">
   <% @users.each do |u| %>
