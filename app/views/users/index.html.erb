@@ -1,14 +1,29 @@
+<%= form_tag({controller: "users", action: "search_redirect"}, method: :post, style: "margin:0px;height:40px") do %>
+  <%= text_field_tag "search", nil, placeholder: "Search for a user", style: "margin:0px;height:40px;width:300px" %>
+  <%= submit_tag "Go", class: "btn blue", style: "margin:0px;height:40px;width:40px" %>
+  <%= hidden_field_tag "role", params[:role] %>
+<% end %>
+
 <h1>
-  <% if params[:role] && !params[:badge]%>
-    <%= title "All '#{params[:role]}' users" %>
-  <% elsif params[:badge] && !params[:role] %>
-    <%= title "All '#{params[:badge]}' users" %>
-  <% elsif params[:role] && params[:badge] %>
-    <%= title "All '#{params[:role]}' and '#{params[:badge]}' users" %>
+  <%
+    if params[:role] && !params[:badge]
+      text = "All '#{params[:role]}' users"
+    elsif params[:badge] && !params[:role]
+      text = "All '#{params[:badge]}' users"
+    elsif params[:role] && params[:badge]
+      text = "All '#{params[:role]}' and '#{params[:badge]}' users"
+    else
+      text = "All users"
+    end
+    text += " that contain '#{params[:search]}'" if params[:search]
+  %>
+  <%= title text %>
+  <% if params[:search] %>
+    (<%= @users.select {|u| u.name.downcase.include?(params[:search].downcase) || u.ign.downcase.include?(params[:search].downcase) }.size %>)
   <% else %>
-    <%= title "All Users" %>
+    (<%= @count %>)
   <% end %>
-  (<%= @count %>)
+
 </h1>
 <%= link_to "show all", users_path if params[:role] || params[:badge] %>
 

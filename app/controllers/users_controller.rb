@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include MailerHelper
   include ERB::Util
 
-  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
+  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions, :search_redirect]
 
   def index
     if params[:role]
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       else
         if role = Role.get(params[:role])
           @users = User.joins(:role).where(role: role)
-        else
+        elsif params[:search] == nil
           flash[:alert] = "role '#{params[:role]}' does not exist!"
           redirect_to users_path
           return
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     else
       @users = User.joins(:role).where.not(id: User.first.id) #Remove first user
     end
+    @users = User.search(@users, params[:search]) if params[:search]
     @users = @users.order("roles.value desc", "confirmed desc", :name) unless params[:badge]
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
@@ -337,6 +338,14 @@ class UsersController < ApplicationController
       puts "'#{query}' does not match regex!"
       render json: []
     end
+  end
+
+  def search_redirect
+    params.each do |key, value|
+      params[key] = nil if params[key] == ""
+    end
+    params_list = Hash[params.except(:commit, :utf8, :authenticity_token)]
+    redirect_to users_path(params_list)
   end
 
   private

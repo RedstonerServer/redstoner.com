@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515200733) do
+ActiveRecord::Schema.define(version: 20170522210610) do
 
   create_table "blogposts", force: :cascade do |t|
     t.string   "title",          limit: 191
@@ -65,6 +65,10 @@ ActiveRecord::Schema.define(version: 20170515200733) do
     t.integer  "label_id",       limit: 4
   end
 
+  add_index "forumthreads", ["content"], name: "index_forumthreads_on_content", type: :fulltext
+  add_index "forumthreads", ["title", "content"], name: "index_forumthreads_on_title_and_content", type: :fulltext
+  add_index "forumthreads", ["title"], name: "index_forumthreads_on_title", type: :fulltext
+
   create_table "info", force: :cascade do |t|
     t.string   "title",      limit: 191
     t.text     "content",    limit: 65535
@@ -78,8 +82,8 @@ ActiveRecord::Schema.define(version: 20170515200733) do
   end
 
   create_table "register_tokens", force: :cascade do |t|
-    t.string "uuid",  limit: 191, null: false
-    t.string "token", limit: 191, null: false
+    t.string "uuid",  limit: 32,  null: false
+    t.string "token", limit: 6,   null: false
     t.string "email", limit: 191, null: false
   end
 
@@ -115,6 +119,8 @@ ActiveRecord::Schema.define(version: 20170515200733) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "threadreplies", ["content"], name: "index_threadreplies_on_content", type: :fulltext
 
   create_table "users", force: :cascade do |t|
     t.string   "uuid",                        limit: 191,                   null: false

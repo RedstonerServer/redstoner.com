@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -76,7 +77,6 @@ class ForumsController < ApplicationController
     end
     redirect_to forums_path
   end
-
 
   private
 

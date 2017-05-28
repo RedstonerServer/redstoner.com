@@ -1,0 +1,8 @@
+<div class="md_editor">
+  <div class="field_container_user">
+    <% options = (defined?(options) && options || {}) %>
+    <% options[:class] = "#{options[:class]} editor_field" %>
+    <% options[:placeholder] ||= "Enter user's name. Prefix with \"@\" to get suggestions." %>
+    <%= text_field_tag name, content, options %>
+  </div>
+</div>
