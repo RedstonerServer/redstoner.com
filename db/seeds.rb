@@ -36,7 +36,10 @@ deleted_user = User.create!(
   skype_public: true,
   last_ip: "0.0.0.0",
   confirmed: true,
-  last_seen: Time.utc(0).to_datetime
+  last_seen: Time.utc(0).to_datetime,
+  header_scroll: false,
+  utc_time: false,
+  dark: false
 )
 deleted_user.update_attribute(:ign, "Steve")
 
@@ -47,46 +50,9 @@ User.create!(
   password: "123456789", # high seructity!
   password_confirmation: "123456789",
   role: Role.get(:superadmin),
+  header_scroll: false,
+  utc_time: false,
+  dark: false
   badge: Badge.get(:donor),
-  confirmed: true
-)
-User.create!(
-  uuid: "7f52491ab5d64c11b4a43806db47a101",
-  ign: "YummyRedstone",
-  email: "yummy@example.com",
-  password: "123456789", # high seructity!
-  password_confirmation: "123456789",
-  role: Role.get(:admin),
-  badge: Badge.get(:lead),
-  confirmed: true
-)
-User.create!(
-  uuid: "d2693e9193e14e3f929ff38e1ce8df03",
-  ign: "Pepich1851",
-  email: "pepe@example.com",
-  password: "123456789", # high seructity!
-  password_confirmation: "123456789",
-  role: Role.get(:superadmin),
-  badge: Badge.get(:retired),
-  confirmed: true
-)
-User.create!(
-  uuid: "c69f8316c60a4f8ca922bda933e01acd",
-  ign: "Doomblah",
-  email: "doom@example.com",
-  password: "123456789", # high seructity!
-  password_confirmation: "123456789",
-  role: Role.get(:normal),
-  badge: Badge.get(:developer),
-  confirmed: true
-)
-User.create!(
-  uuid: "b85a91b558b0474da2a42d5dd025f9e5",
-  ign: "Futsy",
-  email: "futsy@example.com",
-  password: "123456789", # high seructity!
-  password_confirmation: "123456789",
-  role: Role.get(:mod),
-  badge: Badge.get(:none),
   confirmed: true
 )

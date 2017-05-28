@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409135858) do
+ActiveRecord::Schema.define(version: 20170515200733) do
 
   create_table "blogposts", force: :cascade do |t|
     t.string   "title",          limit: 191
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20170409135858) do
     t.boolean  "confirmed",                                 default: false
     t.datetime "last_seen"
     t.integer  "role_id",                     limit: 4,                     null: false
+    t.integer  "badge_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "mail_own_thread_reply",                     default: true
@@ -140,7 +141,9 @@ ActiveRecord::Schema.define(version: 20170409135858) do
     t.boolean  "mail_own_blogpost_comment",                 default: true
     t.boolean  "mail_other_blogpost_comment",               default: true
     t.boolean  "mail_mention",                              default: true
-    t.integer  "badge_id"
+    t.boolean  "header_scroll",                             default: false
+    t.boolean  "utc_time",                                  default: false
+    t.boolean  "dark",                                      default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
