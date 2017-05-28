@@ -1,4 +1,9 @@
-<div id="head">
+<% head = "head_top" %>
+<% if current_user != nil && current_user.header_scroll == true %>
+  <% head = "head_scroll" %>
+<% end %>
+
+<div id="<%= head %>">
   <div id="menu">
     <%= link_to "", root_path, id: "logo" %>
     <ul>
