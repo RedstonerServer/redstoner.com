@@ -21,6 +21,10 @@
       <td><%= f.label :role_write_id, "Min. write role" %></td>
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
+    <tr>
+      <td><%= f.label :necro_length, "Necropost warning delay (in days)" %></td>
+      <td><%= f.number_field :necro_length, placeholder: "Warning Delay (leave blank for no warning)" %></td>
+    </tr>
   </table>
   <%= f.hidden_field :forumgroup_id %>
   <p><%= f.submit "Create forum", class: "btn blue left" %></p>
