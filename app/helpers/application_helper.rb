@@ -11,10 +11,12 @@ module ApplicationHelper
   end
 
   def ago(tm)
-    if tm
+    if tm && current_user.try(:utc_time) != true
       content_tag :time, title: tm.strftime("%e %b %Y, %H:%M %Z"), datetime: tm.to_datetime.rfc3339 do
         tm.strftime("%e %b %Y, %H:%M")
       end
+    else
+      tm
     end
   end
 

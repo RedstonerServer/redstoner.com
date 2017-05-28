@@ -5,6 +5,9 @@
   <meta name="viewport" content="initial-scale=1,maximum-scale=1">
   <meta name="description" content="Redstoner is a creative minecraft server made for redstoners">
   <%= stylesheet_link_tag "application", :media => "all" %>
+  <% if current_user.try(:dark) == true %>
+    <%= stylesheet_link_tag "dark", :media => "all" %>
+  <% end %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag "favicon.ico" %>
   <%= javascript_include_tag "https://cdn.rawgit.com/jomo/ago.js/v0.0.1/ago.min.js", crossorigin: :anonymous, integrity: "sha256-xw0JUUdbuZQCVO+QScoxrlEsD4nZGCjMRh9PP8GLhcY=" %>
@@ -14,7 +17,11 @@
 </head>
 <body>
   <%= render partial: "/layouts/head" %>
-  <div id="main-content" class="<%= yield(:main_class) %>">
+  <% content = "main-content" %>
+  <% if current_user.try(:header_scroll) == true %>
+    <% content = "main-content-scroll" %>
+  <% end %>
+  <div id="<%=content%>" class="<%=yield(:main_class) %>">
     <% if alert %>
       <div class='flash alert'><%= alert %></div>
     <% end %>

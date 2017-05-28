@@ -4,12 +4,12 @@
 
   th, td {
     // force tables into line-mode
-    // it's a bit ugly, but probably the best
+    // it''s a bit ugly, but probably the best
     // solution for small screens
     display: block;
   }
 
-  #head {
+  #head_top {
     #menu {
       #logo {
         display: none;
@@ -17,8 +17,17 @@
     }
   }
 
+  #head_scroll {
+    @extend #head_top;
+    position: fixed;
+}
+
   #main-content {
     padding: 30px 5px;
+  }
+
+  #main-content-scroll {
+    padding: 181px 5px;
   }
 
   .front-page {

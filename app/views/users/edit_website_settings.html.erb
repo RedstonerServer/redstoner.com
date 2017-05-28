@@ -1,0 +1,34 @@
+<% title "Edit Website Settings: #{@user.name}" %>
+
+<%= link_to @user.name, @user %> → Edit Website Settings
+<h1>Edit Website Settings</h1>
+
+
+<%= form_for @user do |f| %>
+  <table>
+    <tbody>
+      <tr>
+        <td>Header moves with scrolling (Experimental - do not report bugs)</td>
+        <td>
+          <%= f.check_box :header_scroll %>
+        </td>
+      </tr>
+      <tr>
+        <td>Show exact UTC times</td>
+        <td>
+          <%= f.check_box :utc_time %>
+        </td>
+      </tr>
+      <tr>
+        <td>Dark theme*</td>
+        <td>
+          <%= f.check_box :dark %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <div class="clear"></div>
+<% end %>
+<br><br><br>
+*Warning: If as a result to enabling this style your eyes get infected with a severe case of eye cancer, we are not reliable for any damage. Please contact your doctor in advance to ensure that in case of infection you will be treated accordingly. Quality theme  brought to you by Redempt™.
