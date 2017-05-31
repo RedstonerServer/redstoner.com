@@ -17,7 +17,8 @@ class StaticsController < ApplicationController
   end
 
   def online
-    @players = JSON.parse(File.read("/etc/minecraft/redstoner/plugins/JavaUtils/players.json"))["players"]
-    @players.collect!{ |p| User.find_by(uuid: p["uuid"].tr("-", "")) or User.new(name: p["name"], ign: p["name"], uuid: p["uuid"].tr("-", ""), role: Role.get("normal"), confirmed: true) }.sort_by!(&:role).reverse!
+    json = JSON.parse(File.read("/etc/minecraft/redstoner/plugins/JavaUtils/players.json"))
+    @players = json["players"].collect!{ |p| User.find_by(uuid: p["UUID"].tr("-", "")) or User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true) }.sort_by!(&:role).reverse!
+    @count = json["amount"]
   end
 end
