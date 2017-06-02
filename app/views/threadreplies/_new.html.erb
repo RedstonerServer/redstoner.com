@@ -3,7 +3,7 @@
   <% nec_msg = "" %>
   <% forum = Forum.find(reply.thread.forum_id) %>
   <% if forum.necro_length != nil %>
-    <% if Threadreply.where(forumthread: reply.thread).count != 0 %>
+    <% if Threadreply.where(forumthread: reply.thread).any? %>
       <% prevAgo = Threadreply.where(forumthread: reply.thread).order(:id).last.created_at  %>
       <% if prevAgo <= forum.necro_length.days.ago.utc %>
         <% nec_msg = "You may be necroposting, as the last reply was made at least #{forum.necro_length} days ago. If you still wish to make this reply, press 'Ok'." %>

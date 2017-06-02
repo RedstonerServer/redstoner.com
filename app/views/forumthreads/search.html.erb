@@ -4,24 +4,22 @@
 <% label = Label.where(name: params[:label]).first %>
 <table>
   <tbody>
-<%= form_tag({controller: "forumthreads", action: "search_redirect"}, method: :post) do %>
+<%= form_tag({controller: "forumthreads", action: "index"}, method: :get, enforce_utf8: false) do %>
   <%
     forums = []
-    Forum.all.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
-      if current_user != nil && current_user.role_id > f.role_read_id.to_i || current_user == nil && f.role_read_id == nil
-        forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
-      end
+    Forum.select{|f| f.can_read?(current_user)}.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
+      forums << ["#{f.forumgroup.name} → #{f.name}", f.id] if f.forumgroup
     end
   %>
-  <% label_list = Label.pluck(:name).insert(0, "Label").insert(1, "No Label") %>
+  <% label_list = Label.pluck(:name).prepend("No Label") %>
   <tr>
     <td>Forum</td>
-    <td><%= select_tag "id", options_for_select(["Search All Threads"] + forums, params[:id]) %></td>
+    <td><%= select_tag "id", options_for_select(forums, params[:id]), include_blank: "Search All Threads" %></td>
   </tr>
   <tr>
     <td>Label</td>
     <td>
-      <%= select_tag "label", options_for_select(label_list, params[:label]), class: "auto-width" %>
+      <%= select_tag "label", options_for_select(label_list, params[:label]), include_blank: "Label" %>
     </td>
   </tr>
   <tr>
@@ -48,7 +46,7 @@
   </tr>
   <tr>
     <td>
-      <%= submit_tag "Go", class: "btn blue", style: "width:50px" %>
+      <%= submit_tag "Go", class: "btn blue", style: "width:50px", name: nil %>
     </td>
   </tr>
 <% end %>
