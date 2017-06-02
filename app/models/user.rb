@@ -151,6 +151,10 @@ class User < ActiveRecord::Base
     self.role ||= Role.get(:normal)
   end
 
+  def set_badge
+    self.badge ||= Badge.get(:none)
+  end
+
   def set_uuid
     if !self.uuid.present?
       # idk
@@ -175,9 +179,9 @@ class User < ActiveRecord::Base
     self.email_token ||= SecureRandom.hex(16)
   end
   
-  def self.search (search, role, badge)
+  def self.search (search, role, badge, staff)
     if role
-      if role.try(:downcase) == "staff"
+      if staff
         users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
       else
         users = User.joins(:role).where(role: role)
@@ -189,6 +193,8 @@ class User < ActiveRecord::Base
       users = User.joins(:role).all.where.not(id: User.first.id)
     end
     search_san = User.send(:sanitize_sql_like, search.to_s)
-    users.where("users.name like ? OR ign like ?", "%#{search_san}%", "%#{search_san}%")
+    users = users.where("users.name like ? OR ign like ?", "%#{search_san}%", "%#{search_san}%")
+    users = users.order("roles.value desc", "confirmed desc", :name) unless badge
+    users
   end
 end

@@ -7,11 +7,10 @@ class UsersController < ApplicationController
   before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
   def index
-    role = Role.find_by(name: params[:role]) unless role.try(:downcase) == "staff"
+    role = Role.find_by(name: params[:role])
     badge = Badge.find_by(name: params[:badge])
 
-    @users = User.search(params[:search], role, badge)
-    @users = @users.order("roles.value desc", "confirmed desc", :name) unless params[:badge]
+    @users = User.search(params[:search], role, badge, params[:staff])
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
   end
