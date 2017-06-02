@@ -1049,18 +1049,17 @@ nav.pagination {
 }
 
 .searchfield {
-  margin:0px;
   height:40px;
   display: inline-block;
-
-  .btn {
+  &.field {
+    width: 300px;
+  }
+  &.btn {
     margin: 4px 1px 0 0;
-    padding: 6px;
     cursor: default;
     color: #fff;
-    border: none;
     font-size: 12px;
-    line-height: normal;
     background: #4096ee;
+    width: 40px;
   }
 }

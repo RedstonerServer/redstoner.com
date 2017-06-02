@@ -73,11 +73,11 @@ class Forumthread < ActiveRecord::Base
     can_read = "COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?"
     # A user can view sticky threads in write-only forums without read permissions.
     sticky_can_write = "sticky = true AND (COALESCE(forum_role_write.value, 0) <= ? AND COALESCE(forumgroup_role_write.value, 0) <= ?)"
-    match = "MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)"
+    match = ["MATCH (title, forumthreads.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (threadreplies.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)", "MATCH (title) AGAINST (?)", "MATCH (forumthreads.content) AGAINST (?)", "MATCH (threadreplies.content) AGAINST (?)"]
 
     threads = forum.try(:forumthreads) || Forumthread
 
-    threads = threads.select("forumthreads.*", "(MATCH (title, forumthreads.content) AGAINST (#{Forumthread.sanitize(order_phrase)})) AS relevance", "(MATCH (threadreplies.content) AGAINST (#{Forumthread.sanitize(order_phrase)})) AS reply_rel")
+    threads = threads.select("forumthreads.*", "#{match[0]} AS relevance", "#{match[1]} AS reply_rel")
 
     threads = threads.joins(forum: :forumgroup)
     .joins("LEFT JOIN threadreplies ON forumthreads.id = threadreplies.forumthread_id")
@@ -88,21 +88,26 @@ class Forumthread < ActiveRecord::Base
 
     threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write})", user_id, role_value, role_value, role_value, role_value)
     if query
-      threads = threads.where("#{match}", query[0..99], query[0..99])
+      threads = threads.where("#{match[2]}", query[0..99], query[0..99])
     elsif [title, content, reply].any?
-      threads = threads.where("MATCH (title) AGAINST (?)", title[0..99]) if title
-      threads = threads.where("MATCH (forumthreads.content) AGAINST (?)", content[0..99]) if content
-      threads = threads.where("MATCH (threadreplies.content) AGAINST (?)", reply[0..99]) if reply
+      threads = threads.where("#{match[3]}", title[0..99]) if title
+      threads = threads.where("#{match[4]}", content[0..99]) if content
+      threads = threads.where("#{match[5]}", reply[0..99]) if reply
     end
     if label.try(:downcase) == "no label"
       threads = threads.where(label: nil)
-    elsif l = Label.find_by(name: label) && label
+    elsif label && l = Label.find_by(name: label)
       threads = threads.where(label: l)
     end
     threads = threads.where(user_author: author) if author
 
     threads = threads.group("forumthreads.id")
 
-    order_phrase.presence ? threads.order("GREATEST(relevance, reply_rel) DESC") : threads.order("sticky desc", "threadreplies.created_at DESC", "forumthreads.created_at DESC")
+    if order_phrase.present?
+      threads = threads.order("GREATEST(relevance, reply_rel) DESC")
+    else
+      threads = threads.order("sticky desc", "threadreplies.created_at DESC", "forumthreads.created_at DESC")
+    end
+    threads
   end
 end

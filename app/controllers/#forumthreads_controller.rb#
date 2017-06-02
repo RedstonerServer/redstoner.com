@@ -3,11 +3,11 @@ class ForumthreadsController < ApplicationController
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-    params[:forum] = nil if params[:forum] && !Forum.find_by(id: params[:forum])
+    params[:id] = nil if params[:id] && !Forum.find_by(id: params[:id])
 
-    params.delete_if{|k,v| v.blank?}
+    params.each {|k,v| params[k] = nil if v==""}
 
-    @threads = Forumthread.filter(current_user, params[:title].try(:slice, 0..255), params[:content].try(:slice, 0..255), params[:reply].try(:slice, 0..255), params[:label], User.find_by(ign: params[:author].to_s.strip) || params[:author], params[:query].try(:slice, 0..255), Forum.find_by(id: params[:forum]))
+c    @threads = Forumthread.filter(current_user, params[:title], params[:content], params[:reply], params[:label], User.find_by(ign: params[:author].to_s.strip) || params[:author], params[:query], Forum.find_by(id: params[:id]))
     .page(params[:page]).per(30)
   end
   def show

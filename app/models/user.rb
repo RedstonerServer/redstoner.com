@@ -177,17 +177,18 @@ class User < ActiveRecord::Base
   
   def self.search (search, role, badge)
     if role
-      if role.downcase == "staff"
+      if role.try(:downcase) == "staff"
         users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
-      elsif r = Role.get(role)
-        users = User.joins(:role).where(role: r)
       else
+        users = User.joins(:role).where(role: role)
       end
-    elsif badge && b = Badge.get(badge)
-      users = User.joins(:badge).where(badge: b)
-    else
-      users = User.joins(:role).where.not(id: User.first.id) #Remove first user
     end
-    return users.where("users.name like ? OR ign like ?", "%#{User.send(:sanitize_sql_like, search.to_s)}%", "%#{User.send(:sanitize_sql_like, search.to_s)}%")
+    if badge
+      users = User.joins(:badge).where(badge: badge)
+    else
+      users = User.joins(:role).all.where.not(id: User.first.id)
+    end
+    search_san = User.send(:sanitize_sql_like, search.to_s)
+    users.where("users.name like ? OR ign like ?", "%#{search_san}%", "%#{search_san}%")
   end
 end

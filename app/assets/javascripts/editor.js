@@ -92,7 +92,7 @@ $(function() {
     // match up to 2 words (everything except some special characters)
     // each word can have up to 16 characters (up to 32 total)
     // words must be separated by a single space
-    match: /(^|\s)(([^!"§$%&\/()=?.,;+*@\s]{1,16} ?){0,1}[^!"§$%&\/()=?.,;+*@\s]{1,16})$/,
+    match: /(^|\s)([^!"§$%&\/()=?.,;+*@\s]{1,16})$/,
     search: function (text, callback, match) {
       console.log("Searching " + text);
       text = text.toLowerCase();

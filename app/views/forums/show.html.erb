@@ -2,8 +2,7 @@
 
 <h1>
   <%= title @forum %>
-  <% params[:id] = @forum.id %>
-  <%= link_to "Search Threads", forumthreads_path(params.to_hash), class: "btn blue right" %>
+  <%= link_to "Search Threads", forumthreads_path(forum: @forum.id), class: "btn blue right" %>
 </h1>
 <% if @forum.can_write?(current_user) %>
   <p>

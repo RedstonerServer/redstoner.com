@@ -4,7 +4,7 @@
 <% label = Label.where(name: params[:label]).first %>
 <table>
   <tbody>
-<%= form_tag({controller: "forumthreads", action: "index"}, method: :get, enforce_utf8: false) do %>
+<%= form_tag(forumthreads_path, method: :get) do %>
   <%
     forums = []
     Forum.select{|f| f.can_read?(current_user)}.sort_by{ |f| f.forumgroup && f.forumgroup.position || 0 }.each do |f|
@@ -14,7 +14,7 @@
   <% label_list = Label.pluck(:name).prepend("No Label") %>
   <tr>
     <td>Forum</td>
-    <td><%= select_tag "id", options_for_select(forums, params[:id]), include_blank: "Search All Threads" %></td>
+    <td><%= select_tag "forum", options_for_select(forums, params[:forum]), include_blank: "Search All Threads" %></td>
   </tr>
   <tr>
     <td>Label</td>
