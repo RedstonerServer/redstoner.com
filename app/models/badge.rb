@@ -4,9 +4,9 @@ class Badge < ActiveRecord::Base
 
   def self.get (input)
     if input.is_a?(String) || input.is_a?(Symbol)
-      Badge.find_by_name(input)
+      Badge.find_by(name: input)
     elsif input.is_a?(Fixnum)
-      Badge.find_by_id(input)
+      Badge.find_by(id: input)
     elsif input.is_a?(Badge)
       return input
     end
