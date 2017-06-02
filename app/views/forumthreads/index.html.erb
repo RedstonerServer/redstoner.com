@@ -1,49 +1,51 @@
 <%= link_to "Forums", forums_path %> →
-<% if params.to_hash.slice("label", "title", "content", "author", "reply").size > 0 %>
+<% params_list = params.to_hash %>
+<% if params_list.any? %>
   <%= link_to "All Threads", forumthreads_path %> → Search Results
 <% else %>
   <%= "All Threads" %>
 <% end %>
-<% params_list = params.to_hash.slice("id", "query", "label", "title", "content", "author", "reply") %>
 <h1>
-  <% if params[:id] %>
-      <% text = "forum '#{Forum.find(params[:id]).name}'" %>
-  <% else %>
-      <% text = "all threads" %>
-  <% end %>
-  <% if params_list.size > 0 %>
-    <%= title "Search results in #{text} (#{@threads.length})" %>
-  <% else %>
-    <% if params[:id] %>
-      <%= title "All threads in #{text}" %>
-    <% else %>
-      <%= title "All Threads" %>
-    <% end %>
-  <% end %>
+  <%
+    if params[:id]
+      text = "forum '#{Forum.find(params[:id]).name}'"
+      if params_list.any?
+        text = "Search results in #{text} (#{@threads.length})"
+      else
+        text = text.capitalize
+      end
+    elsif params_list.any?
+      text = "Search results (#{@threads.length})"
+    else
+      text = "All threads"
+    end
+  %>
+  <%= title text %>
   <br>
   <%= link_to "Advanced Search", search_forumthreads_path(params_list), class: "btn right blue" %>
-  <% if params_list.size > 0 && params[:id] %>
-    <%= link_to "Show All Threads", forumthreads_path(params_list.except("id")), class: "btn right blue" %>
-  <% elsif params_list.size > 0 && !params[:id] %>
-        <%= link_to "Show All Threads", forumthreads_path, class: "btn right blue" %>
+  <% if params_list.any? %>
+    <% if params[:id] %>
+      <%= link_to "Show All Threads", forumthreads_path(params_list.except("id")), class: "btn right blue" %>
+    <% else %>
+      <%= link_to "Show All Threads", forumthreads_path, class: "btn right blue" %>
+    <% end %>
   <% end %>
   <% if params[:id] %>
     <%= link_to "Go to Forum", forum_path(params[:id]), class: "btn right blue" %>
   <% end %>
 </h1>
-<br>
-<%= form_tag({controller: "forumthreads", action: "search_redirect"}, method: :post, style: "margin:0px;height:40px") do %>
-  <%= text_field_tag "query", nil, placeholder: "Search...", style: "margin:0px;height:40px;width:300px" %>
-  <% params.each do |key, value| %>
-    <%= hidden_field_tag key, params[key] if params[key] && params[key] !=  params[:query] %>
+<div class="searchfield">
+  <%= form_tag({controller: "forumthreads", action: "index"}, method: :get, enforce_utf8: nil) do %>
+    <%= text_field_tag "query", params[:query], placeholder: "Search...", style: "width:300px" %>
+    <% params_list.compact.except("query").each do |key, value| %>
+      <%= hidden_field_tag key, params[key] %>
+    <% end %>
+    <%= submit_tag "Go", class: "searchfield btn", style: "width:40px", name: nil %>
   <% end %>
-  <%= submit_tag "Go", class: "btn blue", style: "margin:0px;height:40px;width:40px" %>
-<% end %>
+</div>
 </h1>
 <div id="forum_groups">
-  <% counter = 0 %>
   <% @threads.each do |thread| %>
-    <% counter += 1 %>
     <div class="item-group with-avatar" id="thread-<%= thread.id %>">
       <div class="header">
         <%= link_to(thread.author.avatar(64), thread.author, title: thread.author.ign) %>
@@ -77,7 +79,8 @@
       </div>
     </div>
   <% end %>
-  <% if counter == 0 %>
+  <% if @threads.empty? %>
+    <br>
     <h3>No results found</h3>
   <% end %>
   <%= paginate @threads %>

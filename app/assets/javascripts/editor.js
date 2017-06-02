@@ -88,5 +88,45 @@ $(function() {
   }], {
     debounce: 300
   });
+  $('.md_editor .field_container_user .editor_field').textcomplete([{
+    // match up to 2 words (everything except some special characters)
+    // each word can have up to 16 characters (up to 32 total)
+    // words must be separated by a single space
+    match: /(^|\s)(([^!"§$%&\/()=?.,;+*@\s]{1,16} ?){0,1}[^!"§$%&\/()=?.,;+*@\s]{1,16})$/,
+    search: function (text, callback, match) {
+      console.log("Searching " + text);
+      text = text.toLowerCase();
+      $.ajax("/users/suggestions", {
+        type: "post",
+        data: {name: text},
+        dataType: "json",
+        headers: {
+          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        },
+        success: function(data) {
+          callback(data);
+        },
+        error: function(xhr, status, err) {
+          console.error(err);
+          callback([]);
+        }
+      });
+    },
+    template: function(user) {
+      var name = user[0];
+      var ign  = user[1];
+      if (name != ign) {
+        return name + " <small>(" + ign + ")</small>";
+      } else {
+        return ign;
+      }
+    },
+    cache: true,
+    replace: function (word) {
+      return "$1" + word[1] + " ";
+    }
+  }], {
+    debounce: 300
+  });
 
 });
