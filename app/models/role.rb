@@ -14,14 +14,14 @@ class Role < ActiveRecord::Base
   end
 
   def is? (name)
-    !!(Role.find_by_name(name) == self)
+    !!(Role.find_by(name: name) == self)
   end
 
   def self.get (input)
     if input.is_a?(String) || input.is_a?(Symbol)
-      Role.find_by_name(input)
+      Role.find_by(name: input)
     elsif input.is_a?(Fixnum)
-      Role.find_by_id(input)
+      Role.find_by(id: input)
     elsif input.is_a?(Role)
       return input
     end
@@ -31,7 +31,7 @@ class Role < ActiveRecord::Base
     if role.is_a?(Role)
       self.value - role.value
     elsif role.is_a?(Symbol)
-      self <=> Role.find_by_name(role)
+      self <=> Role.find_by(name: role)
     else
       self.to_i <=> role
     end
