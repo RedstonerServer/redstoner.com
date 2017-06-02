@@ -1,11 +1,9 @@
-<div class="searchfield">
-  <%= form_tag({controller: "users", action: "index"}, method: :get, enforce_utf8: false) do %>
-    <%= text_field_tag "search", params[:search], placeholder: "Search for a user", style: "width:300px" %>
-    <%= submit_tag "Go", class: "searchfield btn", style: "width:40px", name: nil %>
-    <%= hidden_field_tag "role", params[:role] if params[:role] %>
-    <%= hidden_field_tag "badge", params[:badge] if params[:badge]%>
-  <% end %>
-</div>
+<%= form_tag(users_path, method: :get) do %>
+  <%= text_field_tag "search", params[:search], placeholder: "Search for a user", class: "searchfield field" %>
+  <%= submit_tag "Go", class: "searchfield btn", name: nil %>
+  <%= hidden_field_tag "role", params[:role] if params[:role] %>
+  <%= hidden_field_tag "badge", params[:badge] if params[:badge]%>
+<% end %>
 <h1>
   <%
     if params[:role] && !params[:badge]
