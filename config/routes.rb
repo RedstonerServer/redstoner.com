@@ -22,12 +22,12 @@ Redstoner::Application.routes.draw do
       post 'resend_mail'
       get 'edit_notifications'
       put 'update_login'
+      get 'edit_website_settings'
     end
     collection do
       get  'lost_password'
       post 'reset_password'
       post 'suggestions'
-      post 'search_redirect'
     end
   end
 
@@ -36,7 +36,6 @@ Redstoner::Application.routes.draw do
     resources :threadreplies, path: 'replies'
     collection do
       get 'search'
-      post 'search_redirect'
     end
   end
   resources :forums,       path: '/forums'
