@@ -4,33 +4,13 @@ class UsersController < ApplicationController
   include MailerHelper
   include ERB::Util
 
-  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions, :search_redirect]
+  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
   def index
-    if params[:role]
-      if params[:role].downcase == "staff"
-        @users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
-      else
-        if role = Role.get(params[:role])
-          @users = User.joins(:role).where(role: role)
-        elsif params[:search] == nil
-          flash[:alert] = "role '#{params[:role]}' does not exist!"
-          redirect_to users_path
-          return
-        end
-      end
-    elsif params[:badge]
-      if badge = Badge.get(params[:badge])
-        @users = User.joins(:badge).where(badge: badge)
-      else
-        flash[:alert] = "badge '#{params[:badge]}' does not exist!"
-        redirect_to users_path
-        return
-      end
-    else
-      @users = User.joins(:role).where.not(id: User.first.id) #Remove first user
-    end
-    @users = User.search(@users, params[:search]) if params[:search]
+    params[:role] = nil if !Role.find_by(name: params[:role])
+    params[:badge] = nil if !Badge.find_by(name: params[:badge])
+
+    @users = User.search(params[:search], params[:role], params[:badge])
     @users = @users.order("roles.value desc", "confirmed desc", :name) unless params[:badge]
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
@@ -338,14 +318,6 @@ class UsersController < ApplicationController
       puts "'#{query}' does not match regex!"
       render json: []
     end
-  end
-
-  def search_redirect
-    params.each do |key, value|
-      params[key] = nil if params[key] == ""
-    end
-    params_list = Hash[params.except(:commit, :utf8, :authenticity_token)]
-    redirect_to users_path(params_list)
   end
 
   private
