@@ -11,7 +11,7 @@ namespace :create do
       header_scroll: false,
       utc_time: false,
       dark: false,
-      badge: Badge.get(:donor),
+      badge: Badge.get(:none),
       confirmed: true
     )
   end
