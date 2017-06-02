@@ -42,17 +42,3 @@ deleted_user = User.create!(
   dark: false
 )
 deleted_user.update_attribute(:ign, "Steve")
-
-User.create!(
-  uuid: "ae795aa86327408e92ab25c8a59f3ba1",
-  ign: "jomo",
-  email: "jomo@example.com",
-  password: "123456789", # high seructity!
-  password_confirmation: "123456789",
-  role: Role.get(:superadmin),
-  header_scroll: false,
-  utc_time: false,
-  dark: false
-  badge: Badge.get(:donor),
-  confirmed: true
-)
