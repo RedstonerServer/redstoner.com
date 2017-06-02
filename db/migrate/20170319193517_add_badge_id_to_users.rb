@@ -7,6 +7,7 @@ class AddBadgeIdToUsers < ActiveRecord::Migration
       t.string  "color"
     end
 
+    Badge.create!({name: "none", symbol: "", color: "#000"})
     dbadge = Badge.create!({name: "donor", symbol: "$", color: "#f60"})
 
     add_column :users, :badge_id, :integer, default: 0

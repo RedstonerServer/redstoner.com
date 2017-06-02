@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_email_token, :set_role
+  before_validation :strip_whitespaces, :set_uuid, :set_name, :set_email_token, :set_role, :set_badge
 
   validates_presence_of :password, :password_confirmation, :email_token, on: :create
   validates_presence_of :name, :email, :ign
