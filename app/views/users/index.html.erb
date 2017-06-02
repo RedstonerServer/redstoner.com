@@ -1,9 +1,11 @@
-<%= form_tag({controller: "users", action: "search_redirect"}, method: :post, style: "margin:0px;height:40px") do %>
-  <%= text_field_tag "search", nil, placeholder: "Search for a user", style: "margin:0px;height:40px;width:300px" %>
-  <%= submit_tag "Go", class: "btn blue", style: "margin:0px;height:40px;width:40px" %>
-  <%= hidden_field_tag "role", params[:role] %>
-<% end %>
-
+<div class="searchfield">
+  <%= form_tag({controller: "users", action: "index"}, method: :get, enforce_utf8: false) do %>
+    <%= text_field_tag "search", params[:search], placeholder: "Search for a user", style: "width:300px" %>
+    <%= submit_tag "Go", class: "searchfield btn", style: "width:40px", name: nil %>
+    <%= hidden_field_tag "role", params[:role] if params[:role] %>
+    <%= hidden_field_tag "badge", params[:badge] if params[:badge]%>
+  <% end %>
+</div>
 <h1>
   <%
     if params[:role] && !params[:badge]
@@ -19,11 +21,10 @@
   %>
   <%= title text %>
   <% if params[:search] %>
-    (<%= @users.select {|u| u.name.downcase.include?(params[:search].downcase) || u.ign.downcase.include?(params[:search].downcase) }.size %>)
+    (<%= @users.total_count %>)
   <% else %>
     (<%= @count %>)
   <% end %>
-
 </h1>
 <%= link_to "show all", users_path if params[:role] || params[:badge] %>
 
