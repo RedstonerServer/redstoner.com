@@ -1,6 +1,6 @@
 class StaticsController < ApplicationController
 
-  caches_action :online, expires_in: 10.seconds
+  caches_action :online, expires_in: 10.seconds, layout: false
 
   def index
     if current_user
