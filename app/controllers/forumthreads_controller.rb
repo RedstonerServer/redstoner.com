@@ -3,16 +3,15 @@ class ForumthreadsController < ApplicationController
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:label] && !Label.where("lower(name) = ?", params[:label].downcase).try(:first) && params[:label].downcase != "no label"
-      flash[:alert] = "'#{params[:label]}' is not a valid label."
-      redirect_to forumthreads_path(params.except(:label, :controller, :action))
-      return
-    end
-    @threads = Forumthread.filter(current_user, params[:title], params[:content], params[:reply], params[:label], User.where("lower(ign) = ?", params[:author].to_s.downcase).try(:first), params[:query], Forum.where(id: params[:id]).try(:first))
+    params[:id] = nil if params[:id] && !Forum.find_by(id: params[:id])
+
+    params.each {|k,v| params[k] = nil if v==""}
+
+    @threads = Forumthread.filter(current_user, params[:title], params[:content], params[:reply], params[:label], User.find_by(ign: params[:author].to_s.strip) || params[:author], params[:query], Forum.find_by(id: params[:id]))
     .page(params[:page]).per(30)
   end
   def show
-    if params[:reverse]
+    if params[:reverse] == "true"
       @replies = @thread.replies.reverse_order.page(params[:page])
     else
       @replies = @thread.replies.page(params[:page])
@@ -86,17 +85,6 @@ class ForumthreadsController < ApplicationController
   end
 
   def search
-  end
-
-  def search_redirect
-    params.each do |key, value|
-      params[key] = nil if params[key] == ""
-    end
-    params[:id] = nil if params[:id] == "Search All Threads"
-    params[:label] = nil if params[:label] && params[:label].downcase == "label"
-    params[:author] = params[:author].tr("@ ", "") if params[:author]
-    params_list = Hash[params.except(:commit, :utf8, :authenticity_token)]
-    redirect_to forumthreads_path(params_list)
   end
 
   private

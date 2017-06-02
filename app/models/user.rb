@@ -175,7 +175,19 @@ class User < ActiveRecord::Base
     self.email_token ||= SecureRandom.hex(16)
   end
   
-  def self.search (users, search)
-    return users.where("users.name like ? OR ign like ?", "%#{User.send(:sanitize_sql_like, search)}%", "%#{User.send(:sanitize_sql_like, search)}%")
+  def self.search (search, role, badge)
+    if role
+      if role.downcase == "staff"
+        users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
+      elsif r = Role.get(role)
+        users = User.joins(:role).where(role: r)
+      else
+      end
+    elsif badge && b = Badge.get(badge)
+      users = User.joins(:badge).where(badge: b)
+    else
+      users = User.joins(:role).where.not(id: User.first.id) #Remove first user
+    end
+    return users.where("users.name like ? OR ign like ?", "%#{User.send(:sanitize_sql_like, search.to_s)}%", "%#{User.send(:sanitize_sql_like, search.to_s)}%")
   end
 end
