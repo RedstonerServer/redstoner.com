@@ -41,6 +41,9 @@ Redstoner::Application.routes.draw do
     end
   end
 
+  resources :messages do
+  end
+
   # get '/status' => 'status#show'
 
   get  'login'  => 'sessions#new'

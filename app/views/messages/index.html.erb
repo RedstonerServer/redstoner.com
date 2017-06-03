@@ -8,7 +8,7 @@
         <%= render partial: "users/username", locals: { user: message.user_sender } %>
         <%= ago message.created_at %>
         <div class="right">
-          <%= link_to "Delete message", message, :method => "delete", data: {confirm: "Delete this message forever?"} %>
+          <%= link_to "Delete message", message, :method => "delete", class: "editlink", data: {confirm: "Delete this message forever?"} %>
         </div>
         <div class="clear-right"></div>
       </div>
