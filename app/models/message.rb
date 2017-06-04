@@ -1,5 +1,7 @@
 class Message < ActiveRecord::Base
 
+  include MailerHelper
+
   belongs_to :user_sender, class_name: "User", foreign_key: "user_sender_id"
   belongs_to :user_target, class_name: "User", foreign_key: "user_target_id"
 
@@ -16,5 +18,17 @@ class Message < ActiveRecord::Base
   def target
     # can be nil
     @target ||= user_target
+  end
+
+  def send_new_message_mail
+    begin
+      mail = RedstonerMailer.new_message_mail(user_target, self)
+    rescue => e
+      Rails.logger.error "---"
+      Rails.logger.error "WARNING: Failed to create new_message_mail (view) for message#: #{@message.id}, user: #{@user.name}, #{@user.email}"
+      Rails.logger.error e.message
+      Rails.logger.error "---"
+    end
+    background_mailer([mail])
   end
 end

@@ -2,17 +2,13 @@
   <div style="color: #3f3f3f; width: 600px; max-width: 100%; padding: 2em 0; margin: auto;">
     Hi <%= @user.name %>!
 
-    <p><%= link_to @comment.author.name, user_url(@comment.author), style: "text-decoration: none; color: #4096EE;" %> has replied to '<%= @comment.blogpost.title %>' on the Redstoner blog!</p>
+    <p><%= link_to @message.user_sender.name, user_url(@message.user_sender), style: "text-decoration: none; color: #4096EE;" %> has sent you a new message!</p>
 
     <blockquote>
-      <%= render_md(@comment.content).html_safe %>
+      <%= render_md(@message.text).html_safe %>
     </blockquote>
 
-    <%
-      position = @comment.blogpost.comments.count - 1
-      page     = position / Kaminari.config.default_per_page + 1
-    %>
-    <p><%= link_to "Click here", blogpost_url(@comment.blogpost, page: page) + "#comment-#{@comment.id}", style: "text-decoration: none; color: #4096EE;" %> to view the blog post.</p>
+    <p><%= link_to "Click here", messages_path %> to view your current messages.</p>
 
     <p>If you have any questions or problems, just ask one of our <%= link_to "Staff", users_url(role: "staff"), style: "text-decoration: none; color: #4096EE;" %> in-game or on the forums!</p>
     <p>Your Redstoner team</p>

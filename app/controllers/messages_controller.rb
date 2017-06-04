@@ -35,7 +35,9 @@ class MessagesController < ApplicationController
       return
     end
     @message = Message.new(message_params)
+    @message.user_target = User.find(@message.user_target_id)
     if @message.save
+      @message.send_new_message_mail
       flash[:notice] = "Message sent!"
       redirect_to messages_path
       return

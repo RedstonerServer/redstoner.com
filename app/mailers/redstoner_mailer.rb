@@ -44,4 +44,10 @@ class RedstonerMailer < ActionMailer::Base
     @user = user
     mail(to: @user.email, subject: "Email change on Redstoner.com")
   end
+
+  def new_message_mail(user, message)
+    @user = user
+    @message = message
+    mail(to: @user.email, subject: "#{message.user_sender.name} sent you a new message.")
+  end
 end
