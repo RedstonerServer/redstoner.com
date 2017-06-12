@@ -7,6 +7,8 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :user_sender, :user_target, :text, on: :create
 
+  validates_length_of :text, in: 1..8000
+
   def sender
     @sender ||= if self.user_sender.present?
       user_sender
@@ -16,8 +18,11 @@ class Message < ActiveRecord::Base
   end
 
   def target
-    # can be nil
-    @target ||= user_target
+    @target ||= if self.user_target.present?
+      user_target
+    else
+      User.first
+    end
   end
 
   def send_new_message_mail
