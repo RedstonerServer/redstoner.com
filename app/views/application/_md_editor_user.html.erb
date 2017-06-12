@@ -2,7 +2,7 @@
   <div class="field_container_user">
     <% options = (defined?(options) && options || {}) %>
     <% options[:class] = "#{options[:class]} editor_field" %>
-    <% options[:placeholder] ||= "Enter user's name. prefix with \"@\" to get suggestions." %>
+    <% options[:placeholder] ||= "Enter user's name." %>
     <%= text_field_tag name, content, options %>
   </div>
 </div>

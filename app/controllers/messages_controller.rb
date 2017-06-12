@@ -1,7 +1,5 @@
 class MessagesController < ApplicationController
 
-  before_filter :check_permission, only: :destroy
-
   def index
     if current_user
       @messages = Message.where(user_target: current_user).page(params[:page])
@@ -67,19 +65,9 @@ class MessagesController < ApplicationController
   end
 
   def message_params(add = [])
-    params[:message][:user_target_id] = User.find_by(ign: params[:message][:user_target].gsub(/[@ ]/,"")).try(:id)
+    params[:message][:user_target_id] = User.find_by(ign: params[:message][:user_target].strip).try(:id)
     params[:message][:user_sender_id] = User.find_by(ign: params[:message][:user_sender]).id
 
     params.require(:message).permit([:text, :user_target_id, :user_sender_id])
-  end
-
-  private
-
-  def check_permission
-    @message = Message.find(params[:id])
-    unless @message.user_target == current_user
-      flash[:alert] = "You are not allowed to view this message"
-      redirect_to home_statics_path
-    end
   end
 end
