@@ -42,6 +42,9 @@ Redstoner::Application.routes.draw do
   end
 
   resources :messages do
+    collection do
+      post 'destroy_all'
+    end
   end
 
   # get '/status' => 'status#show'

@@ -1,35 +1,32 @@
 class MessagesController < ApplicationController
 
-  before_filter :check_permission, only: [:destroy]
+  before_filter :check_permission, only: :destroy
 
   def index
-    if !current_user
+    if current_user
+      @messages = Message.where(user_target: current_user).page(params[:page])
+    else
       flash[:alert] = "Please log in to see your private messages."
       redirect_to blogposts_path
     end
-    @messages = Message.where(user_target: current_user).page(params[:page])
   end
 
-  def destroy
-    if @message.user_target.is?(current_user)
-      if @message.destroy
-        flash[:notice] = "Message deleted!"
-      else
-        flash[:alert] = "There was a problem while deleting this message"
-      end
+  def new
+    if current_user
+      @message = Message.new
     else
-      flash[:alert] = "You are not allowed to delete this message"
+      flash[:alert] = "Please log in to send a private message."
+      redirect_to blogposts_path
     end
-    redirect_to messages_path
   end
 
   def create
-    if !message_params[:user_target_id]
+    unless message_params[:user_target_id]
       flash[:alert] = "Please enter a valid IGN before sending."
       redirect_to new_message_path
       return
     end
-    if message_params[:text] == ""
+    if message_params[:text].blank?
       flash[:alert] = "Please write a message before sending."
       redirect_to new_message_path
       return
@@ -40,21 +37,33 @@ class MessagesController < ApplicationController
       @message.send_new_message_mail
       flash[:notice] = "Message sent!"
       redirect_to messages_path
-      return
     else
       flash[:alert] = "Something went wrong while creating your message."
       render action: "new"
-      return
     end
   end
 
-  def new
-    if !current_user
-      flash[:alert] = "Please log in to send a private message."
-      redirect_to blogposts_path
-      return
+  def destroy
+    if @message.user_target.is?(current_user)
+      if @message.destroy
+        flash[:notice] = "Message deleted!"
+      else
+        flash[:alert] = "There was a problem while deleting this message."
+      end
+    else
+      flash[:alert] = "You are not allowed to delete this message."
     end
-    @message = Message.new
+    redirect_to messages_path
+  end
+
+  def destroy_all
+    Message.destroy_all(user_target_id: current_user.id)
+    if Message.where(user_target_id: current_user.id).empty?
+      flash[:notice] = "Your messages have been deleted!"
+    else
+      flash[:alert] = "There was a problem while deleting your messages."
+    end
+    redirect_to messages_path
   end
 
   def message_params(add = [])

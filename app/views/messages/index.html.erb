@@ -1,5 +1,16 @@
+<% if @messages.any? %>
+  <%= link_to "Delete all messages", destroy_all_messages_path, method: "post", class: "btn blue right", data: {confirm: "Delete all of your messages forever?"} %>
+<% end %>
 <%= link_to "Create new message", new_message_path, class: "btn blue right" %>
-<h3>Your private messages:</h3>
+<br>
+<h2>
+  <% if Message.where(user_target_id: current_user.id).any? %>
+    Your private messages:
+  <% else %>
+    You have no private messages.
+  <% end %>
+</h2>
+
 <div id="forum_groups">
   <% @messages.each do |message| %>
     <div class="item-group with-avatar">
