@@ -9,7 +9,13 @@
     <br>
     <tr>
       <td>
-          <%= render partial: "md_editor", locals: {name: "message[text]", content: params[:text]} %>
+        <%= f.text_field :subject, placeholder: "Subject" %>
+      </td>
+    </tr>
+    <br><br>
+    <tr>
+      <td>
+        <%= render partial: "md_editor", locals: {name: "message[text]", content: params[:text]} %>
       </td>
     </tr>
   </table>

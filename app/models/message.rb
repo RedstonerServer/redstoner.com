@@ -5,9 +5,10 @@ class Message < ActiveRecord::Base
   belongs_to :user_sender, class_name: "User", foreign_key: "user_sender_id"
   belongs_to :user_target, class_name: "User", foreign_key: "user_target_id"
 
-  validates_presence_of :user_sender, :user_target, :text, on: :create
+  validates_presence_of :user_sender, :user_target, :text, :subject
 
   validates_length_of :text, in: 1..8000
+  validates_length_of :subject, in: 1..2000
 
   def sender
     @sender ||= if self.user_sender.present?

@@ -18,6 +18,10 @@
         <%= link_to(message.user_sender.avatar(64), message.user_sender, title: message.user_sender.ign) %>
         <%= render partial: "users/username", locals: { user: message.user_sender } %>
         <%= ago message.created_at %>
+        <span style="font-size:18px">
+          &nbsp; | &nbsp;
+          <b><%= link_to message.subject, messages_path %></b>
+        </span>
         <div class="right">
           <%= link_to "Delete message", message, :method => "delete", class: "editlink", data: {confirm: "Delete this message forever?"} %>
         </div>
@@ -25,7 +29,7 @@
       </div>
       <div class="items">
         <div class="item">
-          <%= render_md(message.text).html_safe %>
+          <%= render_md(truncate message.text, length: 20, omission: "...").html_safe %>
         </div>
       </div>
     </div>

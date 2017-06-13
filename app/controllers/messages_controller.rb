@@ -26,7 +26,11 @@ class MessagesController < ApplicationController
       redirect_to new_message_path
       return
     end
-    if message_params[:text].blank?
+    if message_params[:subject].blank?
+      flash[:alert] = "Please write a subject before sending."
+      redirect_to new_message_path
+      return
+    elsif message_params[:text].blank?
       flash[:alert] = "Please write a message before sending."
       redirect_to new_message_path
       return
@@ -70,7 +74,7 @@ class MessagesController < ApplicationController
     params[:message][:user_target_id] = User.find_by(ign: params[:message][:user_target].strip).try(:id)
     params[:message][:user_sender_id] = User.find_by(ign: params[:message][:user_sender]).id
 
-    params.require(:message).permit([:text, :user_target_id, :user_sender_id])
+    params.require(:message).permit([:subject, :text, :user_target_id, :user_sender_id])
   end
 
   private
