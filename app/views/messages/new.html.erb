@@ -3,13 +3,13 @@
   </table>
     <tr>
       <td>
-        <%= render partial: "md_editor_user", locals: {name: "message[user_target]", content: @message.user_target} %>
+        <%= render partial: "md_editor_user", locals: {name: "message[user_target]", content: params[:user_target]} %>
       </td>
     </tr>
     <br>
     <tr>
       <td>
-          <%= render partial: "md_editor", locals: {name: "message[text]", content: @message.text} %>
+          <%= render partial: "md_editor", locals: {name: "message[text]", content: params[:text]} %>
       </td>
     </tr>
   </table>

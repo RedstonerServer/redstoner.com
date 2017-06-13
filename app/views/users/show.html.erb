@@ -1,14 +1,19 @@
 <% title @user.name %>
 
 <div id="user-info">
-  <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
-    <div class="profile-action" ><%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %></div>
-  <% end %>
-  <div class="profile-action" >
-    <% if !session[:original_user_id] && admin? %>
-      <%= link_to "become this user", become_path(user: @user), :class => "btn blue" %>
-    <% elsif session[:original_user_id] %>
+  <div class="profile-action">
+    <% if session[:original_user_id] %>
       <%= link_to "revert", revert_path, :class => "btn blue" %>
+    <% elsif admin? %>
+      <%= link_to "become this user", become_path(user: @user), :class => "btn blue" %>
+    <% end %>
+    <% if @user.is?(current_user) || (mod? && current_user.role >= @user.role) %>
+      <%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %>
+    <% end %>
+    <% if @user.is?(current_user) %>
+      <%= link_to "Private Messages (#{Message.where(user_target: current_user).count})", messages_path, :class => "btn blue" %>
+    <% else %>
+      <%= link_to "Send this user a message", new_message_path(user_target: @user.ign), :class => "btn blue" %>
     <% end %>
   </div>
 
