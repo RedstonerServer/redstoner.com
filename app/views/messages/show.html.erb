@@ -1,0 +1,33 @@
+<%= link_to "Messages", messages_path %>
+<h1><%= title @message.subject %></h1>
+<div class="item-group thread with-avatar" id="message-<%= @message.id %>">
+  <div class="header">
+    <%= link_to(@message.sender.avatar(64), @message.sender, title: @message.sender.ign) %>
+    <%= render partial: "users/username", locals: { user: @message.sender } %>
+    <%= link_to p do %>
+      <%= ago @message.created_at %>
+    <% end %>
+    <%= link_to "edit", edit_message_path(@message), class: "editlink" if mod? || @message.sender.is?(current_user) %>
+    <div class="clear-right"></div>
+  </div>
+  <div class="items">
+    <% if @message.edited? %>
+      <div class="item edited">
+        Last edited <%= ago @message.updated_at %> by <%= link_to @message.editor.name, @message.editor %>.
+      </div>
+    <% end %>
+    <div class="item content">
+      <%= render_md(@message.text).html_safe %>
+    </div>
+  </div>
+</div>
+<div id="replies">
+  <h3><%= "#{pluralize(@message.replies.size, 'reply')}." %></h3>
+  <% @replies.each do |reply| %>
+    <%= render partial: "messagereplies/reply", locals: {reply: reply} %>
+  <% end %>
+
+  <%= paginate @replies %>
+
+  <%= render partial: "messagereplies/new", locals: {reply: Messagereply.new(message: @message)} %>
+</div>

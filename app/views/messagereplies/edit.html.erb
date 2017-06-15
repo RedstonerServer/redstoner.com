@@ -1,0 +1,15 @@
+<% title "Edit Message Reply: #{@reply.message.subject}" %>
+
+<%
+  position = @reply.message.replies.index(@reply)
+  page     = position / Kaminari.config.default_per_page + 1
+%>
+
+<%= link_to "Messages", messages_path %> → <%= link_to @reply.message, message_path(@reply.message, page: page) + "#reply-#{@reply.id}" %> → Edit reply
+<h1>Edit reply</h1>
+<%= form_for [@reply.message, @reply] do |f| %>
+  <%= render partial: "md_editor", locals: {name: "messagereply[text]", content: @reply.text} %>
+  <p><%= f.submit "Reply", class: "btn blue left" %></p>
+<% end %>
+<p><%= button_to "Delete reply", [@reply.message, @reply], method: "delete", data: {confirm: "Delete reply forever?"}, class: "btn red right" %></p>
+<div class="clear"></div>

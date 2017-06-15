@@ -61,5 +61,6 @@ Message.create!(
   user_sender_id: 2,
   user_target_id: 2,
   text: "This is a very long message that I will be using to test a plentitude of things. :)",
-  created_at: Time.utc(0).to_datetime
+  created_at: Time.utc(0).to_datetime,
+  subject: "Hello there!"
 )

@@ -4,11 +4,33 @@ class Message < ActiveRecord::Base
 
   belongs_to :user_sender, class_name: "User", foreign_key: "user_sender_id"
   belongs_to :user_target, class_name: "User", foreign_key: "user_target_id"
+  belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
+  belongs_to :user_hidden, class_name: "User", foreign_key: "user_hidden_id"
+
 
   validates_presence_of :user_sender, :user_target, :text, :subject
 
   validates_length_of :text, in: 1..8000
   validates_length_of :subject, in: 1..2000
+
+  has_many :messagereplies
+
+  accepts_nested_attributes_for :messagereplies
+
+  before_destroy :do_destroy?
+
+  def do_destroy?
+    unless user_hidden || user_sender == user_target
+      update_attributes(user_hidden: User.current)
+      return false
+    else
+      return true
+    end
+  end
+
+  def to_s
+    subject
+  end
 
   def sender
     @sender ||= if self.user_sender.present?
@@ -24,6 +46,18 @@ class Message < ActiveRecord::Base
     else
       User.first
     end
+  end
+
+  def editor
+    @editor ||= (self.user_editor || User.first)
+  end
+
+  def edited?
+    !!user_editor_id
+  end
+
+  def replies
+    messagereplies
   end
 
   def send_new_message_mail

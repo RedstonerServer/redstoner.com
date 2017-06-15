@@ -1,0 +1,17 @@
+<% title "Edit Thread: #{@message}" %>
+
+<h1>Edit thread</h1>
+<%= link_to "Messages", messages_path %> → <%= link_to @message, @message %> → Edit Message
+<%= form_for @message do |f|%>
+  <div class="table-cell full-width">
+    <%= f.text_field :subject, placeholder: "Subject" %>
+  </div>
+  <br>
+  <%= render partial: "md_editor", locals: {name: "message[text]", content: @message.text} %>
+  <p><%= f.submit "Update message", class: "btn blue left" %></p>
+  <%= f.hidden_field :user_sender, value: @message.user_sender %>
+  <%= f.hidden_field :user_target, value: @message.user_target %>
+<% end %>
+<%= button_to "Delete ", @message, :method => "delete", data: {confirm: "Delete message & comments forever?"}, class: "btn red right" %>
+<div class="clear"></div>
+

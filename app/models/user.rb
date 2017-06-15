@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many :blogposts
   has_many :comments
 
+  cattr_accessor :current
+
   # foo.bar.is?(current_user)
   def is? (user)
     self == user

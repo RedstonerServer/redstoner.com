@@ -11,8 +11,8 @@
       <%= link_to "edit profile", edit_user_path(@user), :class => "btn blue" %>
     <% end %>
     <% if @user.is?(current_user) %>
-      <%= link_to "Private Messages (#{Message.where(user_target: current_user).count})", messages_path, :class => "btn blue" %>
-    <% else %>
+      <%= link_to "Private Messages (#{Message.where("user_sender_id = ? OR user_target_id = ?", current_user.id, current_user.id).count})", messages_path, :class => "btn blue" %>
+    <% elsif current_user %>
       <%= link_to "Send this user a message", new_message_path(user_target: @user.ign), :class => "btn blue" %>
     <% end %>
   </div>

@@ -42,6 +42,7 @@ Redstoner::Application.routes.draw do
   end
 
   resources :messages do
+    resources :messagereplies, path: 'replies'
     collection do
       post 'destroy_all'
     end

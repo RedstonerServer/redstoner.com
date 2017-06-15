@@ -1,13 +1,29 @@
 class MessagesController < ApplicationController
 
-  before_filter :check_permission, only: :destroy
+  before_filter :set_current
+  def set_current
+    User.current = current_user
+  end
+
+  before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
     if current_user
-      @messages = Message.where(user_target: current_user).page(params[:page])
+      @messages = Message.where("(user_sender_id = ? OR user_target_id = ?) AND (user_hidden_id != ? OR user_hidden_id IS NULL)", current_user.id, current_user.id, current_user.id).page(params[:page])
     else
       flash[:alert] = "Please log in to see your private messages."
       redirect_to blogposts_path
+    end
+  end
+
+  def show
+    @replies = @message.replies.page(params[:page])
+  end
+
+  def edit
+    unless mod? || @message.author.is?(current_user)
+      flash[:alert] = "You are not allowed to edit this message!"
+      redirect_to @message
     end
   end
 
@@ -47,12 +63,32 @@ class MessagesController < ApplicationController
     end
   end
 
+  def update
+    if mod? || @message.user_sender.is?(current_user)
+      @message.user_editor_id = current_user.id
+      @message.attributes = message_params
+      if @message.save
+        redirect_to @message, notice: 'Message has been updated.'
+      else
+        flash[:alert] = "There was a problem while updating the message."
+        render action: "edit"
+      end
+    else
+      flash[:alert] = "You are not allowed to edit this message!"
+      redirect_to @message
+    end
+  end
+
   def destroy
-    if @message.user_target.is?(current_user)
+    if [@message.user_target, @message.user_sender].include?(current_user)
       if @message.destroy
         flash[:notice] = "Message deleted!"
       else
-        flash[:alert] = "There was a problem while deleting this message."
+        unless @message.user_hidden
+          flash[:alert] = "There was a problem while deleting this message."
+        else
+          Message.find(@message.id).update_attributes(user_hidden: current_user)
+        end
       end
     else
       flash[:alert] = "You are not allowed to delete this message."
@@ -73,15 +109,15 @@ class MessagesController < ApplicationController
   def message_params(add = [])
     params[:message][:user_target_id] = User.find_by(ign: params[:message][:user_target].strip).try(:id)
     params[:message][:user_sender_id] = User.find_by(ign: params[:message][:user_sender]).id
-
-    params.require(:message).permit([:subject, :text, :user_target_id, :user_sender_id])
+    params[:message][:user_hidden_id] = User.find_by(ign: params[:message][:user_hidden]).try(:id)
+params.require(:message).permit([:subject, :text, :user_target_id, :user_sender_id])
   end
 
   private
 
   def check_permission
     @message = Message.find(params[:id])
-    unless @message.user_target == current_user
+    unless [@message.user_target, @message.user_sender].include? current_user
       flash[:alert] = "You are not allowed to view this message"
       redirect_to home_statics_path
     end

@@ -1,0 +1,17 @@
+<div class="item-group thread-reply with-avatar" id="reply-<%= reply.id %>">
+  <div class="header">
+    <%= link_to(reply.author.avatar(64), reply.author, title: reply.author.ign) %>
+    <%= render partial: "users/username", locals: { user: reply.author } %>
+    <%= link_to "#reply-#{reply.id}" do %>
+      <%= ago reply.created_at %>
+    <% end %>
+
+    <%= link_to "edit", edit_message_messagereply_path(reply.message, reply), class: "editlink" if mod? || reply.author.is?(current_user) %>
+    <div class="clear-right"></div>
+  </div>
+  <div class="items">
+    <div class="item content">
+      <%= render_md(reply.text).html_safe %>
+    </div>
+  </div>
+</div>

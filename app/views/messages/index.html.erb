@@ -15,13 +15,21 @@
   <% @messages.each do |message| %>
     <div class="item-group with-avatar">
       <div class="header">
-        <%= link_to(message.user_sender.avatar(64), message.user_sender, title: message.user_sender.ign) %>
-        <%= render partial: "users/username", locals: { user: message.user_sender } %>
-        <%= ago message.created_at %>
-        <span style="font-size:18px">
+        <%
+          if current_user == message.user_sender
+            user = message.user_target
+          else
+            user = message.user_sender
+          end
+        %>
+        <%= link_to(user.avatar(64), user, title: user.ign) %>
+        <%= render partial: "users/username", locals: { user: user } %>
+        <span style="font-size:16px">
+          &nbsp;
+          <b><%= link_to message.subject, message %></b>
           &nbsp; | &nbsp;
-          <b><%= link_to message.subject, messages_path %></b>
         </span>
+        <%= ago message.created_at %>
         <div class="right">
           <%= link_to "Delete message", message, :method => "delete", class: "editlink", data: {confirm: "Delete this message forever?"} %>
         </div>
@@ -29,7 +37,21 @@
       </div>
       <div class="items">
         <div class="item">
-          <%= render_md(truncate message.text, length: 20, omission: "...").html_safe %>
+          <%= truncate message.text, length: 20, omission: "..." %>
+          <div class="item-info items bold">
+            <% if rpl = message.replies.last %>
+              <%= rpl.author.name %>
+              <%
+                position = message.replies.count - 1
+                page     = position / Kaminari.config.default_per_page + 1
+              %>
+              <%= link_to "replied", message_path(message, page: page) + "#reply-#{rpl.id}" %>
+              <%= ago rpl.created_at %>.
+            <% else %>
+              No replies yet.
+            <% end %>
+          </div>
+          <div class="clear"></div>
         </div>
       </div>
     </div>
