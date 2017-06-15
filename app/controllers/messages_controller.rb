@@ -17,6 +17,7 @@ class MessagesController < ApplicationController
   end
 
   def show
+    Message.find(@message.id).update_attributes(read: true) if !@message.read && @message.user_target.is?(current_user)
     @replies = @message.replies.page(params[:page])
   end
 
