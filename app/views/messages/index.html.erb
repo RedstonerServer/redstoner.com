@@ -4,7 +4,7 @@
 <%= link_to "Create new message", new_message_path, class: "btn blue right" %>
 <br>
 <h2>
-  <% if Message.where("user_target_id = ? OR user_sender_id = ?", current_user.id, current_user.id).any? %>
+  <% if Message.where("(user_target_id = ? OR user_sender_id = ?) AND user_hidden_id != ?", current_user.id, current_user.id, current_user.id).any? %>
     Your private messages:
   <% else %>
     You have no private messages.
