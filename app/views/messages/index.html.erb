@@ -26,7 +26,7 @@
         <%= render partial: "users/username", locals: { user: user } %>
         <span style="font-size:16px">
           &nbsp;
-          <span class="<%= "bold" if message.user_unread && message.user_unread != current_user %>"><%= link_to message.subject, message %></span>
+          <span class="<%= "bold" if message.user_unread_id && message.user_unread != current_user %>"><%= link_to message.subject, message %></span>
           &nbsp; | &nbsp;
         </span>
         <%= ago message.created_at %>

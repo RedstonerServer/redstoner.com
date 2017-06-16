@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
   end
 
   def show
-    Message.find(@message.id).update_attributes(user_unread: nil) if @message.user_unread && @message.user_target.is?(current_user)
+    Message.find(@message.id).update_attributes(user_unread: nil) unless @message.user_unread == current_user
     @replies = @message.replies.page(params[:page])
   end
 

@@ -19,6 +19,7 @@ class MessagerepliesController < ApplicationController
         if false
           @reply.send_new_message_reply_mail
         end
+        Message.find(params[:message_id]).update_attributes(user_hidden: nil, user_unread_id: current_user.id)
         position = message.replies.count - 1
         page     = position / Kaminari.config.default_per_page + 1
         redirect_to message_path(@reply.message, page: page) + "#reply-#{@reply.id}", notice: 'Reply created!'

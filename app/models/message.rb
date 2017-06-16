@@ -21,11 +21,11 @@ class Message < ActiveRecord::Base
   before_destroy :do_destroy?
 
   def do_destroy?
-    unless user_hidden || user_sender == user_target
+    if user_hidden || user_sender == user_target
+      return true
+    else
       update_attributes(user_hidden: User.current)
       return false
-    else
-      return true
     end
   end
 
