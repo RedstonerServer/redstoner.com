@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20170613021450) do
     t.integer  "user_target_id", limit: 4
     t.integer  "user_editor_id", limit: 4
     t.integer  "user_hidden_id", limit: 4
-    t.boolean  "read",                         default: false
+    t.integer  "user_unread_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subject",        limit: 191

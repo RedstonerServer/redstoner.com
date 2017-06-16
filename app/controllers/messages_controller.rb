@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
   end
 
   def show
-    Message.find(@message.id).update_attributes(read: true) if !@message.read && @message.user_target.is?(current_user)
+    Message.find(@message.id).update_attributes(user_unread: nil) if @message.user_unread && @message.user_target.is?(current_user)
     @replies = @message.replies.page(params[:page])
   end
 
@@ -54,6 +54,7 @@ class MessagesController < ApplicationController
     end
     @message = Message.new(message_params)
     @message.user_target = User.find(@message.user_target_id)
+    @message.user_unread = User.find(@message.user_unread_id) if @message.user_unread_id
     if @message.save
       @message.send_new_message_mail
       flash[:notice] = "Message sent!"
@@ -111,7 +112,8 @@ class MessagesController < ApplicationController
     params[:message][:user_target_id] = User.find_by(ign: params[:message][:user_target].strip).try(:id)
     params[:message][:user_sender_id] = User.find_by(ign: params[:message][:user_sender]).id
     params[:message][:user_hidden_id] = User.find_by(ign: params[:message][:user_hidden]).try(:id)
-params.require(:message).permit([:subject, :text, :user_target_id, :user_sender_id])
+    params[:message][:user_unread_id] = User.find_by(ign: params[:message][:user_unread]).try(:id)
+params.require(:message).permit([:subject, :text, :user_target_id, :user_sender_id, :user_hidden_id, :user_unread_id])
   end
 
   private

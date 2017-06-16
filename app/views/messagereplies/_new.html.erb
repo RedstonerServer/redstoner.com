@@ -1,5 +1,6 @@
 <%= form_for [reply.get_message, reply] do |f| %>
   <%= render partial: "md_editor", locals: {name: "messagereply[text]", content: reply.text} %>
+  <%= f.hidden_field :user_unread, value: current_user %>
   <p><%= f.submit "Reply", class: "btn blue" %></p>
 <% end %>
 

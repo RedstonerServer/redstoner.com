@@ -20,6 +20,7 @@
     </tr>
   </table>
   <%= f.hidden_field :user_sender, value: current_user %>
+  <%= f.hidden_field :user_unread, value: current_user %>
   <br>
 <p><%= f.submit "Send Message", class: "btn blue left" %></p>
 <% end %>

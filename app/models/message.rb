@@ -6,6 +6,7 @@ class Message < ActiveRecord::Base
   belongs_to :user_target, class_name: "User", foreign_key: "user_target_id"
   belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
   belongs_to :user_hidden, class_name: "User", foreign_key: "user_hidden_id"
+  belongs_to :user_unread, class_name: "User", foreign_key: "user_unread_id"
 
 
   validates_presence_of :user_sender, :user_target, :text, :subject

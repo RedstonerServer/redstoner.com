@@ -6,7 +6,7 @@ class CreateMessages < ActiveRecord::Migration
       t.references :user_target
       t.references :user_editor
       t.references :user_hidden
-      t.boolean :read, default: false
+      t.references :user_unread
 
       t.timestamps null: true
     end

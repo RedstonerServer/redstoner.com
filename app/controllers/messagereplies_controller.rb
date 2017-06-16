@@ -16,7 +16,6 @@ class MessagerepliesController < ApplicationController
       @reply.user_author = current_user
       @reply.message = message
       if @reply.save
-        @reply.message.update_attributes(user_hidden: nil, read: false)
         if false
           @reply.send_new_message_reply_mail
         end
