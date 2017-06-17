@@ -1,7 +1,7 @@
 <% if @messages.any? %>
-  <%= link_to "Delete all messages", destroy_all_messages_path, method: "post", class: "btn blue right", data: {confirm: "Delete all of your messages forever?"} %>
+  <%= link_to "delete all messages", destroy_all_messages_path, method: "post", class: "btn blue right", data: {confirm: "Delete all of your messages forever?"} %>
 <% end %>
-<%= link_to "Create new message", new_message_path, class: "btn blue right" %>
+<%= link_to "create new message", new_message_path, class: "btn blue right" %>
 <br>
 <h2>
   <% if Message.where("(user_target_id = ? OR user_sender_id = ?) AND user_hidden_id != ?", current_user.id, current_user.id, current_user.id).any? %>
