@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   create_table "register_tokens", force: :cascade do |t|
-    t.string "uuid",  limit: 32,  null: false
-    t.string "token", limit: 6,   null: false
+    t.string "uuid",  limit: 191, null: false
+    t.string "token", limit: 191, null: false
     t.string "email", limit: 191, null: false
   end
 

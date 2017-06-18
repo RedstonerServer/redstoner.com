@@ -30,10 +30,6 @@ class User < ActiveRecord::Base
     self == user
   end
 
-  def donor?
-    !!self.donor
-  end
-
   def confirmed?
     !!self.confirmed
   end

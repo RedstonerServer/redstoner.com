@@ -10,7 +10,7 @@ class AddBadgeIdToUsers < ActiveRecord::Migration
     Badge.create!({name: "none", symbol: "", color: "#000"})
     dbadge = Badge.create!({name: "donor", symbol: "$", color: "#f60"})
 
-    add_column :users, :badge_id, :integer, default: 0
+    add_column :users, :badge_id, :integer, default: 1
     User.where(donor: true).update_all(badge_id: dbadge.id)
     remove_column :users, :donor
   end
