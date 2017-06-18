@@ -1,5 +1,5 @@
 <%= link_to "Forums", forums_path %> →
-<% params_list = params.to_hash %>
+<% params_list = params.except(:controller, :action) %>
 <% if params_list.any? %>
   <%= link_to "All Threads", forumthreads_path %> → Search Results
 <% else %>
@@ -9,7 +9,7 @@
   <%
     if params[:forum]
       text = "forum '#{Forum.find(params[:forum]).name}'"
-      if params_list.any?
+      if params_list.except(:forum).any?
         text = "Search results in #{text} (#{@threads.length})"
       else
         text = text.capitalize
@@ -26,20 +26,20 @@
 <%= form_tag(forumthreads_path, method: :get) do %>
   <%= text_field_tag "query", params[:query], placeholder: "Search...", class: "searchfield field" %>
   <%= submit_tag "Go", class: "searchfield btn" %>
-  <% params.slice(:title, :content, :reply, :label, :author).each do |key, value| %>
+  <%= link_to "Advanced Search", search_forumthreads_path(params_list), class: "btn right blue" %>
+  <% if params_list.any? %>
+    <% if params[:forum] %>
+      <%= link_to "Show All Threads", forumthreads_path(params_list.except("forum")), class: "btn right blue" %>
+    <% elsif params_list.except(:controller, :action).any? %>
+      <%= link_to "Show All Threads", forumthreads_path, class: "btn right blue" %>
+    <% end %>
+  <% end %>
+  <% if params[:forum] %>
+    <%= link_to "Go to Forum", forum_path(params[:forum]), class: "btn right blue" %>
+  <% end %>
+  <% params.slice(:forum, :title, :content, :reply, :label, :author).each do |key, value| %>
     <%= hidden_field_tag key, params[key] %>
   <% end %>
-<% end %>
-<%= link_to "Advanced Search", search_forumthreads_path(params_list), class: "btn right blue" %>
-<% if params_list.any? %>
-  <% if params[:forum] %>
-    <%= link_to "Show All Threads", forumthreads_path(params_list.except("forum")), class: "btn right blue" %>
-  <% elsif params_list.except(:controller, :action).any? %>
-    <%= link_to "Show All Threads", forumthreads_path, class: "btn right blue" %>
-  <% end %>
-<% end %>
-<% if params[:forum] %>
-  <%= link_to "Go to Forum", forum_path(params[:forum]), class: "btn right blue" %>
 <% end %>
 
 <div id="forum_groups">
