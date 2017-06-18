@@ -15,6 +15,14 @@ GIT
       sass-rails (>= 3.2.0)
 
 GIT
+  remote: git://github.com/antulik/actionpack-action_caching.git
+  revision: 8c6e52c69315d67437f480da5dce4b7c8737fb32
+  ref: 8c6e52c69315d67437f480da5dce4b7c8737fb32
+  specs:
+    actionpack-action_caching (1.2.0)
+      actionpack (>= 4.0.0, < 6)
+
+GIT
   remote: git://github.com/jomo/kaminari.git
   revision: e49066e94d77a6abb03a0819f3c4b0cc6923cb70
   branch: patch-2
@@ -223,6 +231,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack-action_caching!
   activerecord-session_store
   bcrypt
   better_errors
