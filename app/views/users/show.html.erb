@@ -15,11 +15,12 @@
   <h1><%= @user.name %></h1>
 
   <div class="clear"></div>
-
-  <% if @user.banned? %>
-    <span class="user-banned">This user is banned!</span>
+  <% if @ban_json %>
+    <span class="user-banned">This used is banned for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
+  <% elsif @user.banned? %>
+      <span class="user-banned">This user is banned!</span>
   <% end %>
-
+  <br>
   <% if !@user.confirmed? %>
     <% if @user.is?(current_user) || mod? %>
       <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
