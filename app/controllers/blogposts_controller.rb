@@ -8,8 +8,16 @@ class BlogpostsController < ApplicationController
   end
 
   def show
-    @comment = Comment.new(blogpost: @post)
-    @comments = @post.comments.page(params[:page])
+    if @post
+      @comment = Comment.new(blogpost: @post)
+      @comments = @post.comments.page(params[:page])
+      respond_to do |format|
+        format.html
+        format.json {render json: @post.attributes.merge(replies: Comment.where(blogpost: @post).ids).to_json}
+      end
+    else
+      respond_to {|format| format.json {render json: Comment.find_by(id: params[:id][1..-1]).try(:attributes).to_json}}
+    end
   end
 
   def new
@@ -64,7 +72,9 @@ class BlogpostsController < ApplicationController
 
   def set_post
     if params[:id]
-      @post = Blogpost.find(params[:id])
+      unless action_name == "show" && params[:id][0].downcase == "c"
+        @post = Blogpost.find(params[:id])
+      end
     end
   end
 
