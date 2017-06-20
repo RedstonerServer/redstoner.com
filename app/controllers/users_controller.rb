@@ -30,6 +30,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json {render json: @user.attributes.slice("id", "uuid", "ign", "name", "about", "donor", "confirmed", "last_seen", "created_at").to_json}
+    end
   end
 
   # SIGNUP

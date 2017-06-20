@@ -2,6 +2,12 @@ class CommentsController < ApplicationController
 
   include MailerHelper
 
+  def show
+    respond_to do |format|
+      format.json {render json: @comment.attributes.to_json}
+    end
+  end
+
   def edit
     @comment = Comment.find(params[:id])
     if mod? || @comment.author.is?(current_user)
