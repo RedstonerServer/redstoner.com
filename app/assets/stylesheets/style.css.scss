@@ -1027,3 +1027,10 @@ nav.pagination {
   border-radius: 0.2em;
   text-shadow: none;
 }
+.memory-table {
+  width: 870px;
+  margin: auto;
+  th, td {
+    border: 1px solid black;
+  }
+}

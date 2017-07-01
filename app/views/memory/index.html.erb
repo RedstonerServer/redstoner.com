@@ -1,0 +1,4 @@
+<%= form_tag "memory/table", method: :get do %>
+  <%= select_tag "project", options_for_select(@projects.collect.with_index{|p, i| [@project_names[i], p]}) %>
+  <%= submit_tag "View Table", name: nil %>
+<% end %>

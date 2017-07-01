@@ -29,6 +29,15 @@ Redstoner::Application.routes.draw do
     end
   end
 
+  resources :memory do
+    collection do
+      get 'list'
+      get 'table'
+      post 'update_memory'
+    end
+  end
+
+
   resources :forumgroups,  path: '/forums/groups'
   resources :forums,       path: '/forums'
   resources :forumthreads, path: '/forums/threads' do
