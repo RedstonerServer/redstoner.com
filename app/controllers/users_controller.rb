@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include MailerHelper
   include ERB::Util
 
-  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
+  before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions, :update_memory]
 
   def index
     if params[:role]
@@ -325,6 +325,26 @@ class UsersController < ApplicationController
       puts "'#{query}' does not match regex!"
       render json: []
     end
+  end
+
+  def memory
+    params[:page] ||= (page ||= 1)
+    file = File.open("/etc/minecraft/redstoner/plugins/JavaUtils/memory/hexfile.hex")
+    @hex_a = file.read.unpack("C*").map {|h| h.to_s(16)}
+    @hex_a = Kaminari.paginate_array(@hex_a).page(params[:page]).per(2048)
+    file.close
+  end
+
+  def update_memory
+      file = File.open("/etc/minecraft/redstoner/plugins/JavaUtils/memory/hexfile.hex")
+      new_text = file.read
+      file.close
+      new_text = new_text.unpack("C*").collect{|h| h.to_s(16)}
+      new_text[params[:mem_id].split("-")[1].to_i] = params[:value]
+      file = File.open("/etc/minecraft/redstoner/plugins/JavaUtils/memory/hexfile.hex", "w")
+      file.write((new_text.collect{|h| h.to_s.to_i(16)}).pack("C*").force_encoding("UTF-8"))
+      file.close
+      render nothing: true
   end
 
   private

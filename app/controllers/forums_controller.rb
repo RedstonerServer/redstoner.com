@@ -13,6 +13,11 @@ class ForumsController < ApplicationController
       [t.sticky ? 0 : 1, -(t.replies.last.try(:created_at) || t.created_at).to_i]
     end
     @threads = Kaminari.paginate_array(@threads).page(params[:page])
+    respond_to do |format|
+      format.html
+      f = Forum.find_by(id: params[:id])
+      format.json {render json: f.attributes.to_json}
+    end
   end
 
   def edit

@@ -5,7 +5,12 @@ class ForumgroupsController < ApplicationController
   end
 
   def show
-    redirect_to forums_path + "#group-#{params[:id].to_i}"
+    if request.format.html?
+      redirect_to forums_path + "#group-#{params[:id].to_i}"
+    else
+      fg = Forumgroup.find_by(id: params[:id])
+      respond_to {|format| format.json {render json: (fg.attributes.to_json if fg.try(:can_read?, :current_user))}}
+    end
   end
 
   def edit

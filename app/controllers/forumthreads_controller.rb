@@ -7,7 +7,12 @@ class ForumthreadsController < ApplicationController
   end
 
   def show
-    @replies = @thread.replies.page(params[:page])
+    if @thread
+      @replies = @thread.replies.page(params[:page])
+    else
+      respond_to {|format| format.json {render json: Comment.find_by(id: params[:id][1..-1]).try(:attributes).to_json}}
+    end
+
   end
 
   def edit
