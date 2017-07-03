@@ -10,7 +10,7 @@
     if params[:forum]
       text = "forum '#{Forum.find(params[:forum]).name}'"
       if params_list.except(:forum).any?
-        text = "Search results in #{text} (#{@threads.length})"
+        text = "Search results in #{text} (#{@threads.total_count})"
       else
         text = text.capitalize
       end
