@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522210610) do
+ActiveRecord::Schema.define(version: 20170703003647) do
 
   create_table "badges", force: :cascade do |t|
-    t.string "name",   limit: 191
-    t.string "symbol", limit: 191
-    t.string "color",  limit: 191
+    t.string  "name",   limit: 191
+    t.string  "symbol", limit: 191
+    t.string  "color",  limit: 191
+    t.integer "value",  limit: 4
   end
 
   create_table "blogposts", force: :cascade do |t|
-    t.string   "title",          limit: 191
-    t.text     "content",        limit: 65535
+    t.string   "title",          limit: 255
+    t.text     "content",        limit: 16777215
     t.integer  "user_author_id", limit: 4
     t.integer  "user_editor_id", limit: 4
     t.datetime "created_at"
@@ -29,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text     "content",        limit: 65535
+    t.text     "content",        limit: 16777215
     t.integer  "user_author_id", limit: 4
     t.integer  "user_editor_id", limit: 4
     t.integer  "blogpost_id",    limit: 4
@@ -38,14 +39,14 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   create_table "forumgroups", force: :cascade do |t|
-    t.string  "name",          limit: 191
+    t.string  "name",          limit: 255
     t.integer "position",      limit: 4
     t.integer "role_read_id",  limit: 4
     t.integer "role_write_id", limit: 4
   end
 
   create_table "forums", force: :cascade do |t|
-    t.string  "name",          limit: 191
+    t.string  "name",          limit: 255
     t.integer "position",      limit: 4
     t.integer "role_read_id",  limit: 4
     t.integer "role_write_id", limit: 4
@@ -59,10 +60,10 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   create_table "forumthreads", force: :cascade do |t|
-    t.string   "title",          limit: 191
-    t.text     "content",        limit: 65535
-    t.boolean  "sticky",                       default: false
-    t.boolean  "locked",                       default: false
+    t.string   "title",          limit: 255
+    t.text     "content",        limit: 16777215
+    t.boolean  "sticky",                          default: false
+    t.boolean  "locked",                          default: false
     t.integer  "user_author_id", limit: 4
     t.integer  "user_editor_id", limit: 4
     t.integer  "forum_id",       limit: 4
@@ -72,47 +73,49 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   add_index "forumthreads", ["content"], name: "index_forumthreads_on_content", type: :fulltext
+  add_index "forumthreads", ["title", "content"], name: "forumthreads_title_content", type: :fulltext
   add_index "forumthreads", ["title", "content"], name: "index_forumthreads_on_title_and_content", type: :fulltext
   add_index "forumthreads", ["title"], name: "index_forumthreads_on_title", type: :fulltext
 
   create_table "info", force: :cascade do |t|
-    t.string   "title",      limit: 191
-    t.text     "content",    limit: 65535
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "labels", force: :cascade do |t|
-    t.string "name",  limit: 191
-    t.string "color", limit: 191
+    t.string "name",  limit: 255
+    t.string "color", limit: 255
   end
 
   create_table "register_tokens", force: :cascade do |t|
-    t.string "uuid",  limit: 191, null: false
-    t.string "token", limit: 191, null: false
-    t.string "email", limit: 191, null: false
+    t.string "uuid",  limit: 32,  null: false
+    t.string "token", limit: 6,   null: false
+    t.string "email", limit: 191
   end
 
+  add_index "register_tokens", ["email"], name: "index_register_tokens_on_email", unique: true, using: :btree
   add_index "register_tokens", ["uuid"], name: "index_register_tokens_on_uuid", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
-    t.string  "name",  limit: 191
+    t.string  "name",  limit: 255
     t.integer "value", limit: 4
-    t.string  "color", limit: 191
+    t.string  "color", limit: 255
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 191,   null: false
-    t.text     "data",       limit: 65535
+    t.string   "session_id", limit: 255,      null: false
+    t.text     "data",       limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", length: {"session_id"=>191}, using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "threadreplies", force: :cascade do |t|
-    t.text     "content",        limit: 65535
+    t.text     "content",        limit: 16777215
     t.integer  "user_author_id", limit: 4
     t.integer  "user_editor_id", limit: 4
     t.integer  "forumthread_id", limit: 4
@@ -121,21 +124,22 @@ ActiveRecord::Schema.define(version: 20170522210610) do
   end
 
   add_index "threadreplies", ["content"], name: "index_threadreplies_on_content", type: :fulltext
+  add_index "threadreplies", ["forumthread_id"], name: "index_threadreplies_on_forumthread_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "uuid",                        limit: 191,                   null: false
-    t.string   "name",                        limit: 191,                   null: false
-    t.string   "password_digest",             limit: 191,                   null: false
-    t.string   "ign",                         limit: 191,                   null: false
-    t.string   "email",                       limit: 191,                   null: false
+    t.string   "uuid",                        limit: 255,                   null: false
+    t.string   "name",                        limit: 191
+    t.string   "password_digest",             limit: 255,                   null: false
+    t.string   "ign",                         limit: 255,                   null: false
+    t.string   "email",                       limit: 191
     t.text     "about",                       limit: 65535
-    t.string   "last_ip",                     limit: 191
-    t.string   "skype",                       limit: 191
+    t.string   "last_ip",                     limit: 255
+    t.string   "skype",                       limit: 255
     t.boolean  "skype_public",                              default: false
-    t.string   "youtube",                     limit: 191
-    t.string   "youtube_channelname",         limit: 191
-    t.string   "twitter",                     limit: 191
-    t.string   "email_token",                 limit: 191
+    t.string   "youtube",                     limit: 255
+    t.string   "youtube_channelname",         limit: 255
+    t.string   "twitter",                     limit: 255
+    t.string   "email_token",                 limit: 255
     t.boolean  "confirmed",                                 default: false
     t.datetime "last_seen"
     t.integer  "role_id",                     limit: 4,                     null: false
