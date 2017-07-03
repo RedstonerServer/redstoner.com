@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
     if role
       users = users.where(role: role)
     elsif staff
-      users.where("roles.value >= ?", Role.get(:mod).to_i)
+      users = users.where("roles.value >= ?", Role.get(:mod).to_i)
     end
     users = users.where(badge: badge) if badge
     if search
