@@ -174,23 +174,19 @@ class User < ActiveRecord::Base
   def set_email_token
     self.email_token ||= SecureRandom.hex(16)
   end
-  
+
   def self.search (search, role, badge, staff)
+    users = User.joins(:role)
     if role
-      if staff
-        users = User.joins(:role).where("roles.value >= ?", Role.get(:mod).to_i)
-      else
-        users = User.joins(:role).where(role: role)
-      end
+      users = staff ? users.where("roles.value >= ?", Role.get(:mod).to_i) : users.where(role: role)
     end
-    if badge
-      users = User.joins(:badge).where(badge: badge)
-    else
-      users = User.joins(:role).all.where.not(id: User.first.id)
+    users = users.where(badge: badge) if badge
+    if search
+      search_san = User.send(:sanitize_sql_like, search.to_s)
+      users = users.where("users.name like ? OR ign like ?", "%#{search_san}%", "%#{search_san}%")
     end
-    search_san = User.send(:sanitize_sql_like, search.to_s)
-    users = users.where("users.name like ? OR ign like ?", "%#{search_san}%", "%#{search_san}%")
-    users = users.order("roles.value desc", "confirmed desc", :name) unless badge
+    users = users.where.not(id: User.first.id) unless [search, role, badge].any?
+    users = users.order("roles.value desc", "confirmed desc", :name)
     users
   end
 end
