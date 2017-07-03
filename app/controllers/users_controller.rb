@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     role = Role.find_by(name: params[:role])
     badge = Badge.find_by(name: params[:badge])
 
-    @users = User.search(params[:search], role, badge, params[:staff])
+    @users = User.search(params[:search], role, badge, params.include?(:staff))
     @count = @users.size
     @users = @users.page(params[:page]).per(100)
   end
