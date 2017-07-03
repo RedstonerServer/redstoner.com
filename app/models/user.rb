@@ -178,7 +178,9 @@ class User < ActiveRecord::Base
   def self.search (search, role, badge, staff)
     users = User.joins(:role)
     if role
-      users = staff ? users.where("roles.value >= ?", Role.get(:mod).to_i) : users.where(role: role)
+      users = users.where(role: role)
+    elsif staff
+      users.where("roles.value >= ?", Role.get(:mod).to_i)
     end
     users = users.where(badge: badge) if badge
     if search
