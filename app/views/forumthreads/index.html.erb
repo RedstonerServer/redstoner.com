@@ -1,5 +1,5 @@
 <%= link_to "Forums", forums_path %> →
-<% params_list = params.except(:controller, :action) %>
+<% params_list = params.slice(:query, :title, :content, :author, :label, :reply) %>
 <% if params_list.any? %>
   <%= link_to "All Threads", forumthreads_path %> → Search Results
 <% else %>
