@@ -1,4 +1,5 @@
-<%= form_tag "memory/table", method: :get do %>
+<%= form_tag url_for(controller: "memory", action: "table"), method: :get do %>
   <%= select_tag "project", options_for_select(@projects.collect.with_index{|p, i| [@project_names[i], p]}) %>
-  <%= submit_tag "View Table", name: nil %>
+  <br><br>
+  <%= submit_tag "Load table", name: nil, class: "btn blue" %>
 <% end %>

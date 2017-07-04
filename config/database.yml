@@ -10,7 +10,7 @@ default: &default
 development:
   <<: *default
   database: redstoner-web
-  username: root
+  username: web
 
 production:
   <<: *default

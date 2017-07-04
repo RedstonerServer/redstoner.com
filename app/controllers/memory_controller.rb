@@ -16,30 +16,31 @@ class MemoryController < ApplicationController
   end
 
   def table
-    Dir.chdir("/etc/minecraft/redstoner/plugins/JavaUtils/memory/projects/#{params[:project]}")
+    Dir.chdir("/etc/minecraft/redstoner/plugins/JavaUtils/memory/projects/#{params[:project].gsub(/[^a-zA-Z0-9-]/,"")[0..35]}")
     @data = []
     Dir.glob('*').reverse.each do |f|
       File.open(Dir.pwd+"/#{f}") do |file|
         @data.concat(file.read.unpack("C*").map{|h| h.to_s(16)})
-        if JSON.parse((jf = File.open(Dir.pwd+"/project.json")).read)["read"].include? current_user.uuid.gsub("-","")
-          @can_edit = false
-        else
+        unless (parse = JSON.parse((jf = File.open(Dir.pwd+"/project.json")).read))["read"].include? current_user.uuid.gsub("-","")
           @can_edit = true
         end
+        @name = parse["name"]
         jf.close
       end
     end
   end
 
   def update_memory
-    Dir.chdir("/etc/minecraft/redstoner/plugins/JavaUtils/memory/projects/#{params[:project]}")
-    new_text = ""
-    File.open("#{params[:file]}.hex"){|f| new_text = f.read.unpack("C*").collect{|h| h.to_s(16)}}
-    new_text[params[:mem_id].to_i] = params[:value]
-    File.open("#{params[:file]}.hex", "w") do |f|
-      f.write((new_text.collect{|h| h.to_s.to_i(16)}).pack("C*").force_encoding("UTF-8"))
+    Dir.chdir("/etc/minecraft/redstoner/plugins/JavaUtils/memory/projects/#{params[:project].gsub(/[^a-zA-Z0-9-]/,"")[0..35]}")
+    unless params[:mem_id].to_i > JSON.parse(File.read("project.json"))["size"] || (/[^A-Fa-f0-9]/.match params[:value])
+      new_text = ""
+      File.open("#{params[:file]}.hex"){|f| new_text = f.read.unpack("C*").collect{|h| h.to_s(16)}}
+      new_text[params[:mem_id].to_i] = params[:value]
+      File.open("#{params[:file]}.hex", "w") do |f|
+        f.write((new_text.collect{|h| h.to_s.to_i(16)}).pack("C*").force_encoding("UTF-8"))
+      end
+      render nothing: true
     end
-    render nothing: true
   end
 
   private

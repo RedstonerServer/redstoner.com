@@ -1028,9 +1028,11 @@ nav.pagination {
   text-shadow: none;
 }
 .memory-table {
-  width: 870px;
+  width: 980px;
   margin: auto;
+  text-align: center;
   th, td {
+    height: 20px;
     border: 1px solid black;
   }
 }
