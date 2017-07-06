@@ -106,7 +106,7 @@ class Forumthread < ActiveRecord::Base
     if order_phrase.present?
       threads = threads.order("GREATEST(relevance, reply_rel) DESC")
     else
-      threads = threads.order("sticky desc", "threadreplies.created_at DESC", "forumthreads.created_at DESC")
+      threads = threads.order("sticky DESC", "threadreplies.id DESC", "forumthreads.id DESC")
     end
     threads
   end

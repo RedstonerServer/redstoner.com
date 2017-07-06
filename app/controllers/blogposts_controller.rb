@@ -4,7 +4,7 @@ class BlogpostsController < ApplicationController
   before_filter :auth, except: [:index, :show]
 
   def index
-    @posts = Blogpost.order("created_at desc").page(params[:page]).per(10)
+    @posts = Blogpost.order(id: :desc).page(params[:page]).per(10)
   end
 
   def show

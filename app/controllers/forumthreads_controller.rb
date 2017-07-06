@@ -12,9 +12,9 @@ class ForumthreadsController < ApplicationController
   end
   def show
     if params[:reverse] == "true"
-      @replies = @thread.replies.order(created_at: :desc).page(params[:page])
+      @replies = @thread.replies.order(id: :desc).page(params[:page])
     else
-      @replies = @thread.replies.order(:created_at).page(params[:page])
+      @replies = @thread.replies.order(:id).page(params[:page])
     end
   end
 
