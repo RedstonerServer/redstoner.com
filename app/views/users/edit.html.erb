@@ -55,6 +55,13 @@
         </td>
       </tr>
       <tr>
+        <td>Mastodon</td>
+        <td style="display:inline;padding:0px">
+          <%= f.text_field :mastodon, placeholder: "Mastodon username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%;float:left;margin-right:2%" %>
+          <%= f.text_field :mastodon_instance, placeholder: "Mastodon instance", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%" %>
+        </td>
+      </tr>
+      <tr>
         <td>YouTube Channel ID</td>
         <td>
           <%= f.text_field :youtube, placeholder: "YouTube Channel ID", disabled: !can_edit? %>

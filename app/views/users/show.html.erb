@@ -58,6 +58,17 @@
         <td><%= link_to @user.skype, "skype:#{@user.skype}?chat", target: "_blank" %></a></td>
       </tr>
       <% end %>
+      <% if !@user.mastodon.blank? %>
+      <tr>
+        <td><b>Mastodon</b></td>
+        <td>
+          <% if @user.mastodon_instance %>
+            <%= link_to "@#{@user.mastodon}", "https://#{CGI.escape(@user.mastodon_instance)}/@#{CGI.escape(@user.mastodon)}", :target => "_blank" %></td>
+          <% else %>
+            <%= @user.mastodon %>
+          <% end %>
+      </tr>
+      <% end %>
       <% if !@user.youtube.blank? && !@user.youtube_channelname.blank? %>
       <tr>
         <td><b>YouTube</b></td>

@@ -137,9 +137,9 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :mastodon, :mastodon_instance, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
       else
-        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
+        userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :mastodon, :mastodon_instance, :about, :header_scroll, :utc_time, :dark])
       end
       if userdata[:role]
         role = Role.get(userdata[:role])
