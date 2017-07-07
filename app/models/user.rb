@@ -168,7 +168,6 @@ class User < ActiveRecord::Base
     self.about.strip! if self.about
     self.skype.strip! if self.skype
     self.mastodon.strip! if self.mastodon
-    self.mastodon_instance.strip! if self.mastodon_instance
     self.youtube.strip! if self.youtube
     self.twitter.strip! if self.twitter
   end

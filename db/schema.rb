@@ -152,7 +152,6 @@ ActiveRecord::Schema.define(version: 20170707012441) do
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
     t.string   "mastodon",                    limit: 191
-    t.string   "mastodon_instance",           limit: 191
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

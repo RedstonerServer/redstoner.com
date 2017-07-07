@@ -57,8 +57,9 @@
       <tr>
         <td>Mastodon</td>
         <td style="display:inline;padding:0px">
-          <%= f.text_field :mastodon, placeholder: "Mastodon username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%;float:left;margin-right:2%" %>
-          <%= f.text_field :mastodon_instance, placeholder: "Mastodon instance", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%" %>
+          <% mstdn_array = @user.mastodon.split("@") if @user.mastodon %>
+          <%= f.text_field :mastodon, value: (mstdn_array[0] if mstdn_array), placeholder: "Mastodon username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%;float:left;margin-right:2%" %>
+          <%= f.text_field :mastodon_instance, value: (mstdn_array[1] if mstdn_array), placeholder: "Mastodon instance", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)), style: "width:49%" %>
         </td>
       </tr>
       <tr>

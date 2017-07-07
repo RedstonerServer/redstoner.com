@@ -153,6 +153,10 @@ class UsersController < ApplicationController
       if userdata[:badge]
         userdata[:badge] = Badge.get(userdata[:badge])
       end
+      unless userdata[:mastodon].blank?
+        userdata[:mastodon] = "#{userdata[:mastodon].gsub("@", "")}#{("@" + userdata[:mastodon_instance].gsub("@", "")) unless userdata[:mastodon_instance].blank?}"
+      end
+      userdata.delete(:mastodon_instance)
       if @user.youtube != userdata[:youtube]
         youtube = get_youtube(userdata[:youtube])
         userdata[:youtube] = youtube[:channel]

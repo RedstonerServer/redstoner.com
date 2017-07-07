@@ -62,10 +62,11 @@
       <tr>
         <td><b>Mastodon</b></td>
         <td>
-          <% if @user.mastodon_instance %>
-            <%= link_to "@#{@user.mastodon}", "https://#{CGI.escape(@user.mastodon_instance)}/@#{CGI.escape(@user.mastodon)}", :target => "_blank" %></td>
+          <% mstdn_array = @user.mastodon.split("@") %>
+          <% if mstdn_array.length > 1 %>
+            <%= link_to "@#{mstdn_array[0]}", "https://#{CGI.escape(mstdn_array[1])}/@#{CGI.escape(mstdn_array[0])}", :target => "_blank" %></td>
           <% else %>
-            <%= @user.mastodon %>
+            <%= "@" + @user.mastodon %>
           <% end %>
       </tr>
       <% end %>
