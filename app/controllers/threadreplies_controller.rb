@@ -37,7 +37,7 @@ class ThreadrepliesController < ApplicationController
       if @reply.update_attributes(reply_params)
         @reply.send_new_reply_mail(old_content)
         flash[:notice] = "Reply updated!"
-        position = @reply.thread.replies.index(@reply)
+        position = @reply.thread.replies.order(:id).index(@reply)
         page     = position / Kaminari.config.default_per_page + 1
         redirect_to forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}"
       else

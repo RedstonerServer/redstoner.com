@@ -1,7 +1,7 @@
 <% title "Edit Thread Reply: #{@reply.thread.title}" %>
 
 <%
-  position = @reply.thread.replies.index(@reply)
+  position = @reply.thread.replies.order(:id).index(@reply)
   page     = position / Kaminari.config.default_per_page + 1
 %>
 

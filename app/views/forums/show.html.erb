@@ -38,7 +38,7 @@
         <div class="item <%= "#{"locked" if thread.locked}#{"sticky" if thread.sticky}" %>">
           <%= render partial: "labels/label", locals: {label: thread.label} %><%= link_to truncate(thread.title, length: 60, omission: " …"), forumthread_path(thread), title: thread.title %>
           <div class="item-info">
-            <% if rpl = thread.replies.last %>
+            <% if rpl = thread.replies.order(:id).last %>
               <%= rpl.author.name %>
               <%
                 position = thread.replies.count - 1

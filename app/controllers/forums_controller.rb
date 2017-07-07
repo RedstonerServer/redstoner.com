@@ -11,7 +11,7 @@ class ForumsController < ApplicationController
     @threads = @forum.forumthreads.select {|f| f.can_read?(current_user) }.to_a
     @threads.sort_by! do |t|
       # sticky goes first, then sort by last activity (new replies)
-      [t.sticky ? 0 : 1, -(t.replies.last.try(:created_at) || t.created_at).to_i]
+      [t.sticky ? 0 : 1, -(t.replies.order(:id).last.try(:created_at) || t.created_at).to_i]
     end
     @threads = Kaminari.paginate_array(@threads).page(params[:page])
   end
