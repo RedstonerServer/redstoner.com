@@ -15,7 +15,7 @@
         text = text.capitalize
       end
     elsif params_list.any?
-      text = "Search results (#{@threads.length})"
+      text = "Search results (#{@threads.total_count})"
     else
       text = "All threads"
     end
