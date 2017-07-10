@@ -70,7 +70,7 @@ class Forumthread < ActiveRecord::Base
     order_phrase = query || [title, content, reply].select(&:present?).join(" ")
     user_id = user.try(:id).to_i
     role_value = user.try(:role).to_i
-    can_read = "COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?"
+    can_read = "(COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?)"
     # A user can view sticky threads in write-only forums without read permissions.
     sticky_can_write = "sticky = true AND (COALESCE(forum_role_write.value, 0) <= ? AND COALESCE(forumgroup_role_write.value, 0) <= ?)"
     match = ["MATCH (title, forumthreads.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (threadreplies.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)", "MATCH (title) AGAINST (?)", "MATCH (forumthreads.content) AGAINST (?)", "MATCH (threadreplies.content) AGAINST (?)"]
@@ -86,7 +86,7 @@ class Forumthread < ActiveRecord::Base
     .joins("LEFT JOIN roles as forumgroup_role_read ON forumgroups.role_read_id = forumgroup_role_read.id")
     .joins("LEFT JOIN roles as forumgroup_role_write ON forumgroups.role_write_id = forumgroup_role_write.id")
 
-    threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write})", user_id, role_value, role_value, role_value, role_value)
+    threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write}) OR (?)", user_id, role_value, role_value, role_value, role_value, Forum.find(forum).can_read?(user))
     if query
       threads = threads.where("#{match[2]}", query[0..99], query[0..99])
     elsif [title, content, reply].any?

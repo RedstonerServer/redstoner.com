@@ -1,6 +1,10 @@
 class Forum < ActiveRecord::Base
   belongs_to :forumgroup
   has_many :forumthreads
+
+  has_many :badgeassociations
+  has_many :badges, through: :badgeassociations
+
   belongs_to :role_read, class_name: "Role", foreign_key: "role_read_id"
   belongs_to :role_write, class_name: "Role", foreign_key: "role_write_id"
   has_and_belongs_to_many :labels
@@ -18,11 +22,11 @@ class Forum < ActiveRecord::Base
   end
 
   def can_read?(user)
-    group && group.can_read?(user) && (role_read.nil? || (!user.nil? && user.role >= role_read))
+    group && group.can_read?(user) && (role_read.nil? || (!user.nil? && user.role >= role_read) || Badgeassociation.find_by(badge: user.badge, forum: self, permission: 1))
   end
 
   def can_write?(user)
-    group.can_write?(user) && (role_write.nil? || (!user.nil? && user.role >= role_write))
+    group.can_write?(user) && (role_write.nil? || (!user.nil? && user.role >= role_write || Badgeassociation.find_by(badge: user.badge, forum: self, permission: 2)))
   end
 
   def can_view?(user)
