@@ -141,6 +141,11 @@ class UsersController < ApplicationController
       else
         userdata = user_params([:name, :skype, :skype_public, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
       end
+      if User.find_by(name: userdata[:name])
+        flash[:alert] = "You have entered a name that belongs to someone else. Please try another."
+        redirect_to edit_user_path(@user)
+        return
+      end
       if userdata[:role]
         role = Role.get(userdata[:role])
         if role && role <= current_user.role
