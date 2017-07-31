@@ -175,12 +175,14 @@ class User < ActiveRecord::Base
     self.email_token ||= SecureRandom.hex(16)
   end
 
-  def self.search (search, role, badge, staff)
+  def self.search (search, role, badge, staff, donor)
     users = User.joins(:role)
     if role
       users = users.where(role: role)
     elsif staff
       users = users.where("roles.value >= ?", Role.get(:mod).to_i)
+    elsif donor
+      users = users.where("badge_id = ? OR badge_id = ?", Badge.get(:donor), Badge.get(:donorplus))
     end
     users = users.where(badge: badge) if badge
     if search

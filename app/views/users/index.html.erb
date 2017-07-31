@@ -14,6 +14,8 @@
       text = "All '#{params[:role]}' and '#{params[:badge]}' users"
     elsif params.include?(:staff)
       text = "All staff"
+    elsif params.include?(:donor)
+      text = "All donors"
     else
       text = "All users"
     end
