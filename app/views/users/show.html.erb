@@ -16,7 +16,7 @@
 
   <div class="clear"></div>
   <% if @ban_json %>
-    <span class="user-banned">This used is banned for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
+    <span class="user-banned">This user is banned for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
   <% elsif @user.banned? %>
       <span class="user-banned">This user is banned!</span>
   <% end %>
