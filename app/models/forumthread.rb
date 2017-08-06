@@ -70,7 +70,7 @@ class Forumthread < ActiveRecord::Base
     order_phrase = query || [title, content, reply].select(&:present?).join(" ")
     user_id = user.try(:id).to_i
     role_value = user.try(:role).to_i
-    can_read = "(COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?)"
+    can_read = "COALESCE(forum_role_read.value, 0) <= ? AND COALESCE(forumgroup_role_read.value, 0) <= ?"
     # A user can view sticky threads in write-only forums without read permissions.
     sticky_can_write = "sticky = true AND (COALESCE(forum_role_write.value, 0) <= ? AND COALESCE(forumgroup_role_write.value, 0) <= ?)"
     match = ["MATCH (title, forumthreads.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (threadreplies.content) AGAINST (#{Forumthread.sanitize(order_phrase)})", "MATCH (title, forumthreads.content) AGAINST (?) OR MATCH (threadreplies.content) AGAINST (?)", "MATCH (title) AGAINST (?)", "MATCH (forumthreads.content) AGAINST (?)", "MATCH (threadreplies.content) AGAINST (?)"]
