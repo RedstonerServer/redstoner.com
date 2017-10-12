@@ -49,12 +49,6 @@
         </td>
       </tr>
       <tr>
-        <td>Show Skype to</td>
-        <td>
-          <%= f.select :skype_public, [["Staff only", false], ["All users", true]], {}, { disabled: !can_edit? } %>
-        </td>
-      </tr>
-      <tr>
         <td>YouTube Channel ID</td>
         <td>
           <%= f.text_field :youtube, placeholder: "YouTube Channel ID", disabled: !can_edit? %>
