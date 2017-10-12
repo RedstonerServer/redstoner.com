@@ -43,7 +43,7 @@ class Threadreply < ActiveRecord::Base
     unless old_content.present?
       posts.each do |post|
         # don't send mail to the author of this reply, don't send to banned/disabled users
-        if post.author != author && post.author.normal? && post.author.confirmed? # &&
+        if post.author != author && post.author.normal? && post.author.confirmed? && thread.can_read?(post.author)
           users << post.author if post.author.mail_other_thread_reply?
         end
       end
