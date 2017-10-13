@@ -33,7 +33,6 @@ deleted_user = User.create!(
   role: Role.get(:disabled),
   badge: Badge.get(:none),
   skype: "echo123",
-  skype_public: true,
   last_ip: "0.0.0.0",
   confirmed: true,
   last_seen: Time.utc(0).to_datetime,

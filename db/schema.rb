@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(version: 20170703003647) do
     t.text     "about",                       limit: 65535
     t.string   "last_ip",                     limit: 255
     t.string   "skype",                       limit: 255
-    t.boolean  "skype_public",                              default: false
     t.string   "youtube",                     limit: 255
     t.string   "youtube_channelname",         limit: 255
     t.string   "twitter",                     limit: 255
