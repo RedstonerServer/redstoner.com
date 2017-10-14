@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20170703003647) do
     t.boolean  "utc_time",                                  default: false
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
+    t.text     "public_key",                  limit: 65535
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
