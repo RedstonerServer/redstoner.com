@@ -16,6 +16,7 @@ gem 'highlight_js-rails', github: 'RedstonerServer/highlight_js-rails'
 gem 'kaminari', github: 'jomo/kaminari', branch: 'patch-2' # pagination
 gem 'jquery-textcomplete-rails', github: 'RedstonerServer/jquery-textcomplete-rails' # @mentions
 gem 'actionpack-action_caching', github: 'antulik/actionpack-action_caching', ref: '8c6e52c69315d67437f480da5dce4b7c8737fb32'
+gem 'mail-gpg'
 
 # Gems used only for assets and not required
 # in production environments by default.
