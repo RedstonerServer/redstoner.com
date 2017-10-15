@@ -13,6 +13,12 @@
     <% end %> |
     <%= link_to "https://twitter.com/RedstonerServer", title: "Redstoner on Twitter" do %>
       Twitter <%= image_tag("twitter.png") %>
+    <% end %> |
+    <%= link_to "https://mstdn.io/@RedstonerServer", title: "Redstoner on Mastodon" do %>
+      Mastodon <%= image_tag("mastodon.png") %>
+    <% end %> |
+    <%= link_to "http://rdstnr4biap5nao2.onion", title: "Redstoner over Tor" do %>
+      Onion Service <%= image_tag("tor.png") %>
     <% end %>
     <% if current_user %>
       | <%= link_to "/slack/?" + {mail: current_user.try(:email)}.to_param do %>
