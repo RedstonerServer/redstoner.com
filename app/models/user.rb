@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[(IPv6)?[0-9a-f:.]+\])\z/i, message: "That doesn't look like an email address."}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "Username is invalid (a-z, 0-9, _)."}
 
-  validates :mastodon, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[(IPv6)?[0-9a-f:.]+\])\z/i, message: "That doesn't look like a valid Mastodon handle."}
+  validates :mastodon, uniqueness: {case_sensitive: false}, format: {with: /\A(.+@(.+\..{2,}|\[(IPv6)?[0-9a-f:.]+\]))?\z/i, message: "That doesn't look like a valid Mastodon handle."}
 
   has_many :blogposts
   has_many :comments
