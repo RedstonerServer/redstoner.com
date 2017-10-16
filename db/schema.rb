@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703003647) do
+ActiveRecord::Schema.define(version: 20170708011014) do
 
   create_table "badges", force: :cascade do |t|
     t.string  "name",   limit: 191
