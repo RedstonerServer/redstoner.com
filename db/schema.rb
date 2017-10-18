@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708011014) do
+ActiveRecord::Schema.define(version: 20171013001146) do
 
   create_table "badges", force: :cascade do |t|
     t.string  "name",   limit: 191
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20170708011014) do
     t.boolean  "utc_time",                                  default: false
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
+    t.text     "public_key",                  limit: 65535
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

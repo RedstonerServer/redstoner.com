@@ -45,6 +45,9 @@
       </tr>
     </tbody>
   </table>
+  <h3>Public Key</h1>
+  <p>All notification emails will be encrypted with this key if you supply it.</p>
+  <%= f.text_area :public_key, placeholder: "-----BEGIN PGP PUBLIC KEY BLOCK-----" %>
   <p><%= f.submit "Save changes", class: "btn blue left" %></p>
   <div class="clear"></div>
 <% end %>

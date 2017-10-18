@@ -352,7 +352,7 @@ class UsersController < ApplicationController
   end
 
   def user_params(add = [])
-    a = [:ign, :email, :password, :password_confirmation, :mail_own_thread_reply, :mail_other_thread_reply, :mail_own_blogpost_comment, :mail_other_blogpost_comment, :mail_mention] + add
+    a = [:ign, :email, :password, :password_confirmation, :mail_own_thread_reply, :mail_other_thread_reply, :mail_own_blogpost_comment, :mail_other_blogpost_comment, :mail_mention, :public_key] + add
     params.require(:user).permit(a)
   end
 end
