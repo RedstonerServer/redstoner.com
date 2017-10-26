@@ -32,6 +32,15 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/jomo/mail-gpg.git
+  revision: a666b48ee866dfa3eaa700f9c5edf4d195d0f8c9
+  ref: a666b48ee866dfa3eaa700f9c5edf4d195d0f8c9
+  specs:
+    mail-gpg (0.3.1)
+      gpgme (~> 2.0, >= 2.0.2)
+      mail (~> 2.5, >= 2.5.3)
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: 2c8f567e53580872d8c6dfe61201e58793ca131e
   branch: 4-2-stable
@@ -151,9 +160,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mail-gpg (0.3.1)
-      gpgme (~> 2.0, >= 2.0.2)
-      mail (~> 2.5, >= 2.5.3)
     mime-types (2.99)
     mini_portile (0.6.2)
     mini_portile2 (2.0.0)
@@ -250,7 +256,7 @@ DEPENDENCIES
   jquery-rails
   jquery-textcomplete-rails!
   kaminari!
-  mail-gpg
+  mail-gpg!
   mysql2
   rails!
   rails-erd
