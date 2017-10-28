@@ -17,15 +17,23 @@ class StaticsController < ApplicationController
   end
 
   def online
+    @players = {}
+    @count = 0
     begin
       json = JSON.parse(File.read("/etc/minecraft/redstoner/plugins/ModuleLoader/players.json"))
     rescue
       flash.now[:alert] = "The server is currently offline."
-      @players = {}
-      @count = 0
     else
-      @players = json["players"].collect!{ |p| User.find_by(uuid: p["UUID"].tr("-", "")) or User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true) }.sort_by!(&:role).reverse!
-      @count = json["amount"]
+      json["players"].each do |p|
+        next if p["vanished"] == "true" && !mod?
+        if User.find_by(uuid: p["UUID"].tr("-", ""))
+          @players.push(User.find_by(uuid: p["UUID"].tr("-", "")))
+        else
+          @players.push(User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true))
+        end
+      end
     end
+    @players.sort_by!(&:role).reverse!
+    @count = @players.count
   end
 end
