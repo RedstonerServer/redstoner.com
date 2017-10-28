@@ -141,7 +141,7 @@ class UsersController < ApplicationController
       else
         userdata = user_params([:name, :skype, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
       end
-      if User.find_by(name: userdata[:name]) && User.find_by(name: userdata[:name]) != current_user
+      if User.find_by(name: userdata[:name]) && User.find_by(name: userdata[:name]) != @user
         flash[:alert] = "You have entered a name that belongs to someone else. Please try another."
         redirect_to edit_user_path(@user)
         return
