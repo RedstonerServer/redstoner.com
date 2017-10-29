@@ -8,6 +8,8 @@ class Blogpost < ActiveRecord::Base
   belongs_to :user_editor, class_name: "User", foreign_key: "user_editor_id"
   has_many :comments, :dependent => :destroy
   accepts_nested_attributes_for :comments
+  validates_length_of :title, in: 5..255
+  validates_length_of :content, in: 5..20000
 
   def author
     @author ||= if self.user_author.present?
