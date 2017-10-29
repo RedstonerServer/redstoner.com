@@ -4,7 +4,7 @@ class Forum < ActiveRecord::Base
   belongs_to :role_read, class_name: "Role", foreign_key: "role_read_id"
   belongs_to :role_write, class_name: "Role", foreign_key: "role_write_id"
   has_and_belongs_to_many :labels
-  validates_length_of :name, in: 2..30
+  validates_length_of :name, in: 4..30
 
   def to_s
     name

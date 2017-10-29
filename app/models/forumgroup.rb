@@ -7,7 +7,7 @@ class Forumgroup < ActiveRecord::Base
 
 
   validates_presence_of :name, :position
-  validates_length_of :name, in: 2..20
+  validates_length_of :name, in: 4..20
 
   def to_s
     name
