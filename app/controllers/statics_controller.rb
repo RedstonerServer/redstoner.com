@@ -17,15 +17,26 @@ class StaticsController < ApplicationController
   end
 
   def online
+    @players = []
+    @count = 0
     begin
       json = JSON.parse(File.read("/etc/minecraft/redstoner/plugins/ModuleLoader/players.json"))
     rescue
       flash.now[:alert] = "The server is currently offline."
-      @players = {}
-      @count = 0
     else
-      @players = json["players"].collect!{ |p| User.find_by(uuid: p["UUID"].tr("-", "")) or User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true) }.sort_by!(&:role).reverse!
-      @count = json["amount"]
+      case json["dataFormat"]
+      when "v1"
+        @players = json["players"].collect!{ |p| User.find_by(uuid: p["UUID"].tr("-", "")) or User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true) }
+        @count = json["amount"]
+      when "v2"
+        json["players"].reject{|p| !mod? && p["vanished"] == "true"}.each do |p|
+          @players.push(User.find_by(uuid: p["UUID"].tr("-", "")) || User.new(name: p["name"], ign: p["name"], uuid: p["UUID"].tr("-", ""), role: Role.get("normal"), badge: Badge.get("none"), confirmed: true))
+        end
+        @count = @players.count
+      else
+        flash.now[:alert] = "The server is using an incompatible data format. We are aware of this issue and are most likely already working on it."
+      end
+      @players.sort_by!(&:role).reverse!
     end
   end
 end
