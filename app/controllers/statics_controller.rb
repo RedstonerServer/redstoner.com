@@ -34,7 +34,7 @@ class StaticsController < ApplicationController
         end
         @count = @players.count
       else
-        flash.now[:alert] = "The server is using an incompatible data format. Please report this error!"
+        flash.now[:alert] = "The server is using an incompatible data format. We are aware of this issue and are most likely already working on it."
       end
       @players.sort_by!(&:role).reverse!
     end
