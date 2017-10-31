@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @ban_json = JSON.parse(File.read("/etc/minecraft/redstoner/banned-players.json")).detect {|u| u["uuid"] == @user.uuid}
+    @ban_json = JSON.parse(File.read("/etc/minecraft/redstoner/banned-players.json")).detect {|u| u["uuid"].tr("-", "") == @user.uuid}
   end
 
   # SIGNUP
