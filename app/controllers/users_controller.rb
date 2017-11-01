@@ -37,6 +37,7 @@ class UsersController < ApplicationController
     rescue
       flash.now[:alert] = "An error occured while checking if this user is banned from the server!"
       @ban_json = nil
+    end
   end
 
   # SIGNUP
