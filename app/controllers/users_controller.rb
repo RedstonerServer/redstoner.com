@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
   before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
+  caches_action :show, expires_in: 10.seconds, layout: false
+
   def index
     role = Role.find_by(name: params[:role])
     badge = Badge.find_by(name: params[:badge])
@@ -16,6 +18,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    begin
+      @ban_json = JSON.parse(File.read("/etc/minecraft/redstoner/banned-players.json")).detect {|u| u["uuid"].tr("-", "") == @user.uuid}
+    rescue
+      flash.now[:alert] = "An error occured while checking if this user is banned from the server!"
+      @ban_json = nil
+    end
   end
 
   # SIGNUP
