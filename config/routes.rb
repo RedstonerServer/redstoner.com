@@ -9,6 +9,7 @@ Redstoner::Application.routes.draw do
       get 'donate'
       get 'home'
       get 'online'
+      get 'privacy'
       get 'index'
     end
   end

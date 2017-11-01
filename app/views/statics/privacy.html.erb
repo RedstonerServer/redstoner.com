@@ -1,0 +1,41 @@
+<% title "Privacy Policy" %>
+<h1>Privacy Policy</h1>
+<p>Please note that this privacy policy is not legally binding. It is simply a reference intended to inform you about what is done with your information. Also, this privacy policy only applies to the Redstoner website and forums. The Minecraft server will have its own privacy policy at some point.</p>
+<h2>How your information is stored and protected</h2>
+<p>Everything on the website is stored in a database, to which access is strictly limited. Only users of the administrator rank or former administrators who are well known and are trusted by the rest of the current administrators may access the database. Offsite backups of this data are made daily only to the network and servers of at least one current administrator via an encrypted SSH connection.</p>
+<p>Passwords are stored using the bcrypt algorithm. Plaintext passwords are never logged or stored anywhere.</p>
+<p>The website code is <%= link_to "open source", "https://github.com/RedstonerServer/redstoner.com" %> and undergoes heavy testing and review before it is deployed to ensure no exploitable bugs or backdoors make it onto the production server.</p>
+<p>All connections to our website are automatically forced to be made over HTTPS to ensure your data is protected while in transit. We maintain <%= link_to "good TLS paramters", "https://www.ssllabs.com/ssltest/analyze.html?d=redstoner.com" %> and also employ other techniques to ensure secure connections such as <%= link_to "being on the HSTS preload list", "https://hstspreload.org/?domain=redstoner.com" %> and OCSP stapling.</p>
+<h2>Information we collect</h2>
+<ul>
+  <li>This information is needed in order for your account to be created:</li>
+  <li>Your Minecraft account's IGN and UUID.</li>
+  <li>Your email address.</li>
+  <li>A unique password.</li>
+</ul>
+<p>This information is optional and is obtained only if you provide it:</p>
+<ul>
+  <li>Your Skype username.</li>
+  <li>Your YouTube channel ID.</li>
+  <li>Your Twitter username.</li>
+</ul>
+<p>This information is also collected, however does not affect your Redstoner account directly:</p>
+<ul>
+  <li>Your IP address.</li>
+</ul>
+<h2>How your information is used and who it is visible to</h2>
+<ul>
+  <li><b>Minecraft account IGN and UUID</b> - This is used to link your Minecraft account with your Redstoner account. Anyone can see these.</li>
+  <li><b>Your email address</b> - This is used to send you email notifications about forums activity that you are involved in. These notifications can be disabled in your account settings. This is also used to perform a password reuse check, which is explained in more detail below. Only users of the moderator rank or higher can see your email address.</li>
+  <li><b>Your password</b> - This is used to authenticate you. This too is used to perform a password reuse check. The plaintext version is visible to no one, but the hashed version is visible only to users of the administrator rank or higher.</li>
+  <li><b>Your Skype username</b> - This is used to add a link to your profile that allows others to easily contact you over Skype. Anyone can see this.</li>
+  <li><b>Your YouTube channel</b> - This is used to add a link to your profile that allows others to easily find your YouTube channel. Anyone can see this.</li>
+  <li><b>Your Twitter username</b> - This is used to add a link to your profile that allows others to easily contact you over Twitter. Anyone can see this.</li>
+  <li><b>Your IP address</b> - This is used to help us identify and ban troublemakers from our forums. Only users of the moderator rank and above can see this.</li>
+</ul>
+<h2>Password reuse check</h2>
+<p>When you first sign up on our website, we use your email address and password to check if you are reusing your password with your Mojang account. This is done by attempting to log into Mojang's server using this information. If it succeeds, then your confirmation email will contain a note warning you not to reuse your password. <b>The information used to perform this check is never used to actually take over your Minecraft account. In fact, we can't because your password is hashed after the check and is totally unusable to us. If you get this warning not to reuse your password, it is still highly recommended that you change your password for your Mojang account and also use a password manager.</b></p>
+<h2>Who your information is shared with</h2>
+<p>We do not share your information with any third parties. The only time we will release information is if we are legally required to.</p>
+<hr>
+<p><sup>This privacy policy was last revised October 31, 2017.</sup></p>

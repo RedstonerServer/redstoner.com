@@ -39,4 +39,7 @@ class StaticsController < ApplicationController
       @players.sort_by!(&:role).reverse!
     end
   end
+
+  def privacy
+  end
 end
