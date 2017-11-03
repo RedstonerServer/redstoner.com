@@ -6,8 +6,6 @@ class UsersController < ApplicationController
 
   before_filter :set_user, except: [:index, :new, :create, :lost_password, :reset_password, :suggestions]
 
-  caches_action :show, expires_in: 10.seconds, layout: false
-
   def index
     role = Role.find_by(name: params[:role])
     badge = Badge.find_by(name: params[:badge])
