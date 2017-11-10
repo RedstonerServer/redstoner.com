@@ -16,16 +16,27 @@
 
   <div class="clear"></div>
   <% if @ban_json && (@ban_json["expires"] == "forever" || !(DateTime.parse(@ban_json["expires"]) <= DateTime.now)) %>
-    <span class="user-banned">This user is banned on the server for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
+    <% if @user.is?(current_user) %>
+      <span class="user-banned">You are banned on the server for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
+    <% else %>
+      <span class="user-banned">This user is banned on the server for "<%=@ban_json["reason"]%>"<%=" until #{@ban_json["expires"]}" unless @ban_json["expires"] == "forever"%></span>
+    <% end %>
   <% end %>
   <% if @user.banned? %>
+    <% if @user.is?(current_user) %>
+      <span class="user-banned">You are banned on the website!</span>
+    <% else %>
       <span class="user-banned">This user is banned on the website!</span>
+    <% end %>
   <% end %>
   <br>
   <% if !@user.confirmed? %>
-    <% if @user.is?(current_user) || mod? %>
-      <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
+    <% if @user.is?(current_user) %>
+      <span class="user-unconfirmed">You haven't confirmed your email "<u><%= @user.email %></u>" yet!</span>
       <%= button_to "Resend the confirmation mail", resend_mail_user_path, class: "btn dark", form_class: "inline-block", data: {confirm: "Did you check your spam folder?"} %>
+    <% elsif mod? %>
+      <span class="user-unconfirmed">This user hasn't confirmed their email "<u><%= @user.email %></u>" yet!</span>
+      <%= button_to "Resend the confirmation mail", resend_mail_user_path, class: "btn dark", form_class: "inline-block" %>
     <% else %>
       <span class="user-unconfirmed">This user hasn't confirmed their email yet!</span>
     <% end %>
