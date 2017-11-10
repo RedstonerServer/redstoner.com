@@ -6,5 +6,5 @@
   <%= render partial: "md_editor", locals: {name: "info[content]", content: @info.content} %>
   <p><%= f.submit "Update Info", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Delete Info forever?"}, class: "btn red right" %></p>
+<p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Are you sure you want to delete this info page?"}, class: "btn red right" %></p>
 <div class="clear"></div>

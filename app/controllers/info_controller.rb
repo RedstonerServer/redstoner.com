@@ -22,9 +22,9 @@ class InfoController < ApplicationController
   def create
     @info = Info.new(info_params)
     if @info.save
-      redirect_to @info, notice: 'Info has been created.'
+      redirect_to @info, notice: 'The info page has been created!'
     else
-      flash[:alert] = "Error creating info"
+      flash[:alert] = "An error occured while creating the info page."
       render action: "new"
     end
   end
@@ -32,18 +32,18 @@ class InfoController < ApplicationController
   def update
     @info.attributes = info_params()
     if @info.save
-      redirect_to @info, notice: 'Info has been updated.'
+      redirect_to @info, notice: 'The info page has been updated!'
     else
-      flash[:alert] = "There was a problem while updating the info"
+      flash[:alert] = "An error occured while updating the info page."
       render action: "edit"
     end
   end
 
   def destroy
     if @info.destroy
-      flash[:notice] = "Info deleted!"
+      flash[:notice] = "The info page has been deleted!"
     else
-      flash[:alert] = "There was a problem while deleting this info"
+      flash[:alert] = "An error occured while deleting the info page."
     end
     redirect_to info_index_path
   end
@@ -63,7 +63,7 @@ class InfoController < ApplicationController
 
   def auth
     unless mod?
-      flash[:alert] = "You are not allowed to edit info!"
+      flash[:alert] = "You are not allowed to edit info pages!"
       redirect_to @info ? @info : info_index_path
     end
   end
