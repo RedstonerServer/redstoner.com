@@ -1,5 +1,11 @@
 <% title "Edit Website Settings: #{@user.name}" %>
 
+<%
+  def can_edit?
+    (@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role && current_user.confirmed?)
+  end
+%>
+
 <%= link_to @user.name, @user %> → Edit Website Settings
 <h1>Edit Website Settings</h1>
 
@@ -10,25 +16,31 @@
       <tr>
         <td>Header moves with scrolling (Experimental - do not report bugs)</td>
         <td>
-          <%= f.check_box :header_scroll %>
+          <%= f.check_box :header_scroll, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
         <td>Show exact UTC times</td>
         <td>
-          <%= f.check_box :utc_time %>
+          <%= f.check_box :utc_time, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
         <td>Dark theme*</td>
         <td>
-          <%= f.check_box :dark %>
+          <%= f.check_box :dark, disabled: !can_edit? %>
         </td>
       </tr>
     </tbody>
   </table>
-  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <p><%= f.submit "Save changes", class: "btn blue left", disabled: !can_edit? %></p>
   <div class="clear"></div>
+
+  <% if !@user.is?(current_user) && !current_user.confirmed? %>
+    <span class='red-alert'>You must confirm your own email before you can edit other user's website settings.</span>
+  <% elsif !@user.confirmed? && @user.is?(current_user) %>
+    <span class='red-alert'>You need to confirm your email before you can edit your website settings.</span>
+  <% end %>
 <% end %>
 <br><br><br>
 *Warning: If as a result to enabling this style your eyes get infected with a severe case of eye cancer, we are not reliable for any damage. Please contact your doctor in advance to ensure that in case of infection you will be treated accordingly. Quality theme  brought to you by Redempt™.
