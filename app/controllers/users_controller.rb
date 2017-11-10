@@ -135,7 +135,7 @@ class UsersController < ApplicationController
   end
 
   def resend_mail
-    if (@user.is?(current_user) || mod?) && !@user.confirmed?
+    if (@user.is?(current_user) || (mod? && current_user.confirmed?)) && !@user.confirmed?
       RedstonerMailer.register_mail(@user, false).deliver_now
       flash[:notice] = "Check your inbox for the confirmation mail."
     else
@@ -145,7 +145,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
+    if (mod? && current_user.role >= @user.role && current_user.confirmed?) || (@user.is?(current_user) && confirmed?)
       if mod?
         userdata = user_params([:name, :skype, :youtube, :twitter, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
       else
@@ -188,7 +188,7 @@ class UsersController < ApplicationController
   end
 
   def ban
-    if mod? && current_user.role >= @user.role
+    if mod? && current_user.role >= @user.role && current_user.confirmed?
       @user.role = Role.get :banned
       flash[:notice] = "'#{@user.name}' has been banned!"
     else
@@ -198,7 +198,7 @@ class UsersController < ApplicationController
   end
 
   def unban
-    if mod? && current_user.role >= @user.role
+    if mod? && current_user.role >= @user.role && current_user.confirmed?
       @user.role = Role.get :normal
       flash[:notice] = "\"#{@user.name}\" has been unbanned!"
     else
@@ -208,7 +208,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if superadmin?
+    if superadmin? && current_user.confirmed?
       if @user.destroy
         flash[:notice] = "User deleted forever."
         redirect_to users_url
@@ -223,28 +223,28 @@ class UsersController < ApplicationController
   end
 
   def edit_notifications
-    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
       flash[:alert] = "You are not allowed to edit this user's notification settings!"
       redirect_to @user
     end
   end
 
   def edit_login
-    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
       flash[:alert] = "You are not allowed to edit this user's login details!"
       redirect_to @user
     end
   end
 
   def edit_website_settings
-    unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
       flash[:alert] = "You are not allowed to edit this user's website settings!"
       redirect_to @user
     end
   end
 
   def update_login
-    if @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
+    if @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
       authenticated = !@user.is?(current_user) || @user.authenticate(params[:current_password])
       if params[:user][:password].present?
         @user.password              = params[:user][:password]

@@ -2,7 +2,7 @@
 
 <%
   def can_edit?
-    (@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role)
+    (@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role && current_user.confirmed?)
   end
 %>
 
@@ -23,7 +23,7 @@
           <td>Role</td>
           <td>
             <% if current_user.role >= @user.role %>
-              <%= f.select :role, Role.all_to(current_user.role) %>
+              <%= f.select :role, Role.all_to(current_user.role), {}, { disabled: !can_edit? } %>
             <% end %>
           </td>
         </tr>
@@ -31,7 +31,7 @@
           <td>Badge</td>
           <td>
             <% if current_user.role >= Role.get(:mod) %>
-              <%= f.select :badge, Badge.all %>
+              <%= f.select :badge, Badge.all, {}, { disabled: !can_edit? } %>
             <% end %>
           </td>
         </tr>
@@ -57,7 +57,7 @@
       <tr>
         <td>Twitter username</td>
         <td>
-          <%= f.text_field :twitter, placeholder: "Twitter username", disabled: !(@user.is?(current_user) && confirmed? || (mod? && current_user.role >= @user.role)) %>
+          <%= f.text_field :twitter, placeholder: "Twitter username", disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
@@ -69,7 +69,7 @@
     </tbody>
   </table>
 
-<p><%= f.submit "Save profile", class: "btn variable-size left", disabled: (!@user.confirmed? && @user.is?(current_user)) %></p>
+<p><%= f.submit "Save profile", class: "btn variable-size left", disabled: !can_edit? %></p>
 <p>
   <%= link_to "Edit login details", edit_login_user_path(@user), class: "btn variable-size right" %>
   <%= link_to "Notification settings", edit_notifications_user_path(@user), class: "btn variable-size right" %>
@@ -77,7 +77,9 @@
 </p>
 <div class="clear"></div>
 
-<% if !@user.confirmed? %>
+<% if !@user.is?(current_user) && !current_user.confirmed? %>
+  <span class='red-alert'>You must confirm your own email before you can edit other profiles.</span>
+<% elsif !@user.confirmed? %>
   <% if @user.is?(current_user) %>
       <span class='red-alert'>Please confirm your email address first!</span>
     <% else %>
