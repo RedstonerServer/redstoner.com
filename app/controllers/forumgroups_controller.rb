@@ -9,7 +9,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def edit
-    if admin?
+    if admin? && current_user.confirmed?
       @group = Forumgroup.find(params[:id])
     else
       flash[:alert] = "You are not allowed to edit forum groups."
@@ -17,7 +17,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def update
-    if admin?
+    if admin? && current_user.confirmed?
       @group = Forumgroup.find(params[:id])
       if @group.update_attributes(group_params)
         flash[:notice] = "Forum group updated"
@@ -32,7 +32,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def new
-    if admin?
+    if admin? && current_user.confirmed?
       @group = Forumgroup.new
     else
       flash[:alert] = "You are not allowed to create forum groups."
@@ -41,7 +41,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def create
-    if admin?
+    if admin? && current_user.confirmed?
       @group = Forumgroup.new(group_params)
       if @group.save
         flash[:notice] = "Forum group created."
@@ -57,7 +57,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def destroy
-    if admin?
+    if admin? && current_user.confirmed?
       @group = Forumgroup.find(params[:id])
       if @group.destroy
         flash[:notice] = "forum group deleted."

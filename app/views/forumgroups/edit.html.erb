@@ -1,5 +1,11 @@
 <% title "Manage Forums" %>
 
+<%
+  def can_edit?
+    admin? && current_user.confirmed?
+  end
+%>
+
 <h1>Manage Forums</h1>
 <div class="item-group">
   <div class="header">
@@ -19,22 +25,26 @@
   <table>
     <tr>
       <td><%= f.label :name %></td>
-      <td><%= f.text_field :name, placeholder: "Name" %></td>
+      <td><%= f.text_field :name, placeholder: "Name", disabled: !can_edit? %></td>
     </tr>
     <tr>
       <td><%= f.label :position %></td>
-      <td><%= f.number_field :position, placeholder: "Position" %></td>
+      <td><%= f.number_field :position, placeholder: "Position", disabled: !can_edit? %></td>
     </tr>
     <tr>
       <td><%= f.label :role_read_id, "Min. read role" %></td>
-      <td><%= f.select :role_read_id, role_selection, include_blank: "None" %></td>
+      <td><%= f.select :role_read_id, role_selection, { include_blank: "None" }, { disabled: !can_edit? } %></td>
     </tr>
     <tr>
       <td><%= f.label :role_write_id, "Min. write role" %></td>
-      <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
+      <td><%= f.select :role_write_id, role_selection, { include_blank: false }, { disabled: !can_edit? } %></td>
     </tr>
   </table>
-  <p><%= f.submit "Update group", class: "btn blue left" %></p>
+  <p><%= f.submit "Update group", class: "btn blue left", disabled: !can_edit? %></p>
 <% end %>
-<p><%= button_to "Delete group", @group, :method => "delete", data: {confirm: "Delete group?\nForums + Threads will not be accessible!"}, class: "btn red right" %></p>
+<p><%= button_to "Delete group", @group, :method => "delete", data: {confirm: "Delete group?\nForums + Threads will not be accessible!"}, class: "btn red right", disabled: !can_edit? %></p>
 <div class="clear"></div>
+
+<% if !current_user.confirmed? %>
+  <span class='red-alert'>You must confirm your email before you can edit forum groups.</span>
+<% end %>
