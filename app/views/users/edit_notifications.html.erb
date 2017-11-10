@@ -1,5 +1,11 @@
 <% title "Edit Notification Settings: #{@user.name}" %>
 
+<%
+  def can_edit?
+    (@user.is?(current_user) && confirmed?) || (mod? && current_user.role >= @user.role && current_user.confirmed?)
+  end
+%>
+
 <%= link_to @user.name, @user %> → Edit Notification Settings
 <h1>Edit Notification Settings</h1>
 
@@ -11,13 +17,13 @@
       <tr>
         <td>replies to my thread</td>
         <td>
-          <%= f.check_box :mail_own_thread_reply %>
+          <%= f.check_box :mail_own_thread_reply, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
         <td>replies to a thread I already replied to</td>
         <td>
-          <%= f.check_box :mail_other_thread_reply %>
+          <%= f.check_box :mail_other_thread_reply, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
@@ -26,13 +32,13 @@
           <i>(Currently used for staff only)</i>
         </td>
         <td>
-          <%= f.check_box :mail_own_blogpost_comment %>
+          <%= f.check_box :mail_own_blogpost_comment, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
         <td>comments a blog post I already commented</td>
         <td>
-          <%= f.check_box :mail_other_blogpost_comment %>
+          <%= f.check_box :mail_other_blogpost_comment, disabled: !can_edit? %>
         </td>
       </tr>
       <tr>
@@ -40,14 +46,20 @@
           mentions me in a thread or comment
         </td>
         <td>
-          <%= f.check_box :mail_mention %>
+          <%= f.check_box :mail_mention, disabled: !can_edit? %>
         </td>
       </tr>
     </tbody>
   </table>
   <h3>Public Key</h1>
   <p>All notification emails will be encrypted with this key if you supply it.</p>
-  <%= f.text_area :public_key, placeholder: "-----BEGIN PGP PUBLIC KEY BLOCK-----" %>
-  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <%= f.text_area :public_key, placeholder: "-----BEGIN PGP PUBLIC KEY BLOCK-----", disabled: !can_edit? %>
+  <p><%= f.submit "Save changes", class: "btn blue left", disabled: !can_edit? %></p>
   <div class="clear"></div>
+
+  <% if !@user.is?(current_user) && !current_user.confirmed? %>
+    <span class='red-alert'>You must confirm your own email before you can edit other user's notification settings.</span>
+  <% elsif !@user.confirmed? && @user.is?(current_user) %>
+    <span class='red-alert'>You need to confirm your email before you can edit your notification settings.</span>
+  <% end %>
 <% end %>
