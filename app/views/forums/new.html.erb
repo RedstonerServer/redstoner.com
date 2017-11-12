@@ -1,5 +1,11 @@
 <% title "New Forum: #{@forum.group.name}" %>
 
+<%
+  def can_create?
+    admin? && current_user.confirmed?
+  end
+%>
+
 <%= link_to @forum.group, forumgroup_path(@forum.group) %> →  New forum
 <h1>New Forum</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
@@ -7,26 +13,30 @@
   <table>
     <tr>
       <td><%= f.label :name %></td>
-      <td><%= f.text_field :name, placeholder: "Name" %></td>
+      <td><%= f.text_field :name, placeholder: "Name", disabled: !can_create? %></td>
     </tr>
     <tr>
       <td><%= f.label :position %></td>
-      <td><%= f.number_field :position, placeholder: "Position" %></td>
+      <td><%= f.number_field :position, placeholder: "Position", disabled: !can_create? %></td>
     </tr>
     <tr>
       <td><%= f.label :role_read_id, "Min. read role" %></td>
-      <td><%= f.select :role_read_id, role_selection, include_blank: "None" %></td>
+      <td><%= f.select :role_read_id, role_selection, { include_blank: "None"}, { disabled: !can_create? } %></td>
     </tr>
     <tr>
       <td><%= f.label :role_write_id, "Min. write role" %></td>
-      <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
+      <td><%= f.select :role_write_id, role_selection, { include_blank: false }, { disabled: !can_create? } %></td>
     </tr>
     <tr>
       <td><%= f.label :necro_length, "Necropost warning delay (in days)" %></td>
-      <td><%= f.number_field :necro_length, placeholder: "Warning Delay (leave blank for no warning)" %></td>
+      <td><%= f.number_field :necro_length, placeholder: "Warning Delay (leave blank for no warning)", disabled: !can_create? %></td>
     </tr>
   </table>
   <%= f.hidden_field :forumgroup_id %>
-  <p><%= f.submit "Create forum", class: "btn blue left" %></p>
+  <p><%= f.submit "Create forum", class: "btn blue left", disabled: !can_create? %></p>
   <div class="clear"></div>
+
+  <% if !current_user.confirmed? %>
+    <span class='red-alert'>You must confirm your email before you can create new forums.</span>
+  <% end %>
 <% end %>

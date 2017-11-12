@@ -34,7 +34,7 @@ class ForumsController < ApplicationController
   end
 
   def update
-    if admin?
+    if admin? && current_user.confirmed?
       if @forum.update_attributes(forum_params)
         flash[:notice] = "Forum updated"
         redirect_to @forum
@@ -48,7 +48,7 @@ class ForumsController < ApplicationController
   end
 
   def create
-    if admin?
+    if admin? && current_user.confirmed?
       @forum = Forum.new(forum_params([:forumgroup_id]))
       if @forum.save
         flash[:notice] = "Forum created."
@@ -64,7 +64,7 @@ class ForumsController < ApplicationController
   end
 
   def destroy
-    if admin?
+    if admin? && current_user.confirmed?
       if @forum.destroy
         flash[:notice] = "Forum deleted."
       else
