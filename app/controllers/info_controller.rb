@@ -62,7 +62,7 @@ class InfoController < ApplicationController
   end
 
   def auth
-    unless mod?
+    unless mod? && current_user.confirmed?
       flash[:alert] = "You are not allowed to edit info pages!"
       redirect_to @info ? @info : info_index_path
     end

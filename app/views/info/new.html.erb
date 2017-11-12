@@ -1,9 +1,19 @@
 <% title "New Info" %>
 
+<%
+  def can_create?
+    mod? && current_user.confirmed?
+  end
+%>
+
 <h1>New Info</h1>
 <%= form_for @info, url: info_index_path do |f|%>
-  <%= f.text_field :title, placeholder: "Title" %>
-  <%= render partial: "md_editor", locals: {name: "info[content]", content: @info.content} %>
-  <p><%= f.submit "Create Info", class: "btn blue left" %></p>
+  <%= f.text_field :title, placeholder: "Title", disabled: !can_create? %>
+  <%= render partial: "md_editor", locals: {name: "info[content]", content: @info.content, options: {disabled: !can_create?}} %>
+  <p><%= f.submit "Create Info", class: "btn blue left", disabled: !can_create? %></p>
   <div class="clear"></div>
+
+  <% if !current_user.confirmed? %>
+    <span class='red-alert'>You must confirm your email before you can create new info pages.</span>
+  <% end %>
 <% end %>

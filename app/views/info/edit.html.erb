@@ -1,10 +1,20 @@
 <% title "Edit Info: #{@info.title}" %>
 
+<%
+  def can_edit?
+    mod? && current_user.confirmed?
+  end
+%>
+
 <h1>Edit Info</h1>
 <%= form_for @info do |f|%>
-  <%= f.text_field :title%>
-  <%= render partial: "md_editor", locals: {name: "info[content]", content: @info.content} %>
-  <p><%= f.submit "Update Info", class: "btn blue left" %></p>
+  <%= f.text_field :title, disabled: !can_edit? %>
+  <%= render partial: "md_editor", locals: {name: "info[content]", content: @info.content, options: {disabled: !can_edit?}} %>
+  <p><%= f.submit "Update Info", class: "btn blue left", disabled: !can_edit? %></p>
 <% end %>
-<p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Are you sure you want to delete this info page?"}, class: "btn red right" %></p>
+<p><%= button_to "Delete Info", @info, method: "delete", data: {confirm: "Are you sure you want to delete this info page?"}, class: "btn red right", disabled: !can_edit? %></p>
 <div class="clear"></div>
+
+<% if !current_user.confirmed? %>
+  <span class='red-alert'>You must confirm your email before you can edit info pages.</span>
+<% end %>
