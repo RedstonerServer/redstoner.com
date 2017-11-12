@@ -223,21 +223,21 @@ class UsersController < ApplicationController
   end
 
   def edit_notifications
-    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role) || superadmin?
       flash[:alert] = "You are not allowed to edit this user's notification settings!"
       redirect_to @user
     end
   end
 
   def edit_login
-    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role) || superadmin?
       flash[:alert] = "You are not allowed to edit this user's login details!"
       redirect_to @user
     end
   end
 
   def edit_website_settings
-    unless @user.is?(current_user) || (admin? && current_user.role > @user.role && current_user.confirmed?) || (superadmin? && current_user.confirmed?)
+    unless @user.is?(current_user) || (admin? && current_user.role > @user.role) || superadmin?
       flash[:alert] = "You are not allowed to edit this user's website settings!"
       redirect_to @user
     end

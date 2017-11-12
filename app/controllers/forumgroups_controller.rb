@@ -9,7 +9,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def edit
-    if admin? && current_user.confirmed?
+    if admin?
       @group = Forumgroup.find(params[:id])
     else
       flash[:alert] = "You are not allowed to edit forum groups."
@@ -32,7 +32,7 @@ class ForumgroupsController < ApplicationController
   end
 
   def new
-    if admin? && current_user.confirmed?
+    if admin?
       @group = Forumgroup.new
     else
       flash[:alert] = "You are not allowed to create forum groups."
