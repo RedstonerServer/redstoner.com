@@ -56,6 +56,4 @@
 
 <% if admin? %>
   <%= link_to "New group", new_forumgroup_path, class: "btn blue" %>
-<% elsif mod? %>
-  <%= link_to "New group", "#", class: "btn blue", disabled: true %>
 <% end %>
