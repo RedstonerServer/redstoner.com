@@ -1,9 +1,19 @@
 <% title "New Blog Post" %>
 
+<%
+  def can_create?
+    admin? && current_user.confirmed?
+  end
+%>
+
 <h1>New Post</h1>
 <%= form_for @post do |f|%>
-  <%= f.text_field :title, placeholder: "Title" %>
-  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content} %>
-  <p><%= f.submit "Create Post", class: "btn blue left" %></p>
+  <%= f.text_field :title, placeholder: "Title", disabled: !can_create? %>
+  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content, options: {disabled: !can_create?}} %>
+  <p><%= f.submit "Create Post", class: "btn blue left", disabled: !can_create? %></p>
   <div class="clear"></div>
+
+  <% if !current_user.confirmed? %>
+    <span class='red-alert'>You must confirm your email before you can create new blog posts.</span>
+  <% end %>
 <% end %>

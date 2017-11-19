@@ -1,10 +1,20 @@
 <% title "Edit News: #{@post.title}" %>
 
+<%
+  def can_edit?
+    mod? && current_user.confirmed?
+  end
+%>
+
 <h1>Edit post</h1>
 <%= form_for @post do |f|%>
-  <%= f.text_field :title %>
-  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content} %>
-  <p><%= f.submit "Update Post", class: "btn blue left" %></p>
+  <%= f.text_field :title, disabled: !can_edit? %>
+  <%= render partial: "md_editor", locals: {name: "blogpost[content]", content: @post.content, options: {disabled: !can_edit?}} %>
+  <p><%= f.submit "Update Post", class: "btn blue left", disabled: !can_edit? %></p>
 <% end %>
-<p><%= button_to "Delete post", @post, method: "delete", data: {confirm: "Delete post & comments forever?"}, class: "btn red right" %></p>
+<p><%= button_to "Delete post", @post, method: "delete", data: {confirm: "Delete post & comments forever?"}, class: "btn red right", disabled: !can_edit? %></p>
 <div class="clear"></div>
+
+<% if !current_user.confirmed? %>
+  <span class='red-alert'>You must confirm your email before you can edit blog posts.</span>
+<% end %>

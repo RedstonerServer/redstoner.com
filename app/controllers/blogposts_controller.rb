@@ -69,7 +69,7 @@ class BlogpostsController < ApplicationController
   end
 
   def auth
-    unless mod?
+    unless mod? && current_user.confirmed?
       flash[:alert] = "You are not allowed to edit posts!"
       redirect_to @post ? @post : blogposts_path
     end
