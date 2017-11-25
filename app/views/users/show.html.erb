@@ -85,7 +85,7 @@
       <% if mod? || @user.is?(current_user) %>
         <tr>
           <td><b>Last IP</b></td>
-          <td><%= @user.last_ip %></td>
+          <td><%= @user.last_ip %> (<%= @hostname %>)</td>
         </tr>
         <tr>
           <td><b>Email</b></td>
