@@ -2,7 +2,7 @@ atom_feed do |feed|
   feed.title "Latest threads in " + @forum.name
   feed.updated Time.now
 
-  @threads.limit(100).each do |thread|
+  @threads.limit(10).each do |thread|
     unless thread.sticky?
       feed.entry thread do |entry|
         entry.updated thread.updated_at
