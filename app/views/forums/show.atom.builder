@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title @forum.name + "'s Latest threads"
+  feed.title @forum.name + "'s Latest Threads"
   feed.updated Time.now
 
   @threads.limit(10).each do |thread|
