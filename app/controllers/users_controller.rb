@@ -93,6 +93,12 @@ class UsersController < ApplicationController
         @user.uuid = user_profile["id"]
         @user.ign  = user_profile["name"] # correct case
 
+        if User.find_by(uuid: @user.uuid)
+          flash[:alert] = "You already have a Redstoner account associated with this Minecraft account. Please log in instead."
+          redirect_to login_path
+          return
+        end
+
         if validate_token(@user.uuid, @user.email, params[:registration_token])
           destroy_token(params[:email])
           @user.last_ip = request.remote_ip # showing in mail
