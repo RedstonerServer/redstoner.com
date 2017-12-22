@@ -1,6 +1,7 @@
 class Badge < ActiveRecord::Base
   include Comparable
   has_many :users
+  has_and_belongs_to_many :forums
 
   def self.get (input)
     if input.is_a?(String) || input.is_a?(Symbol)

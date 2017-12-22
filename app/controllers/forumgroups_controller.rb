@@ -19,6 +19,19 @@ class ForumgroupsController < ApplicationController
   def update
     if admin?
       @group = Forumgroup.find(params[:id])
+      group_badges = Badgeassociation.where(forumgroup: @group)
+      ["read-", "write-"].each_with_index do |p,i|
+        current_badges = group_badges.where(permission: i+1).pluck(:badge_id)
+        params.select{|k,v| k.start_with? p}.each do |k,v|
+          name = k.gsub(p, "")
+          if current_badges.include? (bid = Badge.find_by(name: name).id)
+            current_badges.delete bid
+          else
+            Badgeassociation.create!(badge: Badge.find_by(name: name), forumgroup: @group, permission: i+1)
+          end
+        end
+        current_badges.each {|b| Badgeassociation.find_by(badge_id: b, forumgroup: @group, permission: i+1).delete}
+      end
       if @group.update_attributes(group_params)
         flash[:notice] = "Forum group updated"
         redirect_to @group
@@ -43,6 +56,11 @@ class ForumgroupsController < ApplicationController
   def create
     if admin?
       @group = Forumgroup.new(group_params)
+      ["read-", "write-"].each_with_index do |p,i|
+        params.select{|k,v| k.start_with? p}.each do |k,v|
+          Badgeassociation.create!(badge: Badge.find_by(name: k.gsub(p, "")), forumgroup: @group, permission: i+1)
+        end
+      end
       if @group.save
         flash[:notice] = "Forum group created."
         redirect_to @group

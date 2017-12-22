@@ -35,6 +35,19 @@ class ForumsController < ApplicationController
 
   def update
     if admin?
+      forum_badges = Badgeassociation.where(forum: @forum)
+      ["read-", "write-"].each_with_index do |p,i|
+        current_badges = forum_badges.where(permission: i+1).pluck(:badge_id)
+        params.select{|k,v| k.start_with? p}.each do |k,v|
+          name = k.gsub(p, "")
+          if current_badges.include? (bid = Badge.find_by(name: name).id)
+            current_badges.delete bid
+          else
+            Badgeassociation.create!(badge: Badge.find_by(name: name), forum: @forum, permission: i+1)
+          end
+        end
+        current_badges.each {|b| Badgeassociation.find_by(badge_id: b, forum: @forum, permission: i+1).delete}
+      end
       if @forum.update_attributes(forum_params)
         flash[:notice] = "Forum updated"
         redirect_to @forum
@@ -50,6 +63,11 @@ class ForumsController < ApplicationController
   def create
     if admin?
       @forum = Forum.new(forum_params([:forumgroup_id]))
+      ["read-", "write-"].each_with_index do |p,i|
+        params.select{|k,v| k.start_with? p}.each do |k,v|
+          Badgeassociation.create!(badge: Badge.find_by(name: k.gsub(p, "")), forum: @forum, permission: i+1)
+        end
+      end
       if @forum.save
         flash[:notice] = "Forum created."
         redirect_to @forum

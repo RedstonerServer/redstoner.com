@@ -87,7 +87,7 @@ class Forumthread < ActiveRecord::Base
     .joins("LEFT JOIN roles as forumgroup_role_read ON forumgroups.role_read_id = forumgroup_role_read.id")
     .joins("LEFT JOIN roles as forumgroup_role_write ON forumgroups.role_write_id = forumgroup_role_write.id")
 
-    threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write})", user_id, role_value, role_value, role_value, role_value)
+    threads = threads.where("forumthreads.user_author_id = ? OR (#{can_read}) OR (#{sticky_can_write}) OR (?)", user_id, role_value, role_value, role_value, role_value, Forum.find(forum).can_read?(user))
     if query
       threads = threads.where("#{match[2]}", query[0..99], query[0..99])
     elsif [title, content, reply].any?

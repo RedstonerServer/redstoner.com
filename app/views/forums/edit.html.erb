@@ -18,8 +18,24 @@
       <td><%= f.select :role_read_id, role_selection, include_blank: "None" %></td>
     </tr>
     <tr>
+      <td><b>Badges with read permission</b></td>
+      <td>
+        <% Badge.where("name != 'none'").each do |b| %>
+          <%=b%><%= check_box_tag "read-#{b}", nil, Badgeassociation.find_by(badge: b, forum: @forum, permission: 1) %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
       <td><%= f.label :role_write_id, "Min. write role" %></td>
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
+    </tr>
+    <tr>
+      <td><b>Badges with write permission</b></td>
+      <td>
+        <% Badge.where("name != 'none'").each do |b| %>
+          <%=b%><%= check_box_tag "write-#{b}", nil, Badgeassociation.find_by(badge: b, forum: @forum, permission: 2) %>
+        <% end %>
+      </td>
     </tr>
     <tr>
       <td><%= f.label :necro_length, "Necropost warning delay (in days)" %></td>

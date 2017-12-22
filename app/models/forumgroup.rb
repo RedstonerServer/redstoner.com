@@ -4,7 +4,8 @@ class Forumgroup < ActiveRecord::Base
   belongs_to :role_write, class_name: "Role", foreign_key: "role_write_id"
   accepts_nested_attributes_for :forums
 
-
+  has_many :badgeassociations
+  has_many :badges, through: :badgeassociations
 
   validates_presence_of :name, :position
   validates_length_of :name, in: 4..20
@@ -14,11 +15,11 @@ class Forumgroup < ActiveRecord::Base
   end
 
   def can_read?(user)
-    role_read.nil? || (!user.nil? && user.role >= role_read)
+    role_read.nil? || (!user.nil? && user.role >= role_read) || Badgeassociation.find_by(badge: user.badge, forumgroup: self, permission: 1)
   end
 
   def can_write?(user)
-    !user.nil? && user.confirmed? && (role_write.nil? || user.role >= role_write)
+    !user.nil? && user.confirmed? && (role_write.nil? || user.role >= role_write) || Badgeassociation.find_by(badge: user.badge, forumgroup: self, permission: 2)
   end
 
   def can_view?(user)
