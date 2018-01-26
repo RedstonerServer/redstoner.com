@@ -7,7 +7,7 @@ gem 'jquery-rails'
 gem 'bcrypt' # To use ActiveModel's has_secure_password
 gem 'sanitize'
 gem 'strip_attributes'
-gem 'redcarpet', '~> 3.2.3'
+gem 'redcarpet'
 gem 'hirb' # pretty console output
 gem 'rb-readline'
 gem 'rest-client'
