@@ -8,7 +8,7 @@
 %>
 
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → New thread
-<h1>New thread</h1>
+<h1>New Thread</h1>
 <%= form_for @thread do |f|%>
   <table>
     <% if mod? %>
@@ -30,6 +30,6 @@
   </div>
   <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content} %>
   <%= f.hidden_field :forum_id %>
-  <p><%= f.submit "Create thread", class: "btn blue left" %></p>
+  <p><%= f.submit "Create Thread", class: "btn blue left" %></p>
   <div class="clear"></div>
 <% end %>

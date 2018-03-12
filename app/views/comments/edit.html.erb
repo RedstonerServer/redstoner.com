@@ -1,10 +1,10 @@
 <% title "Edit Comment: #{@comment.blogpost.title}" %>
 
-<h1>Edit comment</h1>
+<h1>Edit Comment</h1>
 
 <%= form_for [@comment.blogpost, @comment] do |f| %>
   <%= render partial: "md_editor", locals: {name: "comment[content]", content: @comment.content} %>
   <p><%= f.submit "Update Comment", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete comment", [@comment.blogpost, @comment] , method: "delete", data: {confirm: "Delete comment forever?"}, class: "btn red right" %></p>
+<p><%= button_to "Delete Comment", [@comment.blogpost, @comment] , method: "delete", data: {confirm: "Delete comment forever?"}, class: "btn red right" %></p>
 <div class="clear"></div>

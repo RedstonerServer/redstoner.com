@@ -1,7 +1,7 @@
 <% title "Edit Login Credentials: #{@user.name}" %>
 
 <%= link_to @user.name, @user %> → Edit Login credentials
-<h1>Edit Login credentials</h1>
+<h1>Edit Login Credentials</h1>
 
 
 <%= form_for @user, url: update_login_user_path(@user), method: :put do |f| %>
@@ -33,6 +33,6 @@
       </tr>
     </tbody>
   </table>
-  <p><%= f.submit "Save changes", class: "btn blue left" %></p>
+  <p><%= f.submit "Save Changes", class: "btn blue left" %></p>
   <div class="clear"></div>
 <% end %>

@@ -6,7 +6,7 @@
 </h1>
 <% if @forum.can_write?(current_user) %>
   <p>
-    <%= link_to "New thread", new_forumthread_path(forum: @forum), class: "btn blue" %>
+    <%= link_to "New Thread", new_forumthread_path(forum: @forum), class: "btn blue" %>
   </p>
 <% end %>
 

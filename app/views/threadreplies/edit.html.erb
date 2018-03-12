@@ -1,4 +1,4 @@
-<% title "Edit Thread Reply: #{@reply.thread.title}" %>
+<% title "Edit Reply: #{@reply.thread.title}" %>
 
 <%
   position = @reply.thread.replies.order(:id).index(@reply)
@@ -6,10 +6,10 @@
 %>
 
 <%= link_to @reply.thread.forum.group, forumgroup_path(@reply.thread.forum.group) %> → <%= link_to @reply.thread.forum, @reply.thread.forum %> → <%= link_to @reply.thread, forumthread_path(@reply.thread, page: page) + "#reply-#{@reply.id}" %> → Edit reply
-<h1>Edit reply</h1>
+<h1>Edit Reply</h1>
 <%= form_for [@reply.thread, @reply] do |f| %>
   <%= render partial: "md_editor", locals: {name: "threadreply[content]", content: @reply.content} %>
   <p><%= f.submit "Reply", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete reply", [@reply.thread, @reply], method: "delete", data: {confirm: "Delete reply forever?"}, class: "btn red right" %></p>
+<p><%= button_to "Delete Reply", [@reply.thread, @reply], method: "delete", data: {confirm: "Delete reply forever?"}, class: "btn red right" %></p>
 <div class="clear"></div>

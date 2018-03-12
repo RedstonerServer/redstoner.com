@@ -26,7 +26,7 @@
       <td><%= f.number_field :necro_length, placeholder: "Warning Delay (leave blank for no warning)" %></td>
     </tr>
   </table>
-  <p><%= f.submit "Update forum", class: "btn blue left" %></p>
+  <p><%= f.submit "Update Forum", class: "btn blue left" %></p>
 <% end %>
-<p><%= button_to "Delete forum", @forum, method: "delete", data: {confirm: "Delete forum forever?\nThreads won't be accessible!"}, class: "btn red right" %></p>
+<p><%= button_to "Delete Forum", @forum, method: "delete", data: {confirm: "Delete forum forever?\nThreads won't be accessible!"}, class: "btn red right" %></p>
 <div class="clear"></div>

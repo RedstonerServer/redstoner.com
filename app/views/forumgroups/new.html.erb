@@ -1,6 +1,6 @@
 <% title "New Forum: #{@group.name}" %>
 
-<h1>New forum group</h1>
+<h1>New Forum Group</h1>
 <% role_selection = Role.all_from_to(:normal, :admin).collect{|p|[p.name, p.id]} %>
 <%= form_for @group do |f|%>
   <table>
@@ -21,6 +21,6 @@
       <td><%= f.select :role_write_id, role_selection, include_blank: false %></td>
     </tr>
   </table>
-  <p><%= f.submit "Create group", class: "btn blue left" %></p>
+  <p><%= f.submit "Create Group", class: "btn blue left" %></p>
   <div class="clear"></div>
 <% end %>
