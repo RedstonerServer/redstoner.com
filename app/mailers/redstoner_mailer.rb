@@ -1,7 +1,7 @@
 class RedstonerMailer < ActionMailer::Base
 
   add_template_helper(ApplicationHelper)
-  default from: "Redstoner"
+  default from: "\"Redstoner\" <noreply@redstoner.com>"
   default reply_to: "staff@redstoner.com"
 
   def register_mail(user, uses_mc_pass)
