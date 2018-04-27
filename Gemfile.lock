@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 7fe69eaef4bf93418733953b8afaef1a757560e3
+  revision: 3804d017333da16d76d9fc6633faf5635c7b03d7
   branch: 4-2-stable
   specs:
     actionmailer (4.2.10)
@@ -157,7 +157,7 @@ GEM
       railties (>= 3.2.0)
       sass-rails (>= 3.2.0)
     kgio (2.11.2)
-    loofah (2.2.1)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -192,8 +192,8 @@ GEM
       activesupport (>= 3.2)
       choice (~> 0.2.0)
       ruby-graphviz (~> 1.2)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
     raindrops (0.19.0)
     rake (12.3.0)
     rb-fsevent (0.10.3)
