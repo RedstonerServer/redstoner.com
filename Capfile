@@ -11,10 +11,14 @@ require 'capistrano/rails/migrations'
 
 namespace :deploy do
   desc 'Start application'
-  task(:start) {}
+  task(:start) {
+    invoke 'puma:start'
+  }
 
   desc 'Stop application'
-  task(:stop) {}
+  task(:stop) {
+    invoke 'puma:stop'
+  }
 end
 
 # Load custom tasks from `lib/capistrano/tasks' if you have any defined
