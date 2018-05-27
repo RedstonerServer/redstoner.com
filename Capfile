@@ -5,20 +5,15 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rbenv'
 require 'capistrano/bundler'
-require 'capistrano/puma'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 
 namespace :deploy do
   desc 'Start application'
-  task(:start) {
-    invoke 'puma:start'
-  }
+  task(:start) {}
 
   desc 'Stop application'
-  task(:stop) {
-    invoke 'puma:stop'
-  }
+  task(:stop) {}
 end
 
 # Load custom tasks from `lib/capistrano/tasks' if you have any defined

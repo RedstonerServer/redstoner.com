@@ -31,10 +31,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'rails-erd'
   # deploy with capistrano
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano-puma'
+  gem 'capistrano-rails', '~> 1.1.2'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-bundler', '~> 1.1.3'
   # windows timezone foo
   gem 'tzinfo-data', platforms: [:mingw, :mswin]
 end
@@ -44,6 +43,6 @@ group :test do
 end
 
 group :production do
-  # Use puma as the app server
-  gem 'puma'
+  # Use unicorn as the app server
+  gem 'unicorn'
 end
