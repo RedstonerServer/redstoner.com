@@ -8,7 +8,7 @@ shared_dir = "#{app_dir}/shared"
 rails_env = ENV['RAILS_ENV'] || "production"
 environment rails_env
 
-bind "unix://#{shared_dir}/sockets/puma.sock"
+bind "localhost:8080"
 
 stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
 
