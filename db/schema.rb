@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20180606223258) do
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
     t.text     "public_key",                  limit: 65535
-    t.string   "totp_code",                   limit: 255
+    t.string   "totp_string",                   limit: 255
     t.boolean  "totp_enabled",                              default: false
   end
 
