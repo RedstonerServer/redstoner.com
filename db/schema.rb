@@ -154,7 +154,8 @@ ActiveRecord::Schema.define(version: 20180606223258) do
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
     t.text     "public_key",                  limit: 65535
-    t.string   "totp",                        limit: 191
+    t.string   "totp_code",                   limit: 255
+    t.boolean  "totp_enabled",                              default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -166,4 +167,3 @@ ActiveRecord::Schema.define(version: 20180606223258) do
   add_index "users", ["youtube"], name: "index_users_on_youtube", unique: true, using: :btree
 
 end
-

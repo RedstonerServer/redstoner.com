@@ -1,5 +1,6 @@
 class AddTotpToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :totp, :string
+    add_column :users, :totp_code, :string
+    add_column :users, :totp_enabled, :boolean, default: false
   end
 end
