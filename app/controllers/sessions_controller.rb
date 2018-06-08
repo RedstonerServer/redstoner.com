@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
           flash[:alert] = "Your account has been disabled!"
         elsif user.banned?
           flash[:alert] = "You are banned!"
-        elsif user.totp_enabled && !TOTP.verify?(user.totp_code, params[:totp_code])
+        elsif user.totp_enabled && !TOTP.valid?(user.totp_code, params[:totp_code])
           flash[:alert] = "You're doing it wrong!"
           render action: 'new'
           return
