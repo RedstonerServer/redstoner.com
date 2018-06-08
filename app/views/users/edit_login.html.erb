@@ -1,7 +1,7 @@
 <% title "Edit Login Credentials: #{@user.name}" %>
 
-<%= link_to @user.name, @user %> → Edit Login credentials
-<h1>Edit Login Credentials</h1>
+<%= link_to @user.name, @user %> → Edit Login settings
+<h1>Edit Login Settings</h1>
 
 
 <%= form_for @user, url: update_login_user_path(@user), method: :put do |f| %>
