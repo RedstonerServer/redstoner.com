@@ -25,12 +25,49 @@
           <%= f.password_field :password_confirmation %>
         </td>
       </tr>
+    </tbody>
+  </table>
+  <hr>
+  <table>
+    <tbody>
+      <tr>
+        <td>2FA Enabled</td>
+        <td>
+          <%= f.check_box :totp_enabled %>
+        </td>
+      </tr>
+      <tr>
+        <td>TOTP Secret</td>
+        <td>
+          <% if !@user.totp_enabled? %>
+          <%= f.text_field :totp_secret, :readonly => true %>
+          <% else %>
+          <i>2FA is currently enabled. Disable 2FA to generate a new secret.</i>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <table>
+    <tbody>
       <tr>
         <td>Current password</td>
         <td>
           <%= password_field_tag :current_password, nil, disabled: !@user.is?(current_user) %>
         </td>
       </tr>
+      <% if !@user.totp_enabled? %>
+      <tr>
+        <td>TOTP Code</td>
+        <td>
+          <%= text_field_tag :totp_code, nil, disabled: !@user.is?(current_user) %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><i>Leave this field blank if you are not enabling 2FA.</i></td>
+      <% end %>
     </tbody>
   </table>
   <p><%= f.submit "Save Changes", class: "btn blue left" %></p>
