@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :update_ip, :update_seen, :check_banned
+  before_filter :update_ip, :update_seen, :check_banned, :check_2fa
   # TODO: use SSL
 
 
@@ -38,6 +38,14 @@ class ApplicationController < ActionController::Base
       session.delete(:user_id)
       flash[:alert] = "You are banned!"
       redirect_to login_path
+    end
+  end
+
+  def check_2fa
+    # Over complicated way of asking if the user is logged in as a mod without TOTP enabled while they are not on their login settings screen, logging out, or updating their login settings.
+    if current_user && current_user.mod? && !current_user.totp_enabled? && (!(controller_name == "users") || !(action_name == "edit_login")) && !(controller_name == "sessions" && action_name == "destroy") && !(action_name == "update_login")
+      flash[:alert] = "Due to your staff rank, you are required to enable 2FA."
+      redirect_to :controller => "users", :action => "edit_login", :id => current_user.id
     end
   end
 
