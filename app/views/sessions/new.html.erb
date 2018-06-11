@@ -16,6 +16,14 @@
       <td></td>
       <td><%= link_to "Lost your password?", lost_password_users_path %></td>
     </tr>
+    <tr>
+      <td><%= label_tag :totp_code %></td>
+      <td><%= text_field_tag :totp_code, nil, placeholder: "123456", required: false %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Leave this field blank if you do not have 2FA enabled.</td>
+    </tr>
   </table>
   <p><%= submit_tag "Log in", class: "btn blue" %></p>
 <% end %>

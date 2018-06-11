@@ -241,6 +241,11 @@ class UsersController < ApplicationController
     unless @user.is?(current_user) || admin? && current_user.role > @user.role || superadmin?
       flash[:alert] = "You are not allowed to edit this user's login details!"
       redirect_to @user
+      return
+    end
+
+    if !@user.totp_enabled
+      @user.update(totp_secret: TOTP.secret)
     end
   end
 
@@ -262,6 +267,18 @@ class UsersController < ApplicationController
       mail_changed      = @user.email_changed?
       @user.email_token = SecureRandom.hex(16) if mail_changed
       @user.confirmed   = !mail_changed
+
+      if params[:user][:totp_enabled] == "1" && !@user.totp_enabled
+        if TOTP.valid?(@user.totp_secret, params[:totp_code].to_i)
+          @user.totp_enabled = true
+        else
+          flash[:alert] = "Wrong TOTP code!"
+          render action: "edit_login"
+          return
+        end
+      elsif params[:user][:totp_enabled] == "0" && @user.totp_enabled
+        @user.totp_enabled = false
+      end
 
       # checking here for password so we can send back changes to the view
       if authenticated
@@ -370,7 +387,7 @@ class UsersController < ApplicationController
   end
 
   def user_params(add = [])
-    a = [:ign, :email, :password, :password_confirmation, :mail_own_thread_reply, :mail_other_thread_reply, :mail_own_blogpost_comment, :mail_other_blogpost_comment, :mail_mention, :public_key] + add
+    a = [:ign, :email, :password, :password_confirmation, :mail_own_thread_reply, :mail_other_thread_reply, :mail_own_blogpost_comment, :mail_other_blogpost_comment, :mail_mention, :public_key, :totp_code] + add
     params.require(:user).permit(a)
   end
 end

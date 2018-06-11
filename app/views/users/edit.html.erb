@@ -71,7 +71,7 @@
 
 <p><%= f.submit "Save Profile", class: "btn variable-size left", disabled: (!@user.confirmed? && @user.is?(current_user)) %></p>
 <p>
-  <%= link_to "Edit Login Details", edit_login_user_path(@user), class: "btn variable-size right" %>
+  <%= link_to "Login Settings", edit_login_user_path(@user), class: "btn variable-size right" %>
   <%= link_to "Notification Settings", edit_notifications_user_path(@user), class: "btn variable-size right" %>
   <%= link_to "Website Settings", edit_website_settings_user_path(@user), class: "btn variable-size right" %>
 </p>

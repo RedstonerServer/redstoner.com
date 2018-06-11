@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013001146) do
+ActiveRecord::Schema.define(version: 20180606223258) do
 
   create_table "badges", force: :cascade do |t|
     t.string  "name",   limit: 191
@@ -154,6 +154,8 @@ ActiveRecord::Schema.define(version: 20171013001146) do
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
     t.text     "public_key",                  limit: 65535
+    t.string   "totp_secret",                   limit: 255
+    t.boolean  "totp_enabled",                              default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
