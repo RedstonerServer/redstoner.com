@@ -17,8 +17,8 @@
     <%= link_to "https://mstdn.io/@RedstonerServer", title: "Redstoner on Mastodon" do %>
       Mastodon <%= image_tag("mastodon.png") %>
     <% end %> |
-    <%= link_to "http://rdstnr4biap5nao2.onion", title: "Redstoner over Tor" do %>
-      Onion Service <%= image_tag("tor.png") %>
+    <%= link_to "https://discord.gg/QjfcPEJ", title: "Redstoner's Official Discord" do %>
+      Discord <%= image_tag("discord.png") %>
     <% end %>
     <% if current_user %>
       | <%= link_to "/slack/?" + {mail: current_user.try(:email)}.to_param do %>
