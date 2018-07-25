@@ -13,9 +13,9 @@ set :default_environment, {
 
 set :keep_releases, 5
 
-set :deploy_to, -> { "/home/www-data/apps/#{fetch(:application)}" }
+set :deploy_to, -> { "/var/www/#{fetch(:application)}" }
 
-set :rbenv_ruby, '2.3.0'
+set :rbenv_ruby, '2.5.0'
 
 set :bundle_without, %w{development test}.join(' ')
 
