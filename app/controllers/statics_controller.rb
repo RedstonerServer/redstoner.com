@@ -20,7 +20,7 @@ class StaticsController < ApplicationController
     @players = []
     @count = 0
     begin
-      json = JSON.parse(File.read("/etc/minecraft/redstoner/plugins/ModuleLoader/players.json"))
+      json = JSON.parse(File.read("/etc/minecraft/info/players.json"))
     rescue
       flash.now[:alert] = "The server is currently offline."
     else

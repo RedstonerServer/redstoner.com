@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     begin
-      @ban_json = JSON.parse(File.read("/etc/minecraft/redstoner/banned-players.json")).detect {|u| u["uuid"].tr("-", "") == @user.uuid}
+      @ban_json = JSON.parse(File.read("/etc/minecraft/info/banned-players.json")).detect {|u| u["uuid"].tr("-", "") == @user.uuid}
     rescue
       flash.now[:alert] = "An error occured while checking if this user is banned from the server!"
       @ban_json = nil
