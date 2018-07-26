@@ -3,8 +3,8 @@ timeout 15
 preload_app true
 
 
-stderr_path "/home/www-data/apps/redstoner/shared/log/unicorn.stderr.log"
-stdout_path "/home/www-data/apps/redstoner/shared/log/unicorn.stdout.log"
+stderr_path "/var/www/redstoner/shared/log/unicorn.stderr.log"
+stdout_path "/var/www/redstoner/shared/log/unicorn.stdout.log"
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
