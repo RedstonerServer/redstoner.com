@@ -15,7 +15,7 @@ set :keep_releases, 5
 
 set :deploy_to, -> { "/var/www/#{fetch(:application)}" }
 
-set :rbenv_ruby, '2.5.0'
+set :rbenv_ruby, '2.5.0-dev'
 
 set :bundle_without, %w{development test}.join(' ')
 
