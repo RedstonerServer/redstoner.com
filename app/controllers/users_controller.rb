@@ -22,12 +22,6 @@ class UsersController < ApplicationController
       flash.now[:alert] = "An error occured while checking if this user is banned from the server!"
       @ban_json = nil
     end
-
-    begin
-      @hostname = Resolv.new.getname(@user.last_ip)
-    rescue
-      @hostname = "No hostname found."
-    end
   end
 
   # SIGNUP
