@@ -10,7 +10,7 @@
   <% end %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag "favicon.ico" %>
-  <%= javascript_include_tag "https://cdn.rawgit.com/jomo/ago.js/v0.0.1/ago.min.js", crossorigin: :anonymous, integrity: "sha256-xw0JUUdbuZQCVO+QScoxrlEsD4nZGCjMRh9PP8GLhcY=" %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/gh/jomo/ago.js@0.0.1/ago.min.js", crossorigin: :anonymous, integrity: "sha256-xw0JUUdbuZQCVO+QScoxrlEsD4nZGCjMRh9PP8GLhcY=" %>
   <%= javascript_include_tag "application" %>
   <link type="application/atom+xml" rel="alternate" href="<%= blogposts_path(:atom) %>">
   <%= yield(:site_headers) %>
