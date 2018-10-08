@@ -20,10 +20,5 @@
     <%= link_to "https://discord.gg/QjfcPEJ", title: "Redstoner's Official Discord" do %>
       Discord <%= image_tag("discord.png") %>
     <% end %>
-    <% if current_user %>
-      | <%= link_to "/slack/?" + {mail: current_user.try(:email)}.to_param do %>
-        Join us on <img src="/slack/badge.svg" alt="Slack">
-      <% end %>
-    <% end %>
   </div>
 </div>
