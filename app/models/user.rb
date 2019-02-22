@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
     self.ign.strip! if self.ign
     self.email.strip! if self.email
     self.about.strip! if self.about
-    self.skype.strip! if self.skype
+    self.discord.strip! if self.discord
     self.youtube.strip! if self.youtube
     self.twitter.strip! if self.twitter
   end
