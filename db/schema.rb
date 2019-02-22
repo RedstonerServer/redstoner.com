@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20190222152638) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["ign"], name: "index_users_on_ign", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+  add_index "users", ["discord"], name: "index_users_on_discord", unique: true, using: :btree
   add_index "users", ["twitter"], name: "index_users_on_twitter", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   add_index "users", ["youtube"], name: "index_users_on_youtube", unique: true, using: :btree
