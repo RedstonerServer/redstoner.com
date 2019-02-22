@@ -149,9 +149,9 @@ class UsersController < ApplicationController
   def update
     if (mod? && current_user.role >= @user.role ) || (@user.is?(current_user) && confirmed?)
       if mod?
-        userdata = user_params([:name, :skype, :youtube, :twitter, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
+        userdata = user_params([:name, :discord, :youtube, :twitter, :about, :role, :badge, :confirmed, :header_scroll, :utc_time, :dark])
       else
-        userdata = user_params([:name, :skype, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
+        userdata = user_params([:name, :discord, :youtube, :twitter, :about, :header_scroll, :utc_time, :dark])
       end
       if User.find_by(name: userdata[:name]) && User.find_by(name: userdata[:name]) != @user
         flash[:alert] = "You have entered a name that belongs to someone else. Please try another."

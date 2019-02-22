@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606223258) do
+ActiveRecord::Schema.define(version: 20190222152638) do
 
   create_table "badges", force: :cascade do |t|
     t.string  "name",   limit: 191
@@ -52,11 +52,6 @@ ActiveRecord::Schema.define(version: 20180606223258) do
     t.integer "role_write_id", limit: 4
     t.integer "forumgroup_id", limit: 4
     t.integer "necro_length",  limit: 4
-  end
-
-  create_table "forums_labels", id: false, force: :cascade do |t|
-    t.integer "forum_id", limit: 4
-    t.integer "label_id", limit: 4
   end
 
   create_table "forumthreads", force: :cascade do |t|
@@ -134,7 +129,6 @@ ActiveRecord::Schema.define(version: 20180606223258) do
     t.string   "email",                       limit: 191
     t.text     "about",                       limit: 65535
     t.string   "last_ip",                     limit: 255
-    t.string   "skype",                       limit: 255
     t.string   "youtube",                     limit: 255
     t.string   "youtube_channelname",         limit: 255
     t.string   "twitter",                     limit: 255
@@ -154,14 +148,14 @@ ActiveRecord::Schema.define(version: 20180606223258) do
     t.boolean  "header_scroll",                             default: false
     t.boolean  "dark",                                      default: false
     t.text     "public_key",                  limit: 65535
-    t.string   "totp_secret",                   limit: 255
+    t.string   "totp_secret",                 limit: 255
     t.boolean  "totp_enabled",                              default: false
+    t.string   "discord",                     limit: 191
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["ign"], name: "index_users_on_ign", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
-  add_index "users", ["skype"], name: "index_users_on_skype", unique: true, using: :btree
   add_index "users", ["twitter"], name: "index_users_on_twitter", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   add_index "users", ["youtube"], name: "index_users_on_youtube", unique: true, using: :btree
