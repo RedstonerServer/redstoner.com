@@ -25,7 +25,7 @@
   <% if !@user.confirmed? %>
     <% if @user.is?(current_user) || mod? %>
       <span class="user-unconfirmed">Please confirm your email <u><%= @user.email %></u> !</span>
-      <%= button_to "Resend the confirmation mail", resend_mail_user_path, class: "btn dark", form_class: "inline-block", data: {confirm: "Did you check your spam folder?"} %>
+      <%= button_to "Resend the confirmation mail", resend_mail_user_path, class: "btn blue", form_class: "inline-block", data: {confirm: "Did you check your spam folder?"} %>
     <% else %>
       <span class="user-unconfirmed">This user hasn't confirmed their email yet!</span>
     <% end %>
@@ -54,10 +54,10 @@
         <td><b>Role</b></td>
         <td><%= link_to @user.role, users_path(:role => @user.role.name) %></td>
       </tr>
-      <% if current_user && !@user.skype.blank? %>
+      <% if current_user && !@user.discord.blank? %>
       <tr>
-        <td><b>Skype</b></td>
-        <td><%= link_to @user.skype, "skype:#{@user.skype}?chat", target: "_blank" %></a></td>
+        <td><b>Discord</b></td>
+        <td><%= @user.discord %></td>
       </tr>
       <% end %>
       <% if !@user.youtube.blank? && !@user.youtube_channelname.blank? %>
