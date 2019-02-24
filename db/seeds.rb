@@ -32,7 +32,7 @@ deleted_user = User.create!(
   password_confirmation: userpw,
   role: Role.get(:disabled),
   badge: Badge.get(:none),
-  discord: "echo123",
+  discord: "echo123#9804",
   last_ip: "0.0.0.0",
   confirmed: true,
   last_seen: Time.utc(0).to_datetime,

@@ -10,6 +10,7 @@ class ForumthreadsController < ApplicationController
     @threads = Forumthread.filter(current_user, params[:title].try(:slice, 0..255), params[:content].try(:slice, 0..255), params[:reply].try(:slice, 0..255), params[:label], User.find_by(ign: params[:author].to_s.strip) || params[:author], params[:query].try(:slice, 0..255), Forum.find_by(id: params[:forum]))
     .page(params[:page]).per(30)
   end
+
   def show
     if params[:reverse] == "true"
       @replies = @thread.replies.order(id: :desc).page(params[:page])

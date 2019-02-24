@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190222152638) do
+ActiveRecord::Schema.define(version: 20190224093907) do
 
   create_table "badges", force: :cascade do |t|
     t.string  "name",   limit: 191
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(version: 20190222152638) do
   end
 
   create_table "forums", force: :cascade do |t|
-    t.string  "name",          limit: 255
-    t.integer "position",      limit: 4
-    t.integer "role_read_id",  limit: 4
-    t.integer "role_write_id", limit: 4
-    t.integer "forumgroup_id", limit: 4
-    t.integer "necro_length",  limit: 4
+    t.string  "name",             limit: 255
+    t.integer "position",         limit: 4
+    t.integer "role_read_id",     limit: 4
+    t.integer "role_write_id",    limit: 4
+    t.integer "forumgroup_id",    limit: 4
+    t.integer "necro_length",     limit: 4
+    t.boolean "disable_deletion",                 default: false
   end
 
   create_table "forumthreads", force: :cascade do |t|
@@ -156,7 +157,6 @@ ActiveRecord::Schema.define(version: 20190222152638) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["ign"], name: "index_users_on_ign", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
-  add_index "users", ["discord"], name: "index_users_on_discord", unique: true, using: :btree
   add_index "users", ["twitter"], name: "index_users_on_twitter", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   add_index "users", ["youtube"], name: "index_users_on_youtube", unique: true, using: :btree
