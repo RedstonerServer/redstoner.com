@@ -73,7 +73,7 @@ class ForumthreadsController < ApplicationController
   end
 
   def destroy
-    if mod? || @thread.author.is?(current_user)
+    if mod? || (@thread.author.is?(current_user) && !@thread.forum.disable_deletion)
       if @thread.destroy
         flash[:notice] = "Thread deleted!"
       else
