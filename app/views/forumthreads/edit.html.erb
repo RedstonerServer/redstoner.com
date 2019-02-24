@@ -11,6 +11,8 @@
   end
 %>
 
+<% forum = Forum.find(@thread.forum_id) %>
+
 <h1>Edit Thread</h1>
 <%= link_to @thread.forum.group, forumgroup_path(@thread.forum.group) %> → <%= link_to @thread.forum, @thread.forum %> → <%= link_to @thread, @thread %> → Edit thread
 <%= form_for @thread do |f|%>
@@ -37,5 +39,7 @@
   <%= render partial: "md_editor", locals: {name: "forumthread[content]", content: @thread.content} %>
   <p><%= f.submit "Update Thread", class: "btn blue left" %></p>
 <% end %>
-<%= button_to "Delete Thread", @thread, :method => "delete", data: {confirm: "Delete thread & comments forever?"}, class: "btn red right" %>
+<% if mod? || !forum.disable_deletion %>
+  <%= button_to "Delete Thread", @thread, :method => "delete", data: {confirm: "Delete thread & comments forever?"}, class: "btn red right" %>
+<% end %>
 <div class="clear"></div>
