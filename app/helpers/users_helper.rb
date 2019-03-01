@@ -51,5 +51,4 @@ module UsersHelper
       return nil
     end
   end
-
 end

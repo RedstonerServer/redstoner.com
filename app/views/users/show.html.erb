@@ -82,6 +82,16 @@
         <td><b>Joined</b></td>
         <td><%= ago @user.created_at %></td>
       </tr>
+      <tr>
+        <td><b>Last seen</b></td>
+        <td>
+          <% if @user.last_seen %>
+            <%= ago @user.last_seen %>
+          <% else %>
+            Never
+          <% end %>
+        </td>
+      </tr>
       <% if mod? || @user.is?(current_user) %>
         <tr>
           <td><b>Last IP</b></td>
@@ -90,16 +100,6 @@
         <tr>
           <td><b>Email</b></td>
           <td><%= mail_to @user.email, @user.email, :subject => "Redstoner" %></td>
-        </tr>
-        <tr>
-          <td><b>Last seen</b></td>
-          <td>
-            <% if @user.last_seen %>
-              <%= ago @user.last_seen %>
-            <% else %>
-              Never
-            <% end %>
-          </td>
         </tr>
       <% end %>
     </tbody>

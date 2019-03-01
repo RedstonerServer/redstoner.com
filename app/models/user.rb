@@ -18,11 +18,10 @@ class User < ActiveRecord::Base
   validates_length_of :name, in: 2..30
   validates_length_of :about, maximum: 5000
   validates_length_of :ign, minimum: 1, maximum: 16
-  validates_length_of :discord, minimum: 2, maximum: 37 # The maximum length of a name is 32, but you need the # and four numbers
+  validates_length_of :discord, minimum: 7, maximum: 37 # The maximum length of a name is 32, but you need the # and four numbers
 
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /\A.+@(.+\..{2,}|\[(IPv6)?[0-9a-f:.]+\])\z/i, message: "That doesn't look like an email address."}
   validates :ign, uniqueness: {case_sensitive: false}, format: {with: /\A[a-z\d_]+\z/i, message: "Username is invalid (a-z, 0-9, _)."}
-  validates :discord, uniqueness: {case_sensitive: false}, format: {with: /\A^(?!everyone|here|discordtag|.*```.*)([^@#:]{2,32}#[0-9]{4})$\z/i, message: "Discord name is invalid."}
 
   validates :public_key, format: {with: /\A(-----BEGIN PGP PUBLIC KEY BLOCK-----((.|\n)*?)-----END PGP PUBLIC KEY BLOCK-----)?\z/i, message: "That doesn't look like a PGP formatted public key."}
 
