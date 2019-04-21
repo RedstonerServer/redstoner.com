@@ -2,6 +2,19 @@ class ForumsController < ApplicationController
 
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
+  add_breadcrumb "Forum", :forums_path
+
+  def index
+    @forum = Forum.all
+  end
+
+  def show
+    @forum = Forum.friendly.find(params[:id])
+    add_breadcrumb @forum, forum_path(@forum)
+  end
+
+end
+  
   def index
      @groups = Forumgroup.select {|g| g.can_view?(current_user) }
      @groups.sort_by!{ |g| g.position || 0 }
