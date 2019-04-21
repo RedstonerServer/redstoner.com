@@ -60,6 +60,8 @@ Redstoner::Application.routes.draw do
   root to: 'statics#index'
 end
 
+get '/sitemap.xml' => 'sitemaps#index', defaults: { format: 'xml' }
+
 constraints(host: /^(?!www\.)/i) do
   match '(*any)' => redirect { |params, request|
     URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
