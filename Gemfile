@@ -18,7 +18,6 @@ gem 'jquery-textcomplete-rails' # @mentions
 gem 'actionpack-action_caching', github: 'antulik/actionpack-action_caching', ref: '8c6e52c69315d67437f480da5dce4b7c8737fb32'
 gem 'mail-gpg', github: 'jomo/mail-gpg', ref: 'a666b48ee866dfa3eaa700f9c5edf4d195d0f8c9'
 gem 'totp'
-gem "breadcrumbs_on_rails"
 
 # Gems used only for assets and not required
 # in production environments by default.
