@@ -2,6 +2,14 @@ class ForumsController < ApplicationController
 
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
 
+  class PagesController < ApplicationController
+  
+  def robots
+    respond_to :text
+  end
+
+end
+  
   add_breadcrumb "Forum", :forums_path
 
   def index
