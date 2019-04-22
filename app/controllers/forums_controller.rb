@@ -1,24 +1,9 @@
 class ForumsController < ApplicationController
 
   before_filter :check_permission, only: [:show, :edit, :update, :destroy]
-
-  class PagesController < ApplicationController
   
   def robots
     respond_to :text
-  end
-
-end
-  
-  add_breadcrumb "Forum", :forums_path
-
-  def index
-    @forum = Forum.all
-  end
-
-  def show
-    @forum = Forum.friendly.find(params[:id])
-    add_breadcrumb @forum, forum_path(@forum)
   end
 
 end
