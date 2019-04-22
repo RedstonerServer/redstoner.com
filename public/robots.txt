@@ -57,3 +57,5 @@ Crawl-delay: 10
 
 # People don't like being stalked ;)
 Disallow: /users
+
+Sitemap: https://redstoner.com/sitemap.xml
