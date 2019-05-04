@@ -103,3 +103,12 @@ textarea {
 .notice {
     color:white;
 }
+.info-suggestions {
+    a:not(:hover) {
+        color: gray;
+    }
+
+    a:first-child {
+        border-right: 1px solid white !important;
+    }
+}
